@@ -7,9 +7,10 @@ const data = {
       price: 120,
       countInStock: 10,
       brand: 'suria',
-      rating:4.5,
+      rating:4,
       numReviews:10,
       description:"high quelity shirt"
+     
     },
     {
         name: "nargila_2",
@@ -18,7 +19,7 @@ const data = {
         price: 120,
         countInStock: 10,
         brand: 'suria',
-        rating:4.5,
+        rating:4,
         numReviews:10,
         description:"high quelity shirt"
       },{
@@ -28,7 +29,7 @@ const data = {
         price: 120,
         countInStock: 10,
         brand: 'suria',
-        rating:4.5,
+        rating:4,
         numReviews:10,
         description:"high quelity shirt"
       },{
@@ -38,7 +39,37 @@ const data = {
         price: 120,
         countInStock: 10,
         brand: 'suria',
-        rating:4.5,
+        rating:4,
+        numReviews:10,
+        description:"high quelity shirt"
+      },{
+        name: "nargila_5",
+        category: "shirt",
+        image: "/image/img_4.jpg",
+        price: 120,
+        countInStock: 10,
+        brand: 'suria',
+        rating:4,
+        numReviews:10,
+        description:"high quelity shirt"
+      },{
+        name: "nargila_6",
+        category: "shirt",
+        image: "/image/img_4.jpg",
+        price: 120,
+        countInStock: 10,
+        brand: 'suria',
+        rating:4,
+        numReviews:10,
+        description:"high quelity shirt"
+      },{
+        name: "nargila_7",
+        category: "shirt",
+        image: "/image/img_4.jpg",
+        price: 120,
+        countInStock: 10,
+        brand: 'suria',
+        rating:4,
         numReviews:10,
         description:"high quelity shirt"
       }
