@@ -1,7 +1,7 @@
+import { Center } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
-import logger from "use-reducer-logger";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -11,7 +11,6 @@ const reducer = (state, action) => {
       return { ...state, propertis: action.payload, loading: false };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
-
     default:
       return state;
   }
@@ -19,7 +18,8 @@ const reducer = (state, action) => {
 function ProductFile() {
   const params = useParams();
   const { slug } = params;
-  const [{ loading, error, propertis }, dispatch] = useReducer(logger(reducer), {
+
+  const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
     error: '',
@@ -28,22 +28,25 @@ function ProductFile() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get("/api/propertis");
+        const result = await axios.get(`/api/propertis/slug/${slug}`);
         console.log(result);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
       }
-
-      // setPropertis(result.data);
     };
     fetchData();
-  }, []);
-
+  }, [slug]);
+console.log(slug);
   return (
-    <div>
-      <h1>{slug}</h1>
-    </div>
+   loading?(
+    <Center>Loading...</Center>
+   ):error?(
+    <Center>{error}</Center>
+   ):(
+
+    <Center>{propertis.name}</Center>
+   )
   );
 }
 

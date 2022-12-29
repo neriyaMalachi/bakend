@@ -1,8 +1,6 @@
 import { useReducer, useEffect } from "react";
-import { Box} from "@chakra-ui/react";
-// import data from "../data";
+import { Box, Center} from "@chakra-ui/react";
 import axios from "axios";
-import logger from 'use-reducer-logger'
 import Cards from "./Cards";
 const reducer = (state, action) => {
   switch (action.type) {
@@ -19,7 +17,7 @@ const reducer = (state, action) => {
 };
 
 function HomeFile() {
-  const [{ loading, error, propertis }, dispatch] = useReducer(logger(reducer), {
+  const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
     error: '',
@@ -41,6 +39,11 @@ function HomeFile() {
   }, []);
 
   return (
+    loading?(
+      <Center>Loading...</Center>
+     ):error?(
+      <Center>{error}</Center>
+     ):(
     <Box
       display="flex"
       flexWrap="wrap"
@@ -54,6 +57,7 @@ function HomeFile() {
      
       ))}
     </Box>
+     )
   );
 }
 
