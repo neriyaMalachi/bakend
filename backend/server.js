@@ -7,7 +7,7 @@ app.get("/api/propertis", (req, res) => {
   res.send(data.propertis);
 });
 
-app.get("/api/propertis/slug/:slug", (req, res) => {
+app.get('/api/propertis/slug/:slug', (req, res) => {
   const product = data.propertis.find((x) => x.slug === req.params.slug);
   if (product) {
     res.send(product);

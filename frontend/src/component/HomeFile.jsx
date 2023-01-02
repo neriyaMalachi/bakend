@@ -2,6 +2,7 @@ import { useReducer, useEffect } from "react";
 import { Box, Center} from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
+
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -27,7 +28,7 @@ function HomeFile() {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
         const result = await axios.get("/api/propertis");
-        console.log(result);
+        console.log(result.data);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });

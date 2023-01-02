@@ -26,7 +26,7 @@ function ProductFile() {
   });
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get(`/api/propertis/slug/${slug}`);
         console.log(result);
@@ -44,8 +44,10 @@ console.log(slug);
    ):error?(
     <Center>{error}</Center>
    ):(
-
+<>
     <Center>{propertis.name}</Center>
+   
+    </>
    )
   );
 }
