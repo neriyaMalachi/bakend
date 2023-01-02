@@ -3,7 +3,7 @@ const data = {
     {
       name: "nargila_1",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila1",
       image: "/image/img_1.jpg",
       price: 120,
       countInStock: 10,
@@ -15,7 +15,7 @@ const data = {
     {
       name: "nargila_2",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila2",
       image: "/image/img_2.jpg",
       price: 120,
       countInStock: 10,
@@ -27,7 +27,7 @@ const data = {
     {
       name: "nargila_3",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila3",
       image: "/image/img_3.jpg",
       price: 120,
       countInStock: 10,
@@ -39,7 +39,7 @@ const data = {
     {
       name: "nargila_4",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila4",
       image: "/image/img_4.jpg",
       price: 120,
       countInStock: 10,
@@ -51,7 +51,7 @@ const data = {
     {
       name: "nargila_5",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila5",
       image: "/image/img_4.jpg",
       price: 120,
       countInStock: 10,
@@ -63,7 +63,7 @@ const data = {
     {
       name: "nargila_6",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila5",
       image: "/image/img_4.jpg",
       price: 120,
       countInStock: 10,
@@ -75,7 +75,7 @@ const data = {
     {
       name: "nargila_7",
       category: "shirt",
-      slug: "shirt nargila",
+      slug: "shirt nargila7",
       image: "/image/img_4.jpg",
       price: 120,
       countInStock: 10,

@@ -1,4 +1,4 @@
-import { Center } from "@chakra-ui/react";
+import { Center, Image } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
@@ -45,7 +45,9 @@ console.log(slug);
     <Center>{error}</Center>
    ):(
 <>
-    <Center>{propertis.name}</Center>
+    <Center>
+      <Image src={propertis.image } alt={propertis.name} />
+    </Center>
    
     </>
    )
