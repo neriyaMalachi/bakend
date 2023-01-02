@@ -1,4 +1,4 @@
-import { Center, Image } from "@chakra-ui/react";
+import { Box, Center, Flex, Image, List, ListItem } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useParams } from "react-router-dom";
@@ -46,7 +46,19 @@ console.log(slug);
    ):(
 <>
     <Center>
+      {/* <Flex> */}
       <Image src={propertis.image } alt={propertis.name} />
+      <Box>
+        <List>
+          <ListItem>
+            {propertis.name}
+          </ListItem>
+          <ListItem>
+            {propertis.price}
+          </ListItem>
+        </List>
+      </Box>
+      {/* </Flex> */}
     </Center>
    
     </>
