@@ -6,7 +6,7 @@ const data = {
       slug: "shirt nargila1",
       image: "/image/img_1.jpg",
       price: 120,
-      countInStock: 10,
+      countInStock: 0,
       brand: "suria",
       rating: 4,
       numReviews: 10,

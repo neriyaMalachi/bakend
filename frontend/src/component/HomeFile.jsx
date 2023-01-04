@@ -1,7 +1,10 @@
 import { useReducer, useEffect } from "react";
-import { Box, Center} from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
+import { Helmet } from "react-helmet-async";
+import LoadingBox from "./LoadingBox";
+import MessageBox from "./MessageBox";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -21,11 +24,11 @@ function HomeFile() {
   const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
-    error: '',
+    error: "",
   });
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get("/api/propertis");
         console.log(result.data);
@@ -39,12 +42,11 @@ function HomeFile() {
     fetchData();
   }, []);
 
-  return (
-    loading?(
-      <Center>Loading...</Center>
-     ):error?(
-      <Center>{error}</Center>
-     ):(
+  return loading ? (
+    <LoadingBox/>
+  ) : error ? (
+    <MessageBox bg="red">{error}</MessageBox>
+  ) : (
     <Box
       display="flex"
       flexWrap="wrap"
@@ -52,13 +54,14 @@ function HomeFile() {
       bg="silver"
       p="2%"
     >
+      <Helmet>
+        <title>Home page</title>
+      </Helmet>
+
       {propertis.map((product) => (
- 
-      <Cards product={product} key={product.name}></Cards>
-     
+        <Cards product={product} key={product.name}></Cards>
       ))}
     </Box>
-     )
   );
 }
 
