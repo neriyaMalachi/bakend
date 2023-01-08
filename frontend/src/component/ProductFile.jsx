@@ -12,8 +12,10 @@ import {
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useEffect, useReducer } from "react";
+import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import { Store } from "../Store";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -50,6 +52,23 @@ function ProductFile() {
     fetchData();
   }, [slug]);
   console.log(slug);
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((x) => x._id === propertis._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${propertis._id}`);
+    if (data.countInStock < quantity) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
+    ctxDispatch({
+      type: "CART_ADD_ITEM",
+      payload: { ...propertis , quantity: 1 },
+    });
+  };
+
   return loading ? (
     <Center>Loading...</Center>
   ) : error ? (
@@ -110,29 +129,35 @@ function ProductFile() {
             <CardBody>
               {propertis.countInStock > 0 ? (
                 <Text>
-                  <Button bg="green" border="none">קיים במלאי </Button> :מצב מוצר{" "}
+                  <Button bg="green" border="none">
+                    קיים במלאי{" "}
+                  </Button>{" "}
+                  :מצב מוצר{" "}
                 </Text>
               ) : (
                 <Text>
-                  <Button bg="red" border="none">{propertis.rating}אזל מהמלאי </Button> :מצב
-                  מוצר{" "}
+                  <Button bg="red" border="none">
+                    {propertis.rating}אזל מהמלאי{" "}
+                  </Button>{" "}
+                  :מצב מוצר{" "}
                 </Text>
               )}
               <hr color="silver" />
             </CardBody>
             {propertis.countInStock > 0 ? (
-            <CardFooter>
-              <Button
-                w="100%"
-                h="150%"
-                variant="solid"
-                bg="silver"
-                borderRadius="25%"
-              >
-               הוסף להגלה
-              </Button>
-            </CardFooter>
-            ):(
+              <CardFooter>
+                <Button
+                  w="100%"
+                  h="150%"
+                  variant="solid"
+                  bg="silver"
+                  borderRadius="25%"
+                  onClick={addToCartHandler}
+                >
+                  הוסף להגלה
+                </Button>
+              </CardFooter>
+            ) : (
               <Text>איו אפשרות להוסיף להגלה</Text>
             )}
           </Card>

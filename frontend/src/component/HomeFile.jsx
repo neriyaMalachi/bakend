@@ -1,10 +1,9 @@
 import { useReducer, useEffect } from "react";
-import { Box, Center } from "@chakra-ui/react";
+import { Box,Center } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
-import MessageBox from "./MessageBox";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,7 +44,7 @@ function HomeFile() {
   return loading ? (
     <LoadingBox/>
   ) : error ? (
-    <MessageBox bg="red">{error}</MessageBox>
+    <Center>{error}</Center>
   ) : (
     <Box
       display="flex"
