@@ -16,10 +16,10 @@ function NavBar() {
       <GridItem>
         <Link color="yellow" to="/cart">
           Cart
-          {cart.cartItems?.length > 0 &&
+          {cart.cartItems.length > 0 &&
             (
                <Box  bg="red" >
-               {cart.cartItems?.length}
+               {cart.cartItems.reduce((a , c) => a + c.quantity, 0 )}
                </Box>
             )}
         </Link>

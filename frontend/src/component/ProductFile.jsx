@@ -51,14 +51,15 @@ function ProductFile() {
     };
     fetchData();
   }, [slug]);
-  console.log(slug);
+ 
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart } = state;
+
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === propertis._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${propertis._id}`);
+    const { data } = await axios.get(`/api/propertis/${propertis._id}`);
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
@@ -67,7 +68,9 @@ function ProductFile() {
       type: "CART_ADD_ITEM",
       payload: { ...propertis , quantity: 1 },
     });
+
   };
+
 
   return loading ? (
     <Center>Loading...</Center>

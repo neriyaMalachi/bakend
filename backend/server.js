@@ -19,6 +19,9 @@ app.get('/api/propertis/slug/:slug', (req, res) => {
   console.log(product);
 });
 
+ 
+
+
 //chack for id 
 app.get('/api/propertis/:id', (req, res) => {
   const product = data.propertis.find((x) => x._id === req.params.id);
@@ -30,6 +33,9 @@ app.get('/api/propertis/:id', (req, res) => {
   }
   console.log(product);
 });
+
+
+
 
 
 const port = process.env.PORT || 5000;
