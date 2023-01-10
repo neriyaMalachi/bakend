@@ -9,7 +9,9 @@ import {
   Text,
   SimpleGrid,
   CardHeader,
+  Box,
 } from "@chakra-ui/react";
+import {StarIcon} from '@chakra-ui/icons'
 import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useContext } from "react";
@@ -107,7 +109,26 @@ function ProductFile() {
             </CardHeader>
             <CardBody>
               <hr color="silver" />
-              <Text> {propertis.rating} :המלצות </Text>
+              <Box> {propertis.rating} :המלצות 
+           
+              <Box display='flex' mt='2' alignItems='center'>
+          {Array(5)
+            .fill('')
+            .map((_, i) => (
+              <StarIcon
+                key={i}
+                color={i < propertis.rating ? 'yellow.100' : 'white'}
+              />
+            ))}
+        
+        </Box>
+              
+              
+              
+              
+              
+              
+              </Box>
               <hr color="silver" />
               <Text> {propertis.price} :מחיר </Text>
               <hr color="silver" />
