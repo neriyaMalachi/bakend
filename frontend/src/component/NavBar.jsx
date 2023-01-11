@@ -15,19 +15,19 @@ function NavBar() {
      textDecorationLine="underline"
   
      >
-      <GridItem bg="yellow">
+      <GridItem >
         <Link  to="/">
-          Home
+          דף הבית
         </Link>
       </GridItem>
-      <GridItem bg="yellow"  >
+      <GridItem  textAlign="center"  >
       {cart.cartItems.length > 0 &&
             (
                <Button borderRadius="40%" bg="red" >
                {cart.cartItems.reduce((a , c) => a + c.quantity, 0 )}
                </Button>
             )}
-        <Link color="green" bg="transparent"  to="/cart">
+        <Link color="green"   to="/cart">
           הגלת קניות
          
         </Link>

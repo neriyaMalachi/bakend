@@ -16,7 +16,7 @@ import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Store } from "../Store";
 
 const reducer = (state, action) => {
@@ -34,7 +34,7 @@ const reducer = (state, action) => {
 function ProductFile() {
   const params = useParams();
   const { slug } = params;
-
+const navigat=useNavigate();
   const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
@@ -70,9 +70,9 @@ function ProductFile() {
       type: "CART_ADD_ITEM",
       payload: { ...propertis , quantity: 1 },
     });
-
+    navigat('/cart')
   };
-
+  
 
   return loading ? (
     <Center>Loading...</Center>

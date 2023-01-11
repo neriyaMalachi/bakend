@@ -3,13 +3,19 @@ import { useContext } from "react";
 import { Store } from "../Store";
 import { Helmet } from "react-helmet-async";
 import {
+  Box,
+  Button,
+  Card,
   CardBody,
   CardFooter,
   CardHeader,
+  Heading,
   Image,
   List,
+  Stack,
   Text,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -17,6 +23,8 @@ function CartScreen() {
     cart: { cartItems },
   } = state;
   console.log(cartItems);
+  const DropsTheNumber = () => {};
+  const UpsTheNumber = () => {};
   return (
     <>
       <Helmet>
@@ -24,21 +32,78 @@ function CartScreen() {
       </Helmet>
 
       <h1>Shopping Cart</h1>
-      <List>
-        {/* {cartItems.map((item) => (
-          <cartItems key={item._id}>
-            <CardHeader>
-              <Image src={item.image} alt={item.name}></Image>
-            </CardHeader>
-            <CardBody>
-              <Text>{item.name}</Text>
-            </CardBody>
-            <CardFooter>
 
-            </CardFooter>
-          </cartItems>
-        ))} */}
-      </List>
+      {cartItems.map((item) => (
+        <Card
+          direction={{ base: "column", sm: "row" }}
+          overflow="hidden"
+          variant="outline"
+          key={item._id}
+          border="1px solid"
+          justifyContent="space-around"
+          alignItems="center"
+          w="70%"
+          
+        >
+          <Image
+            objectFit="cover"
+            h="90px"
+            src={item.image}
+            alt="Caffe Latte"
+          />
+
+          <Stack display="flex">
+            <CardBody border="1px solid">
+              <Heading size="md">{item.name}</Heading>
+
+              <Text py="2">{item.description}</Text>
+            </CardBody>
+
+            <CardFooter></CardFooter>
+          </Stack>
+          <Box
+           
+            w="10%"
+            display="flex"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Button
+              // onClick={UpsTheNumber}
+              borderRadius="50%"
+              variant="solid"
+              colorScheme="blue"
+              h="20%"
+              disabled={item.quantity === 1}
+            >
+              +
+            </Button>{" "}
+            <Text>{item.quantity}</Text>{" "}
+            <Button
+              // onClick={DropsTheNumber}
+              borderRadius="50%"
+              variant="solid"
+              colorScheme="blue"
+              h="20%"
+              disabled={item.quantity === 1}
+            >
+              -
+            </Button>
+          </Box>
+          <Box>{item.price}</Box>
+          <Button border="none" bg="white">
+            <DeleteIcon w={20} h={20} color="red.500" />
+          </Button>
+        </Card>
+      ))}
+      <Card>
+        <CardBody>
+          <h3>
+            Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)} items):$
+            {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+          </h3>
+        </CardBody>
+      </Card>
     </>
   );
 }
