@@ -61,14 +61,14 @@ const navigat=useNavigate();
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === propertis._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/propertis/${propertis._id}`);
+    const { data } = await axios.get(`/api/propertis/${propertis._id}`,1);
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
     }
     ctxDispatch({
       type: "CART_ADD_ITEM",
-      payload: { ...propertis , quantity: 1 },
+      payload: { ...propertis , quantity},
     });
     navigat('/cart')
   };
