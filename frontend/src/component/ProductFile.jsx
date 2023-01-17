@@ -11,7 +11,7 @@ import {
   CardHeader,
   Box,
 } from "@chakra-ui/react";
-import {StarIcon} from '@chakra-ui/icons'
+import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useContext } from "react";
@@ -34,7 +34,7 @@ const reducer = (state, action) => {
 function ProductFile() {
   const params = useParams();
   const { slug } = params;
-const navigat=useNavigate();
+  const navigat = useNavigate();
   const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
@@ -53,7 +53,6 @@ const navigat=useNavigate();
     };
     fetchData();
   }, [slug]);
- 
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart } = state;
@@ -61,18 +60,17 @@ const navigat=useNavigate();
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === propertis._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/propertis/${propertis._id}`,1);
+    const { data } = await axios.get(`/api/propertis/${propertis._id}`);
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
     }
     ctxDispatch({
       type: "CART_ADD_ITEM",
-      payload: { ...propertis , quantity},
+      payload: { ...propertis, quantity },
     });
-    navigat('/cart')
+    navigat("/cart");
   };
-  
 
   return loading ? (
     <Center>Loading...</Center>
@@ -80,6 +78,9 @@ const navigat=useNavigate();
     <Center>{error}</Center>
   ) : (
     <>
+      <Helmet>
+        <title>{propertis.name}</title>
+      </Helmet>
       <Card
         direction={{ base: "column", sm: "row" }}
         overflow="hidden"
@@ -93,9 +94,7 @@ const navigat=useNavigate();
           w="50%"
           p="12%"
         />
-        <Helmet>
-          <title>{propertis.name}</title>
-        </Helmet>
+
         <SimpleGrid
           spacing={200}
           display="flex"
@@ -109,25 +108,19 @@ const navigat=useNavigate();
             </CardHeader>
             <CardBody>
               <hr color="silver" />
-              <Box> {propertis.rating} :המלצות 
-           
-              <Box display='flex' mt='2' alignItems='center'>
-          {Array(5)
-            .fill('')
-            .map((_, i) => (
-              <StarIcon
-                key={i}
-                color={i < propertis.rating ? 'yellow.100' : 'white'}
-              />
-            ))}
-        
-        </Box>
-              
-              
-              
-              
-              
-              
+              <Box>
+                {" "}
+                {propertis.rating} :המלצות
+                <Box display="flex" mt="2" alignItems="center">
+                  {Array(5)
+                    .fill("")
+                    .map((_, i) => (
+                      <StarIcon
+                        key={i}
+                        color={i < propertis.rating ? "yellow.100" : "white"}
+                      />
+                    ))}
+                </Box>
               </Box>
               <hr color="silver" />
               <Text> {propertis.price} :מחיר </Text>

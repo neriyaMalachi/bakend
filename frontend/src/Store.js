@@ -16,6 +16,7 @@ function reducer(state, action) {
       const existItem = state.cart.cartItem?.find(
         (item) => item._id === newItem._id
       );
+      
       const cartItems = existItem
         ? state.cart.cartItems.map((item) =>
             item._id === existItem._id ? newItem : item
