@@ -39,6 +39,9 @@ function CartScreen() {
     });
   };
 
+  const RemoovItemHendler = (item) => {
+    ctxDispatch({ type: 'CART_REMOVE_ITEM', pyload: item });
+  };
   return (
     <>
       <Helmet>
@@ -97,7 +100,7 @@ function CartScreen() {
                       variant="solid"
                       colorScheme="blue"
                       h="20%"
-                       onClick={() => UpdateCartHandler(item, item.quantity - 1)}
+                      onClick={() => UpdateCartHandler(item, item.quantity - 1)}
                       disabled={item.quantity === 1}
                     >
                       -
@@ -105,7 +108,11 @@ function CartScreen() {
                   </Box>
 
                   <Box>{item.price}</Box>
-                  <Button border="none" bg="white">
+                  <Button
+                    border="none"
+                    bg="white"
+                    onClick={() => RemoovItemHendler(item)}
+                  >
                     <DeleteIcon w={20} h={20} color="red.500" />
                   </Button>
                 </Card>
