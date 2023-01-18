@@ -1,7 +1,7 @@
 const data = {
   propertis: [
     {
-      // _id:"1",
+      _id:"1",
       name: "nargila_1",
       category: "shirt",
       slug: "shirt nargila1",
@@ -14,7 +14,7 @@ const data = {
       description: "high quelity shirt",
     },
     {
-      // _id:"2",
+       _id:"2",
       name: "nargila_2",
       category: "shirt",
       slug: "shirt nargila2",
@@ -27,7 +27,7 @@ const data = {
       description: "high quelity shirt",
     },
     {
-      // _id:"3",
+       _id:"3",
       name: "nargila_3",
       category: "shirt",
       slug: "shirt nargila3",
@@ -40,7 +40,7 @@ const data = {
       description: "high quelity shirt",
     },
     {
-      // _id:"4",
+      _id:"4",
       name: "nargila_4",
       category: "shirt",
       slug: "shirt nargila4",

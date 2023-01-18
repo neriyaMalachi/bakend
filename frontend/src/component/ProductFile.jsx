@@ -72,6 +72,11 @@ function ProductFile() {
     navigat("/cart");
   };
 
+
+
+
+
+
   return loading ? (
     <Center>Loading...</Center>
   ) : error ? (

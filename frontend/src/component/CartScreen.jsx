@@ -15,7 +15,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { DeleteIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function CartScreen() {
@@ -24,6 +24,7 @@ function CartScreen() {
   const {
     cart: { cartItems },
   } = state;
+  const navigate = useNavigate();
 
   console.log(cartItems);
 
@@ -38,10 +39,13 @@ function CartScreen() {
       payload: { ...item, quantity },
     });
   };
-
   const RemoovItemHendler = (item) => {
-    ctxDispatch({ type: 'CART_REMOVE_ITEM', pyload: item });
+    ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
   };
+
+  const checkoutHandler =()=>{
+    navigate('/signin?redirect=/shipping')
+  }
   return (
     <>
       <Helmet>
@@ -132,7 +136,10 @@ function CartScreen() {
               <hr />
             </CardBody>
             <CardFooter>
-              <Button disabled={cartItems.length === 0}>
+              <Button
+               onClick={checkoutHandler}
+               disabled={cartItems.length === 0}
+               >
                 Process to Checkout
               </Button>
             </CardFooter>
