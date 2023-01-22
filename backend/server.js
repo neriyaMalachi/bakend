@@ -2,6 +2,7 @@ import express from "express";
 import data from "./data.js";
 import mongoose from "mongoose";
 import dotenv from 'dotenv'
+import seedRouter from "./routes/seedRoutes.js";
 
 dotenv.config();
 mongoose
@@ -15,17 +16,7 @@ mongoose
 
 
 const app = express();
-
-// mongoose.connect("mongodb://localhost:27017/Store_N",{
-//   useNewUrlParser:true,useUnifiedTopology:true
-// },(err)=>{
-//   if(err){
-//     console.log(err);
-//   }else{
-//     console.log("success!!! conect in mongodb");
-//   }
-// }
-// )
+app.use('/api/seed', seedRouter)
 
 
 
