@@ -1,4 +1,4 @@
-import { Box, Button, Center, Grid, GridItem } from "@chakra-ui/react";
+import {Button, Grid, GridItem } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "../Store";

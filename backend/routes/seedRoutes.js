@@ -8,7 +8,7 @@ const seedRouter = express.Router()
 
 seedRouter.get('/',async(req,res)=>{
     await Product.remove({})
- const createdProducts = await Product.insertMany(data.products)
+ const createdProducts = await Product.insertMany(data.propertis)
  res.send({createdProducts})
 
 
