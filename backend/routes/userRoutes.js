@@ -1,11 +1,13 @@
 import express from "express";
-import User from "../models/userModel";
+import User from "../models/userModel.js";
+import bcrypt from 'bcryptjs'
 import { generateToken } from "../utils.js";
+import expressAsyncHandler from 'express-async-handler'
 
-const useRouter = express.Router();
+const userRouter = express.Router();
 
-useRouter.post(
-  "/signin",
+userRouter.post(
+  '/signin',
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -24,4 +26,4 @@ useRouter.post(
   })
 );
 
-export default useRouter;
+export default userRouter;
