@@ -12,12 +12,7 @@ import {
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "../Store";
-import  {
-  DeleteIcon,
-  HamburgerIcon,
-  ExternalLinkIcon,
-  RepeatIcon,
-} from "@chakra-ui/icons";
+import { AddIcon, HamburgerIcon } from "@chakra-ui/icons";
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -34,7 +29,7 @@ function NavBar() {
       display="flex"
       justifyContent="space-evenly"
       textDecorationLine="underline"
-      title={userInfo.name}
+      alignItems="center"
     >
       <GridItem>
         <Link to="/">דף הבית</Link>
@@ -49,50 +44,40 @@ function NavBar() {
           הגלת קניות
         </Link>
       </GridItem>
-<GridItem>
+      <GridItem>
         {userInfo ? (
-        <Menu>
-          <MenuButton
-            as={IconButton}
-            aria-label="Options"
-            icon={<HamburgerIcon />}
-            variant="outline"
-            w="5%"
-            h="80%"
-    borderRadius="30%"
-          />
-          <MenuList>
-            <MenuItem icon={<DeleteIcon />} >
-              <Link to="/profil">User Profile</Link>
-            </MenuItem>
-            <MenuItem icon={<ExternalLinkIcon />} >
-              <Link to="/orderhistory">Order History</Link>
-            </MenuItem>
-            <MenuItem icon={<RepeatIcon />} >
-              <Link to="#signout" onClick={signoutHandlet}>
-                Sign Out
+          <Menu title={userInfo.name}>
+            <MenuButton
+              as={IconButton}
+              aria-label="Options"
+              icon={<HamburgerIcon />}
+              variant="outline"
+              w="200%"
+             
+              borderRadius="30%"
+              p="35%"
+            />
+            <MenuList zIndex={1}>
+              <Link to="/profil">
+                {" "}
+                <MenuItem >User Profile</MenuItem>
               </Link>
-            </MenuItem>
-          </MenuList>
-        </Menu>
-      ) : (
-        // <GridItem>
-        //   <Link to="/profil">User Profile</Link>
-        // </GridItem>
-        // <GridItem>
-        //   <Link to="/orderhistory">Order History</Link>
-        // </GridItem>
-        // <GridItem>
-        //   <Link to="#signout" onClick={signoutHandlet}>
-        //     Sign Out
-        //   </Link>
-        // </GridItem>
-        <Card>
-          <Link to="/signin">Sign In</Link>
-        </Card>
-      )}
-      </GridItem>
 
+              <Link to="/orderhistory">
+                {" "}
+                <MenuItem >Order History</MenuItem>
+              </Link>
+              <Link to="#signout" onClick={signoutHandlet}>
+                <MenuItem >Sign Out</MenuItem>
+              </Link>
+            </MenuList>
+          </Menu>
+        ) : (
+          <Card>
+            <Link to="/signin">Sign In</Link>
+          </Card>
+        )}
+      </GridItem>
     </Grid>
   );
 }
