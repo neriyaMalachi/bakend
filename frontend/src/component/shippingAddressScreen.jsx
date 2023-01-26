@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
+import CheckOutSteps from "./CheckOutSteps";
 
 function ShippingAddressScreen() {
   const navigate = useNavigate();
@@ -64,6 +65,7 @@ function ShippingAddressScreen() {
       <Helmet>
         <title>Shiping Address</title>
       </Helmet>
+      <CheckOutSteps step1 step2></CheckOutSteps>
       <form onSubmit={submitHandler}>
         <VStack
           divider={<StackDivider borderColor="gray.200" />}
