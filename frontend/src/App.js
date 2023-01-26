@@ -5,7 +5,7 @@ import NavBar from "./component/NavBar";
 import ProductFile from "./component/ProductFile";
 import CartScreen from "./component/CartScreen";
 import SigninScreen from "./component/SigninScreen";
-import ShippingAddressScreen from "./component/shippingAddressScreen";
+import ShippingAddressScreen from "./component/ShippingAddressScreen";
 function App() {
 return(
   <BrowserRouter>

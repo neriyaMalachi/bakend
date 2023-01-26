@@ -3,39 +3,76 @@ import {
   Button,
   Card,
   CardFooter,
+  Center,
   Input,
   StackDivider,
   VStack,
 } from "@chakra-ui/react";
-import React from "react";
-import  useState  from "react";
+import React, { useContext } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Form } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { Store } from "../Store";
 
-function shippingAddressScreen() {
+function ShippingAddressScreen() {
+  const navigate = useNavigate();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const {
+    userInfo,
+    cart: { shippingAddress },
+  } = state;
+  const [fullName, setFullName] = useState(shippingAddress.fullName || "");
+  const [address, setAddress] = useState(shippingAddress.address || "");
+  const [city, setCity] = useState(shippingAddress.city || "");
+  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || "");
+  const [country, setcountry] = useState(shippingAddress.country || "");
 
-  const [fullName, setFullName] = useState(" ");
-  const [address, setAddress] = useState("");
-  const [city, setCity]=useState("");
-  const [postalCode, setPostalCode] = useState("");
-  const [country, setcountry] = useState("");
-
+  useEffect(()=>{
+    if( ! userInfo){
+      navigate('/signin?redirect=/shipping')
+    }
+  },[userInfo,navigate ])
   const submitHandler = (e) => {
     e.preventDefault();
+
+    ctxDispatch({
+      type: "SAVE_SHIPPING_ADDRESS",
+      payload: {
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      },
+    });
+    localStorage.setItem(
+      "shippingAddress",
+      JSON.stringify({
+        fullName,
+        address,
+        city,
+        postalCode,
+        country,
+      })
+    );
+    navigate("/payment");
   };
   return (
+    <Center h="90vh" >
     <Card>
       <Helmet>
         <title>Shiping Address</title>
       </Helmet>
-      <Form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
         <VStack
           divider={<StackDivider borderColor="gray.200" />}
           spacing={4}
           align="stretch"
+          bg="silver"
+          zIndex={1}
         >
-
-          <Box h="40px" bg="yellow.200">
+          <Box h="40px">
             <Input
               placeholder="Full name"
               size="lg"
@@ -45,7 +82,7 @@ function shippingAddressScreen() {
             />
           </Box>
 
-          <Box h="40px" bg="tomato">
+          <Box h="40px">
             <Input
               placeholder="Address"
               size="lg"
@@ -55,7 +92,7 @@ function shippingAddressScreen() {
             />
           </Box>
 
-          <Box h="40px" bg="pink.100">
+          <Box h="40px">
             <Input
               placeholder="City"
               size="lg"
@@ -65,7 +102,7 @@ function shippingAddressScreen() {
             />
           </Box>
 
-          <Box h="40px" bg="pink.100">
+          <Box h="40px">
             <Input
               placeholder="Postal code"
               size="lg"
@@ -75,7 +112,7 @@ function shippingAddressScreen() {
             />
           </Box>
 
-          <Box h="40px" bg="pink.100">
+          <Box h="40px">
             <Input
               placeholder="Country"
               size="lg"
@@ -85,15 +122,14 @@ function shippingAddressScreen() {
             />
           </Box>
         </VStack>
-      </Form>
-
-      <CardFooter>
-        <Button variant="primary" type="submit">
-          התחבר
-        </Button>
-      </CardFooter>
+        <CardFooter>
+          <Button variant="primary" type="submit">
+            התחבר
+          </Button>
+        </CardFooter>
+      </form>
     </Card>
+    </Center>
   );
 }
-
-export default shippingAddressScreen;
+export default ShippingAddressScreen;
