@@ -9,6 +9,8 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "../Store";
@@ -31,6 +33,7 @@ function NavBar() {
       textDecorationLine="underline"
       alignItems="center"
     >
+      <ToastContainer position="bottom-center"  limit={1} />
       <GridItem>
         <Link to="/">דף הבית</Link>
       </GridItem>

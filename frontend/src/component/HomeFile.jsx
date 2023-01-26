@@ -51,7 +51,8 @@ function HomeFile() {
       flexWrap="wrap"
       justifyContent="space-around"
       bg="silver"
-      p="2%"
+      p="3%"
+      h="100vh"
     >
       <Helmet>
         <title>Home page</title>

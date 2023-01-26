@@ -34,7 +34,7 @@ function Cards(props) {
     });
   };
   return (
-    <Card maxW="sm" p="2%" border="1px solid">
+    <Card h="70%" p="1%" border="1px solid">
       <CardBody>
         <Link to={`/product/${product.slug}`}>
           <Image src={product.image} alt={product.name} w="180px" h="190px" />

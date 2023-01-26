@@ -1,5 +1,4 @@
 import {
-
   Box,
   Button,
   Card,
@@ -15,6 +14,8 @@ import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Store } from "../Store";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 function SigninScreen() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ function SigninScreen() {
   const [password, setPassword] = useState("");
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
-
+  const { userInfo } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -40,9 +41,15 @@ function SigninScreen() {
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      alert("password or email invalid");
+      toast.error("password or email invalid");
     }
   };
+
+  useEffect(() => {
+    if (userInfo) {
+      navigate(redirect);
+    }
+  }, [navigate, redirect, userInfo]);
 
   return (
     <>
@@ -51,7 +58,7 @@ function SigninScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="100vh">
+        <Center h="90vh">
           <Card
             bg="silver"
             h="60vh"
