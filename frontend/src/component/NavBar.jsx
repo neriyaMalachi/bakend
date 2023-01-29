@@ -23,10 +23,12 @@ function NavBar() {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shippingAddress");
+    localStorage.removeItem("Paymentmethod");
 
   };
 
   return (
+    
     <Grid
       bg="black"
       h="50px"

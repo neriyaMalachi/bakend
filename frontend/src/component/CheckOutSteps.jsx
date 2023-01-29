@@ -5,13 +5,14 @@ function CheckOutSteps(props) {
   return (
 <>
 <Tabs variant='enclosed'>
-  <TabList>
+  <TabList  justifyContent="space-around" >
     <Tab className={props.step1 ? 'activ': ''} >Sign-in</Tab>
     <Tab className={props.step2 ? 'activ': ''}>shopping</Tab>
     <Tab className={props.step3 ? 'activ': ''}>Payment</Tab>
     <Tab className={props.step4 ? 'activ': ''}>Place Order</Tab>
 
   </TabList>
+   <hr   />
   <TabPanels>
     <TabPanel>
       <p>Sign-in!</p>
@@ -27,6 +28,7 @@ function CheckOutSteps(props) {
     </TabPanel>
   </TabPanels>
 </Tabs>
+
 </>
     )
 }

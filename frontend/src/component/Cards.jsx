@@ -7,6 +7,7 @@ import {
   Text,
   Divider,
   ButtonGroup,
+  ChakraProvider,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -34,10 +35,20 @@ function Cards(props) {
     });
   };
   return (
-    <Card h="70%" p="1%" border="1px solid">
+    <ChakraProvider>
+
+    <Card
+      boxShadow="20px 35px 6px 7px rgba(0,0,0,0.75)"
+      display="flex"
+      // justifyContent="space-around"
+      flexWrap="wrap"
+      alignContent="flex-start"
+      w="15%"
+      border="1px solid"
+    >
       <CardBody>
         <Link to={`/product/${product.slug}`}>
-          <Image src={product.image} alt={product.name} w="180px" h="190px" />
+          <Image src={product.image} alt={product.name} w="100%" h="50%" />
         </Link>
 
         <Stack mt="6" spacing="3">
@@ -71,19 +82,21 @@ function Cards(props) {
       ) : (
         <CardFooter>
           <ButtonGroup spacing="2">
-            <Button 
-            p="15%" 
-            bg="gold" 
-            borderRadius="10%"
-            onClick={()=>addToCartHandler(product)}
+            <Button
+              p="15%"
+              bg="gold"
+              borderRadius="10%"
+              onClick={() => addToCartHandler(product)}
             >
               הוסף להגלה
             </Button>
           </ButtonGroup>
         </CardFooter>
       )}
+      
       <Divider />
     </Card>
+    </ChakraProvider>
   );
 }
 
