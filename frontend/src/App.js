@@ -6,6 +6,7 @@ import ProductFile from "./component/ProductFile";
 import CartScreen from "./component/CartScreen";
 import SigninScreen from "./component/SigninScreen";
 import ShippingAddressScreen from "./component/ShippingAddressScreen";
+import SignupScreen from "./component/SignupScreen";
 function App() {
 return(
   <BrowserRouter>
@@ -16,6 +17,7 @@ return(
     <Route path="/cart" element={<CartScreen/>}/>
     <Route path="/shipping" element={<ShippingAddressScreen/>}/>
     <Route path="/signIn" element={<SigninScreen/>}/>
+    <Route path="/signup" element={<SignupScreen/>}/>
     
   </Routes>
   </BrowserRouter>

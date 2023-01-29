@@ -74,7 +74,7 @@ function ShippingAddressScreen() {
           bg="silver"
           zIndex={1}
         >
-          <Box h="40px">
+          <Box h="40px" >
             <Input
               placeholder="Full name"
               size="lg"

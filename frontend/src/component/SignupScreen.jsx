@@ -17,22 +17,27 @@ import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
-function SigninScreen() {
+function SignupScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
-
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    if (password !== confirmPassword) {
+      toast.error("Password do not match");
+      return;
+    }
     try {
-      const { data } = await Axios.post("/api/users/signin", {
+      const { data } = await Axios.post("/api/users/signup", {
+        name,
         email,
         password,
       });
@@ -54,38 +59,34 @@ function SigninScreen() {
   return (
     <>
       <Helmet>
-        <title>Sign In</title>
+        <title>Sign Up</title>
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh"  bg="whitesmoke">
+        <Center h="90vh" bg="whitesmoke">
           <Card
-          h="60vh"
-          w="60vh"
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
-          border="1px solid"
-          borderRadius="20%"
+            // bg="silver"
+            h="60vh"
+            w="60vh"
+            display="flex"
+            justifyContent="center"
+            alignItems="center"
+            border="1px solid"
+            borderRadius="20%"
           >
-            <CardHeader
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              h="20%"
-            >
+            <CardHeader display="flex" justifyContent="center" h="5%" w="100%">
               <Text fontSize="9xl" as="b">
-                Sign In
+                Sign Up
               </Text>
             </CardHeader>
 
-            <CardBody h="50%">
-              <Text>Password</Text>
+            <CardBody h="60%">
+              <Text>Name</Text>
               <Input
-                placeholder="password"
-                type="password"
+                placeholder="name"
+                type="name"
                 required
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
 
               <Text>Email</Text>
@@ -95,31 +96,42 @@ function SigninScreen() {
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
-            </CardBody>
-
-            <CardFooter
-              w="48%"
-              h="30%"
-              display="flex"
-              flexDirection="column"
-              justifyContent="space-around"
-            >
+              <Text>Password</Text>
+              <Input
+                placeholder="password"
+                type="password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <Text>Confim Password</Text>
+              <Input
+                placeholder="Confirm Password"
+                type="password"
+                required
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
               <Button
                 type="submit"
                 bg="yellow"
-                borderRadius="15%"
+                borderRadius="20%"
                 p="1%"
                 w="30%"
+                mt="5%"
               >
-                Sign In
+                Sign Up
               </Button>
-              <Box w="130%">
-                New customer?{" "}
-                <Link to={`/signup?redirect=${redirect}`}>
-                  Create your account
-                </Link>
-              </Box>
-            </CardFooter>
+            </CardBody>
+
+            <CardFooter
+              w="90%"
+              h="25%"
+              display="flex"
+              justifyContent="center"
+            ></CardFooter>
+            <Box>
+              Already have an account?{" "}
+              <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
+            </Box>
           </Card>
         </Center>
       </form>
@@ -127,4 +139,4 @@ function SigninScreen() {
   );
 }
 
-export default SigninScreen;
+export default SignupScreen;
