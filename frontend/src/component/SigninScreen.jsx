@@ -74,7 +74,7 @@ function SigninScreen() {
               justifyContent="center"
               h="20%"
             >
-              <Text fontSize="9xl" as="b">
+              <Text fontSize="3xl" as="b"  >
                 Sign In
               </Text>
             </CardHeader>
@@ -98,7 +98,7 @@ function SigninScreen() {
             </CardBody>
 
             <CardFooter
-              w="48%"
+              w="90%"
               h="30%"
               display="flex"
               flexDirection="column"
@@ -106,14 +106,14 @@ function SigninScreen() {
             >
               <Button
                 type="submit"
-                bg="yellow"
+                bg="chartreuse"
                 borderRadius="15%"
                 p="1%"
-                w="30%"
+                w="40%"
               >
                 Sign In
               </Button>
-              <Box w="130%">
+              <Box  w="200%" alignItems="end" >
                 New customer?{" "}
                 <Link to={`/signup?redirect=${redirect}`}>
                   Create your account

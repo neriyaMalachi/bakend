@@ -5,17 +5,20 @@ import {
   Stack,
   Heading,
   Text,
-  Divider,
   ButtonGroup,
-  ChakraProvider,
+  Divider,
+  Box,
+  Flex,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Store } from "../Store";
+import { StarIcon } from "@chakra-ui/icons";
 
 function Cards(props) {
   const { product } = props;
+  const ratingStar = 5;
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -35,16 +38,14 @@ function Cards(props) {
     });
   };
   return (
-    <ChakraProvider>
-
     <Card
-      boxShadow="20px 35px 6px 7px rgba(0,0,0,0.75)"
+      boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
       display="flex"
-      // justifyContent="space-around"
       flexWrap="wrap"
       alignContent="flex-start"
       w="15%"
       border="1px solid"
+      bg="darkgray"
     >
       <CardBody>
         <Link to={`/product/${product.slug}`}>
@@ -61,10 +62,24 @@ function Cards(props) {
             </Text>
           </strong>
         </Stack>
-        <span color="gold">Rating:{product.rating}</span>
+        
+        <span color="gold">Rating:
+     
+                <Box display="flex" mt="2" alignItems="center">
+                  {Array(5)
+                    .fill("")
+                    .map((_,i) => (
+                      <StarIcon
+                        key={i}
+                        color={i < product.rating ? "yellow" : "white"}
+                      />
+                    ))}
+                </Box>
+             </span>
+            
       </CardBody>
       <span color="gold">Reviews:{product.numReviews} </span>
-
+         
       {product.countInStock === 0 ? (
         <CardFooter>
           <ButtonGroup spacing="2">
@@ -84,7 +99,8 @@ function Cards(props) {
           <ButtonGroup spacing="2">
             <Button
               p="15%"
-              bg="gold"
+              bg="silver"
+              w="15vh"
               borderRadius="10%"
               onClick={() => addToCartHandler(product)}
             >
@@ -93,10 +109,9 @@ function Cards(props) {
           </ButtonGroup>
         </CardFooter>
       )}
-      
-      <Divider />
+
+      {/* <Divider /> */}
     </Card>
-    </ChakraProvider>
   );
 }
 

@@ -40,36 +40,34 @@ function CartScreen() {
     });
   };
   const RemoovItemHendler = (item) => {
-    ctxDispatch({ type: 'CART_REMOVE_ITEM', payload: item });
+    ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
 
-  const checkoutHandler =()=>{
-    navigate('/signin?redirect=/shipping')
-  }
+  const checkoutHandler = () => {
+    navigate("/signin?redirect=/shipping");
+  };
   return (
     <>
       <Helmet>
         <title>Shopping Cart</title>
       </Helmet>
 
-      <h1>Shopping Cart</h1>
-      <hr />
       {cartItems.length === 0 ? (
         <Box bg="tomato" w="100%" p={4} color="white">
           Cart is empty. <Link to="/">Go Shoping</Link>
         </Box>
       ) : (
-        <Stack isInline gap={3}>
-          <Grid w="100%">
+        <Stack isInline gap={3} alignItems="center">
+          <Grid w="100%" ml="3%">
             {cartItems.map((item) => (
-              <GridItem gridGap={2} mt="2%" key={item._id}>
+              <GridItem gridGap={2} mt="4%" key={item._id}>
                 <Card
-                  direction={{ base: "column", xl: "row" }}
-                  overflow="hidden"
-                  variant="outline"
-                  justifyContent="space-around"
+                  display="flex"
+                  justifyContent="space-between"
+                  flexDirection="row"
                   alignItems="center"
-                  w="100%"
+                  w="90%"
+                  boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                 >
                   <Image
                     objectFit="cover"
@@ -90,9 +88,8 @@ function CartScreen() {
                   >
                     <Button
                       borderRadius="50%"
-                      variant="solid"
-                      colorScheme="blue"
-                      h="20%"
+                      color="black"
+                      colorScheme="white"
                       onClick={() => UpdateCartHandler(item, item.quantity + 1)}
                       disabled={item.quantity === item.countInStock}
                     >
@@ -100,10 +97,9 @@ function CartScreen() {
                     </Button>{" "}
                     <Text>{item.quantity}</Text>{" "}
                     <Button
+                      color="black"
+                      colorScheme="white"
                       borderRadius="50%"
-                      variant="solid"
-                      colorScheme="blue"
-                      h="20%"
                       onClick={() => UpdateCartHandler(item, item.quantity - 1)}
                       disabled={item.quantity === 1}
                     >
@@ -112,15 +108,12 @@ function CartScreen() {
                   </Box>
 
                   <Box>{item.price}</Box>
-                  <Button
-                    border="none"
-                    bg="white"
+
+                  <DeleteIcon
+                    color="red.500"
                     onClick={() => RemoovItemHendler(item)}
-                  >
-                    <DeleteIcon w={20} h={20} color="red.500" />
-                  </Button>
+                  />
                 </Card>
-                <hr />
               </GridItem>
             ))}
           </Grid>
@@ -137,9 +130,9 @@ function CartScreen() {
             </CardBody>
             <CardFooter>
               <Button
-               onClick={checkoutHandler}
-               disabled={cartItems.length === 0}
-               >
+                onClick={checkoutHandler}
+                disabled={cartItems.length === 0}
+              >
                 Process to Checkout
               </Button>
             </CardFooter>

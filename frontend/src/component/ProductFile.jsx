@@ -72,11 +72,6 @@ function ProductFile() {
     navigat("/cart");
   };
 
-
-
-
-
-
   return loading ? (
     <Center>Loading...</Center>
   ) : error ? (
@@ -90,24 +85,29 @@ function ProductFile() {
         direction={{ base: "column", sm: "row" }}
         overflow="hidden"
         variant="outline"
+        display="flex"
+        justifyContent="center"
+        h="90vh"
       >
-        <Image
-          objectFit="cover"
-          maxW={{ base: "200%", sm: "400px" }}
-          src={propertis.image}
-          alt="Caffe Latte"
-          w="50%"
-          p="12%"
-        />
-
+        <Box display="flex" alignItems="center">
+          <Image
+            src={propertis.image}
+            alt="Caffe Latte"
+            p="12%"
+            h="70%"
+            w="80%"
+          />
+        </Box>
         <SimpleGrid
           spacing={200}
           display="flex"
           w="80%"
           h="100%"
           justifyContent="space-between"
+          // bg="silver"
+          alignItems="center"
         >
-          <Card w="80%" textAlign="end" color="red">
+          <Card w="60%" textAlign="end" color="green">
             <CardHeader>
               <Heading size="md"> {propertis.name} </Heading>
             </CardHeader>
@@ -122,7 +122,7 @@ function ProductFile() {
                     .map((_, i) => (
                       <StarIcon
                         key={i}
-                        color={i < propertis.rating ? "yellow.100" : "white"}
+                        color={i < propertis.rating ? "yellow" : "white"}
                       />
                     ))}
                 </Box>
@@ -139,7 +139,7 @@ function ProductFile() {
 
           <Card
             w="60%"
-            h="100%"
+            alignSelf="start"
             textAlign="end"
             border="silver 1px solid"
             p="3%"

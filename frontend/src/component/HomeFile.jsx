@@ -4,7 +4,6 @@ import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -50,9 +49,7 @@ function HomeFile() {
       display="flex"
       flexWrap="wrap"
       justifyContent="space-around"
-      bg="whitesmoke"
-      // p="3%"
-      // h="100vh"
+      mt="3%"
     >
       <Helmet>
         <title>Home page</title>

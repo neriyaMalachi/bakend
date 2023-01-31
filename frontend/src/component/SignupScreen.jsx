@@ -75,7 +75,7 @@ function SignupScreen() {
             borderRadius="20%"
           >
             <CardHeader display="flex" justifyContent="center" h="5%" w="100%">
-              <Text fontSize="9xl" as="b">
+              <Text fontSize="3xl" as="b">
                 Sign Up
               </Text>
             </CardHeader>

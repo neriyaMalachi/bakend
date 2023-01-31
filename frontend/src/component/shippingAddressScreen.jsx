@@ -68,10 +68,10 @@ function ShippingAddressScreen() {
       <CheckOutSteps step1 step2></CheckOutSteps>
       <form onSubmit={submitHandler}>
         <VStack
-          divider={<StackDivider borderColor="gray.200" />}
+          // divider={<StackDivider borderColor="gray.200" />}
           spacing={4}
           align="stretch"
-          bg="silver"
+          
           zIndex={1}
         >
           <Box h="40px" >

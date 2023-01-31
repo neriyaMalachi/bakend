@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "../Store";
-import { AddIcon, HamburgerIcon } from "@chakra-ui/icons";
+import {  HamburgerIcon } from "@chakra-ui/icons";
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -31,27 +31,31 @@ function NavBar() {
     
     <Grid
       bg="black"
+      color="whitesmoke"
       h="50px"
       display="flex"
-      justifyContent="space-evenly"
+      justifyContent="space-between"
       textDecorationLine="underline"
       alignItems="center"
+      fontSize="xl"
+ 
+      boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
     >
       <ToastContainer position="bottom-center"  limit={1} />
       <GridItem>
-        <Link to="/">דף הבית</Link>
+        <Link  to="/">דף הבית</Link>
       </GridItem>
       <GridItem textAlign="center">
         {cart.cartItems.length > 0 && (
-          <Button borderRadius="40%" bg="red">
+          <Button borderRadius="40%" bg="red"  size="xs">
             {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
           </Button>
         )}
-        <Link color="green" to="/cart">
-          הגלת קניות
+        <Link  to="/cart">
+          עגלת קניות
         </Link>
       </GridItem>
-      <GridItem>
+      <GridItem   display="flex" justifyContent="flex-end">
         {userInfo ? (
           <Menu title={userInfo.name}>
             <MenuButton
@@ -59,28 +63,25 @@ function NavBar() {
               aria-label="Options"
               icon={<HamburgerIcon />}
               variant="outline"
-              w="200%"
-             
               borderRadius="30%"
-              p="35%"
             />
-            <MenuList zIndex={1}>
+            <MenuList bg="black" >
               <Link to="/profil">
                 {" "}
-                <MenuItem >User Profile</MenuItem>
+                <MenuItem textColor="black" >User Profile</MenuItem>
               </Link>
 
               <Link to="/orderhistory">
                 {" "}
-                <MenuItem >Order History</MenuItem>
+                <MenuItem textColor="black">Order History</MenuItem>
               </Link>
               <Link to="#signout" onClick={signoutHandlet}>
-                <MenuItem >Sign Out</MenuItem>
+                <MenuItem textColor="black" >Sign Out</MenuItem>
               </Link>
             </MenuList>
           </Menu>
         ) : (
-          <Card>
+          <Card  textColor="white">
             <Link to="/signin">Sign In</Link>
           </Card>
         )}
