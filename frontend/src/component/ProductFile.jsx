@@ -169,11 +169,10 @@ function ProductFile() {
             {propertis.countInStock > 0 ? (
               <CardFooter>
                 <Button
-                  w="100%"
-                  h="150%"
+                
                   variant="solid"
-                  bg="silver"
-                  borderRadius="25%"
+                  bg="yellow"
+                  borderRadius="30%"
                   onClick={addToCartHandler}
                 >
                   הוסף להגלה
