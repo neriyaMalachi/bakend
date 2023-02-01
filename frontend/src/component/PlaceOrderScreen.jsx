@@ -24,21 +24,27 @@ function PlaceOrderScreen() {
           <title>Preview Order</title>
         </Helmet>
 
-        <Card>
+        <Card direction="column"  bg="whitesmoke" boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)" >
           <CardHeader>Preview Order</CardHeader>
 
           <CardBody>
-
-<Text fontSize="xl">Name:</Text>{cart.shippingAddress.fullName}<br/>
-<Text fontSize="xl">Address:</Text>{cart.shippingAddress.address},
-{cart.shippingAddress.city},{cart.shippingAddress.postalCode},
-{cart.shippingAddress.country}
-
+            <Text fontSize="xl">:שם</Text>
+            {cart.shippingAddress.fullName}
+             
+            <Text fontSize="xl">:כתובת</Text>
+            {cart.shippingAddress.address},{cart.shippingAddress.city},
+            {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
           </CardBody>
           <CardFooter>
-            <Link to="/shipping">Edit</Link>
+            <Link to="/shipping">Edit:</Link>
           </CardFooter>
         </Card>
+
+
+
+
+
+
       </ChakraProvider>
     </>
   );
