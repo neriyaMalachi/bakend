@@ -24,7 +24,7 @@ function PlaceOrderScreen() {
           <title>Preview Order</title>
         </Helmet>
 
-        <Card direction="column"  bg="whitesmoke" boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)" >
+        <Card dir='rtl'  bg="whitesmoke" boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)" >
           <CardHeader>Preview Order</CardHeader>
 
           <CardBody>
