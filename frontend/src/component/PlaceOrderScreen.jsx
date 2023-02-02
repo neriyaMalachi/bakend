@@ -191,7 +191,7 @@ function PlaceOrderScreen() {
                 <Text>Item</Text>
                 <Text>${cart.itemsPrice.toFixed(2)}</Text>
               </GridItem>
-<hr />
+              <hr />
               <GridItem>
                 <Text>Shipping</Text>
                 <Text>${cart.shippingPrice.toFixed(2)}</Text>

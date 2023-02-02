@@ -4,6 +4,7 @@ import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
+import bgImage from '../img/backgroundHomeFile.png'
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -49,7 +50,13 @@ function HomeFile() {
       display="flex"
       flexWrap="wrap"
       justifyContent="space-around"
-      mt="3%"
+      mt="-3%"
+      // bgImage={bgImage}
+      // bgRepeat="no-repeat"
+      // bgPosition="center"
+      bg="yellow"
+      boxSize="100hv"
+
     >
       <Helmet>
         <title>Home page</title>

@@ -30,7 +30,8 @@ function NavBar() {
   return (
     
     <Grid
-      bg="black"
+      bg="transparent"
+      // opacity={0.5}
       color="whitesmoke"
       h="50px"
       display="flex"

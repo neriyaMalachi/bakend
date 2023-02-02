@@ -45,7 +45,7 @@ function Cards(props) {
       alignContent="flex-start"
       w="15%"
       border="1px solid"
-      bg="darkgray"
+      bg="silver"
     >
       <CardBody>
         <Link to={`/product/${product.slug}`}>
