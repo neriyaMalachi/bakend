@@ -18,7 +18,7 @@ import { StarIcon } from "@chakra-ui/icons";
 
 function Cards(props) {
   const { product } = props;
-  const ratingStar = 5;
+  
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -41,18 +41,19 @@ function Cards(props) {
     <Card
       boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
       display="flex"
-      flexWrap="wrap"
+      // flexWrap="wrap"
       alignContent="flex-start"
       w="15%"
+       h="70%"
       border="1px solid"
-      bg="silver"
+      bg="rgb(252,130,69,0.40)"
     >
       <CardBody>
-        <Link to={`/product/${product.slug}`}>
-          <Image src={product.image} alt={product.name} w="100%" h="50%" />
+        <Link  to={`/product/${product.slug}`}>
+          <Image src={product.image} alt={product.name} w="150px" h="200px" />
         </Link>
 
-        <Stack mt="6" spacing="3">
+        <Stack >
           <Link to={`/product/${product.slug}`}>
             <Heading size="md">{product.name}</Heading>
           </Link>
@@ -65,7 +66,7 @@ function Cards(props) {
         
         <span color="gold">Rating:
      
-                <Box display="flex" mt="2" alignItems="center">
+                <Box   >
                   {Array(5)
                     .fill("")
                     .map((_,i) => (
@@ -82,7 +83,7 @@ function Cards(props) {
          
       {product.countInStock === 0 ? (
         <CardFooter>
-          <ButtonGroup spacing="2">
+          <ButtonGroup >
             <Button
               p="15%"
               bg="gold"
@@ -104,7 +105,7 @@ function Cards(props) {
               borderRadius="10%"
               onClick={() => addToCartHandler(product)}
             >
-              הוסף להגלה
+              הוסף לעגלה
             </Button>
           </ButtonGroup>
         </CardFooter>

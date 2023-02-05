@@ -30,10 +30,10 @@ function NavBar() {
   return (
     
     <Grid
-      bg="transparent"
-      // opacity={0.5}
-      color="whitesmoke"
-      h="50px"
+    // opacity={0.5}
+    bg="whitesmoke"
+      color="black"
+      h="100%"
       display="flex"
       justifyContent="space-between"
       textDecorationLine="underline"
@@ -82,7 +82,7 @@ function NavBar() {
             </MenuList>
           </Menu>
         ) : (
-          <Card  textColor="white">
+          <Card  >
             <Link to="/signin">Sign In</Link>
           </Card>
         )}
