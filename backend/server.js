@@ -26,6 +26,7 @@ app.use("/api/seed", seedRouter);
 app.use("/api/propertis", productRoute);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
