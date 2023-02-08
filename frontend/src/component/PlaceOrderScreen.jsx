@@ -114,7 +114,7 @@ function PlaceOrderScreen() {
               rowSpan={2}
               colSpan={1}
             >
-              <Text>Preview Order1</Text>
+              <Text>Preview Order</Text>
 
               <GridItem>
                 <Box
@@ -152,7 +152,7 @@ function PlaceOrderScreen() {
               w="100%"
               // colSpan={2}
             >
-              <Text>Preview Order2</Text>
+              <Text>Preview Order</Text>
 
               <Box>
                 <Box
@@ -166,16 +166,6 @@ function PlaceOrderScreen() {
                   {cart.paymentMethod}
                 </Box>
 
-                {/* <Box
-              w="23%"
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Text fontSize="xl">כתובת:</Text>
-              {cart.shippingAddress.address},{cart.shippingAddress.city},
-              {cart.shippingAddress.postalCode},{cart.shippingAddress.country}
-            </Box> */}
               </Box>
               <Box color="blue">
                 <Link to="/payment">Edit:</Link>

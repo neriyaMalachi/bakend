@@ -8,12 +8,16 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Flex,
+  Grid,
+  GridItem,
+  Image,
   Text,
 } from "@chakra-ui/react";
 import { React, useContext, useEffect, useReducer } from "react";
 import LoadingBox from "../component/LoadingBox";
 import { Store } from "../Store";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { getError } from "../utils";
 import { Helmet } from "react-helmet-async";
@@ -73,56 +77,148 @@ function OrderScreen() {
       <AlertDescription>{error}</AlertDescription>
     </Alert>
   ) : (
-    <Box dir="rtl">
+    <Grid dir="rtl">
       <Helmet>
         <title>order {orderId}</title>
       </Helmet>
       <Text as="mark" fontSize="2xl">
         מספר הזמנה: {orderId}
       </Text>
+      <GridItem
+       gridColumn="1"
+      
+       >
+        <Card border="1px solid">
+          <CardHeader>
+            <Text fontSize={"xl"}> משלוח עבור:</Text>
+          </CardHeader>
+          <CardBody>
+            <Text fontSize={"xl"}>שם: {order.shippingAddress.fullName}</Text>
 
-      <Card border="1px solid">
-        <CardHeader>
-          <Text fontSize={"xl"}> משלוח עבור:</Text>
-        </CardHeader>
-        <CardBody>
-          <Text fontSize={"xl"}>שם: {order.shippingAddress.fullName}</Text>
+            <Text fontSize={"xl"}>
+              כתובת: {order.shippingAddress.address},
+              {order.shippingAddress.city},{order.shippingAddress.postalCode},
+              {order.shippingAddress.country}{" "}
+            </Text>
+          </CardBody>
+          <CardFooter>
+            {order.isDelivered ? (
+              <Alert>Delivered at {order.delivered}</Alert>
+            ) : (
+              <Alert status="error">
+                <AlertIcon />
+                Not Delivered
+              </Alert>
+            )}
+          </CardFooter>
+        </Card>
+      </GridItem>
+      <GridItem gridColumn="1" >
+        <Card
+        border="1px solid"
+        >
+          <CardHeader>Payment</CardHeader>
+          <CardBody>
+            <Text fontSize="xl">Method</Text>
+            {order.paymentMethod}
+          </CardBody>
+          <CardFooter>
+            {order.isPaid ? (
+              <Alert>Paid at {order.paidAt}</Alert>
+            ) : (
+              <Alert status="error">
+                <AlertIcon />
+                Not Paid
+              </Alert>
+            )}
+          </CardFooter>
+        </Card>
+      </GridItem>
+      <GridItem gridColumn="1"  >
+        <Card
+           border="1px solid"
+        >
+          <CardHeader>Items</CardHeader>
+          <CardBody
+         
+          >
+            {order.orderItems.map((item) => (
+          
+              <Grid key={item._id}>
+              <GridItem
+                display="flex"
+                w="100%"
+                h="100%"
+                justifyContent="space-around"
+                alignItems="center"
+                border=" 1px solid"
+                bg="silver"
+              >
+                <GridItem>
+                  <Image
+                    w="60px"
+                    h="60px"
+                    src={item.image}
+                    alt={item.name}
+                    objectFit="contain"
+                  />
+                </GridItem>
 
-          <Text fontSize={"xl"}>
-            כתובת: {order.shippingAddress.address},{order.shippingAddress.city},
-            {order.shippingAddress.postalCode},{order.shippingAddress.country}{" "}
-          </Text>
-        </CardBody>
-        <CardFooter>
-          {order.isDelivered ? (
-            <Alert>Delivered at {order.delivered}</Alert>
-          ) : (
-            <Alert status="error">
-              <AlertIcon />
-              Not Delivered
-            </Alert>
-          )}
-        </CardFooter>
-      </Card>
+                <GridItem color="blue.400">
+                  <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                </GridItem>
+                <GridItem>
+                  <Text>{item.quantity}</Text>
+                </GridItem>
+                <GridItem>
+                  <Text>{item.price}</Text>
+                </GridItem>
+              </GridItem>
+            </Grid>
+            ))}
+          </CardBody>
+        </Card>
+      </GridItem >
+      <GridItem
+      gridColumn="2"
+      gridRowEnd="3"
+      display="flex"
+       textAlign="center" 
+       justifyContent="center"
+       >
+        <GridItem
+          w="60%"
+          h="100%"
+          border="1px solid"
+          borderRadius="30%"
+          boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+        >
+          <Text fontSize="2xl">Order Summary</Text>
 
-      <Card>
-        <CardHeader>Payment</CardHeader>
-        <CardBody>
-          <Text fontSize="xl">Method</Text>
-          {order.paymentMethod}
-        </CardBody>
-        <CardFooter>
-          {order.isPaid ? (
-            <Alert>Paid at {order.paidAt}</Alert>
-          ) : (
-            <Alert status="error">
-              <AlertIcon />
-              Not Paid
-            </Alert>
-          )}
-        </CardFooter>
-      </Card>
-    </Box>
+          <GridItem>
+            <Text>Item</Text>
+            <Text>${order.itemsPrice.toFixed(2)}</Text>
+          </GridItem>
+          <hr />
+          <GridItem>
+            <Text>Shipping</Text>
+            <Text>${order.shippingPrice.toFixed(2)}</Text>
+          </GridItem>
+          <hr />
+          <GridItem>
+            <Text>Tax</Text>
+            <Text>${order.taxPrice.toFixed(2)}</Text>
+          </GridItem>
+          <hr />
+          <GridItem>
+            <Text fontSize="2xl"> Order Total</Text>
+
+            <Text>${order.totalPrice.toFixed(2)} </Text>
+          </GridItem>
+        </GridItem>
+        {loading && <LoadingBox></LoadingBox>}
+      </GridItem>
+    </Grid>
   );
 }
 
