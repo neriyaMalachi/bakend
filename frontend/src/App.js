@@ -11,6 +11,7 @@ import PaymentMethodScreen from "./component/PaymentMethodScreen";
 import { ChakraProvider } from "@chakra-ui/react";
 import PlaceOrderScreen from "./component/PlaceOrderScreen";
 import OrderScreen from "./component/OrderScreen";
+import OrderHistoryScreen from "./component/OrderHistoryScreen";
 function App() {
   return (
     <ChakraProvider>
@@ -26,6 +27,8 @@ function App() {
           <Route path="/placeorder" element={<PlaceOrderScreen />} />
           <Route path="/order/:id" element={<OrderScreen />} />
           <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
+          <Route path="/orderHistory" element={<OrderHistoryScreen />} />
+
         </Routes>
       </BrowserRouter>
     </ChakraProvider>

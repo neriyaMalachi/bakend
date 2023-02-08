@@ -61,7 +61,7 @@ function PaymentMethodScreen() {
               justifyContent={"space-around"}
               h="100px"
             >
-              <Radio
+              {/* <Radio
                 type="radio"
                 id="PayPal"
                 label="PayPal"
@@ -80,6 +80,26 @@ function PaymentMethodScreen() {
                 onChange={(e) => setPaymentMethod(e.target.value)}
               >
                 Stripe
+              </Radio> */}
+              <Radio
+                type="radio"
+                id="bit"
+                label="bit"
+                value="bit"
+                checked={paymentMethodName === "bit"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                ביט
+              </Radio>
+              <Radio
+                type="radio"
+                id="cash"
+                label="cash"
+                value="cash"
+                checked={paymentMethodName === "cash"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                מזומן 
               </Radio>
             </HStack>
           </RadioGroup>

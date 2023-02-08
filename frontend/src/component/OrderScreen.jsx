@@ -3,12 +3,10 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
-  Box,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
-  Flex,
   Grid,
   GridItem,
   Image,
@@ -84,10 +82,7 @@ function OrderScreen() {
       <Text as="mark" fontSize="2xl">
         מספר הזמנה: {orderId}
       </Text>
-      <GridItem
-       gridColumn="1"
-      
-       >
+      <GridItem gridColumn="1">
         <Card border="1px solid">
           <CardHeader>
             <Text fontSize={"xl"}> משלוח עבור:</Text>
@@ -101,7 +96,7 @@ function OrderScreen() {
               {order.shippingAddress.country}{" "}
             </Text>
           </CardBody>
-          <CardFooter>
+          {/* <CardFooter>
             {order.isDelivered ? (
               <Alert>Delivered at {order.delivered}</Alert>
             ) : (
@@ -110,17 +105,18 @@ function OrderScreen() {
                 Not Delivered
               </Alert>
             )}
-          </CardFooter>
+          </CardFooter> */}
         </Card>
       </GridItem>
-      <GridItem gridColumn="1" >
-        <Card
-        border="1px solid"
-        >
-          <CardHeader>Payment</CardHeader>
+      <GridItem gridColumn="1">
+        <Card border="1px solid">
+          <CardHeader>תשלום</CardHeader>
           <CardBody>
-            <Text fontSize="xl">Method</Text>
+            <Text fontSize="xl">שיטת תשלום</Text>
             {order.paymentMethod}
+            <Text  bg="red.200" w="51%" > קיימת בעיה בתשלום להזמנה התקשרו לטל'-0585202271 </Text>
+            <Text  bg="red.200" w="51%" > או השאירו הודעה בטל'-0585202271 </Text>
+
           </CardBody>
           <CardFooter>
             {order.isPaid ? (
@@ -134,58 +130,53 @@ function OrderScreen() {
           </CardFooter>
         </Card>
       </GridItem>
-      <GridItem gridColumn="1"  >
-        <Card
-           border="1px solid"
-        >
+      <GridItem gridColumn="1">
+        <Card border="1px solid">
           <CardHeader>Items</CardHeader>
-          <CardBody
-         
-          >
+          <CardBody>
             {order.orderItems.map((item) => (
-          
               <Grid key={item._id}>
-              <GridItem
-                display="flex"
-                w="100%"
-                h="100%"
-                justifyContent="space-around"
-                alignItems="center"
-                border=" 1px solid"
-                bg="silver"
-              >
-                <GridItem>
-                  <Image
-                    w="60px"
-                    h="60px"
-                    src={item.image}
-                    alt={item.name}
-                    objectFit="contain"
-                  />
-                </GridItem>
+                <GridItem
+                  display="flex"
+                  w="100%"
+                  h="100%"
+                  justifyContent="space-around"
+                  alignItems="center"
+                  border=" 1px solid"
+                  bg="silver"
+                >
+                  <GridItem>
+                    <Image
+                      w="60px"
+                      h="60px"
+                      src={item.image}
+                      alt={item.name}
+                      objectFit="contain"
+                    />
+                  </GridItem>
 
-                <GridItem color="blue.400">
-                  <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                  <GridItem color="blue.400">
+                    <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                  </GridItem>
+                  <GridItem>
+                    <Text>{item.quantity}</Text>
+                  </GridItem>
+                  <GridItem>
+                    <Text>{item.price}</Text>
+                  </GridItem>
                 </GridItem>
-                <GridItem>
-                  <Text>{item.quantity}</Text>
-                </GridItem>
-                <GridItem>
-                  <Text>{item.price}</Text>
-                </GridItem>
-              </GridItem>
-            </Grid>
+              </Grid>
             ))}
           </CardBody>
         </Card>
-      </GridItem >
+      </GridItem>
       <GridItem
-      gridColumn="2"
-      gridRowEnd="3"
-      display="flex"
-       textAlign="center" 
-       justifyContent="center"
-       >
+        gridColumn="2"
+        gridRowEnd="3"
+        display="flex"
+        textAlign="center"
+        justifyContent="center"
+      >
         <GridItem
           w="60%"
           h="100%"
