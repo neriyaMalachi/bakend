@@ -60,6 +60,7 @@ function OrderHistoryScreen() {
     };
     fatchData();
   }, [userInfo]);
+ console.log(orders)
 
   return (
     <>

@@ -7,7 +7,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import  Axios  from "axios";
+import Axios from "axios";
 import React, { useContext } from "react";
 import { useReducer } from "react";
 import { useEffect } from "react";
@@ -16,9 +16,8 @@ import { Link, useNavigate } from "react-router-dom";
 import CheckOutSteps from "./CheckOutSteps";
 import { toast } from "react-toastify";
 import { Store } from "../Store";
-import LoadingBox from '../component/LoadingBox'
+import LoadingBox from "../component/LoadingBox";
 import { getError } from "../utils";
-
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -28,6 +27,7 @@ const reducer = (state, action) => {
       return { ...state, loading: false };
     case "CREATE_FAIL":
       return { ...state, loading: false };
+  
     default:
       return state;
   }
@@ -35,7 +35,6 @@ const reducer = (state, action) => {
 
 function PlaceOrderScreen() {
   const navigate = useNavigate();
-
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
   });
@@ -52,13 +51,12 @@ function PlaceOrderScreen() {
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
 
-  
   const placeOrderHandler = async () => {
     try {
-      dispatch({ type: 'CREATE_REQUEST' });
+      dispatch({ type: "CREATE_REQUEST" });
 
       const { data } = await Axios.post(
-        '/api/orders',
+        "/api/orders",
         {
           orderItems: cart.cartItems,
           shippingAddress: cart.shippingAddress,
@@ -74,12 +72,12 @@ function PlaceOrderScreen() {
           },
         }
       );
-      ctxDispatch({ type: 'CART_CLEAR' });
-      dispatch({ type: 'CREATE_SUCCESS' });
-      localStorage.removeItem('cartItems');
+      ctxDispatch({ type: "CART_CLEAR" });
+      dispatch({ type: "CREATE_SUCCESS" });
+      localStorage.removeItem("cartItems");
       navigate(`/order/${data.order._id}`);
     } catch (err) {
-      dispatch({ type: 'CREATE_FAIL' });
+      dispatch({ type: "CREATE_FAIL" });
       toast.error(getError(err));
     }
   };
@@ -165,7 +163,6 @@ function PlaceOrderScreen() {
                   {"    "}
                   {cart.paymentMethod}
                 </Box>
-
               </Box>
               <Box color="blue">
                 <Link to="/payment">Edit:</Link>
@@ -257,6 +254,7 @@ function PlaceOrderScreen() {
                 type="button"
                 onClick={placeOrderHandler}
                 disabled={cart.cartItems.length === 0}
+               
               >
                 Place Order
               </Button>

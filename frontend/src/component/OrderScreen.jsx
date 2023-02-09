@@ -3,6 +3,7 @@ import {
   AlertDescription,
   AlertIcon,
   AlertTitle,
+  Box,
   Card,
   CardBody,
   CardFooter,
@@ -12,6 +13,7 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { React, useContext, useEffect, useReducer } from "react";
 import LoadingBox from "../component/LoadingBox";
 import { Store } from "../Store";
@@ -19,6 +21,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { getError } from "../utils";
 import { Helmet } from "react-helmet-async";
+import { toast } from "react-toastify";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -28,6 +31,15 @@ function reducer(state, action) {
       return { ...state, loading: false, order: action.payload, error: "" };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
+      case 'PAY_REQUEST':
+      return { ...state, loadingPay: true };
+    case 'PAY_SUCCESS':
+      return { ...state, loadingPay: false, successPay: true };
+    case 'PAY_FAIL':
+      return { ...state, loadingPay: false };
+    case 'PAY_RESET':
+      return { ...state, loadingPay: false, successPay: false };
+ 
     default:
       return state;
   }
@@ -39,12 +51,51 @@ function OrderScreen() {
   const params = useParams();
   const { id: orderId } = params;
   const navigate = useNavigate();
-  const [{ loading, error, order }, dispatch] = useReducer(reducer, {
+  const [{ loading, error, order ,successPay,loadingPay}, dispatch] = useReducer(reducer, {
     loading: true,
     order: {},
     error: "",
+    successPay:false,
+    loadingPay:false
   });
 
+  const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+  function createOrder(data, actions) {
+    return actions.order
+      .create({
+        purchase_units: [
+          {
+            amount: { value: order.totalPrice },
+          },
+        ],
+      })
+      .then((orderID) => {
+        return orderID;
+      });
+  }
+
+  function onApprove(data, actions) {
+    return actions.order.capture().then(async function (details) {
+      try {
+        dispatch({ type: 'PAY_REQUEST' });
+        const { data } = await axios.put(
+          `/api/orders/${order._id}/pay`,
+          details,
+          {
+            headers: { authorization: `Bearer ${userInfo.token}` },
+          }
+        );
+        dispatch({ type: 'PAY_SUCCESS', payload: data });
+        toast.success('Order is paid');
+      } catch (err) {
+        dispatch({ type: 'PAY_FAIL', payload: getError(err) });
+        toast.error(getError(err));
+      }
+    });
+  }
+  function onError(err) {
+    toast.error(getError(err));
+  }
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -63,8 +114,23 @@ function OrderScreen() {
     }
     if (!order._id || (order._id && order._id !== orderId)) {
       fetchOrder();
+    } else {
+      const loadPaypalScript = async () => {
+        const { data: clientId } = await axios.get("/api/keys/paypal", {
+          headers: { authorization: `Bearer ${userInfo.token} ` },
+        });
+        paypalDispatch({
+          type: "resetOptions",
+          value: {
+            "client-id": clientId,
+            currency: "USD",
+          },
+        });
+        paypalDispatch({type: 'setLoadingStatus',value:'pending'})
+      };
+      loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate]);
+  }, [order, userInfo, orderId, navigate ,paypalDispatch]);
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -114,9 +180,34 @@ function OrderScreen() {
           <CardBody>
             <Text fontSize="xl">שיטת תשלום</Text>
             {order.paymentMethod}
-            <Text  bg="red.200" w="51%" > קיימת בעיה בתשלום להזמנה התקשרו לטל'-0585202271 </Text>
-            <Text  bg="red.200" w="51%" > או השאירו הודעה בטל'-0585202271 </Text>
+            <Text bg="red.200" w="51%">
+              {" "}
+              קיימת בעיה בתשלום להזמנה התקשרו לטל'-0585202271{" "}
+            </Text>
+            <Text bg="red.200" w="51%">
+              {" "}
+              או השאירו הודעה בטל'-0585202271{" "}
+            </Text>
+{!order.isPaid && (
+  <Box>
+    {isPending ?(
+<LoadingBox/>
+    ):(
 
+    <Box>
+      <PayPalButtons>
+        createOrder={createOrder}
+        onApprove={onApprove}
+        onError={onError}
+      </PayPalButtons>
+    </Box>
+    )}
+)
+  </Box>
+
+)
+
+}
           </CardBody>
           <CardFooter>
             {order.isPaid ? (
