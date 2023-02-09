@@ -31,15 +31,15 @@ function reducer(state, action) {
       return { ...state, loading: false, order: action.payload, error: "" };
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
-      case 'PAY_REQUEST':
+    case "PAY_REQUEST":
       return { ...state, loadingPay: true };
-    case 'PAY_SUCCESS':
+    case "PAY_SUCCESS":
       return { ...state, loadingPay: false, successPay: true };
-    case 'PAY_FAIL':
+    case "PAY_FAIL":
       return { ...state, loadingPay: false };
-    case 'PAY_RESET':
+    case "PAY_RESET":
       return { ...state, loadingPay: false, successPay: false };
- 
+
     default:
       return state;
   }
@@ -51,13 +51,14 @@ function OrderScreen() {
   const params = useParams();
   const { id: orderId } = params;
   const navigate = useNavigate();
-  const [{ loading, error, order ,successPay,loadingPay}, dispatch] = useReducer(reducer, {
-    loading: true,
-    order: {},
-    error: "",
-    successPay:false,
-    loadingPay:false
-  });
+  const [{ loading, error, order, successPay, loadingPay }, dispatch] =
+    useReducer(reducer, {
+      loading: true,
+      order: {},
+      error: "",
+      successPay: false,
+      loadingPay: false,
+    });
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
   function createOrder(data, actions) {
@@ -77,7 +78,7 @@ function OrderScreen() {
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
-        dispatch({ type: 'PAY_REQUEST' });
+        dispatch({ type: "PAY_REQUEST" });
         const { data } = await axios.put(
           `/api/orders/${order._id}/pay`,
           details,
@@ -85,10 +86,10 @@ function OrderScreen() {
             headers: { authorization: `Bearer ${userInfo.token}` },
           }
         );
-        dispatch({ type: 'PAY_SUCCESS', payload: data });
-        toast.success('Order is paid');
+        dispatch({ type: "PAY_SUCCESS", payload: data });
+        toast.success("Order is paid");
       } catch (err) {
-        dispatch({ type: 'PAY_FAIL', payload: getError(err) });
+        dispatch({ type: "PAY_FAIL", payload: getError(err) });
         toast.error(getError(err));
       }
     });
@@ -126,11 +127,11 @@ function OrderScreen() {
             currency: "USD",
           },
         });
-        paypalDispatch({type: 'setLoadingStatus',value:'pending'})
+        paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate ,paypalDispatch]);
+  }, [order, userInfo, orderId, navigate, paypalDispatch]);
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -188,26 +189,22 @@ function OrderScreen() {
               {" "}
               או השאירו הודעה בטל'-0585202271{" "}
             </Text>
-{!order.isPaid && (
-  <Box>
-    {isPending ?(
-<LoadingBox/>
-    ):(
-
-    <Box>
-      <PayPalButtons>
-        createOrder={createOrder}
-        onApprove={onApprove}
-        onError={onError}
-      </PayPalButtons>
-    </Box>
-    )}
-)
-  </Box>
-
-)
-
-}
+            {!order.isPaid && (
+              <Box>
+                {isPending ? (
+                  <LoadingBox />
+                ) : (
+                  <Box>
+                    <PayPalButtons>
+                      createOrder={createOrder}
+                      onApprove={onApprove}
+                      onError={onError}
+                    </PayPalButtons>
+                  </Box>
+                )}
+                )
+              </Box>
+            )}
           </CardBody>
           <CardFooter>
             {order.isPaid ? (
