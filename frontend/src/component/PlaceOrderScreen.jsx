@@ -18,6 +18,7 @@ import { toast } from "react-toastify";
 import { Store } from "../Store";
 import LoadingBox from "../component/LoadingBox";
 import { getError } from "../utils";
+// import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -27,7 +28,7 @@ const reducer = (state, action) => {
       return { ...state, loading: false };
     case "CREATE_FAIL":
       return { ...state, loading: false };
-  
+
     default:
       return state;
   }
@@ -35,6 +36,7 @@ const reducer = (state, action) => {
 
 function PlaceOrderScreen() {
   const navigate = useNavigate();
+  // const clientId = "AZKL-OCyN36PITH8tkDGcX0aznF66Hgui7spphjCtXcs3opUgVSd6mzFW-xAnR9MG-NCVMIm5BoYMZG_"
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
   });
@@ -258,6 +260,11 @@ function PlaceOrderScreen() {
               >
                 Place Order
               </Button>
+              {/* <PayPalScriptProvider
+                options={{ "client-id": clientId }}
+              >
+                <PayPalButtons />
+              </PayPalScriptProvider> */}
             </GridItem>
             {loading && <LoadingBox></LoadingBox>}
           </Grid>

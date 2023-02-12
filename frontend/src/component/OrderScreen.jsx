@@ -13,7 +13,11 @@ import {
   Image,
   Text,
 } from "@chakra-ui/react";
-import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import {
+  PayPalButtons,
+  PayPalScriptProvider,
+  usePayPalScriptReducer,
+} from "@paypal/react-paypal-js";
 import { React, useContext, useEffect, useReducer } from "react";
 import LoadingBox from "../component/LoadingBox";
 import { Store } from "../Store";
@@ -46,6 +50,8 @@ function reducer(state, action) {
 }
 
 function OrderScreen() {
+  //  const clientId11 = "AZKL-OCyN36PITH8tkDGcX0aznF66Hgui7spphjCtXcs3opUgVSd6mzFW-xAnR9MG-NCVMIm5BoYMZG_"
+
   const { state } = useContext(Store);
   const { userInfo } = state;
   const params = useParams();
@@ -61,6 +67,7 @@ function OrderScreen() {
     });
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+
   function createOrder(data, actions) {
     return actions.order
       .create({
@@ -97,6 +104,7 @@ function OrderScreen() {
   function onError(err) {
     toast.error(getError(err));
   }
+
   useEffect(() => {
     const fetchOrder = async () => {
       try {
@@ -115,6 +123,9 @@ function OrderScreen() {
     }
     if (!order._id || (order._id && order._id !== orderId)) {
       fetchOrder();
+      if (successPay) {
+        dispatch({ type: "PAY_RESET" });
+      }
     } else {
       const loadPaypalScript = async () => {
         const { data: clientId } = await axios.get("/api/keys/paypal", {
@@ -124,14 +135,14 @@ function OrderScreen() {
           type: "resetOptions",
           value: {
             "client-id": clientId,
-            currency: "USD",
+            currency: "ILS",
           },
         });
         paypalDispatch({ type: "setLoadingStatus", value: "pending" });
       };
       loadPaypalScript();
     }
-  }, [order, userInfo, orderId, navigate, paypalDispatch]);
+  }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
 
   return loading ? (
     <LoadingBox></LoadingBox>
@@ -149,6 +160,7 @@ function OrderScreen() {
       <Text as="mark" fontSize="2xl">
         מספר הזמנה: {orderId}
       </Text>
+      {/* Grid for address the user */}
       <GridItem gridColumn="1">
         <Card border="1px solid">
           <CardHeader>
@@ -163,7 +175,7 @@ function OrderScreen() {
               {order.shippingAddress.country}{" "}
             </Text>
           </CardBody>
-          {/* <CardFooter>
+          <CardFooter>
             {order.isDelivered ? (
               <Alert>Delivered at {order.delivered}</Alert>
             ) : (
@@ -172,48 +184,41 @@ function OrderScreen() {
                 Not Delivered
               </Alert>
             )}
-          </CardFooter> */}
+          </CardFooter>
         </Card>
       </GridItem>
+      {/* Grid for pay */}
       <GridItem gridColumn="1">
         <Card border="1px solid">
           <CardHeader>תשלום</CardHeader>
           <CardBody>
-            <Text fontSize="xl">שיטת תשלום</Text>
-            {order.paymentMethod}
-            <Text bg="red.200" w="51%">
-              {" "}
-              קיימת בעיה בתשלום להזמנה התקשרו לטל'-0585202271{" "}
-            </Text>
-            <Text bg="red.200" w="51%">
-              {" "}
-              או השאירו הודעה בטל'-0585202271{" "}
-            </Text>
+            {/* <Text fontSize="xl">שיטת תשלום</Text> */}
+
+            {/* <PayPalScriptProvider
+                options={{ "client-id": clientId11 }}
+
+                
+              >
+                <PayPalButtons />
+              </PayPalScriptProvider> */}
+          </CardBody>
+          <CardFooter>
             {!order.isPaid && (
               <Box>
                 {isPending ? (
                   <LoadingBox />
                 ) : (
-                  <Box>
-                    <PayPalButtons>
+                  <div>
+                    <PayPalButtons
                       createOrder={createOrder}
                       onApprove={onApprove}
                       onError={onError}
-                    </PayPalButtons>
-                  </Box>
+                    ></PayPalButtons>
+                  </div>
                 )}
-                )
+                {loadingPay && <LoadingBox></LoadingBox>}
+                
               </Box>
-            )}
-          </CardBody>
-          <CardFooter>
-            {order.isPaid ? (
-              <Alert>Paid at {order.paidAt}</Alert>
-            ) : (
-              <Alert status="error">
-                <AlertIcon />
-                Not Paid
-              </Alert>
             )}
           </CardFooter>
         </Card>
@@ -242,7 +247,6 @@ function OrderScreen() {
                       objectFit="contain"
                     />
                   </GridItem>
-
                   <GridItem color="blue.400">
                     <Link to={`/product/${item.slug}`}>{item.name}</Link>
                   </GridItem>
@@ -295,7 +299,6 @@ function OrderScreen() {
             <Text>${order.totalPrice.toFixed(2)} </Text>
           </GridItem>
         </GridItem>
-        {loading && <LoadingBox></LoadingBox>}
       </GridItem>
     </Grid>
   );

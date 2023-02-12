@@ -101,6 +101,16 @@ function PaymentMethodScreen() {
               >
                 מזומן 
               </Radio>
+              <Radio
+                type="radio"
+                id="payPal"
+                label="payPal"
+                value="payPal"
+                checked={paymentMethodName === "payPal"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                PayPal 
+              </Radio>
             </HStack>
           </RadioGroup>
 
