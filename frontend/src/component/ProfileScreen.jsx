@@ -1,68 +1,129 @@
 import { Store } from "../Store";
-import {Helmet} from 'react-helmet-async'
-import { useContext, useState } from "react";
+import { Helmet } from "react-helmet-async";
+import { useContext, useReducer, useState } from "react";
 import {
-    FormControl,
-    FormLabel,
-}from '@chakra-ui/react'
+  Box,
+  Button,
+  Center,
+  FormControl,
+  FormLabel,
+  Input,
+  Text,
+} from "@chakra-ui/react";
+import { toast } from "react-toastify";
+import { getError } from "../utils";
+import axios from "axios";
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "UPDATE_REQUEST":
+      return { ...state, loadingUpdate: true };
+    case "UPDATE_SUCCESS":
+      return { ...state, loadingUpdate: false };
+    case "UPDATE_FAIL":
+      return { ...state, loadingUpdate: false };
+
+    default:
+      return state;
+  }
+};
+
 function ProfileScreen() {
-const [name,setName]=useState(userInfo.name);
-const [email,setEmail]=useState(userInfo.email);
-const [password,setPassword]=useState('');
-const [confirmPassword,setConfirmPassword]=useState('');
-
-const submitHandler =async()=>{
-
-}
-
-
-
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+  const [name, setName] = useState(userInfo.name);
+  const [email, setEmail] = useState(userInfo.email);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
+    loadingUpdate: false,
+  });
 
-  return( 
-  <>
-  <Helmet>
-    <title>User Profile</title>
-  </Helmet>
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.put(
+        "/api/users/profile",
+        {
+          name,
+          email,
+          password,
+        },
+        {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        }
+      );
+      dispatch({
+        type: "UPDATE_SUCCESS",
+      });
+      ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      toast.success("User updated successfully");
+    } catch (err) {
+      dispatch({
+        type: "FETCH_FAIL",
+      });
+      toast.error(getError(err));
+    }
+  };
 
-  <h1>User Profile</h1>
-<form onSubmit={submitHandler}>
+  return (
+    <>
+      <Helmet>
+        <title>User Profile</title>
+      </Helmet>
 
-<FormLabel>Name</FormLabel>
-<FormControl 
-value={name}
-onChange={(e)=> setName(e.target.value)}
-required
-/>
+      <Text textAlign="center" fontSize="3xl">
+        User Profile
+      </Text>
+      <Center h="87vh">
+        <form onSubmit={submitHandler}>
+          <Box
+            bg="red"
+            h="70vh"
+            // display="flex"
+            justifyContent="space-around"
+          >
+            <FormLabel>Name</FormLabel>
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
 
+            <FormLabel>Email</FormLabel>
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
+            <FormLabel>Password</FormLabel>
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
 
-<FormLabel>Email</FormLabel>
-<FormControl 
-value={email}
-onChange={(e)=> setEmail(e.target.value)}
-required
-/>
+            <FormLabel>confirm Password</FormLabel>
+            <Input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
 
-<FormLabel>Password</FormLabel>
-<FormControl 
-value={password}
-onChange={(e)=> setPassword(e.target.value)}
-required
-/>
-
-
-
-<FormLabel>confirm Password</FormLabel>
-<FormControl 
-value={confirmPassword}
-onChange={(e)=> setConfirmPassword(e.target.value)}
-required
-/>
-</form>
-  </>
-  )}
+            <Box>
+              <Button type="submit">Update</Button>
+            </Box>
+          </Box>
+        </form>
+      </Center>
+    </>
+  );
+}
 
 export default ProfileScreen;

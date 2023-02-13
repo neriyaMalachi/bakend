@@ -9,12 +9,12 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {ToastContainer} from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "../Store";
-import {  HamburgerIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -24,14 +24,13 @@ function NavBar() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("Paymentmethod");
-
+    // window.localStorage.href = "/signin";
   };
 
   return (
-    
     <Grid
-    // opacity={0.5}
-    bg="whitesmoke"
+      // opacity={0.5}
+      bg="whitesmoke"
       color="black"
       h="100%"
       display="flex"
@@ -39,24 +38,21 @@ function NavBar() {
       textDecorationLine="underline"
       alignItems="center"
       fontSize="xl"
- 
       boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
     >
-      <ToastContainer position="bottom-center"  limit={1} />
+      <ToastContainer position="bottom-center" limit={1} />
       <GridItem>
-        <Link  to="/">דף הבית</Link>
+        <Link to="/">דף הבית</Link>
       </GridItem>
       <GridItem textAlign="center">
         {cart.cartItems.length > 0 && (
-          <Button borderRadius="40%" bg="red"  size="xs">
+          <Button borderRadius="40%" bg="red" size="xs">
             {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
           </Button>
         )}
-        <Link  to="/cart">
-          עגלת קניות
-        </Link>
+        <Link to="/cart">עגלת קניות</Link>
       </GridItem>
-      <GridItem   display="flex" justifyContent="flex-end">
+      <GridItem display="flex" justifyContent="flex-end">
         {userInfo ? (
           <Menu title={userInfo.name}>
             <MenuButton
@@ -66,10 +62,10 @@ function NavBar() {
               variant="outline"
               borderRadius="30%"
             />
-            <MenuList bg="black" >
-              <Link to="/profil">
+            <MenuList bg="black">
+              <Link to="/profile">
                 {" "}
-                <MenuItem textColor="black" >User Profile</MenuItem>
+                <MenuItem textColor="black">User Profile</MenuItem>
               </Link>
 
               <Link to="/orderhistory">
@@ -77,12 +73,12 @@ function NavBar() {
                 <MenuItem textColor="black">Order History</MenuItem>
               </Link>
               <Link to="#signout" onClick={signoutHandlet}>
-                <MenuItem textColor="black" >Sign Out</MenuItem>
+                <MenuItem textColor="black">Sign Out</MenuItem>
               </Link>
             </MenuList>
           </Menu>
         ) : (
-          <Card  >
+          <Card>
             <Link to="/signin">Sign In</Link>
           </Card>
         )}

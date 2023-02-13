@@ -8,6 +8,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Flex,
   Grid,
   GridItem,
   Image,
@@ -81,7 +82,6 @@ function OrderScreen() {
         return orderID;
       });
   }
-
   function onApprove(data, actions) {
     return actions.order.capture().then(async function (details) {
       try {
@@ -153,15 +153,17 @@ function OrderScreen() {
       <AlertDescription>{error}</AlertDescription>
     </Alert>
   ) : (
-    <Grid dir="rtl">
+    <Grid dir="rtl" templateColumns="repeat(2,1fr)" templateRows="repeat(1)">
       <Helmet>
         <title>order {orderId}</title>
       </Helmet>
-      <Text as="mark" fontSize="2xl">
-        מספר הזמנה: {orderId}
-      </Text>
+      <GridItem gridColumn="1" gridRow="1">
+        <Text as="mark" fontSize="2xl">
+          מספר הזמנה: {orderId}
+        </Text>
+      </GridItem>
       {/* Grid for address the user */}
-      <GridItem gridColumn="1">
+      <GridItem gridColumn="1" gridRow="2">
         <Card border="1px solid">
           <CardHeader>
             <Text fontSize={"xl"}> משלוח עבור:</Text>
@@ -188,42 +190,29 @@ function OrderScreen() {
         </Card>
       </GridItem>
       {/* Grid for pay */}
-      <GridItem gridColumn="1">
+      <GridItem gridColumn="1" gridRow="3">
         <Card border="1px solid">
           <CardHeader>תשלום</CardHeader>
+
           <CardBody>
-            {/* <Text fontSize="xl">שיטת תשלום</Text> */}
+{order.isPaid ? (
+  <Alert status='success'>
+  <AlertIcon />
+Paid at {order.paidAt}
+</Alert>
+):(
+  <Alert status='error'>
+  <AlertIcon />
+Not Paid
+</Alert>
+)}
 
-            {/* <PayPalScriptProvider
-                options={{ "client-id": clientId11 }}
 
-                
-              >
-                <PayPalButtons />
-              </PayPalScriptProvider> */}
           </CardBody>
-          <CardFooter>
-            {!order.isPaid && (
-              <Box>
-                {isPending ? (
-                  <LoadingBox />
-                ) : (
-                  <div>
-                    <PayPalButtons
-                      createOrder={createOrder}
-                      onApprove={onApprove}
-                      onError={onError}
-                    ></PayPalButtons>
-                  </div>
-                )}
-                {loadingPay && <LoadingBox></LoadingBox>}
-                
-              </Box>
-            )}
-          </CardFooter>
         </Card>
       </GridItem>
-      <GridItem gridColumn="1">
+      {/* Grid for Item */}
+      <GridItem gridColumn="1" gridRow="4">
         <Card border="1px solid">
           <CardHeader>Items</CardHeader>
           <CardBody>
@@ -262,9 +251,10 @@ function OrderScreen() {
           </CardBody>
         </Card>
       </GridItem>
+      {/* Grid for order */}
       <GridItem
         gridColumn="2"
-        gridRowEnd="3"
+        gridRow="2  "
         display="flex"
         textAlign="center"
         justifyContent="center"
@@ -280,23 +270,42 @@ function OrderScreen() {
 
           <GridItem>
             <Text>Item</Text>
-            <Text>${order.itemsPrice.toFixed(2)}</Text>
+            <Text>{order.itemsPrice.toFixed(2)} ש"ח </Text>
           </GridItem>
           <hr />
           <GridItem>
             <Text>Shipping</Text>
-            <Text>${order.shippingPrice.toFixed(2)}</Text>
+            <Text>{order.shippingPrice.toFixed(2)} ש"ח </Text>
           </GridItem>
           <hr />
           <GridItem>
             <Text>Tax</Text>
-            <Text>${order.taxPrice.toFixed(2)}</Text>
+            <Text>{order.taxPrice.toFixed(2)} ש"ח </Text>
           </GridItem>
           <hr />
           <GridItem>
             <Text fontSize="2xl"> Order Total</Text>
 
-            <Text>${order.totalPrice.toFixed(2)} </Text>
+            <Text>{order.totalPrice.toFixed(2)} ש"ח </Text>
+
+            <Flex justifyContent="center" alignItems="center">
+              {!order.isPaid && (
+                <Box justifyItems="center" alignItems="start" w="50%">
+                  {isPending ? (
+                    <LoadingBox />
+                  ) : (
+                    <div>
+                      <PayPalButtons
+                        createOrder={createOrder}
+                        onApprove={onApprove}
+                        onError={onError}
+                      ></PayPalButtons>
+                    </div>
+                  )}
+                  {loadingPay && <LoadingBox></LoadingBox>}
+                </Box>
+              )}
+            </Flex>
           </GridItem>
         </GridItem>
       </GridItem>

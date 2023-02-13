@@ -13,7 +13,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import axios from "axios";
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
@@ -22,11 +22,11 @@ import LoadingBox from "./LoadingBox";
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case "FATCH_REQUEST":
+    case "FETCH_REQUEST":
       return { ...state, loading: true };
-    case "FATCH_success":
+    case "FETCH_SUCCESS":
       return { ...state, orders: action.payload, loading: false };
-    case "FATCH_FAIL":
+    case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
       return state;
@@ -43,24 +43,28 @@ function OrderHistoryScreen() {
     error: "",
   });
 
-  useContext(() => {
-    const fatchData = async () => {
-      dispatch({ type: "FATCH_REQUEST" });
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const { data } = await axios.get(`api/orders/mine`, {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
-        dispatch({ type: "FATCH_SUCCESS", payload: data });
+        const { data } = await axios.get(
+          `/api/orders/mine`,
+
+          { headers: { Authorization: `Bearer ${userInfo.token}` } }
+        );
+        dispatch({ type: 'FETCH_SUCCESS', payload: data });
       } catch (error) {
         dispatch({
-          type: "FATCH_FAIL",
+          type: 'FETCH_FAIL',
           payload: getError(error),
         });
       }
     };
-    fatchData();
+    fetchData();
   }, [userInfo]);
- console.log(orders)
+ 
+ 
+  console.log(orders)
 
   return (
     <>
@@ -91,15 +95,15 @@ function OrderHistoryScreen() {
             </Thead>
 
             {orders.map((order) => (
-              <Tbody>
+              <Tbody key={order._id} >
                 <Tr key={order._id}>
                   <Td>{order._id}</Td>
-                  <Td>{order.createdAt.substring(0, 10)}</Td>
+                  <Td>{order.createdAt.substring(10)}</Td>
                   <Td>{order.totalPrice.toFixed(2)}</Td>
-                  <Td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</Td>
+                  <Td>{order.isPaid ? order.paidAt : "No"}</Td>
                   <Td isNumeric>
                     {order.isDeliverd
-                      ? order.deliveredAt.substring(0, 10)
+                      ? order.deliveredAt.substring(10)
                       : "NO"}
                   </Td>
                   <Td>
