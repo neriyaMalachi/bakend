@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Card,
   Grid,
@@ -14,7 +15,7 @@ import "react-toastify/dist/ReactToastify.css";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Store } from "../Store";
-import { HamburgerIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -106,6 +107,38 @@ function NavBar() {
           <Card>
             <Link to="/signin">Sign In</Link>
           </Card>
+        )}
+
+        {userInfo && userInfo.isAdmin && (
+          <Box title="Admin">
+            <Menu>
+              {({ isOpen }) => (
+                <>
+                  <MenuButton
+                    isActive={isOpen}
+                    as={Button}
+                    rightIcon={<ChevronDownIcon />}
+                  >
+                    {isOpen ? "Close" : "Admin"}
+                  </MenuButton>
+                  <MenuList>
+                    <Link to="/Admin/dashbord">
+                      <MenuItem>Dashbord</MenuItem>
+                    </Link>
+                    <Link to="/Admin/products">
+                      <MenuItem>Products</MenuItem>
+                    </Link>
+                    <Link to="/Admin/orders">
+                      <MenuItem>Orders</MenuItem>
+                    </Link>
+                    <Link to="/Admin/users">
+                      <MenuItem>Users</MenuItem>
+                    </Link>
+                  </MenuList>
+                </>
+              )}
+            </Menu>
+          </Box>
         )}
       </GridItem>
     </Grid>

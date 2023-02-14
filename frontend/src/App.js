@@ -13,23 +13,49 @@ import PlaceOrderScreen from "./component/PlaceOrderScreen";
 import OrderScreen from "./component/OrderScreen";
 import OrderHistoryScreen from "./component/OrderHistoryScreen";
 import ProfileScreen from "./component/ProfileScreen";
+import ProtectedRoute from "./component/ProtectedRoute";
+import DashboardScreen from "./component/DashboardScreen";
+import AdminRoutes from "./component/AdminRoutes";
 function App() {
   return (
     <ChakraProvider>
       <BrowserRouter>
         <NavBar />
         <Routes>
-          <Route path="/" element={<HomeFile />} />
           <Route path="/product/:slug" element={<ProductFile />} />
           <Route path="/cart" element={<CartScreen />} />
           <Route path="/signIn" element={<SigninScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="/payment" element={<PaymentMethodScreen />} />
           <Route path="/placeorder" element={<PlaceOrderScreen />} />
-          <Route path="/order/:id" element={<OrderScreen />} />
           <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
-          <Route path="/orderHistory" element={<OrderHistoryScreen />} />
-          <Route path="/profile" element={<ProfileScreen />} />
+          <Route
+            path="/orderHistory"
+            element={
+              <ProtectedRoute>
+                <OrderHistoryScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfileScreen />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/order/:id"
+            element={
+              <ProtectedRoute>
+                <OrderScreen />
+              </ProtectedRoute>
+            }
+          />
+          {/* Admin routes */}
+          <Route path="/admin/dashboard" element={<AdminRoutes><DashboardScreen/></AdminRoutes>}/>
+          <Route path="/" element={<HomeFile />} />
 
         </Routes>
       </BrowserRouter>
