@@ -24,14 +24,16 @@ function NavBar() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("Paymentmethod");
-    // window.localStorage.href = "/signin";
+    window.localStorage.href = "/signin";
   };
 
   return (
     <Grid
       // opacity={0.5}
-      bg="whitesmoke"
-      color="black"
+      color="whitesmoke"
+      bg={
+        " radial-gradient(circle, rgba(252,130,69,0.5606617647058824) 0%, rgba(189,68,68,1) 0%, rgba(74,69,52,1) 15%, rgba(3,3,3,1) 100%)"
+      }
       h="100%"
       display="flex"
       justifyContent="space-between"
@@ -62,18 +64,41 @@ function NavBar() {
               variant="outline"
               borderRadius="30%"
             />
-            <MenuList bg="black">
+            <MenuList
+              bg={
+                " radial-gradient(circle, rgba(252,130,69,0.5606617647058824) 0%, rgba(189,68,68,1) 0%, rgba(74,69,52,1) 15%, rgba(3,3,3,1) 100%)"
+              }
+              color="whiteSmock"
+            >
               <Link to="/profile">
                 {" "}
-                <MenuItem textColor="black">User Profile</MenuItem>
+                <MenuItem
+                  bg={
+                    " radial-gradient(circle, rgba(252,130,69,0.5606617647058824) 0%, rgba(189,68,68,1) 0%, rgba(74,69,52,1) 15%, rgba(3,3,3,1) 100%)"
+                  }
+                >
+                  User Profile
+                </MenuItem>
               </Link>
 
               <Link to="/orderhistory">
                 {" "}
-                <MenuItem textColor="black">Order History</MenuItem>
+                <MenuItem
+                  bg={
+                    " radial-gradient(circle, rgba(252,130,69,0.5606617647058824) 0%, rgba(189,68,68,1) 0%, rgba(74,69,52,1) 15%, rgba(3,3,3,1) 100%)"
+                  }
+                >
+                  Order History
+                </MenuItem>
               </Link>
-              <Link to="#signout" onClick={signoutHandlet}>
-                <MenuItem textColor="black">Sign Out</MenuItem>
+              <Link to="/signin" onClick={signoutHandlet}>
+                <MenuItem
+                  bg={
+                    " radial-gradient(circle, rgba(252,130,69,0.5606617647058824) 0%, rgba(189,68,68,1) 0%, rgba(74,69,52,1) 15%, rgba(3,3,3,1) 100%)"
+                  }
+                >
+                  Sign Out
+                </MenuItem>
               </Link>
             </MenuList>
           </Menu>

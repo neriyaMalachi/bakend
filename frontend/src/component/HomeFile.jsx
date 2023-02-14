@@ -4,7 +4,7 @@ import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
-import bgImage from '../img/backgroundHomeFile_2.png'
+import bgImage from '../img/recopilaciones-de-pinceles.jpg'
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
