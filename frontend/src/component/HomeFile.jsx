@@ -1,10 +1,10 @@
 import { useReducer, useEffect } from "react";
-import { Box,Center } from "@chakra-ui/react";
+import { Box, Center } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
-import bgImage from '../img/recopilaciones-de-pinceles.jpg'
+// import bgImage from '../img/hookah-bar-bg.png'
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -42,7 +42,7 @@ function HomeFile() {
   }, []);
 
   return loading ? (
-    <LoadingBox/>
+    <LoadingBox />
   ) : error ? (
     <Center>{error}</Center>
   ) : (
@@ -50,19 +50,12 @@ function HomeFile() {
       display="flex"
       flexWrap="wrap"
       justifyContent="space-around"
-       mt="0.3%"
-      bgImage={bgImage}
-      bgRepeat="no-repeat"
-      bgSize="100% 100%"
-      bgAttachment="fixed"
-      bgPosition="center"
-      bg="blach"
+      mt="0.3%"
       boxSize="100vh"
-      
- w="100%"
+      w="100%"
     >
       <Helmet>
-        <title>Home page</title>
+        <title>דף הבית</title>
       </Helmet>
 
       {propertis.map((product) => (

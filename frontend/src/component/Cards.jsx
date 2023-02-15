@@ -9,6 +9,8 @@ import {
   Divider,
   Box,
   Flex,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -18,7 +20,7 @@ import { StarIcon } from "@chakra-ui/icons";
 
 function Cards(props) {
   const { product } = props;
-  
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { cartItems },
@@ -44,46 +46,56 @@ function Cards(props) {
       // flexWrap="wrap"
       alignContent="flex-start"
       w="15%"
-       h="70%"
+      h="70%"
       border="1px solid"
-      bg="rgb(252,130,69,0.40)"
+      bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
     >
       <CardBody>
-        <Link  to={`/product/${product.slug}`}>
-          <Image src={product.image} alt={product.name} w="150px" h="200px" />
-        </Link>
-
-        <Stack >
-          <Link to={`/product/${product.slug}`}>
-            <Heading size="md">{product.name}</Heading>
-          </Link>
-          <strong>
-            <Text color="blue.600" fontSize="2xl">
-              {product.price}
-            </Text>
-          </strong>
-        </Stack>
-        
-        <span color="gold">Rating:
-     
-                <Box   >
-                  {Array(5)
-                    .fill("")
-                    .map((_,i) => (
-                      <StarIcon
-                        key={i}
-                        color={i < product.rating ? "yellow" : "white"}
-                      />
-                    ))}
-                </Box>
-             </span>
-            
+        <Grid
+        h="105%"
+        >
+          <GridItem>
+            <Link to={`/product/${product.slug}`}>
+              <Image
+                filter="contrast(90%)"
+                _hover={{ filter: "contrast(100%)" }}
+                src={product.image}
+                alt={product.name}
+                w="300px"
+                h="200px"
+              />
+            </Link>
+          </GridItem>
+          <GridItem>
+            <Link to={`/product/${product.slug}`}>
+              <Heading size="md">{product.name}</Heading>
+            </Link>
+          </GridItem>
+          <GridItem>
+            <strong>
+              <Text fontSize="2xl">{product.price}</Text>
+            </strong>
+          </GridItem>
+          <GridItem>
+            <Heading fontSize="100%"> Rating:</Heading>
+            <Box>
+              {Array(5)
+                .fill("")
+                .map((_, i) => (
+                  <StarIcon
+                    key={i}
+                    color={i < product.rating ? "yellow" : "white"}
+                  />
+                ))}
+            </Box>
+          </GridItem>
+          <Heading fontSize="100%">Reviews:{product.numReviews} </Heading>
+        </Grid>
       </CardBody>
-      <span color="gold">Reviews:{product.numReviews} </span>
-         
+
       {product.countInStock === 0 ? (
         <CardFooter>
-          <ButtonGroup >
+          <ButtonGroup>
             <Button
               p="15%"
               bg="gold"
@@ -96,19 +108,17 @@ function Cards(props) {
           </ButtonGroup>
         </CardFooter>
       ) : (
-        <CardFooter>
-          <ButtonGroup spacing="2">
-            <Button
-              p="15%"
-              bg="silver"
-              w="15vh"
-              borderRadius="10%"
-              onClick={() => addToCartHandler(product)}
-            >
-              הוסף לעגלה
-            </Button>
-          </ButtonGroup>
-        </CardFooter>
+        <Button
+          p="15%"
+          bg="silver"
+          w="24.7vh"
+          borderRadius="none"
+          onClick={() => addToCartHandler(product)}
+        >
+          <CardFooter>
+            <ButtonGroup>הוסף לעגלה</ButtonGroup>
+          </CardFooter>
+        </Button>
       )}
 
       {/* <Divider /> */}

@@ -118,11 +118,15 @@ function NavBar() {
                     isActive={isOpen}
                     as={Button}
                     rightIcon={<ChevronDownIcon />}
+                    bg="yellow"
+                    color="red"
                   >
                     {isOpen ? "Close" : "Admin"}
                   </MenuButton>
-                  <MenuList>
-                    <Link to="/Admin/dashbord">
+                  <MenuList
+                  color="black"
+                  >
+                    <Link to="/Admin/dashboard">
                       <MenuItem>Dashbord</MenuItem>
                     </Link>
                     <Link to="/Admin/products">
