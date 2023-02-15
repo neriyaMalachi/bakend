@@ -53,20 +53,21 @@ function CartScreen() {
       </Helmet>
 
       {cartItems.length === 0 ? (
-        <Box bg="tomato" w="100%" p={4} color="white">
+        <Box bg="tomato"  w="100%" p={4} color="white">
           Cart is empty. <Link to="/">Go Shoping</Link>
         </Box>
       ) : (
-        <Stack isInline gap={3} alignItems="center">
-          <Grid w="100%" ml="3%">
+        <Stack isInline gap={3} mt="4%" h="91vh">
+          <Grid w="70%" h="50vh" ml="3%" >
             {cartItems.map((item) => (
-              <GridItem gridGap={2} mt="4%" key={item._id}>
+              <GridItem  justifyContent="space-around" key={item._id}>
                 <Card
                   display="flex"
-                  justifyContent="space-between"
+                  justifyContent="space-around"
                   flexDirection="row"
                   alignItems="center"
                   w="90%"
+                  bg="silver"
                   boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                 >
                   <Image
@@ -118,7 +119,7 @@ function CartScreen() {
             ))}
           </Grid>
           <hr />
-          <Card bg="red" w="30%" h="160px" display="flex">
+          <Card bg="silver" w="30%" h="160px" display="flex">
             <CardBody>
               <h3 dir="rtl">
                 כמות מוצרים {" - "}{" "}
@@ -132,6 +133,7 @@ function CartScreen() {
               <Button
                 onClick={checkoutHandler}
                 disabled={cartItems.length === 0}
+                bg="orange.300"
               >
                 Process to Checkout
               </Button>

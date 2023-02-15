@@ -87,14 +87,20 @@ function ProductFile() {
         variant="outline"
         display="flex"
         justifyContent="center"
-        h="90vh"
+        h="91vh"
       >
-        <Box display="flex" alignItems="center">
+        <Box
+          display="flex"
+          alignItems="center"
+          bg="wh"
+        >
           <Image
             src={propertis.image}
             alt="Caffe Latte"
+            filter="contrast(60%)"
+            _hover={{ filter: "contrast(100%)" }}
             p="12%"
-            h="70%"
+            h="55%"
             w="80%"
           />
         </Box>
@@ -104,10 +110,10 @@ function ProductFile() {
           w="80%"
           h="100%"
           justifyContent="space-between"
-          // bg="silver"
+         
           alignItems="center"
         >
-          <Card w="60%" textAlign="end" color="green">
+          <Card w="60%" textAlign="end"  bg="silver" color="black">
             <CardHeader>
               <Heading size="md"> {propertis.name} </Heading>
             </CardHeader>
@@ -143,15 +149,16 @@ function ProductFile() {
             textAlign="end"
             border="silver 1px solid"
             p="3%"
+            bg="silver"
           >
             <CardHeader>
               <Heading size="md"> {propertis.price} :מחיר </Heading>
-              <hr color="silver" />
+              <hr color="black" />
             </CardHeader>
             <CardBody>
               {propertis.countInStock > 0 ? (
                 <Text>
-                  <Button bg="green" border="none">
+                  <Button bg="green.400" border="none">
                     קיים במלאי{" "}
                   </Button>{" "}
                   :מצב מוצר{" "}
@@ -169,10 +176,8 @@ function ProductFile() {
             {propertis.countInStock > 0 ? (
               <CardFooter>
                 <Button
-                
                   variant="solid"
                   bg="yellow"
-                  borderRadius="30%"
                   onClick={addToCartHandler}
                 >
                   הוסף להגלה

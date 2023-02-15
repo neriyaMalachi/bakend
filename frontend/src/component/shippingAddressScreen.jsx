@@ -60,8 +60,12 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="90vh" >
-    <Card>
+    <Center h="91vh" >
+    <Card 
+    p="4%"
+   bg="   radial-gradient(circle, rgba(7,65,2,1) 0%, rgba(181,181,181,0.9248074229691877) 0%)"
+  
+    >
       <Helmet>
         <title>Shiping Address</title>
       </Helmet>
@@ -71,16 +75,17 @@ function ShippingAddressScreen() {
           // divider={<StackDivider borderColor="gray.200" />}
           spacing={4}
           align="stretch"
-          
           zIndex={1}
+          
         >
-          <Box h="40px" >
+          <Box h="40px"   >
             <Input
               placeholder="Full name"
               size="lg"
               value={fullName}
               required
               onChange={(e) => setFullName(e.target.value)}
+             
             />
           </Box>
 

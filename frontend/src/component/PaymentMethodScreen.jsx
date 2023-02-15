@@ -40,16 +40,19 @@ function PaymentMethodScreen() {
     <>
       <CheckOutSteps step1 step2 step3></CheckOutSteps>
 
-      <ChakraProvider>
+      <ChakraProvider
+       
+      >
         <Helmet>
           <title>payment Method</title>
         </Helmet>
+        
         <Text fontSize={"2xl"} textAlign="center">
           payment Method
         </Text>
         <form onSubmit={submitHandler}>
           <RadioGroup
-            defaultValue="Itachi"
+        defaultValue="Itachi"
 
             //   justifyContent="center"
             //   alignItems="center"
