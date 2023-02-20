@@ -8,15 +8,22 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Flex,
   Grid,
   GridItem,
   Image,
   Stack,
   Text,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+import {
+  DeleteIcon,
+  SmallCloseIcon,
+  TriangleDownIcon,
+  TriangleUpIcon,
+} from "@chakra-ui/icons";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Media from "react-media";
 
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -53,93 +60,206 @@ function CartScreen() {
       </Helmet>
 
       {cartItems.length === 0 ? (
-        <Box bg="tomato"  w="100%" p={4} color="white">
+        <Box bg="tomato" w="100%" p={4} color="white">
           Cart is empty. <Link to="/">Go Shoping</Link>
         </Box>
       ) : (
-        <Stack isInline gap={3} mt="4%" h="91vh">
-          <Grid w="70%" h="50vh" ml="3%" >
-            {cartItems.map((item) => (
-              <GridItem  justifyContent="space-around" key={item._id}>
-                <Card
-                  display="flex"
-                  justifyContent="space-around"
-                  flexDirection="row"
-                  alignItems="center"
-                  w="90%"
-                  bg="silver"
-                  boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
-                >
-                  <Image
-                    objectFit="cover"
-                    h="90px"
-                    w="90px"
-                    src={item.image}
-                    alt="Caffe Latte"
-                  />
+        <Media query="(min-width: 900px)">
+          {(matches) => {
+            return matches ? (
+              <Stack isInline gap={3} mt="4%" h="91vh">
+                <Grid w="70%" h="50vh" ml="3%">
+                  {cartItems.map((item) => (
+                    <GridItem justifyContent="space-around" key={item._id}>
+                      <Card
+                        display="flex"
+                        justifyContent="space-around"
+                        flexDirection="row"
+                        alignItems="center"
+                        w="90%"
+                        bg="silver"
+                        boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
+                      >
+                        <Image
+                          objectFit="cover"
+                          h="90px"
+                          w="90px"
+                          src={item.image}
+                          alt="Caffe Latte"
+                        />
 
-                  <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
 
-                  <Box
-                    w="10%"
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    key={item._id}
-                  >
-                    <Button
-                      borderRadius="50%"
-                      color="black"
-                      colorScheme="white"
-                      onClick={() => UpdateCartHandler(item, item.quantity + 1)}
-                      disabled={item.quantity === item.countInStock}
-                    >
-                      +
-                    </Button>{" "}
-                    <Text>{item.quantity}</Text>{" "}
-                    <Button
-                      color="black"
-                      colorScheme="white"
-                      borderRadius="50%"
-                      onClick={() => UpdateCartHandler(item, item.quantity - 1)}
-                      disabled={item.quantity === 1}
-                    >
-                      -
-                    </Button>
-                  </Box>
+                        <Box
+                          w="10%"
+                          display="flex"
+                          justifyContent="space-between"
+                          alignItems="center"
+                          key={item._id}
+                        >
+                          <Button
+                            borderRadius="50%"
+                            color="black"
+                            colorScheme="white"
+                            onClick={() =>
+                              UpdateCartHandler(item, item.quantity + 1)
+                            }
+                            disabled={item.quantity === item.countInStock}
+                          >
+                            +
+                          </Button>{" "}
+                          <Text>{item.quantity}</Text>{" "}
+                          <Button
+                            color="black"
+                            colorScheme="white"
+                            borderRadius="50%"
+                            onClick={() =>
+                              UpdateCartHandler(item, item.quantity - 1)
+                            }
+                            disabled={item.quantity === 1}
+                          >
+                            -
+                          </Button>
+                        </Box>
 
-                  <Box>{item.price}</Box>
+                        <Box>{item.price}</Box>
 
-                  <DeleteIcon
-                    color="red.500"
-                    onClick={() => RemoovItemHendler(item)}
-                  />
-                </Card>
-              </GridItem>
-            ))}
-          </Grid>
-          <hr />
-          <Card bg="silver" w="30%" h="160px" display="flex">
-            <CardBody>
-              <h3 dir="rtl">
-                כמות מוצרים {" - "}{" "}
-                {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                        <DeleteIcon
+                          color="red.500"
+                          onClick={() => RemoovItemHendler(item)}
+                        />
+                      </Card>
+                    </GridItem>
+                  ))}
+                </Grid>
                 <hr />
-                ש"ח : {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
-              </h3>
-              <hr />
-            </CardBody>
-            <CardFooter>
-              <Button
-                onClick={checkoutHandler}
-                disabled={cartItems.length === 0}
-                bg="orange.300"
-              >
-                Process to Checkout
-              </Button>
-            </CardFooter>
-          </Card>
-        </Stack>
+                <Card bg="silver" w="30%" h="160px" display="flex">
+                  <CardBody>
+                    <h3 dir="rtl">
+                      כמות מוצרים {" - "}{" "}
+                      {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      <hr />
+                      ש"ח :{" "}
+                      {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
+                    </h3>
+                    <hr />
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      onClick={checkoutHandler}
+                      disabled={cartItems.length === 0}
+                      bg="orange.300"
+                    >
+                      Process to Checkout
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </Stack>
+            ) : (
+              <Flex justifyContent="space-around" bg="black">
+                <Grid w="100%" h="100vh">
+                  {cartItems.map((item) => (
+                    <GridItem key={item._id}>
+                      <Card
+                        display="flex"
+                        justifyContent="space-between"
+                        flexDirection="row"
+                        alignItems="center"
+                        w="100%"
+                        bg="silver"
+                        boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
+                        h="80%"
+                      >
+                        <Box h="100%">
+                          <SmallCloseIcon
+                            flex="start"
+                            color="red.500"
+                            boxSize={7}
+                            onClick={() => RemoovItemHendler(item)}
+                          />
+                          <Box display="flex" flex="end" h="50%" fontSize="xl">
+                            <Box
+                              w="20%"
+                              display="flex"
+                              justifyContent="space-between"
+                              alignItems="center"
+                              key={item._id}
+                            >
+                              <Button
+                                fontSize="xl"
+                                color="black"
+                                colorScheme="white"
+                                onClick={() =>
+                                  UpdateCartHandler(item, item.quantity + 1)
+                                }
+                                disabled={item.quantity === item.countInStock}
+                              >
+                                <TriangleUpIcon boxSize={3} />
+                              </Button>{" "}
+                              <Text>{item.quantity}</Text>{" "}
+                              <Button
+                                color="black"
+                                colorScheme="white"
+                                fontSize="xl"
+                                onClick={() =>
+                                  UpdateCartHandler(item, item.quantity - 1)
+                                }
+                                disabled={item.quantity === 1}
+                              >
+                                <TriangleDownIcon boxSize={3} />
+                              </Button>
+                            </Box>
+                          </Box>
+                        </Box>
+                        <Flex flexDirection="column-reverse" dir="rtl">
+                          <Box>{item.description}</Box>
+                          <Link to={`/product/${item.slug}`}>
+                            סוג:{item.name}
+                          </Link>
+
+                          <Box>מחיר:{item.price} </Box>
+                        </Flex>
+
+                        <Image
+                          objectFit="cover"
+                          h="100%"
+                          w="20%"
+                          src={item.image}
+                          alt="Caffe Latte"
+                        />
+                      </Card>
+                    </GridItem>
+                  ))}
+                  <Card bg="silver" w="100%" h="65%" display="flex">
+                    <CardBody>
+                      <Box fontSize="2xl" dir="rtl">
+                        כמות מוצרים {" - "}{" "}
+                        {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                        <hr />
+                        ש"ח :{" "}
+                        {cartItems.reduce(
+                          (a, c) => a + c.price * c.quantity,
+                          0
+                        )}
+                      </Box>
+                      <hr />
+                    </CardBody>
+                    <CardFooter>
+                      <Button
+                        onClick={checkoutHandler}
+                        disabled={cartItems.length === 0}
+                        bg="yellow"
+                      >
+                        לקופה
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                </Grid>
+                {/* <hr /> */}
+              </Flex>
+            );
+          }}
+        </Media>
       )}
     </>
   );

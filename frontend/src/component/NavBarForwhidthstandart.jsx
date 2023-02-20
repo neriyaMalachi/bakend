@@ -94,7 +94,7 @@ function NavBarForwhidthstandart() {
         <GridItem>
           <Box bg="black" color="white" textAlign="center">
             {" "}
-            499 משלוחים{" "}
+            699 משלוחים{" "}
             <Text as="b" fontSize="120%" color="yellow.200">
               חינם
             </Text>{" "}
@@ -169,7 +169,7 @@ function NavBarForwhidthstandart() {
           <GridItem w="10%">
             {!userInfo ? (
               <Flex justifyContent="end" color="whitesmoke">
-                <Link to="/signin">Sign In</Link>
+                <Link to="/signin">התחבר</Link>
               </Flex>
             ) : (
               <GridItem w="100%">
