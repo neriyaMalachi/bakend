@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   ChakraProvider,
   Container,
   FormControl,
@@ -38,90 +39,67 @@ function PaymentMethodScreen() {
   };
   return (
     <>
-      <CheckOutSteps step1 step2 step3></CheckOutSteps>
+      <Helmet>
+        <title>payment Method</title>
+      </Helmet>
+      
 
-      <ChakraProvider
-       
-      >
-        <Helmet>
-          <title>payment Method</title>
-        </Helmet>
-        
-        <Text fontSize={"2xl"} textAlign="center">
-          payment Method
-        </Text>
-        <form onSubmit={submitHandler}>
-          <RadioGroup
-        defaultValue="Itachi"
-
-            //   justifyContent="center"
-            //   alignItems="center"
+      <form onSubmit={submitHandler}>
+        <RadioGroup 
+          defaultValue="Itachi"
+          h="91vh"
+          bg="radial-gradient(circle, rgba(7,65,2,1) 0%, rgba(181,181,181,0.9248074229691877) 0%)"
+          display="flex"
+          flexDirection="column"
+          justifyContent="space-around"
+        >
+          
+          <Text textAlign="center" >
+           אמצעי תשלום
+          </Text>
+          <HStack
+            spacing="-0.5%"
+            display="flex"
+            flexDirection="column"
+            justifyContent={"space-around"}
+            h="100px"
           >
-            <HStack
-              spacing="-0.5%"
-              display="flex"
-              flexDirection="column"
-              justifyContent={"space-around"}
-              h="100px"
+            <Radio
+              type="radio"
+              id="bit"
+              label="bit"
+              value="bit"
+              checked={paymentMethodName === "bit"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
             >
-              {/* <Radio
-                type="radio"
-                id="PayPal"
-                label="PayPal"
-                value="PayPal"
-                checked={paymentMethodName === "PayPal"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                paypal
-              </Radio>
-              <Radio
-                type="radio"
-                id="Stripe"
-                label="Stripe"
-                value="Stripe"
-                checked={paymentMethodName === "Stripe"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                Stripe
-              </Radio> */}
-              <Radio
-                type="radio"
-                id="bit"
-                label="bit"
-                value="bit"
-                checked={paymentMethodName === "bit"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                ביט
-              </Radio>
-              <Radio
-                type="radio"
-                id="cash"
-                label="cash"
-                value="cash"
-                checked={paymentMethodName === "cash"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                מזומן 
-              </Radio>
-              <Radio
-                type="radio"
-                id="payPal"
-                label="payPal"
-                value="payPal"
-                checked={paymentMethodName === "payPal"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                PayPal 
-              </Radio>
-            </HStack>
-          </RadioGroup>
-
-          <Box display="flex" justifyContent="center" >
-            <Button type="submit">Continue</Button>
+              ביט
+            </Radio>
+            <Radio
+              type="radio"
+              id="cash"
+              label="cash"
+              value="cash"
+              checked={paymentMethodName === "cash"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            >
+              מזומן
+            </Radio>
+            <Radio
+              type="radio"
+              id="payPal"
+              label="payPal"
+              value="payPal"
+              checked={paymentMethodName === "payPal"}
+              onChange={(e) => setPaymentMethod(e.target.value)}
+            >
+              PayPal
+            </Radio>
+          </HStack>
+          <Box display="flex" justifyContent="center">
+            <Button type="submit">להמשיך</Button>
           </Box>
-        </form>
-      </ChakraProvider>
+        </RadioGroup >
+      </form>
     </>
   );
 }

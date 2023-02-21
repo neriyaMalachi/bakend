@@ -32,9 +32,6 @@ function CartScreen() {
     cart: { cartItems },
   } = state;
   const navigate = useNavigate();
-
-  console.log(cartItems);
-
   const UpdateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/propertis/${item._id}`);
     if (data.countInStock < quantity) {
@@ -156,7 +153,7 @@ function CartScreen() {
                 </Card>
               </Stack>
             ) : (
-              <Flex justifyContent="space-around" bg="black">
+              <Flex  bg="white">
                 <Grid w="100%" h="100vh">
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
@@ -166,9 +163,10 @@ function CartScreen() {
                         flexDirection="row"
                         alignItems="center"
                         w="100%"
-                        bg="silver"
+                        bg="whitesmoke"
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                         h="80%"
+                        border="1px solid"
                       >
                         <Box h="100%">
                           <SmallCloseIcon
@@ -230,7 +228,13 @@ function CartScreen() {
                       </Card>
                     </GridItem>
                   ))}
-                  <Card bg="silver" w="100%" h="65%" display="flex">
+                  <Card
+                   bg="whitesmoke" 
+                   w="100%" 
+                   h="65%" 
+                   display="flex"
+                   
+                   >
                     <CardBody>
                       <Box fontSize="2xl" dir="rtl">
                         כמות מוצרים {" - "}{" "}
@@ -248,7 +252,8 @@ function CartScreen() {
                       <Button
                         onClick={checkoutHandler}
                         disabled={cartItems.length === 0}
-                        bg="yellow"
+                        bg="silver"
+                        
                       >
                         לקופה
                       </Button>

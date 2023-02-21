@@ -112,13 +112,12 @@ function SignupScreen() {
               />
               <Button
                 type="submit"
-                bg="yellow"
-                borderRadius="20%"
+                bg="silver"
                 p="1%"
                 w="30%"
                 mt="5%"
               >
-                Sign Up
+               הירשם
               </Button>
             </CardBody>
 
@@ -129,8 +128,8 @@ function SignupScreen() {
               justifyContent="center"
             ></CardFooter>
             <Box>
-              Already have an account?{" "}
-              <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
+              יש לך כבר חשבון?{" "}
+              <Link to={`/signin?redirect=${redirect}`}>התחבר</Link>
             </Box>
           </Card>
         </Center>

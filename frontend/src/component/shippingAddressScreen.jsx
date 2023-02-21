@@ -60,7 +60,7 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="91vh" >
+    <Center h="91vh"  >
     <Card 
     p="4%"
    bg="   radial-gradient(circle, rgba(7,65,2,1) 0%, rgba(181,181,181,0.9248074229691877) 0%)"
@@ -69,7 +69,10 @@ function ShippingAddressScreen() {
       <Helmet>
         <title>Shiping Address</title>
       </Helmet>
-      <CheckOutSteps step1 step2></CheckOutSteps>
+      {/* <CheckOutSteps step1 step2></CheckOutSteps> */}
+      <Box
+      textAlign="center"
+      >פרטי משתמש</Box>
       <form onSubmit={submitHandler}>
         <VStack
           // divider={<StackDivider borderColor="gray.200" />}
@@ -130,7 +133,11 @@ function ShippingAddressScreen() {
           </Box>
         </VStack>
         <CardFooter>
-          <Button variant="primary" type="submit">
+          <Button
+           variant="primary" 
+           type="submit"
+           border="1px solid"
+           >
             התחבר
           </Button>
         </CardFooter>

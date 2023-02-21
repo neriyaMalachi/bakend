@@ -1,7 +1,9 @@
 import {
   Box,
   Button,
+  Center,
   ChakraProvider,
+  Flex,
   Grid,
   GridItem,
   Image,
@@ -18,6 +20,7 @@ import { toast } from "react-toastify";
 import { Store } from "../Store";
 import LoadingBox from "../component/LoadingBox";
 import { getError } from "../utils";
+import Media from "react-media";
 // import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const reducer = (state, action) => {
@@ -92,184 +95,345 @@ function PlaceOrderScreen() {
 
   return (
     <>
-      <ChakraProvider>
-        <CheckOutSteps step1 step2 step3 step4></CheckOutSteps>
-        <Helmet>
-          <title>Preview Order</title>
-        </Helmet>
-
-        <Grid
-          dir="rtl"
-          gap={100}
-          templateRows="repeat12, 1fr)"
-          templateColumns="repeat(2, 1fr)"
-        >
-          <Grid gap={45}>
-            {/* Grid for address */}
+      <Helmet>
+        <title>Preview Order</title>
+      </Helmet>
+      <Media query="(min-width: 990px)">
+        {(matches) => {
+          return matches ? (
             <Grid
               dir="rtl"
-              bg="whitesmoke"
-              boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-              w="100%"
-              rowSpan={2}
-              colSpan={1}
+              gap={100}
+              templateRows="repeat12, 1fr)"
+              templateColumns="repeat(2, 1fr)"
+              h="91vh"
             >
-              <Text>Preview Order</Text>
-
-              <GridItem>
-                <Box
-                  w="7%"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
+              <Grid gap={45}>
+                {/* Grid for address */}
+                <Grid
+                  dir="rtl"
+                  bg="whitesmoke"
+                  boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                  w="100%"
+                  rowSpan={2}
+                  colSpan={1}
                 >
-                  <Text fontSize="xl">שם:</Text>
-                  {"    "}
-                  {cart.shippingAddress.fullName}
-                </Box>
-                <Box
+                  <Text>Preview Order</Text>
+
+                  <GridItem>
+                    <Box
+                      w="7%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Text fontSize="xl">שם:</Text>
+                      {"    "}
+                      {cart.shippingAddress.fullName}
+                    </Box>
+                    <Box
+                      w="40%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Text fontSize="xl">כתובת:</Text>
+                      {cart.shippingAddress.address},{cart.shippingAddress.city}
+                      ,{cart.shippingAddress.postalCode},
+                      {cart.shippingAddress.country}
+                    </Box>
+                  </GridItem>
+                  <Box color="blue">
+                    <Link to="/shipping">שינוי:</Link>
+                  </Box>
+                </Grid>
+
+                {/* Grid for Method */}
+                <Grid
+                  dir="rtl"
+                  bg="whitesmoke"
+                  boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                  w="100%"
+                >
+                  <Text>שיטת תשלום</Text>
+
+                  <Box>
+                    <Box
+                      w="20%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Text fontSize="xl">Method:</Text>
+                      {"    "}
+                      {cart.paymentMethod}
+                    </Box>
+                  </Box>
+                  <Box color="blue">
+                    <Link to="/payment">שינוי:</Link>
+                  </Box>
+                </Grid>
+
+                {/* Stack for items */}
+                <Grid
+                  dir="rtl"
+                  bg="whitesmoke"
+                  w="100%"
+                  boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                >
+                  <Text>פריטים</Text>
+
+                  {cart.cartItems.map((item) => (
+                    <Grid key={item._id}>
+                      <GridItem
+                        display="flex"
+                        w="100%"
+                        h="100%"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        border=" 1px solid"
+                        bg="silver"
+                      >
+                        <GridItem>
+                          <Image
+                            w="60px"
+                            h="60px"
+                            src={item.image}
+                            alt={item.name}
+                            objectFit="contain"
+                          />
+                        </GridItem>
+
+                        <GridItem color="blue.400">
+                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.quantity}</Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.price}</Text>
+                        </GridItem>
+                      </GridItem>
+                    </Grid>
+                  ))}
+
+                  <Link to="/cart">שינוי:</Link>
+                </Grid>
+              </Grid>
+              {/* Stack for order summary */}
+
+              <Grid display="flex" textAlign="center" justifyContent="center">
+                <GridItem
                   w="60%"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
+                  h="55%"
+                  border="1px solid"
+                  borderRadius="30%"
+                  boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                  bg="whitesmoke"
                 >
-                  <Text fontSize="xl">כתובת:</Text>
-                  {cart.shippingAddress.address},{cart.shippingAddress.city},
-                  {cart.shippingAddress.postalCode},
-                  {cart.shippingAddress.country}
-                </Box>
-              </GridItem>
-              <Box color="blue">
-                <Link to="/shipping">Edit:</Link>
-              </Box>
-            </Grid>
+                  <Text fontSize="2xl">Order Summary</Text>
 
-            {/* Grid for Method */}
-            <Grid
-              dir="rtl"
-              bg="whitesmoke"
-              boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-              w="100%"
-              // colSpan={2}
-            >
-              <Text>Preview Order</Text>
+                  <GridItem>
+                    <Text>Item</Text>
+                    <Text>${cart.itemsPrice.toFixed(2)}</Text>
+                  </GridItem>
+                  <hr />
+                  <GridItem>
+                    <Text>Shipping</Text>
+                    <Text>${cart.shippingPrice.toFixed(2)}</Text>
+                  </GridItem>
+                  <hr />
+                  <GridItem>
+                    <Text>Tax</Text>
+                    <Text>${cart.taxPrice.toFixed(2)}</Text>
+                  </GridItem>
+                  <hr />
+                  <GridItem>
+                    <Text fontSize="2xl"> Order Total</Text>
 
-              <Box>
-                <Box
-                  w="7%"
-                  display="flex"
-                  alignItems="center"
-                  justifyContent="space-between"
-                >
-                  <Text fontSize="xl">Method:</Text>
-                  {"    "}
-                  {cart.paymentMethod}
-                </Box>
-              </Box>
-              <Box color="blue">
-                <Link to="/payment">Edit:</Link>
-              </Box>
-            </Grid>
+                    <Text>${cart.totalPrice.toFixed(2)} </Text>
+                  </GridItem>
 
-            {/* Stack for items */}
-            <Grid
-              // justifyContent="space-around"
-              dir="rtl"
-              bg="whitesmoke"
-              w="100%"
-              boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-              // colSpan={1}
-            >
-              <Text>Items3</Text>
-
-              {cart.cartItems.map((item) => (
-                <Grid key={item._id}>
-                  <GridItem
-                    display="flex"
-                    w="100%"
-                    h="100%"
-                    justifyContent="space-around"
-                    alignItems="center"
-                    border=" 1px solid"
+                  <Button
+                    type="button"
+                    onClick={placeOrderHandler}
+                    disabled={cart.cartItems.length === 0}
                     bg="silver"
                   >
-                    <GridItem>
-                      <Image
-                        w="60px"
-                        h="60px"
-                        src={item.image}
-                        alt={item.name}
-                        objectFit="contain"
-                      />
-                    </GridItem>
-
-                    <GridItem color="blue.400">
-                      <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                    </GridItem>
-                    <GridItem>
-                      <Text>{item.quantity}</Text>
-                    </GridItem>
-                    <GridItem>
-                      <Text>{item.price}</Text>
-                    </GridItem>
-                  </GridItem>
-                </Grid>
-              ))}
-
-              <Link to="/cart">Edit:</Link>
+                    Place Order
+                  </Button>
+                </GridItem>
+                {loading && <LoadingBox></LoadingBox>}
+              </Grid>
             </Grid>
-          </Grid>
-          {/* Stack for order summary */}
+          ) : (
+            <Box>
+              <Center dir="rtl">
+                <Flex
+                  flexDirection="column"
+                  justifyContent="space-around"
+                  h="60vh"
+                  w="100%"
+                >
+                  {/* Grid for address */}
+                  <Flex
+                    dir="rtl"
+                    bg="whitesmoke"
+                    boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                    w="49vh"
+                    flexDirection="column"
+                  >
+                    <Text>תצוגת הזמנה</Text>
 
-          <Grid display="flex" textAlign="center" justifyContent="center">
-            <GridItem
-              w="60%"
-              h="80%"
-              border="1px solid"
-              borderRadius="30%"
-              boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-            >
-              <Text fontSize="2xl">Order Summary</Text>
+                    <Box
+                      w="30%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Text fontSize="xl">שם:</Text>
+                      {"    "}
+                      {cart.shippingAddress.fullName}
+                    </Box>
+                    <Box
+                      w="60%"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="space-between"
+                    >
+                      <Text fontSize="xl">כתובת:</Text>
+                      {cart.shippingAddress.address},{cart.shippingAddress.city},
+                      {cart.shippingAddress.postalCode},
+                      {cart.shippingAddress.country}
+                    </Box>
 
-              <GridItem>
-                <Text>Item</Text>
-                <Text>${cart.itemsPrice.toFixed(2)}</Text>
-              </GridItem>
-              <hr />
-              <GridItem>
-                <Text>Shipping</Text>
-                <Text>${cart.shippingPrice.toFixed(2)}</Text>
-              </GridItem>
-              <hr />
-              <GridItem>
-                <Text>Tax</Text>
-                <Text>${cart.taxPrice.toFixed(2)}</Text>
-              </GridItem>
-              <hr />
-              <GridItem>
-                <Text fontSize="2xl"> Order Total</Text>
+                    <Box color="blue">
+                      <Link to="/shipping">עדכן!</Link>
+                    </Box>
+                  </Flex>
 
-                <Text>${cart.totalPrice.toFixed(2)} </Text>
-              </GridItem>
+                  {/* Grid for Method */}
+                  <Box
+                    dir="rtl"
+                    bg="whitesmoke"
+                    boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                    w="100%"
+                  >
+                    <Text>פירטי תשלום</Text>
 
-              <Button
-                type="button"
-                onClick={placeOrderHandler}
-                disabled={cart.cartItems.length === 0}
-               
-              >
-                Place Order
-              </Button>
-              {/* <PayPalScriptProvider
-                options={{ "client-id": clientId }}
-              >
-                <PayPalButtons />
-              </PayPalScriptProvider> */}
-            </GridItem>
-            {loading && <LoadingBox></LoadingBox>}
-          </Grid>
-        </Grid>
-      </ChakraProvider>
+                    <Box>
+                      <Box
+                        w="30%"
+                        display="flex"
+                        alignItems="center"
+                        justifyContent="space-between"
+                      >
+                        <Text fontSize="sm">שיטת תשלום:</Text>
+                        {"    "}
+                        {cart.paymentMethod}
+                      </Box>
+                    </Box>
+                    <Box color="blue">
+                      <Link to="/payment">עדכן:</Link>
+                    </Box>
+                  </Box>
+
+                  {/* Stack for items */}
+
+                  <Box
+                    dir="rtl"
+                    bg="whitesmoke"
+                    w="100%"
+                    boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                  >
+                    <Text>פריטים</Text>
+
+                    {cart.cartItems.map((item) => (
+                      <Grid key={item._id}>
+                        <GridItem
+                          display="flex"
+                          w="100%"
+                          h="100%"
+                          justifyContent="space-around"
+                          alignItems="center"
+                          border=" 1px solid"
+                          bg="silver"
+                        >
+                          <GridItem>
+                            <Image
+                              w="60px"
+                              h="60px"
+                              src={item.image}
+                              alt={item.name}
+                              objectFit="contain"
+                            />
+                          </GridItem>
+
+                          <GridItem color="blue.400">
+                            <Link to={`/product/${item.slug}`}>
+                              {item.name}
+                            </Link>
+                          </GridItem>
+                          <GridItem>
+                            <Text>{item.quantity}</Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text>{item.price}</Text>
+                          </GridItem>
+                        </GridItem>
+                      </Grid>
+                    ))}
+
+                    <Link to="/cart">עדכן:</Link>
+                  </Box>
+                </Flex>
+                {/* Stack for order summary */}
+              </Center>
+              <Box>
+                <Box
+                  border="1px solid"
+                  boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                  bg="white"
+                  dir="rtl"
+                >
+                  <Text fontSize="2xl">סיכום הזמנה</Text>
+
+                  <Flex bg="silver"  justifyContent="space-evenly" >
+                    <Text> פריט</Text>
+                    <Text>${cart.itemsPrice.toFixed(2)}</Text>
+                  </Flex>
+                  <hr />
+                  <Flex bg="silver"  justifyContent="space-evenly">
+                    <Text>משלוח</Text>
+                    <Text>${cart.shippingPrice.toFixed(2)}</Text>
+                  </Flex>
+                  <hr />
+                  <Flex bg="silver"  justifyContent="space-evenly">
+                    <Text>מס</Text>
+                    <Text>${cart.taxPrice.toFixed(2)}</Text>
+                  </Flex>
+                  <hr />
+                  <Flex bg="silver" justifyContent="center" flexDirection="column" alignItems="center" >
+                    <Text fontSize="2xl"> סך כל ההזמנה</Text>
+                    <Text>${cart.totalPrice.toFixed(2)} </Text>
+                  </Flex>
+                  <Flex justifyContent="center" >
+                  <Button
+                    type="button"
+                    onClick={placeOrderHandler}
+                    disabled={cart.cartItems.length === 0}
+                    bg="green.600"
+                  >
+                    בצע הזמנה
+                  </Button>
+                  </Flex>
+                </Box>
+                {loading && <LoadingBox></LoadingBox>}
+              </Box>
+            </Box>
+          );
+        }}
+      </Media>
     </>
   );
 }

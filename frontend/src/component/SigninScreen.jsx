@@ -106,17 +106,17 @@ function SigninScreen() {
             >
               <Button
                 type="submit"
-                bg="chartreuse"
-                borderRadius="15%"
+                bg="silver"
                 p="1%"
                 w="40%"
               >
-                Sign In
+                התחבר
               </Button>
-              <Box  w="200%" alignItems="end" >
-                New customer?{" "}
+              <Box alignItems="end" >
+                לקוח חדש?{" "}
                 <Link to={`/signup?redirect=${redirect}`}>
-                  Create your account
+                <Text as='u'>צור משתמש חדש</Text>
+                
                 </Link>
               </Box>
             </CardFooter>

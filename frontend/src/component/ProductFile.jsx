@@ -221,7 +221,7 @@ function ProductFile() {
                   w="100vh"
                   h="40vh"
                   textAlign="end"
-                  bg="silver"
+                  bg="whitesmoke"
                   color="black"
                   borderRadius="none"
                 >
@@ -235,7 +235,7 @@ function ProductFile() {
                   <CardBody>
                     {propertis.countInStock > 0 ? (
                       <Flex justifyContent={"end"}>
-                        <Text w="25%" bg="green.400" border="none">
+                        <Text w="25%" fontSize="110%" color="green.400" border="none">
                           קיים במלאי
                         </Text>
                         :מצב מוצר{" "}
@@ -277,7 +277,7 @@ function ProductFile() {
                       <CardFooter>
                         <Button
                           variant="solid"
-                          bg="yellow"
+                          bg="silver"
                           onClick={addToCartHandler}
                         >
                           הוסף להגלה
