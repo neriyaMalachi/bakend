@@ -11,10 +11,16 @@ import {
   TableCaption,
   TableContainer,
   Button,
+  Box,
+  Text,
+  Card,
+  CardHeader,
+  CardFooter,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
+import Media from "react-media";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { getError } from "../utils";
@@ -45,33 +51,30 @@ function OrderHistoryScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: "FETCH_REQUEST" });
       try {
         const { data } = await axios.get(
           `/api/orders/mine`,
 
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: "FETCH_FAIL",
           payload: getError(error),
         });
       }
     };
     fetchData();
   }, [userInfo]);
- 
- 
-  console.log(orders)
+
 
   return (
     <>
       <Helmet>
         <title>Order History</title>
       </Helmet>
-      <h1>Order History</h1>
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
@@ -80,48 +83,120 @@ function OrderHistoryScreen() {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ) : (
-        <TableContainer>
-          <Table variant="simple">
-            <TableCaption>Imperial to metric conversion factors</TableCaption>
-            <Thead>
-              <Tr>
-                <Th>ID</Th>
-                <Th>DATE</Th>
-                <Th>TOTAL</Th>
-                <Th>PAID</Th>
-                <Th>DELIVERED</Th>
-                <Th isNumeric>ACTIONS</Th>
-              </Tr>
-            </Thead>
+        <Media query="(min-width: 990px)">
+          {(matches) => {
+            return matches ? (
+              <Box>
+                <TableContainer bg="white">
+                  <Text textAlign="center" fontSize="2xl">
+                    היסטוריית הזמנות
+                  </Text>
+                  <Table variant="simple">
+                    <TableCaption>
+                      Imperial to metric conversion factors
+                    </TableCaption>
+                    <Thead>
+                      <Tr>
+                        <Th>מספר הזמנה</Th>
+                        <Th>תאריך</Th>
+                        <Th>סה"כ</Th>
+                        <Th>שולם</Th>
+                        <Th>נשלח</Th>
+                        <Th isNumeric>פעולות</Th>
+                      </Tr>
+                    </Thead>
 
-            {orders.map((order) => (
-              <Tbody key={order._id} >
-                <Tr key={order._id}>
-                  <Td>{order._id}</Td>
-                  <Td>{order.createdAt.substring(10)}</Td>
-                  <Td>{order.totalPrice.toFixed(2)}</Td>
-                  <Td>{order.isPaid ? order.paidAt : "No"}</Td>
-                  <Td isNumeric>
-                    {order.isDeliverd
-                      ? order.deliveredAt.substring(10)
-                      : "NO"}
-                  </Td>
-                  <Td>
-                    <Button
-                      type="button"
-                      variant="light"
-                      onClick={() => {
-                        navigate(`/order/${order._id}`);
-                      }}
-                    >
-                      Details
-                    </Button>
-                  </Td>
-                </Tr>
-              </Tbody>
-            ))}
-          </Table>
-        </TableContainer>
+                    {orders.map((order) => (
+                      <Tbody key={order._id}>
+                        <Tr key={order._id}>
+                          <Td>{order._id}</Td>
+                          <Td>{order.createdAt.substring(10)}</Td>
+                          <Td>{order.totalPrice.toFixed(2)}</Td>
+                          <Td>{order.isPaid ? order.paidAt : "לא"}</Td>
+                          <Td isNumeric>
+                            {order.isDeliverd
+                              ? order.deliveredAt.substring(10)
+                              : "לא"}
+                          </Td>
+                          <Td>
+                            <Button
+                              type="button"
+                              variant="light"
+                              onClick={() => {
+                                navigate(`/order/${order._id}`);
+                              }}
+                            >
+                              פרטים
+                            </Button>
+                          </Td>
+                        </Tr>
+                      </Tbody>
+                    ))}
+                  </Table>
+                </TableContainer>
+              </Box>
+            ) : (
+              <Box  bg="white" dir="rtl" >
+                  <Text textAlign="center" fontSize="2xl">
+                    היסטוריית הזמנות
+                  </Text>
+                {/* <TableContainer bg="white">
+                  <Text textAlign="center" fontSize="2xl">
+                    היסטוריית הזמנות
+                  </Text>
+                  <Table variant="simple">
+                    <TableCaption>
+                      Imperial to metric conversion factors
+                    </TableCaption>
+                    <Thead>
+                      <Tr>
+                        <Th>מספר הזמנה</Th>
+                        <Th>תאריך</Th>
+                        <Th>סה"כ</Th>
+                        <Th>שולם</Th>
+                        <Th>נשלח</Th>
+                        <Th isNumeric>פעולות</Th>
+                      </Tr>
+                    </Thead> */}
+
+                    {orders.map((order) => (
+                    
+                      <Box key={order._id} >
+                        <Card>
+                          <CardHeader>
+                            
+                            <Text>מספר הזמנה :{" "}{order._id}</Text>
+                            <Text>תאריך:{" "}{order.createdAt.substring(10)}</Text>
+                            <Text>סה"כ:{" "}{order.totalPrice.toFixed(2)}</Text>
+                            <Text>שולם:{" "}{order.isPaid ? order.paidAt : "לא"}</Text>
+                            <Text>
+                            נשלח
+                            :{" "}
+                            {order.isDeliverd
+                              ? order.deliveredAt.substring(10) : "לא"}
+                            </Text>
+                          </CardHeader>
+                          <CardFooter>
+                          <Button
+                              type="button"
+                              variant="light"
+                              onClick={() => {
+                                navigate(`/order/${order._id}`);
+                              }}
+                              bg="green.200"
+                            >
+                              פרטים
+                            </Button>
+                          </CardFooter>
+                        </Card>
+                      </Box>
+                    ))}
+                  {/* </Table>
+                </TableContainer> */}
+              </Box>
+            );
+          }}
+        </Media>
       )}
     </>
   );

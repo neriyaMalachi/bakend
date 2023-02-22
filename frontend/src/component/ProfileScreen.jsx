@@ -73,26 +73,27 @@ function ProfileScreen() {
       <Helmet>
         <title>User Profile</title>
       </Helmet>
-
+<Box
+bg="radial-gradient(circle, rgba(181,181,181,0.9248074229691877) 0%, rgba(181,181,181,0.7819502801120448) 100%);"
+>
       <Text textAlign="center" fontSize="3xl">
         User Profile
       </Text>
-      <Center h="87vh">
+      <Center h={{base:"82vh",sm:"84vh"}}>
         <form onSubmit={submitHandler}>
           <Box
-            bg="red"
-            h="70vh"
-            // display="flex"
+            // bg="white"
+            h="50vh"
             justifyContent="space-around"
           >
-            <FormLabel>Name</FormLabel>
+            <FormLabel>שם</FormLabel>
             <Input
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
 
-            <FormLabel>Email</FormLabel>
+            <FormLabel>אימייל</FormLabel>
             <Input
               type="email"
               value={email}
@@ -100,7 +101,7 @@ function ProfileScreen() {
               required
             />
 
-            <FormLabel>Password</FormLabel>
+            <FormLabel>סיסמה</FormLabel>
             <Input
               type="password"
               value={password}
@@ -108,7 +109,7 @@ function ProfileScreen() {
               required
             />
 
-            <FormLabel>confirm Password</FormLabel>
+            <FormLabel>אשר סיסמה</FormLabel>
             <Input
               type="password"
               value={confirmPassword}
@@ -116,12 +117,15 @@ function ProfileScreen() {
               required
             />
 
-            <Box>
-              <Button type="submit">Update</Button>
+            <Box
+            mt="10%"
+            >
+              <Button type="submit">עדכון</Button>
             </Box>
           </Box>
         </form>
       </Center>
+      </Box>
     </>
   );
 }

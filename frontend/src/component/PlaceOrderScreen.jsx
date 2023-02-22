@@ -267,7 +267,9 @@ function PlaceOrderScreen() {
               </Grid>
             </Grid>
           ) : (
-            <Box>
+            <Box
+            bg="white"
+            >
               <Center dir="rtl">
                 <Flex
                   flexDirection="column"
@@ -391,14 +393,14 @@ function PlaceOrderScreen() {
               </Center>
               <Box>
                 <Box
-                  border="1px solid"
+                  // border="1px solid"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   bg="white"
                   dir="rtl"
                 >
                   <Text fontSize="2xl">סיכום הזמנה</Text>
 
-                  <Flex bg="silver"  justifyContent="space-evenly" >
+                  <Flex bg="silver"   justifyContent="space-evenly" >
                     <Text> פריט</Text>
                     <Text>${cart.itemsPrice.toFixed(2)}</Text>
                   </Flex>

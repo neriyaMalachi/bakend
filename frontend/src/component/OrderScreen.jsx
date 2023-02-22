@@ -27,6 +27,7 @@ import axios from "axios";
 import { getError } from "../utils";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
+import Media from "react-media";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -153,163 +154,329 @@ function OrderScreen() {
       <AlertDescription>{error}</AlertDescription>
     </Alert>
   ) : (
-    <Grid dir="rtl" templateColumns="repeat(2,1fr)" templateRows="repeat(1)">
-      <Helmet>
-        <title>order {orderId}</title>
-      </Helmet>
-      <GridItem gridColumn="1" gridRow="1">
-        <Text as="mark" fontSize="2xl">
-          מספר הזמנה: {orderId}
-        </Text>
-      </GridItem>
-      {/* Grid for address the user */}
-      <GridItem gridColumn="1" gridRow="2">
-        <Card border="1px solid">
-          <CardHeader>
-            <Text fontSize={"xl"}> משלוח עבור:</Text>
-          </CardHeader>
-          <CardBody>
-            <Text fontSize={"xl"}>שם: {order.shippingAddress.fullName}</Text>
+    <Media query="(min-width:900px)">
+      {(matches) => {
+        return matches ? (
+          <Grid
+            bg="whitesmoke"
+            dir="rtl"
+            templateColumns="repeat(2,1fr)"
+            templateRows="repeat(1)"
+          >
+            <Helmet>
+              <title>order {orderId}</title>
+            </Helmet>
+            <GridItem gridColumn="1" gridRow="1">
+              <Text as="mark" fontSize="2xl">
+                מספר הזמנה: {orderId}
+              </Text>
+            </GridItem>
+            {/* Grid for address the user */}
+            <GridItem gridColumn="1" gridRow="2">
+              <Card border="1px solid">
+                <CardHeader>
+                  <Text fontSize={"xl"}> משלוח עבור:</Text>
+                </CardHeader>
+                <CardBody>
+                  <Text fontSize={"xl"}>
+                    שם: {order.shippingAddress.fullName}
+                  </Text>
 
-            <Text fontSize={"xl"}>
-              כתובת: {order.shippingAddress.address},
-              {order.shippingAddress.city},{order.shippingAddress.postalCode},
-              {order.shippingAddress.country}{" "}
-            </Text>
-          </CardBody>
-          <CardFooter>
-            {order.isDelivered ? (
-              <Alert>Delivered at {order.delivered}</Alert>
-            ) : (
-              <Alert status="error">
-                <AlertIcon />
-                Not Delivered
-              </Alert>
-            )}
-          </CardFooter>
-        </Card>
-      </GridItem>
-      {/* Grid for pay */}
-      <GridItem gridColumn="1" gridRow="3">
-        <Card border="1px solid">
-          <CardHeader>תשלום</CardHeader>
-
-          <CardBody>
-{order.isPaid ? (
-  <Alert status='success'>
-  <AlertIcon />
-Paid at {order.paidAt}
-</Alert>
-):(
-  <Alert status='error'>
-  <AlertIcon />
-Not Paid
-</Alert>
-)}
-
-
-          </CardBody>
-        </Card>
-      </GridItem>
-      {/* Grid for Item */}
-      <GridItem gridColumn="1" gridRow="4">
-        <Card border="1px solid">
-          <CardHeader>Items</CardHeader>
-          <CardBody>
-            {order.orderItems.map((item) => (
-              <Grid key={item._id}>
-                <GridItem
-                  display="flex"
-                  w="100%"
-                  h="100%"
-                  justifyContent="space-around"
-                  alignItems="center"
-                  border=" 1px solid"
-                  bg="silver"
-                >
-                  <GridItem>
-                    <Image
-                      w="60px"
-                      h="60px"
-                      src={item.image}
-                      alt={item.name}
-                      objectFit="contain"
-                    />
-                  </GridItem>
-                  <GridItem color="blue.400">
-                    <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                  </GridItem>
-                  <GridItem>
-                    <Text>{item.quantity}</Text>
-                  </GridItem>
-                  <GridItem>
-                    <Text>{item.price}</Text>
-                  </GridItem>
-                </GridItem>
-              </Grid>
-            ))}
-          </CardBody>
-        </Card>
-      </GridItem>
-      {/* Grid for order */}
-      <GridItem
-        gridColumn="2"
-        gridRow="2  "
-        display="flex"
-        textAlign="center"
-        justifyContent="center"
-      >
-        <GridItem
-          w="60%"
-          h="100%"
-          border="1px solid"
-          borderRadius="30%"
-          boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-        >
-          <Text fontSize="2xl">Order Summary</Text>
-
-          <GridItem>
-            <Text>Item</Text>
-            <Text>{order.itemsPrice.toFixed(2)} ש"ח </Text>
-          </GridItem>
-          <hr />
-          <GridItem>
-            <Text>Shipping</Text>
-            <Text>{order.shippingPrice.toFixed(2)} ש"ח </Text>
-          </GridItem>
-          <hr />
-          <GridItem>
-            <Text>Tax</Text>
-            <Text>{order.taxPrice.toFixed(2)} ש"ח </Text>
-          </GridItem>
-          <hr />
-          <GridItem>
-            <Text fontSize="2xl"> Order Total</Text>
-
-            <Text>{order.totalPrice.toFixed(2)} ש"ח </Text>
-
-            <Flex justifyContent="center" alignItems="center">
-              {!order.isPaid && (
-                <Box justifyItems="center" alignItems="start" w="50%">
-                  {isPending ? (
-                    <LoadingBox />
+                  <Text fontSize={"xl"}>
+                    כתובת: {order.shippingAddress.address},
+                    {order.shippingAddress.city},
+                    {order.shippingAddress.postalCode},
+                    {order.shippingAddress.country}{" "}
+                  </Text>
+                </CardBody>
+                <CardFooter>
+                  {order.isDelivered ? (
+                    <Alert>נשלח {order.delivered}</Alert>
                   ) : (
-                    <div>
-                      <PayPalButtons
-                        createOrder={createOrder}
-                        onApprove={onApprove}
-                        onError={onError}
-                      ></PayPalButtons>
-                    </div>
+                    <Alert status="error">
+                      <AlertIcon />
+                     לא נשלח
+                    </Alert>
                   )}
-                  {loadingPay && <LoadingBox></LoadingBox>}
-                </Box>
-              )}
+                </CardFooter>
+              </Card>
+            </GridItem>
+            {/* Grid for pay */}
+            <GridItem gridColumn="1" gridRow="3">
+              <Card border="1px solid">
+                <CardHeader>תשלום</CardHeader>
+
+                <CardBody>
+                  {order.isPaid ? (
+                    <Alert status="success">
+                      <AlertIcon />
+                      Paid at {order.paidAt}
+                    </Alert>
+                  ) : (
+                    <Alert status="error">
+                      <AlertIcon />
+                      Not Paid
+                    </Alert>
+                  )}
+                </CardBody>
+              </Card>
+            </GridItem>
+            {/* Grid for Item */}
+            <GridItem gridColumn="1" gridRow="4">
+              <Card border="1px solid">
+                <CardHeader>Items</CardHeader>
+                <CardBody>
+                  {order.orderItems.map((item) => (
+                    <Grid key={item._id}>
+                      <GridItem
+                        display="flex"
+                        w="100%"
+                        h="100%"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        border=" 1px solid"
+                        bg="silver"
+                      >
+                        <GridItem>
+                          <Image
+                            w="60px"
+                            h="60px"
+                            src={item.image}
+                            alt={item.name}
+                            objectFit="contain"
+                          />
+                        </GridItem>
+                        <GridItem color="blue.400">
+                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.quantity}</Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.price}</Text>
+                        </GridItem>
+                      </GridItem>
+                    </Grid>
+                  ))}
+                </CardBody>
+              </Card>
+            </GridItem>
+            {/* Grid for order */}
+            <GridItem
+              gridColumn="2"
+              gridRow="2  "
+              display="flex"
+              textAlign="center"
+              justifyContent="center"
+            >
+              <GridItem
+                w="60%"
+                h="100%"
+                border="1px solid"
+                borderRadius="30%"
+                boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+              >
+                <Text fontSize="2xl">Order Summary</Text>
+
+                <GridItem>
+                  <Text>Item</Text>
+                  <Text>{order.itemsPrice.toFixed(2)} ש"ח </Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text>Shipping</Text>
+                  <Text>{order.shippingPrice.toFixed(2)} ש"ח </Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text>Tax</Text>
+                  <Text>{order.taxPrice.toFixed(2)} ש"ח </Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text fontSize="2xl"> Order Total</Text>
+
+                  <Text>{order.totalPrice.toFixed(2)} ש"ח </Text>
+
+                  <Flex justifyContent="center" alignItems="center">
+                    {!order.isPaid && (
+                      <Box justifyItems="center" alignItems="start" w="50%">
+                        {isPending ? (
+                          <LoadingBox />
+                        ) : (
+                          <div>
+                            <PayPalButtons
+                              createOrder={createOrder}
+                              onApprove={onApprove}
+                              onError={onError}
+                            ></PayPalButtons>
+                          </div>
+                        )}
+                        {loadingPay && <LoadingBox></LoadingBox>}
+                      </Box>
+                    )}
+                  </Flex>
+                </GridItem>
+              </GridItem>
+            </GridItem>
+          </Grid>
+        ) : (
+          <Flex
+            flexDirection="column"
+            bg="whitesmoke"
+            dir="rtl"
+            templateColumns="repeat(2,1fr)"
+            templateRows="repeat(1)"
+          >
+            <Helmet>
+              <title>order {orderId}</title>
+            </Helmet>
+            <Flex>
+              <Text fontSize="xl">מספר הזמנה: {orderId}</Text>
             </Flex>
-          </GridItem>
-        </GridItem>
-      </GridItem>
-    </Grid>
+            {/* Grid for address the user */}
+            <Box>
+              <Card border="1px solid">
+                <CardHeader>
+                  <Text fontSize={"l"}> משלוח עבור:</Text>
+
+                  <Text fontSize={"l"}>
+                    שם: {order.shippingAddress.fullName}
+                  </Text>
+
+                  <Text fontSize={"l"}>
+                    כתובת: {order.shippingAddress.address},
+                    {order.shippingAddress.city},
+                    {order.shippingAddress.postalCode},
+                    {order.shippingAddress.country}{" "}
+                  </Text>
+                </CardHeader>
+                <CardFooter>
+                  {order.isDelivered ? (
+                    <Alert>נשלח {order.delivered}</Alert>
+                  ) : (
+                    <Alert status="error">
+                      <AlertIcon />
+                      לא נשלח
+                    </Alert>
+                  )}
+                </CardFooter>
+              </Card>
+            </Box>
+            {/* Grid for pay */}
+            <GridItem gridColumn="1" gridRow="3">
+              <Card border="1px solid">
+                <CardHeader>תשלום:</CardHeader>
+
+                <CardBody>
+                  {order.isPaid ? (
+                    <Alert status="success">
+                      <AlertIcon />
+                      שולם {order.paidAt}
+                    </Alert>
+                  ) : (
+                    <Alert status="error">
+                      <AlertIcon />
+                      לא שולם
+                    </Alert>
+                  )}
+                </CardBody>
+              </Card>
+            </GridItem>
+            {/* Grid for Item */}
+            <GridItem>
+              <Card border="1px solid">
+                <CardHeader>פרטים :</CardHeader>
+                <CardBody>
+                  {order.orderItems.map((item) => (
+                    <Flex
+                      flexDirection="column"
+                      justifyContent="space-around"
+                      key={item._id}
+                    >
+                      <GridItem
+                        display="flex"
+                        w="100%"
+                        h="100%"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        border=" 1px solid"
+                        bg="white"
+                      >
+                        <GridItem>
+                          <Image
+                            w="60px"
+                            h="60px"
+                            src={item.image}
+                            alt={item.name}
+                            objectFit="contain"
+                          />
+                        </GridItem>
+                        <GridItem color="blue.400">
+                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.quantity}</Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.price}</Text>
+                        </GridItem>
+                      </GridItem>
+                    </Flex>
+                  ))}
+                </CardBody>
+              </Card>
+            </GridItem>
+            {/* Grid for order */}
+            <Box display="flex" textAlign="center" justifyContent="center">
+              <GridItem w="100%" h="100%">
+                <Text fontSize="2xl">Order Summary</Text>
+
+                <GridItem>
+                  <Text>Item</Text>
+                  <Text>{order.itemsPrice.toFixed(2)} ש"ח </Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text>Shipping</Text>
+                  <Text>{order.shippingPrice.toFixed(2)} ש"ח </Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text>Tax</Text>
+                  <Text>{order.taxPrice.toFixed(2)} ש"ח </Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text fontSize="2xl"> Order Total</Text>
+
+                  <Text>{order.totalPrice.toFixed(2)} ש"ח </Text>
+
+                  <Flex justifyContent="center" alignItems="center">
+                    {!order.isPaid && (
+                      <Box justifyItems="center" alignItems="start" w="50%">
+                        {isPending ? (
+                          <LoadingBox />
+                        ) : (
+                          <div>
+                            <PayPalButtons
+                              createOrder={createOrder}
+                              onApprove={onApprove}
+                              onError={onError}
+                            ></PayPalButtons>
+                          </div>
+                        )}
+                        {loadingPay && <LoadingBox></LoadingBox>}
+                      </Box>
+                    )}
+                  </Flex>
+                </GridItem>
+              </GridItem>
+            </Box>
+          </Flex>
+        );
+      }}
+    </Media>
   );
 }
 
