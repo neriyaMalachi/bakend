@@ -144,20 +144,20 @@ function NavBarForwhidthstandart() {
                         color="red"
                         w="92%"
                       >
-                        {isOpen ? "Close" : "Admin"}
+                        {isOpen ? "סגור" : "מנהל"}
                       </MenuButton>
                       <MenuList color="black">
-                        <Link to="/Admin/dashboard">
-                          <MenuItem>Dashbord</MenuItem>
-                        </Link>
+                      <Link to="/Admin/dashboard">
+                     <MenuItem>Dashbord</MenuItem>
+                   </Link>
                         <Link to="/Admin/products">
-                          <MenuItem>Products</MenuItem>
+                          <MenuItem>מוצרים</MenuItem>
                         </Link>
                         <Link to="/Admin/orders">
-                          <MenuItem>Orders</MenuItem>
+                          <MenuItem>הזמנות</MenuItem>
                         </Link>
                         <Link to="/Admin/users">
-                          <MenuItem>Users</MenuItem>
+                          <MenuItem>משתמשים</MenuItem>
                         </Link>
                       </MenuList>
                     </>

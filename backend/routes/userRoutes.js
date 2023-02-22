@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
-import { isAuth,generateToken } from "../utils.js";
+import { isAuth, generateToken } from "../utils.js";
 import expressAsyncHandler from "express-async-handler";
 
 const userRouter = express.Router();
@@ -70,4 +70,14 @@ userRouter.put(
     }
   })
 );
+
+userRouter.get("/getAllUser", async (req, res) => {
+  try {
+    const allUser = await User.find({});
+    res.send({ status: "ok", data: allUser });
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export default userRouter;
