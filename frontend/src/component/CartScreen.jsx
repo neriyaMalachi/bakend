@@ -32,12 +32,16 @@ function CartScreen() {
     cart: { cartItems },
   } = state;
   const navigate = useNavigate();
+
+
   const UpdateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/propertis/${item._id}`);
     if (data.countInStock < quantity) {
       window.alert("Sorry. Product is out of stock");
       return;
     }
+
+
     ctxDispatch({
       type: "CART_ADD_ITEM",
       payload: { ...item, quantity },

@@ -69,4 +69,14 @@ orderRouter.put(
   })
 )
 
+orderRouter.get("/getAllOrders", async (req, res) => {
+  try {
+    const allOrders = await Order.find();
+    res.send( allOrders );
+   
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export default orderRouter;
