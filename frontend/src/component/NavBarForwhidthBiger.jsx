@@ -79,10 +79,9 @@ function NavBarForwhidthBiger() {
                 <Flex display="flex" justifyContent="space-around">
                   <Link to="/orderhistory">הזמנות</Link>
                   <Link to="/profile">פרופיל</Link>
-                  <Link 
-                  to="/signIn"
-                  onClick={signoutHandlet}
-                  >התנתק</Link>
+                  <Link to="/signIn" onClick={signoutHandlet}>
+                    התנתק
+                  </Link>
                 </Flex>
               </GridItem>
             )}
@@ -102,9 +101,9 @@ function NavBarForwhidthBiger() {
                         {isOpen ? "סגור" : "מנהל"}
                       </MenuButton>
                       <MenuList color="black">
-                      <Link to="/Admin/dashboard">
-                     <MenuItem>Dashbord</MenuItem>
-                   </Link>
+                        {/* <Link to="/Admin/dashboard">
+                          <MenuItem>Dashbord</MenuItem>
+                        </Link> */}
                         <Link to="/Admin/products">
                           <MenuItem>מוצרים</MenuItem>
                         </Link>

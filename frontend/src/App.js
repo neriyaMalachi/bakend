@@ -15,9 +15,11 @@ import OrderHistoryScreen from "./component/OrderHistoryScreen";
 import ProfileScreen from "./component/ProfileScreen";
 import ProtectedRoute from "./component/ProtectedRoute";
 import DashboardScreen from "./component/DashboardScreen";
-// import Users from './component/AdminFolder/Users'
+ import Users from './component/AdminFolder/Users'
 import AdminRoutes from "./component/AdminRoutes";
 import bgImage from "./img/hookah-bar-bg.png";
+import Products from "./component/AdminFolder/Products";
+import Orders from "./component/AdminFolder/Orders";
 
 function App() {
   return (
@@ -64,13 +66,31 @@ function App() {
             />
             {/* Admin routes */}
             <Route
-              path="/Admin/dashboard"
+              path="/Admin/products"
               element={
                 <AdminRoutes>
-                  <DashboardScreen />
+                  <Products />
                 </AdminRoutes>
               }
             />
+            <Route
+              path="/Admin/orders"
+              element={
+                <AdminRoutes>
+                  <Orders />
+                </AdminRoutes>
+              }
+            />
+               <Route
+              path="/Admin/users"
+              element={
+                <AdminRoutes>
+                  <Users />
+                </AdminRoutes>
+              }
+            />
+
+
             <Route path="/" element={<HomeFile />} />
           </Routes>
         </BrowserRouter>

@@ -69,7 +69,7 @@ orderRouter.put(
   })
 )
 
-orderRouter.get("/getAllOrders", async (req, res) => {
+orderRouter.get("/", async (req, res) => {
   try {
     const allOrders = await Order.find();
     res.send( allOrders );
