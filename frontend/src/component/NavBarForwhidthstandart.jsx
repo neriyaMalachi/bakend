@@ -116,7 +116,7 @@ function NavBarForwhidthstandart() {
           <ToastContainer />
           {/* link for home page */}
 
-          <Flex w="65%"  justifyContent="space-around">
+          <Flex w="65%" justifyContent="space-around">
             <GridItem>
               <Link to="/">דף הבית</Link>
             </GridItem>
@@ -147,19 +147,17 @@ function NavBarForwhidthstandart() {
                         {isOpen ? "סגור" : "מנהל"}
                       </MenuButton>
                       <MenuList color="black">
-                      <Link to="/Admin/dashboard">
-                     <MenuItem>Dashbord</MenuItem>
-                   </Link>
-                        <Link to="/Admin/products">
-                          <MenuItem>מוצרים</MenuItem>
-                        </Link>
-                        <Link to="/Admin/orders">
-                          <MenuItem>הזמנות</MenuItem>
-                        </Link>
-                        <Link to="/Admin/users">
-                          <MenuItem>משתמשים</MenuItem>
-                        </Link>
-                      </MenuList>
+                       
+                       <Link to="/Admin/products">
+                         <MenuItem>מוצרים</MenuItem>
+                       </Link>
+                       <Link to="/Admin/orders">
+                         <MenuItem>הזמנות</MenuItem>
+                       </Link>
+                       <Link to="/Admin/users">
+                         <MenuItem>משתמשים</MenuItem>
+                       </Link>
+                     </MenuList>
                     </>
                   )}
                 </Menu>
@@ -201,7 +199,6 @@ function NavBarForwhidthstandart() {
               </GridItem>
             )}
           </GridItem>
-      
         </GridItem>
       </Grid>
     </Box>

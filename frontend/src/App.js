@@ -20,6 +20,7 @@ import AdminRoutes from "./component/AdminRoutes";
 import bgImage from "./img/hookah-bar-bg.png";
 import Products from "./component/AdminFolder/Products";
 import Orders from "./component/AdminFolder/Orders";
+import FootherFile from "./component/FootherFile";
 
 function App() {
   return (
@@ -93,6 +94,7 @@ function App() {
 
             <Route path="/" element={<HomeFile />} />
           </Routes>
+          <FootherFile/>
         </BrowserRouter>
       </ChakraProvider>
     </Box>

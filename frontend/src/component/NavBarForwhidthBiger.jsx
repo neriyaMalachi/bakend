@@ -34,7 +34,7 @@ function NavBarForwhidthBiger() {
         <GridItem>
           <Box bg="black" color="white" textAlign="center">
             {" "}
-            499 משלוחים{" "}
+            699 משלוחים{" "}
             <Text as="b" fontSize="120%" color="yellow.200">
               חינם
             </Text>{" "}
@@ -101,9 +101,7 @@ function NavBarForwhidthBiger() {
                         {isOpen ? "סגור" : "מנהל"}
                       </MenuButton>
                       <MenuList color="black">
-                        {/* <Link to="/Admin/dashboard">
-                          <MenuItem>Dashbord</MenuItem>
-                        </Link> */}
+                       
                         <Link to="/Admin/products">
                           <MenuItem>מוצרים</MenuItem>
                         </Link>

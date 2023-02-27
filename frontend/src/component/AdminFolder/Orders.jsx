@@ -1,10 +1,6 @@
 import React from "react";
 import {
   Box,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
   Divider,
   Table,
   Thead,
@@ -13,17 +9,11 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
-  AccordionPanel,
   Menu,
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   Button,
   useDisclosure,
   Modal,
@@ -85,51 +75,25 @@ function Orders() {
                 <Tr>
                   <Td>{item._id}</Td>
                   <Td>
-                    {/* <Accordion reduceMotion allowToggle>
-                      <AccordionItem h={"50"} overflowY={"scroll"}>
-                        <h2>
-                          <AccordionButton>
-                            <Box as="span" flex="1" textAlign="left">
-                              הזמנה
-                            </Box>
-                            <AccordionIcon />
-                          </AccordionButton>
-                        </h2>
-                        {item.orderItems.map((ordersItem) => (
-                          <AccordionPanel dir="rtl" key={ordersItem._id} pb={4}>
-                            שם: {ordersItem.name}
-                            <Divider />
-                            כמות:{ordersItem.quantity}
-                            <Divider />
-                            מחיר: {ordersItem.price}
-                            <Divider />
-                            סוג: {ordersItem._id}
-                          </AccordionPanel>
-                        ))}
-                      </AccordionItem>
-                    </Accordion> */}
-
                     <Button onClick={onOpen}> הזמנה</Button>
 
                     <Modal isOpen={isOpen} onClose={onClose}>
                       <ModalOverlay />
                       <ModalContent>
-                        <ModalHeader>{item.shippingAddress.fullName}</ModalHeader>
+                        <ModalHeader>
+                          {item.shippingAddress.fullName}
+                        </ModalHeader>
                         <ModalCloseButton />
                         <ModalBody>
                           {item.orderItems.map((ordersItem) => (
-                            <Box
-                              dir="rtl"
-                              key={ordersItem._id}
-                              pb={4}
-                            >
+                            <Box dir="rtl" key={ordersItem._id} pb={4}>
                               שם: {ordersItem.name}
                               <Divider />
-                              כמות:{ordersItem.quantity}
+                              {/* כמות:{ordersItem.quantity}
                               <Divider />
                               מחיר: {ordersItem.price}
                               <Divider />
-                              סוג: {ordersItem._id}
+                              סוג: {ordersItem._id} */}
                             </Box>
                           ))}
                         </ModalBody>

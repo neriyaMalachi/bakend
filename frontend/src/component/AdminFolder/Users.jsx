@@ -6,6 +6,15 @@ import {
   AccordionPanel,
   AccordionIcon,
   Divider,
+  Table,
+  TableCaption,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+  TableContainer,
+  Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
@@ -37,25 +46,38 @@ function Users() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box bg="silver">
-        {items.map((item) => (
-          <Accordion key={item._id} allowToggle>
-            <AccordionItem>
-              <h2>
-                <AccordionButton>
-                  <Box as="span" flex="1" textAlign="left">
-                    שם:{item.name}
-                    <Divider />
-                    email: {item.email}
-                  </Box>
-                  <AccordionIcon />
-                </AccordionButton>
-              </h2>
-              <AccordionPanel pb={4}></AccordionPanel>
-            </AccordionItem>
-          </Accordion>
-        ))}
-      </Box>
+     <Box bg="silver" >
+       
+          <TableContainer>
+            <Table variant="striped" colorScheme="teal">
+              <Thead>
+                <Tr>
+                  <Th>מחיקת משתמש</Th>
+                  <Th>שם</Th>
+                  <Th>קוד אישי</Th>
+                  <Th>אימל</Th>
+                  <Th>ת"ז</Th>
+                  <Th isNumeric>זמן הרשמות</Th>
+                </Tr>
+              </Thead>
+              {items.map((item) => (
+              <Tbody border="2px " key={item._id} >
+                <Tr>
+                  <Td><Button bg="red.400" >מחק משתמש</Button></Td>
+                  <Td>{item.name}</Td>
+                  <Td>{item._id}</Td>
+                  <Td>{item.email}</Td>
+                  <Td>{item.password}</Td>
+                  <Td isNumeric>{item.createdAt}</Td>
+                </Tr>
+               
+              </Tbody>
+                ))}
+            </Table>
+          </TableContainer>
+
+         
+          </Box>
     );
   }
 }
