@@ -17,6 +17,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import {TiDelete} from 'react-icons/ti'
+
 
 function Users() {
   const [error, setError] = useState(null);
@@ -52,7 +54,7 @@ function Users() {
             <Table variant="striped" colorScheme="teal">
               <Thead>
                 <Tr>
-                  <Th>מחיקת משתמש</Th>
+                  {/* <Th>מחיקת משתמש</Th> */}
                   <Th>שם</Th>
                   <Th>קוד אישי</Th>
                   <Th>אימל</Th>
@@ -63,8 +65,8 @@ function Users() {
               {items.map((item) => (
               <Tbody border="2px " key={item._id} >
                 <Tr>
-                  <Td><Button bg="red.400" >מחק משתמש</Button></Td>
-                  <Td>{item.name}</Td>
+                  
+                  <Td display="flex"  justifyContent="space-between" ><TiDelete color="red" size={20} />{item.name}</Td>
                   <Td>{item._id}</Td>
                   <Td>{item.email}</Td>
                   <Td>{item.password}</Td>

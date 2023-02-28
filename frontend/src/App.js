@@ -17,7 +17,7 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import DashboardScreen from "./component/DashboardScreen";
  import Users from './component/AdminFolder/Users'
 import AdminRoutes from "./component/AdminRoutes";
-import bgImage from "./img/hookah-bar-bg.png";
+import bgImage from "./img/background.png";
 import Products from "./component/AdminFolder/Products";
 import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";

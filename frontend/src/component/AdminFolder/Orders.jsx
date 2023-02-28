@@ -23,6 +23,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  Center,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -84,24 +85,24 @@ function Orders() {
                           {item.shippingAddress.fullName}
                         </ModalHeader>
                         <ModalCloseButton />
-                        <ModalBody>
-                          {item.orderItems.map((ordersItem) => (
-                            <Box dir="rtl" key={ordersItem._id} pb={4}>
-                              שם: {ordersItem.name}
-                              <Divider />
-                              {/* כמות:{ordersItem.quantity}
-                              <Divider />
-                              מחיר: {ordersItem.price}
-                              <Divider />
-                              סוג: {ordersItem._id} */}
-                            </Box>
-                          ))}
-                        </ModalBody>
-
+                        {/* <ModalBody>
+                        
+                        </ModalBody> */}
+                        {item.orderItems.map((ordersItem) => (
+                          <Center dir="rtl" key={ordersItem._id} pb={4}>
+                            שם: {ordersItem.name}
+                            {/* <Divider /> */}
+                            כמות:{ordersItem.quantity}
+                            {/* <Divider /> */}
+                            מחיר: {ordersItem.price}
+                            {/* <Divider /> */}
+                            סוג: {ordersItem._id}
+                          </Center>
+                        ))}
                         <ModalFooter>
-                          <Button colorScheme="blue" mr={3} onClick={onClose}>
+                          {/* <Button colorScheme="blue" mr={3} onClick={onClose}>
                             סגור
-                          </Button>
+                          </Button> */}
                         </ModalFooter>
                       </ModalContent>
                     </Modal>
