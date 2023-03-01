@@ -1,5 +1,13 @@
-import { useReducer, useEffect } from "react";
-import { Box, Center } from "@chakra-ui/react";
+import { useReducer, useEffect, useState } from "react";
+import {
+  Box,
+  Center,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Form,
+} from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
@@ -25,12 +33,13 @@ function HomeFile() {
     loading: true,
     error: "",
   });
+  const [search, setSerch] = useState("");
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get("/api/propertis");
-       
+
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
@@ -57,8 +66,19 @@ function HomeFile() {
       <Helmet>
         <title>דף הבית</title>
       </Helmet>
+    
+      <FormControl>
+        <Input dir="rtl" w="20%" bg="silver"  type="text" placeholder="חפש..." onChange={(e)=>{setSerch(e.target.value)}} />
+      </FormControl>
 
-      {propertis.map((product) => (
+      {propertis
+      .filter((item)=>{
+        return search.toLowerCase()=== ''
+        ? item
+        : item.name.toLowerCase().includes(search);
+
+      })
+      .map((product) => (
         <Cards product={product} key={product.name}></Cards>
       ))}
     </Box>

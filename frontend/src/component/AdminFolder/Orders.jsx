@@ -28,6 +28,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
+import ItemForOrder from "./ItemForOrder";
 function Orders() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -91,23 +92,9 @@ function Orders() {
                         <ModalHeader>
                           {item.shippingAddress.fullName}
                         </ModalHeader>
-                        {/* {item.orderItems.map((ordersItem) => (
-                          <> */}
-                        {/* {console.log(item.orderItems._id)}
-                          {console.log(item._id)} */}
                         <ModalBody dir="rtl" key={item.orderItems._id} pb={6}>
-                          {item.orderItems.map((ordersItem) => (
-                            <>
-                              <Text>שם: {ordersItem.name}</Text>
-                              <Text> כמות:{ordersItem.quantity}</Text>
-                              <Text> מחיר: {ordersItem.price}</Text>
-                              <Text> סוג: {ordersItem._id}</Text>
-                            </>
-                          ))}
+                       <ItemForOrder  id={item._id}  props={item.orderItems} />
                         </ModalBody>
-
-                        {/* </>
-                             ))} */}
                         <ModalFooter>
                           <Button colorScheme="blue" mr={3} onClick={onClose}>
                             סגור

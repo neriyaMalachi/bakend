@@ -46,7 +46,7 @@ function Cards(props) {
             display="flex"
             // flexWrap="wrap"
             alignContent="flex-start"
-            w="15%"
+            w="20%"
             h="70%"
             border="1px solid"
             bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"

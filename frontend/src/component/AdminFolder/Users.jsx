@@ -1,13 +1,6 @@
 import {
   Box,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Divider,
   Table,
-  TableCaption,
   Thead,
   Tr,
   Th,
@@ -15,10 +8,11 @@ import {
   Td,
   TableContainer,
   Button,
+ 
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import {TiDelete} from 'react-icons/ti'
-
+import { TiDelete } from "react-icons/ti";
+import { Link } from "react-router-dom";
 
 function Users() {
   const [error, setError] = useState(null);
@@ -48,38 +42,41 @@ function Users() {
     return <div>Loading...</div>;
   } else {
     return (
-     <Box bg="silver" >
-       
-          <TableContainer>
-            <Table variant="striped" colorScheme="teal">
-              <Thead>
+      <Box bg="silver">
+        <TableContainer>
+          <Table variant="striped" colorScheme="teal">
+            <Thead>
+              <Tr>
+                <Th>מחיקת משתמש</Th>
+                <Th>שם</Th>
+                <Th>קוד אישי</Th>
+                <Th>אימל</Th>
+                <Th>ת"ז</Th>
+                <Th isNumeric>זמן הרשמות</Th>
+              </Tr>
+              <Link to="/Admin/addUser">Add User</Link>
+            </Thead>
+            {items.map((item) => (
+              <Tbody border="2px " key={item._id}>
                 <Tr>
-                  {/* <Th>מחיקת משתמש</Th> */}
-                  <Th>שם</Th>
-                  <Th>קוד אישי</Th>
-                  <Th>אימל</Th>
-                  <Th>ת"ז</Th>
-                  <Th isNumeric>זמן הרשמות</Th>
-                </Tr>
-              </Thead>
-              {items.map((item) => (
-              <Tbody border="2px " key={item._id} >
-                <Tr>
-                  
-                  <Td display="flex"  justifyContent="space-between" ><TiDelete color="red" size={20} />{item.name}</Td>
+                  <Td display="flex" justifyContent="space-between">
+                    {" "}
+                    <Button>
+                      {" "}
+                      <TiDelete color="red" size={20} />
+                    </Button>
+                  </Td>
+                  <Td>{item.name}</Td>
                   <Td>{item._id}</Td>
                   <Td>{item.email}</Td>
                   <Td>{item.password}</Td>
                   <Td isNumeric>{item.createdAt}</Td>
                 </Tr>
-               
               </Tbody>
-                ))}
-            </Table>
-          </TableContainer>
-
-         
-          </Box>
+            ))}
+          </Table>
+        </TableContainer>
+      </Box>
     );
   }
 }

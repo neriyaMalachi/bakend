@@ -15,12 +15,13 @@ import OrderHistoryScreen from "./component/OrderHistoryScreen";
 import ProfileScreen from "./component/ProfileScreen";
 import ProtectedRoute from "./component/ProtectedRoute";
 import DashboardScreen from "./component/DashboardScreen";
- import Users from './component/AdminFolder/Users'
+import Users from "./component/AdminFolder/Users";
 import AdminRoutes from "./component/AdminRoutes";
 import bgImage from "./img/background.png";
 import Products from "./component/AdminFolder/Products";
 import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";
+import AddUser from "./component/AdminFolder/AddUser";
 
 function App() {
   return (
@@ -82,7 +83,7 @@ function App() {
                 </AdminRoutes>
               }
             />
-               <Route
+            <Route
               path="/Admin/users"
               element={
                 <AdminRoutes>
@@ -90,11 +91,18 @@ function App() {
                 </AdminRoutes>
               }
             />
-
+            <Route
+              path="/Admin/addUser"
+              element={
+                <AdminRoutes>
+                  <AddUser />
+                </AdminRoutes>
+              }
+            />
 
             <Route path="/" element={<HomeFile />} />
           </Routes>
-          {/* <FootherFile/> */}
+          <FootherFile />
         </BrowserRouter>
       </ChakraProvider>
     </Box>

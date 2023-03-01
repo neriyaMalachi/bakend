@@ -30,13 +30,8 @@ productRoute.get("/slug/:slug",async (req, res) => {
     console.log(product);
   });
   
-  // productRoute.get("/getAllProduct", async (req, res) => {
-  //   try {
-  //     const AllProduct = await Product.find({});
-  //     res.send( AllProduct );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // });
+  productRoute.post("/addProducts",
+  
+  )
 
 export default productRoute;
