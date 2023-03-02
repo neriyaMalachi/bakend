@@ -8,18 +8,23 @@ import {
   Td,
   TableContainer,
   Button,
- 
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { Link } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 function Users() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = () => {
     fetch("http://localhost:5000/api/users/getAllUser", {
       method: "GET",
     })
@@ -34,7 +39,24 @@ function Users() {
           setError(error);
         }
       );
-  }, []);
+  };
+  const HendleDelete = async (id) => {
+    console.log(id);
+
+    fetch(`http://localhost:5000/api/users/deleteuser/${id}`, {
+      method: "DELETE",
+    })
+      .then((result) => {
+        result.json().then((resp) => {
+          console.warn(resp);
+          getUsers();
+        });
+      })
+      .catch(error);
+      {
+      console.log(error);
+    }
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -54,14 +76,14 @@ function Users() {
                 <Th>ת"ז</Th>
                 <Th isNumeric>זמן הרשמות</Th>
               </Tr>
-              <Link to="/Admin/addUser">Add User</Link>
+              {/* <Link to="/Admin/addUser">Add User</Link> */}
             </Thead>
             {items.map((item) => (
               <Tbody border="2px " key={item._id}>
                 <Tr>
                   <Td display="flex" justifyContent="space-between">
                     {" "}
-                    <Button>
+                    <Button onClick={() => HendleDelete(item._id)}>
                       {" "}
                       <TiDelete color="red" size={20} />
                     </Button>

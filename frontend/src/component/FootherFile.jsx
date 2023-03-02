@@ -49,10 +49,10 @@ function FootherFile() {
           <BsFacebook color="blue" size={35} />
           <BsInstagram color="red" size={35} />
         </Flex>
-        <Button>יצירת קשר</Button>
-        <Button>תקנון</Button>
-        <Button>משלוחים והחזרות</Button>
-        <Button>אדות</Button>
+        <Button bg="black" color="white" >יצירת קשר</Button>
+        <Button bg="black" color="white">תקנון</Button>
+        <Button bg="black" color="white">משלוחים והחזרות</Button>
+        <Button bg="black" color="white">אדות</Button>
         <Box></Box>
       </Flex>
     </Flex>

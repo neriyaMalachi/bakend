@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../models/userModel.js";
+import * as mongoose from 'mongoose';
 import bcrypt from "bcryptjs";
 import { isAuth, generateToken } from "../utils.js";
 import expressAsyncHandler from "express-async-handler";
@@ -74,10 +75,16 @@ userRouter.put(
 userRouter.get("/getAllUser", async (req, res) => {
   try {
     const allUser = await User.find({});
-    res.send( allUser );
+    res.send(allUser);
   } catch (error) {
     console.log(error);
   }
+});
+
+userRouter.delete("/deleteuser/:id", async (req, res) => {
+  console.log(req.params.id);
+  const user = await User.deleteOne({ _id: mongoose.Types.ObjectId(req.params.id) });
+  res.send(user)
 });
 
 export default userRouter;
