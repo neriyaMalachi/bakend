@@ -11,13 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
-import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+
 function Users() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [message, setMessage] = useState("");
+  // const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,10 +41,11 @@ function Users() {
       );
   };
   const HendleDelete = async (id) => {
-    console.log(id);
+    // console.log(id);
 
-    fetch(`http://localhost:5000/api/users/deleteuser/${id}`, {
+   await fetch(`https://localhost:5000/api/users/deleteuser/${id}`, {
       method: "DELETE",
+      
     })
       .then((result) => {
         result.json().then((resp) => {
@@ -52,10 +53,7 @@ function Users() {
           getUsers();
         });
       })
-      .catch(error);
-      {
-      console.log(error);
-    }
+   
   };
 
   if (error) {
