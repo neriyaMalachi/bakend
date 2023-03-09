@@ -17,7 +17,7 @@ import ProtectedRoute from "./component/ProtectedRoute";
 import DashboardScreen from "./component/DashboardScreen";
 import Users from "./component/AdminFolder/Users";
 import AdminRoutes from "./component/AdminRoutes";
-import bgImage from "./img/background.png";
+import bgImage from "./img/background_1.png";
 import Products from "./component/AdminFolder/Products";
 import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";
@@ -25,12 +25,12 @@ import AddUser from "./component/AdminFolder/AddUser";
 
 function App() {
   return (
-    // <Box
-    //   bgImage={bgImage}
-    //   bgRepeat="no-repeat"
-    //   bgSize="100% 100%"
-    //   bgAttachment="fixed"
-    // >
+    <Box
+      bgImage={bgImage}
+      bgRepeat="no-repeat"
+      bgSize="100% 100%"
+      bgAttachment="fixed"
+    >
       <ChakraProvider>
         <BrowserRouter>
           <NavBar />
@@ -105,7 +105,7 @@ function App() {
           <FootherFile />
         </BrowserRouter>
       </ChakraProvider>
-    // </Box>
+    </Box>
   );
 }
 

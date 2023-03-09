@@ -1,134 +1,162 @@
 import {
+  background,
   Box,
   Button,
   Center,
   Divider,
   Flex,
+  Grid,
+  GridItem,
   Image,
+  Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
+import { AiFillLinkedin } from "react-icons/ai";
+import { FaTwitter } from "react-icons/fa";
 import Media from "react-media";
 import imageForLogo from "../img/logoForTheProject.png";
 function FootherFile() {
-
-
   return (
     <Media query="(min-width: 900px)">
-{(matches)=>{
-  return matches ?(
-    <Flex
-    bg="black"
-    w="100%"
-    h="300px"
-    display="flex"
-    alignItems="end"
-    justifyContent="center"
-    direction="column"
-  >
-    <Flex
-      color="white"
-      h="50%"
-      w="100%"
-      textAlign="center"
-      direction="column"
-    >
-      <Box fontStyle="oblique" fontSize="3xl">
-        <strong> השאיפה שלי-</strong>
-        עם לקוחות מרוצים כבר חמש שנים ברציפות{" "}
-      </Box>
-      <Box w="100%">
-        חברתנו קיימת כבר מעל חמש שנים מוכרת ברחבי הארץ עם המלצות מכל הקונים{" "}
-      </Box>
-    </Flex>
+      {(matches) => {
+        return matches ? (
+          <Box bg="black">
+            <Grid
+              templateRows="repeat(2, 1fr)"
+              templateColumns="repeat(5, 1fr)"
+              gap={4}
+            >
+              <GridItem
+                rowSpan={2}
+                colSpan={1}
+                display="flex"
+                justifyContent="center"
+                bg="black"
+              >
+                <Flex
+                  direction="column"
+                  justifyContent="space-around"
+                  alignItems="center"
+                >
+                  <Image
+                    borderRadius="50%"
+                    w="70%"
+                    h="80%"
+                    src={imageForLogo}
+                    alt="LOGO FOR COMPONY"
+                  />
+                </Flex>
+              </GridItem>
+              <GridItem
+                colSpan={4}
+                bg="black"
+                display="flex"
+                justifyContent="space-around"
+                alignItems="center"
+              >
+                <Divider orientation="vertical" h="60%" />
 
-    <Flex w="100%" h="20%" justifyContent="space-between">
-      <Image
-        borderRadius="50%"
-        w="10%"
-        h="150%"
-        src={imageForLogo}
-        alt="LOGO FOR COMPONY"
-      />
-      <Flex justifyContent="space-between" w="10%">
-        <BsFacebook color="blue" size={35} />
-        <BsInstagram color="red" size={35} />
-      </Flex>
-      <Button bg="black" color="white">
-        יצירת קשר
-      </Button>
-      <Button bg="black" color="white">
-        תקנון
-      </Button>
-      <Button bg="black" color="white">
-        משלוחים והחזרות
-      </Button>
-      <Button bg="black" color="white">
-        אדות
-      </Button>
-      <Box></Box>
-    </Flex>
-  </Flex>
-  ):(
-    <Box
-    bg="black"
-    w="100%"
-    h="300px"
-    mt="20%"
-    >
-         <Flex
-      color="white"
-      h="50%"
-      w="100%"
-      textAlign="center"
-      direction="column"
-    >
-      <Box fontStyle="oblique" fontSize="3xl">
-        <strong> השאיפה שלי</strong>
-        <Divider />
-        עם לקוחות מרוצים כבר חמש שנים ברציפות{" "}
-      </Box>
+                <Button bg="black" color="white" _hover={"none"}>
+                  יצירת קשר
+                </Button>
+                <Divider orientation="vertical" h="60%" />
+                <Button bg="black" color="white" _hover={"none"}>
+                  תקנון
+                </Button>
+                <Divider orientation="vertical" h="60%" />
+                <Button bg="black" color="white" _hover={"none"}>
+                  משלוחים והחזרות
+                </Button>
+                <Divider orientation="vertical" h="60%" />
+                <Button bg="black" color="white" _hover={"none"}>
+                  אדות
+                </Button>
+                <Divider orientation="vertical" h="60%" />
+              </GridItem>
+              <GridItem colSpan={3}></GridItem>
+              <GridItem colSpan={1} bg="black">
+                <Flex
+                  alignItems="center"
+                  h="60px"
+                  w="90%"
+                  justifyContent="space-around"
+                >
+                  <BsFacebook size={25} />
+                  <BsInstagram size={25} />
+                  <AiFillLinkedin size={25} />
+                  <FaTwitter size={25} />
+                </Flex>
+              </GridItem>
+            </Grid>
+          </Box>
+        ) : (
+          <Flex
+            direction="column"
+            justifyContent="center"
+            alignItems="center"
+            bg="black"
+            w="100%"
+            h="300px"
+            mt="20%"
+          >
+            <Flex
+              direction="column"
+              w="40%"
+              h="50%"
+              justifyContent="space-around"
+            >
+              <Button mt="3%" bg="black" color="white" _hover={"none"}>
+                יצירת קשר
+              </Button>
+              <Button mt="3%" bg="black" color="white" _hover={"none"}>
+                תקנון
+              </Button>
 
+              <Button mt="3%" bg="black" color="white" _hover={"none"}>
+                משלוחים והחזרות
+              </Button>
 
-      <Box w="100%"  >
-        חברתנו קיימת כבר מעל חמש שנים מוכרת ברחבי הארץ עם המלצות מכל הקונים{" "}
-      </Box>
-    </Flex>
+              <Button mt="3%" bg="black" color="white" _hover={"none"}>
+                אדות
+              </Button>
+            </Flex>
+            <Flex
+              direction="column"
+              justifyContent="space-around"
+              // alignItems="center"
+              bg="yellow"
+              // h="100%"
+              // w="100%"
+            >
+              <Box>
+                <BsFacebook size={25} />
+              </Box>
+              {/* <Box>
+                <BsInstagram size={25} />
+              </Box>
 
-    <Flex direction="column" w="100%" h="20%" justifyContent="space-between">
-     
-      <Button bg="black" color="white">
-        יצירת קשר
-      </Button>
-      <Button bg="black" color="white">
-        תקנון
-      </Button>
-      <Button bg="black" color="white">
-        משלוחים והחזרות
-      </Button>
-      <Button bg="black" color="white">
-        אדות
-      </Button>
-    </Flex>
-    <Box>
-        <Flex justifyContent="space-between" w="10%">
-        <BsFacebook color="blue" size={35} />
-        <BsInstagram color="red" size={35} />
-        <Image
-        borderRadius="50%"
-        w="10%"
-        h="150%"
-        src={imageForLogo}
-        alt="LOGO FOR COMPONY"
-      />
-      </Flex>
-    </Box>
-    
-  
-    </Box>
-  )
-}}
- 
+              <Box>
+                <AiFillLinkedin size={25} />
+              </Box>
+
+              <Box>
+                <FaTwitter size={25} />
+              </Box> */}
+
+              <Box bg="red" >
+                <Image
+                  borderRadius="50%"
+                  w="50%"
+                  h="50%"
+                  src={imageForLogo}
+                  alt="LOGO FOR COMPONY"
+                />
+              </Box>
+            </Flex>
+          </Flex>
+        );
+      }}
     </Media>
   );
 }
