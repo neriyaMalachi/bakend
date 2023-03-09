@@ -121,7 +121,7 @@ function CartScreen() {
                           </Button>
                         </Box>
 
-                        <Box>{item.price}</Box>
+                        <Box>{item.price}{" "}  ₪</Box>
 
                         <DeleteIcon
                           color="red.500"

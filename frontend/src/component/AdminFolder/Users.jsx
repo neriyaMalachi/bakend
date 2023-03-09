@@ -17,7 +17,6 @@ function Users() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  // const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,7 +42,7 @@ function Users() {
   const HendleDelete = async (id) => {
     // console.log(id);
 
-   await fetch(`https://localhost:5000/api/users/deleteuser/${id}`, {
+   await fetch(`http://localhost:5000/api/users/deleteuser/${id}`, {
       method: "DELETE",
       
     })
