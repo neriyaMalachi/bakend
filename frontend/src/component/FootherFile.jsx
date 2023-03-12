@@ -122,17 +122,15 @@ function FootherFile() {
               </Button>
             </Flex>
             <Flex
-              direction="column"
               justifyContent="space-around"
-              // alignItems="center"
-              bg="yellow"
-              // h="100%"
-              // w="100%"
+              alignItems="center"
+              h="100px"
+              w="50%"
             >
               <Box>
-                <BsFacebook size={25} />
+                <BsFacebook  size={25} />
               </Box>
-              {/* <Box>
+              <Box>
                 <BsInstagram size={25} />
               </Box>
 
@@ -142,18 +140,24 @@ function FootherFile() {
 
               <Box>
                 <FaTwitter size={25} />
-              </Box> */}
+              </Box>
 
-              <Box bg="red" >
+            
+            </Flex>
+            {/* <Flex 
+            alignItems="end"
+            bg="red"
+            justifyContent="center"
+            h="200px"
+             >
                 <Image
                   borderRadius="50%"
-                  w="50%"
+                  w="60%"
                   h="50%"
                   src={imageForLogo}
                   alt="LOGO FOR COMPONY"
                 />
-              </Box>
-            </Flex>
+              </Flex> */}
           </Flex>
         );
       }}

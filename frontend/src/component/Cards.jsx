@@ -46,13 +46,13 @@ function Cards(props) {
             display="flex"
             // flexWrap="wrap"
             alignContent="flex-start"
-            w="20%"
-            h="70%"
+            w="10%"
+            h="50%"
             border="1px solid"
             bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
           >
-            <CardBody>
-              <Grid h="105%">
+            <CardBody  dir="rtl">
+              <Grid h="80%">
                 <GridItem>
                   <Link to={`/product/${product.slug}`}>
                     <Image
@@ -61,7 +61,8 @@ function Cards(props) {
                       src={product.image}
                       alt={product.name}
                       w="100%"
-                      h="200px"
+                      h="150px"
+                      borderRadius="5%"
                     />
                   </Link>
                 </GridItem>
@@ -72,11 +73,12 @@ function Cards(props) {
                 </GridItem>
                 <GridItem>
                   <strong>
-                    <Text fontSize="2xl">{product.price}</Text>
+                    <Text fontSize="2xl"> ₪{product.price}</Text>
                   </strong>
                 </GridItem>
                 <GridItem>
-                  <Heading fontSize="100%"> Rating:</Heading>
+                  {/* <Flex direction="row" bg="red" w="100%" > */}
+                  {/* <Heading fontSize="100%"> המלצות: */}
                   <Box>
                     {Array(5)
                       .fill("")
@@ -87,9 +89,12 @@ function Cards(props) {
                         />
                       ))}
                   </Box>
-                  <Heading fontSize="100%">
+
+                  {/* </Heading> */}
+                {/* </Flex> */}
+                  {/* <Heading fontSize="100%">
                     Reviews:{product.numReviews}{" "}
-                  </Heading>
+                  </Heading> */}
                 </GridItem>
               </Grid>
             </CardBody>

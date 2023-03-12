@@ -29,6 +29,8 @@ function SignupScreen() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -50,6 +52,8 @@ function SignupScreen() {
     }
   };
 
+
+  
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);

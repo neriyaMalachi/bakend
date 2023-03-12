@@ -67,8 +67,8 @@ function HomeFile() {
         <title>דף הבית</title>
       </Helmet>
     
-      <FormControl>
-        <Input dir="rtl" w="20%" bg="silver"  type="text" placeholder="חפש..." onChange={(e)=>{setSerch(e.target.value)}} />
+      <FormControl display="flex" justifyContent="center" alignItems="center" >
+        <Input dir="rtl" w="40%" bg="silver"  type="text" placeholder="חפש..." onChange={(e)=>{setSerch(e.target.value)}} />
       </FormControl>
 
       {propertis

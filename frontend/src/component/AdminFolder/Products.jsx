@@ -18,6 +18,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import AddProduct from "./AddProduct";
 function Products() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -46,7 +47,8 @@ function Products() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box bg="silver" >
+      <Box bg="silver">
+        <AddProduct />
         {items.map((item) => (
           <Card
             direction={{ base: "column", sm: "row" }}
@@ -62,11 +64,13 @@ function Products() {
             />
 
             <Stack>
-              
               <CardBody>
-                <Heading  py="2" size="md"> שם:{item.name}</Heading>
-                <Text > קטגוריה: {item.category}</Text>
-                <Text > פירוט:{item.description}</Text>
+                <Heading py="2" size="md">
+                  {" "}
+                  שם:{item.name}
+                </Heading>
+                <Text> קטגוריה: {item.category}</Text>
+                <Text> פירוט:{item.description}</Text>
                 <Text> מחיר:{item.price}</Text>
                 <Text> כמות :{item.countInStock}</Text>
                 <Text>מותג:{item.brand}</Text>
