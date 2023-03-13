@@ -9,31 +9,57 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
+  Text,
 } from "@chakra-ui/react";
-import {useEffect, useState}from "react";
+import { useEffect, useState } from "react";
+import axios from "../axios";
 
 function AddProduct() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [data, setData] = useState({
-    name: '',
-    category: '',
-    slug: '',
-    image: '',
-    price: '',
-    countInStock: '',
-    brand: '',
-    rating: '',
-    numReviews: '',
-    description: ''
-  })
+  // const [data, setData] = useState({
+  //   name: "",
+  //   category: "",
+  //   image: "",
+  //   price: "",
+  //   countInStock: "",
+  //   brand: "",
+  //   description: "",
+  // });
 
-  useEffect(() => {
-    console.log(data);
-  },[data])
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data]);
+
+  const [name, setName] = useState("");
+  const [category, setCategory] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
+  const [countInStock, setCountInStock] = useState("");
+  const [brand, setbrand] = useState("");
+  const [description, setDescription] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setData({e})
+    axios
+      .post("/api/propertis/addProducts/add", {
+        name,
+        category,
+        image,
+        price,
+        countInStock,
+        brand,
+        description,
+      })
+      .then(() => {
+        setName("");
+        setCategory("");
+        setImage("");
+        setPrice("0");
+        setCountInStock("0");
+        setbrand("");
+        setDescription("");
+      })
+      .catch((error) => alert(error.message));
   };
 
   return (
@@ -46,27 +72,64 @@ function AddProduct() {
           <ModalHeader>צור מוצר</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form onSubmit={handleSubmit}>
-              <Input placeholder="Name" />
-              <Input placeholder="category" />
-              <Input placeholder="slug" />
-              <Input placeholder="image" />
-              <Input placeholder="price" />
-              <Input placeholder="countInStock" />
-              <Input placeholder="brand" />
-              <Input placeholder="rating" />
-              <Input placeholder="numReviews" />
-              <Input placeholder="description" />
+            {/* <form onSubmit={handleSubmit}> */}
+            <Text>Name</Text>
+            <Input
+              type="text"
+              placeholder="Name"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+            />
+            <Text>Type product</Text>
+            <Input
+              type="text"
+              placeholder="category"
+              onChange={(e) => setCategory(e.target.value)}
+              value={category}
+            />
+            <Text>Url Image</Text>
+            <Input
+              type="text"
+              placeholder="image"
+              onChange={(e) => setImage(e.target.value)}
+              value={image}
+            />
+            <Text>Price</Text>
+            <Input
+              type="text"
+              placeholder="price"
+              onChange={(e) => setPrice(e.target.value)}
+              value={price}
+            />
+            <Text>Counte products</Text>
+            <Input
+              type="text"
+              placeholder="countInStock"
+              onChange={(e) => setCountInStock(e.target.value)}
+              value={countInStock}
+            />
+            <Text>מותג</Text>
+            <Input
+              type="text"
+              placeholder="brand"
+              onChange={(e) => setbrand(e.target.value)}
+              value={brand}
+            />
+            <Text>Description</Text>
+            <Input
+              type="text"
+              placeholder="description"
+              onChange={(e) => setDescription(e.target.value)}
+              value={description}
+            />
 
-              <Button type="submit">AddProduct</Button>
-            </form>
+            {/* </form> */}
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Close
+            <Button bg="yellow.300" onClick={handleSubmit}>
+              AddProduct
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

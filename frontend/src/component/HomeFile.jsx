@@ -7,6 +7,7 @@ import {
   FormLabel,
   Input,
   Form,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
@@ -34,6 +35,7 @@ function HomeFile() {
     error: "",
   });
   const [search, setSerch] = useState("");
+  const [isLargerThen768] = useMediaQuery('(min-width: 768px)')
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -59,28 +61,38 @@ function HomeFile() {
       display="flex"
       flexWrap="wrap"
       justifyContent="space-around"
-      mt="0.3%"
-      boxSize="100vh"
       w="100%"
+      // py="3rem"
     >
       <Helmet>
         <title>דף הבית</title>
       </Helmet>
-    
-      <FormControl display="flex" justifyContent="center" alignItems="center" >
-        <Input dir="rtl" w="40%" bg="silver"  type="text" placeholder="חפש..." onChange={(e)=>{setSerch(e.target.value)}} />
+
+      <FormControl display="flex" justifyContent="center" alignItems="center">
+        <Input
+          dir="rtl"
+          w="full"
+          maxW={!isLargerThen768 ? "350px" : "600px"}
+          bg="silver"
+          type="text"
+          mt="1rem"
+          mb="3rem"
+          placeholder="חפש..."
+          onChange={(e) => {
+            setSerch(e.target.value);
+          }}
+        />
       </FormControl>
 
       {propertis
-      .filter((item)=>{
-        return search.toLowerCase()=== ''
-        ? item
-        : item.name.toLowerCase().includes(search);
-
-      })
-      .map((product) => (
-        <Cards product={product} key={product.name}></Cards>
-      ))}
+        .filter((item) => {
+          return search.toLowerCase() === ""
+            ? item
+            : item.name.toLowerCase().includes(search);
+        })
+        .map((product) => (
+          <Cards product={product} key={product.name}></Cards>
+        ))}
     </Box>
   );
 }

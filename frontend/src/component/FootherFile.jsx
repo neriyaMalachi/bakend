@@ -21,7 +21,7 @@ function FootherFile() {
     <Media query="(min-width: 900px)">
       {(matches) => {
         return matches ? (
-          <Box bg="black">
+          <Box bg="black" pos="absolute" bottom={0}>
             <Grid
               templateRows="repeat(2, 1fr)"
               templateColumns="repeat(5, 1fr)"
@@ -74,7 +74,16 @@ function FootherFile() {
                 </Button>
                 <Divider orientation="vertical" h="60%" />
               </GridItem>
-              <GridItem colSpan={3}></GridItem>
+              <GridItem
+                colSpan={3}
+                color="white"
+                display="flex"
+                alignItems="end"
+                justifyContent="space-around"
+              >
+                <Text fontSize={"xl"}>Email: neriyaMalachi@gmail.com </Text>
+                <Text fontSize={"xl"}> WhatsApp: 0585202271 </Text>
+              </GridItem>
               <GridItem colSpan={1} bg="black">
                 <Flex
                   alignItems="center"
@@ -128,7 +137,7 @@ function FootherFile() {
               w="50%"
             >
               <Box>
-                <BsFacebook  size={25} />
+                <BsFacebook size={25} />
               </Box>
               <Box>
                 <BsInstagram size={25} />
@@ -141,23 +150,19 @@ function FootherFile() {
               <Box>
                 <FaTwitter size={25} />
               </Box>
-
-            
             </Flex>
-            {/* <Flex 
-            alignItems="end"
-            bg="red"
-            justifyContent="center"
-            h="200px"
-             >
-                <Image
-                  borderRadius="50%"
-                  w="60%"
-                  h="50%"
-                  src={imageForLogo}
-                  alt="LOGO FOR COMPONY"
-                />
-              </Flex> */}
+            <Flex
+              w="full"
+              color="white"
+              direction="column"
+              p="3%"
+              alignItems="center"
+            >
+              <Text fontSize={"xl"}>Email: neriyaMalachi@gmail.com </Text>
+              <Text fontSize={"xl"}> WhatsApp: 0585202271 </Text>
+            </Flex>
+          
+        
           </Flex>
         );
       }}

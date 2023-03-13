@@ -44,41 +44,34 @@ function Cards(props) {
           <Card
             boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
             display="flex"
-            // flexWrap="wrap"
             alignContent="flex-start"
-            w="10%"
-            h="50%"
+            w="200px"
             border="1px solid"
             bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
           >
-            <CardBody  dir="rtl">
-              <Grid h="80%">
+            <CardBody p={0} dir="rtl">
+              <Grid>
                 <GridItem>
                   <Link to={`/product/${product.slug}`}>
                     <Image
                       filter="contrast(90%)"
                       _hover={{ filter: "contrast(100%)" }}
+                      objectFit="fill"
                       src={product.image}
                       alt={product.name}
                       w="100%"
-                      h="150px"
+                      h="250px"
                       borderRadius="5%"
                     />
                   </Link>
                 </GridItem>
-                <GridItem>
+                <GridItem py={3} pr={2} lineHeight="40px">
                   <Link to={`/product/${product.slug}`}>
                     <Heading size="md">{product.name}</Heading>
                   </Link>
-                </GridItem>
-                <GridItem>
                   <strong>
                     <Text fontSize="2xl"> ₪{product.price}</Text>
                   </strong>
-                </GridItem>
-                <GridItem>
-                  {/* <Flex direction="row" bg="red" w="100%" > */}
-                  {/* <Heading fontSize="100%"> המלצות: */}
                   <Box>
                     {Array(5)
                       .fill("")
@@ -89,13 +82,20 @@ function Cards(props) {
                         />
                       ))}
                   </Box>
+                </GridItem>
+                {/* <GridItem>
+                
+                </GridItem> */}
+                {/* <GridItem> */}
+                {/* <Flex direction="row" bg="red" w="100%" > */}
+                {/* <Heading fontSize="100%"> המלצות: */}
 
-                  {/* </Heading> */}
+                {/* </Heading> */}
                 {/* </Flex> */}
-                  {/* <Heading fontSize="100%">
+                {/* <Heading fontSize="100%">
                     Reviews:{product.numReviews}{" "}
                   </Heading> */}
-                </GridItem>
+                {/* </GridItem> */}
               </Grid>
             </CardBody>
 
@@ -123,65 +123,48 @@ function Cards(props) {
             boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
             display="flex"
             // flexWrap="wrap"
+            w="200px"
             alignContent="flex-end"
-            w="40%"
-            h="50%"
             border="1px solid"
             mt="3%"
             bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
-        dir="rtl"
-        
-        >
-            <CardBody>
+            dir="rtl"
+          >
+            <CardBody p={0}>
               <Grid h="105%">
                 <GridItem>
                   <Link to={`/product/${product.slug}`}>
                     <Image
                       filter="contrast(90%)"
                       _hover={{ filter: "contrast(100%)" }}
+                      objectFit="fill"
                       src={product.image}
                       alt={product.name}
                       w="100%"
-                      h="200px"
+                      h="250px"
+                      borderRadius="5%"
                     />
                   </Link>
                 </GridItem>
-                <GridItem>
+
+                <GridItem pt={1} pb={5} pr={2} lineHeight="40px">
                   <Link to={`/product/${product.slug}`}>
                     <Heading size="md">{product.name}</Heading>
                   </Link>
-                </GridItem>
-                <GridItem>
                   <strong>
                     <Text fontSize="xl"> {product.price} ש"ח </Text>
-              
                   </strong>
-                </GridItem>
-                <GridItem>
-                  <Flex>
-                   
-                  <Heading fontSize="100%"> דירוג:</Heading>
-                 <Box
-                  display="flex"
-                  alignItems="center"
-                  >
+                  <Box display="flex" alignItems="center">
                     {Array(5)
                       .fill("")
                       .map((_, i) => (
                         <StarIcon
                           key={i}
                           color={i < product.rating ? "yellow" : "white"}
-                          boxSize={2}
+                          boxSize={4}
                         />
-                        
                       ))}
                   </Box>
-                
-
-                  </Flex>
-                  <Flex fontSize="100%">
-                  ביקורות:{" "}{product.numReviews}
-                  </Flex>
                 </GridItem>
               </Grid>
             </CardBody>

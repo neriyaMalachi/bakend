@@ -30,6 +30,7 @@ function App() {
       bgRepeat="no-repeat"
       bgSize="100% 100%"
       bgAttachment="fixed"
+      minH="100vh"
     >
       <ChakraProvider>
         <BrowserRouter>
