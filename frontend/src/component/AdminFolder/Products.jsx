@@ -60,7 +60,7 @@ function Products() {
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
               src={item.image}
-              alt="Caffe Latte"
+              alt={item.name}
             />
 
             <Stack>

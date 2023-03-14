@@ -38,28 +38,22 @@ function AddProduct() {
   const [brand, setbrand] = useState("");
   const [description, setDescription] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios
+   await axios
       .post("/api/propertis/addProducts/add", {
         name,
         category,
+        // slug: '',
         image,
         price,
         countInStock,
         brand,
+        rating: 0,
+        numReviews: 0,
         description,
       })
-      .then(() => {
-        setName("");
-        setCategory("");
-        setImage("");
-        setPrice("0");
-        setCountInStock("0");
-        setbrand("");
-        setDescription("");
-      })
-      .catch((error) => alert(error.message));
+      onClose()
   };
 
   return (

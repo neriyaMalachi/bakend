@@ -30,15 +30,17 @@ productRoute.get("/:id", async (req, res) => {
   console.log(product);
 });
 
-productRoute.post("/addProducts/add", (req, res) => {
+productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
-  console.log(" Product detail ", productDetail,) ;
- Product.create(productDetail,(err, data) => {
-    if (err) {
-      res.status(500).send(err.message);
-    } else {
-      res.status(201).send(data);
-    }
+  console.log(productDetail);
+  await Product.create(productDetail, (err, data) => {
+        if (err) {
+          console.log(err.message);
+          res.status(500).send(err.message);
+        } else {
+          console.log(productDetail);
+          res.status(201).send(data);
+        }
   });
 });
 

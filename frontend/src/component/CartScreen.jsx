@@ -33,7 +33,6 @@ function CartScreen() {
   } = state;
   const navigate = useNavigate();
 
-
   const UpdateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/propertis/${item._id}`);
     if (data.countInStock < quantity) {
@@ -87,7 +86,7 @@ function CartScreen() {
                           alt="Caffe Latte"
                         />
 
-                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
 
                         <Box
                           w="10%"
@@ -121,7 +120,7 @@ function CartScreen() {
                           </Button>
                         </Box>
 
-                        <Box>{item.price}{" "}  ₪</Box>
+                        <Box>{item.price} ₪</Box>
 
                         <DeleteIcon
                           color="red.500"
@@ -155,7 +154,7 @@ function CartScreen() {
                 </Card>
               </Stack>
             ) : (
-              <Flex  bg="white">
+              <Flex bg="white">
                 <Grid w="100%" h="100vh">
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
@@ -213,9 +212,9 @@ function CartScreen() {
                         </Box>
                         <Flex flexDirection="column-reverse" dir="rtl">
                           <Box>{item.description}</Box>
-                          <Link to={`/product/${item.slug}`}>
-                            סוג:{item.name}
-                          </Link>
+                          {/* <Link to={`/product/${item.slug}`}> */}
+                          {/* סוג:{item.name} */}
+                          {/* </Link> */}
 
                           <Box>מחיר:{item.price} </Box>
                         </Flex>
@@ -230,13 +229,7 @@ function CartScreen() {
                       </Card>
                     </GridItem>
                   ))}
-                  <Card
-                   bg="whitesmoke" 
-                   w="100%" 
-                   h="65%" 
-                   display="flex"
-                   
-                   >
+                  <Card bg="whitesmoke" w="100%" h="65%" display="flex">
                     <CardBody>
                       <Box fontSize="2xl" dir="rtl">
                         כמות מוצרים {" - "}{" "}
@@ -255,7 +248,6 @@ function CartScreen() {
                         onClick={checkoutHandler}
                         disabled={cartItems.length === 0}
                         bg="silver"
-                        
                       >
                         לקופה
                       </Button>

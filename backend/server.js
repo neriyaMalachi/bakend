@@ -6,6 +6,7 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRoute from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
+// import cors from "cors"
 
 dotenv.config();
 mongoose
@@ -20,7 +21,7 @@ mongoose
 const app = express();
 // const cors = require('cors')
 
-
+// app.use(cors({"strict-origin-when-cross-origin": * }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

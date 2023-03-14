@@ -40,11 +40,10 @@ function Users() {
       );
   };
   const HendleDelete = async (id) => {
-    // console.log(id);
+    console.log(id);
 
    await fetch(`http://localhost:5000/api/users/deleteuser/${id}`, {
-      method: "DELETE",
-      
+      method: "DELETE"
     })
       .then((result) => {
         result.json().then((resp) => {

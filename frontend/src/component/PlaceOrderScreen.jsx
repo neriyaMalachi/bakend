@@ -205,7 +205,7 @@ function PlaceOrderScreen() {
                         </GridItem>
 
                         <GridItem color="blue.400">
-                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                          {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
                         </GridItem>
                         <GridItem>
                           <Text>{item.quantity}</Text>
@@ -372,9 +372,9 @@ function PlaceOrderScreen() {
                           </GridItem>
 
                           <GridItem color="blue.400">
-                            <Link to={`/product/${item.slug}`}>
+                            {/* <Link to={`/product/${item.slug}`}>
                               {item.name}
-                            </Link>
+                            </Link> */}
                           </GridItem>
                           <GridItem>
                             <Text>{item.quantity}</Text>

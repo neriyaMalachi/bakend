@@ -103,7 +103,7 @@ function App() {
 
             <Route path="/" element={<HomeFile />} />
           </Routes>
-          <FootherFile />
+          {/* <FootherFile /> */}
         </BrowserRouter>
       </ChakraProvider>
     </Box>

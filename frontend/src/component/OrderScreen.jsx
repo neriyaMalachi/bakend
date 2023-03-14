@@ -247,7 +247,7 @@ function OrderScreen() {
                           />
                         </GridItem>
                         <GridItem color="blue.400">
-                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                          {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
                         </GridItem>
                         <GridItem>
                           <Text>{item.quantity}</Text>
@@ -413,7 +413,7 @@ function OrderScreen() {
                           />
                         </GridItem>
                         <GridItem color="blue.400">
-                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                          {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
                         </GridItem>
                         <GridItem>
                           <Text>{item.quantity}</Text>

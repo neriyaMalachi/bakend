@@ -81,12 +81,12 @@ userRouter.get("/getAllUser", async (req, res) => {
   }
 });
 
-
-
 userRouter.delete("/deleteuser/:id", async (req, res) => {
-  console.log(req.params.id);
-  const user = await User.deleteOne({ _id: mongoose.Types.ObjectId(req.params.id) });
-  res.send(user)
+  // console.log(req.params.id);
+  // const user = await User.deleteOne({ _id: mongoose.Types.ObjectId(req.params.id) });
+  // res.send(user)
+
+  console.log(req.body);
 });
 
 export default userRouter;

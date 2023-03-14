@@ -52,7 +52,7 @@ function Cards(props) {
             <CardBody p={0} dir="rtl">
               <Grid>
                 <GridItem>
-                  <Link to={`/product/${product.slug}`}>
+                  {/* <Link to={`/product/${product.slug}`}> */}
                     <Image
                       filter="contrast(90%)"
                       _hover={{ filter: "contrast(100%)" }}
@@ -63,12 +63,12 @@ function Cards(props) {
                       h="250px"
                       borderRadius="5%"
                     />
-                  </Link>
+                  {/* </Link> */}
                 </GridItem>
                 <GridItem py={3} pr={2} lineHeight="40px">
-                  <Link to={`/product/${product.slug}`}>
+                  {/* <Link to={`/product/${product.slug}`}> */}
                     <Heading size="md">{product.name}</Heading>
-                  </Link>
+                  {/* </Link> */}
                   <strong>
                     <Text fontSize="2xl"> ₪{product.price}</Text>
                   </strong>
@@ -133,7 +133,7 @@ function Cards(props) {
             <CardBody p={0}>
               <Grid h="105%">
                 <GridItem>
-                  <Link to={`/product/${product.slug}`}>
+                  {/* <Link to={`/product/${product.slug}`}> */}
                     <Image
                       filter="contrast(90%)"
                       _hover={{ filter: "contrast(100%)" }}
@@ -144,13 +144,13 @@ function Cards(props) {
                       h="250px"
                       borderRadius="5%"
                     />
-                  </Link>
+                  {/* </Link> */}
                 </GridItem>
 
                 <GridItem pt={1} pb={5} pr={2} lineHeight="40px">
-                  <Link to={`/product/${product.slug}`}>
+                  {/* <Link to={`/product/${product.slug}`}> */}
                     <Heading size="md">{product.name}</Heading>
-                  </Link>
+                  {/* </Link> */}
                   <strong>
                     <Text fontSize="xl"> {product.price} ש"ח </Text>
                   </strong>
