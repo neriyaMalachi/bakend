@@ -1,13 +1,6 @@
 import React from "react";
 import {
   Box,
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Divider,
-  CardHeader,
   CardBody,
   CardFooter,
   Image,
@@ -25,6 +18,10 @@ function Products() {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = () => {
     fetch("http://localhost:5000/api/propertis", {
       method: "GET",
     })
@@ -39,7 +36,19 @@ function Products() {
           setError(error);
         }
       );
-  }, []);
+  };
+
+  const deleteProduct = async (id) => {
+    console.log(id);
+    await fetch(`http://localhost:3000/api/propertis/deleteProduct/${id}`, {
+      method: "DELETE",
+    }).then((result) => {
+      result.json().then((resp) => {
+        console.warn(resp);
+        getProducts();
+      });
+    });
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
@@ -56,12 +65,12 @@ function Products() {
             key={item._id}
             dir="rtl"
           >
-            <Image
+            {/* <Image
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
               src={item.image}
               alt={item.name}
-            />
+            /> */}
 
             <Stack>
               <CardBody>
@@ -79,7 +88,11 @@ function Products() {
               </CardBody>
 
               <CardFooter>
-                <Button variant="solid" colorScheme="red">
+                <Button
+                  onClick={() => deleteProduct(item._id)}
+                  variant="solid"
+                  colorScheme="red"
+                >
                   מחק מוצר
                 </Button>
                 <Button variant="solid" colorScheme="green">
