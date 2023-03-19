@@ -12,11 +12,12 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
+import { useNavigate } from "react-router-dom";
 function Products() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     getProducts();
   }, []);
@@ -48,6 +49,12 @@ function Products() {
         getProducts();
       });
     });
+  };
+
+  const EditProduct = (item) => {
+    console.log({ item });
+    navigate("/admin/EditProductes");
+    return(<EditProduct item={item} />)
   };
 
   if (error) {
@@ -95,7 +102,11 @@ function Products() {
                 >
                   מחק מוצר
                 </Button>
-                <Button variant="solid" colorScheme="green">
+                <Button
+                  onClick={() => EditProduct(item)}
+                  variant="solid"
+                  colorScheme="green"
+                >
                   עדכן מוצר
                 </Button>
               </CardFooter>

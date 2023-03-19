@@ -34,19 +34,36 @@ productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
   console.log(productDetail);
   await Product.create(productDetail, (err, data) => {
-        if (err) {
-          console.log(err.message);
-          res.status(500).send(err.message);
-        } else {
-          console.log(productDetail);
-          res.status(201).send(data);
-        }
+    if (err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    } else {
+      console.log(productDetail);
+      res.status(201).send(data);
+    }
   });
 });
 
- productRoute.delete("/deleteProduct/:id", async (req,res)=>{
-   const result = await Product.deleteOne({_id:req.params.id})
-   res.send(result)
- })
+productRoute.delete("/deleteProduct/:id", async (req, res) => {
+  const result = await Product.deleteOne({ _id: req.params.id });
+  res.send(result);
+});
+
+productRoute.put("/updateProducts", async (req, res) => {
+  console.log(req.body);
+  
+  const data = await Product();
+  let result = data.updateOne(
+    { name: req.body.name },
+    { category: req.body.category },
+    // {image:req.body.image},
+    { price: req.body.price },
+    { countInStock: req.body.countInStock },
+    { brand: req.body.brand },
+    { description: req.body.description },
+  );
+  
+
+});
 
 export default productRoute;

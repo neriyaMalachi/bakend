@@ -26,14 +26,16 @@ function ShippingAddressScreen() {
   const [fullName, setFullName] = useState(shippingAddress.fullName || "");
   const [address, setAddress] = useState(shippingAddress.address || "");
   const [city, setCity] = useState(shippingAddress.city || "");
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || "");
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ""
+  );
   const [country, setcountry] = useState(shippingAddress.country || "");
 
-  useEffect(()=>{
-    if( ! userInfo){
-      navigate('/signin?redirect=/shipping')
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/signin?redirect=/shipping");
     }
-  },[userInfo,navigate ])
+  }, [userInfo, navigate]);
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -60,89 +62,80 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="91vh"  >
-    <Card 
-    p="4%"
-   bg="   radial-gradient(circle, rgba(7,65,2,1) 0%, rgba(181,181,181,0.9248074229691877) 0%)"
-  
-    >
-      <Helmet>
-        <title>Shiping Address</title>
-      </Helmet>
-      {/* <CheckOutSteps step1 step2></CheckOutSteps> */}
-      <Box
-      textAlign="center"
-      >פרטי משתמש</Box>
-      <form onSubmit={submitHandler}>
-        <VStack
-          // divider={<StackDivider borderColor="gray.200" />}
-          spacing={4}
-          align="stretch"
-          zIndex={1}
-          
-        >
-          <Box h="40px"   >
-            <Input
-              placeholder="Full name"
-              size="lg"
-              value={fullName}
-              required
-              onChange={(e) => setFullName(e.target.value)}
-             
-            />
-          </Box>
+    <Center h="91vh">
+      <Card
+        p="4%"
+        bg="   radial-gradient(circle, rgba(7,65,2,1) 0%, rgba(181,181,181,0.9248074229691877) 0%)"
+      >
+        <Helmet>
+          <title>Shiping Address</title>
+        </Helmet>
+        {/* <CheckOutSteps step1 step2></CheckOutSteps> */}
+        <Box textAlign="center">פרטי משתמש</Box>
+        <form onSubmit={submitHandler}>
+          <VStack
+            // divider={<StackDivider borderColor="gray.200" />}
+            spacing={4}
+            align="stretch"
+            zIndex={1}
+          >
+            <Box h="40px">
+              <Input
+                placeholder="Full name"
+                size="lg"
+                value={fullName}
+                required
+                onChange={(e) => setFullName(e.target.value)}
+              />
+            </Box>
 
-          <Box h="40px">
-            <Input
-              placeholder="Address"
-              size="lg"
-              value={address}
-              required
-              onChange={(e) => setAddress(e.target.value)}
-            />
-          </Box>
+            <Box h="40px">
+              <Input
+                placeholder="Address"
+                size="lg"
+                value={address}
+                required
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </Box>
 
-          <Box h="40px">
-            <Input
-              placeholder="City"
-              size="lg"
-              value={city}
-              required
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </Box>
+            <Box h="40px">
+              <Input
+                placeholder="City"
+                size="lg"
+                value={city}
+                required
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </Box>
 
-          <Box h="40px">
-            <Input
-              placeholder="Postal code"
-              size="lg"
-              value={postalCode}
-              required
-              onChange={(e) => setPostalCode(e.target.value)}
-            />
-          </Box>
+            <Box h="40px">
+              <Input
+                placeholder="Postal code"
+                size="lg"
+                value={postalCode}
+                required
+                onChange={(e) => setPostalCode(e.target.value)}
+              />
+            </Box>
 
-          <Box h="40px">
-            <Input
-              placeholder="Country"
-              size="lg"
-              value={country}
-              required
-              onChange={(e) => setcountry(e.target.value)}
-            />
-          </Box>
-        </VStack>
-        <CardFooter>
-          <Button
-           variant="primary" 
-           type="submit"
-           border="1px solid"
-           >
-            התחבר
-          </Button>
-        </CardFooter>
-      </form>
-    </Card>
+            <Box h="40px">
+              <Input
+                placeholder="Country"
+                size="lg"
+                value={country}
+                required
+                onChange={(e) => setcountry(e.target.value)}
+              />
+            </Box>
+          </VStack>
+          <CardFooter>
+            <Button variant="primary" type="submit" border="1px solid">
+              התחבר
+            </Button>
+          </CardFooter>
+        </form>
+      </Card>
     </Center>
   );
 }

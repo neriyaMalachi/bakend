@@ -22,6 +22,7 @@ import Products from "./component/AdminFolder/Products";
 import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";
 import AddUser from "./component/AdminFolder/AddUser";
+import EditProductes from "./component/AdminFolder/EditProductes";
 
 function App() {
   return (
@@ -100,7 +101,14 @@ function App() {
                 </AdminRoutes>
               }
             />
-
+            <Route
+              path="/Admin/EditProductes"
+              element={
+                <AdminRoutes>
+                  <EditProductes />
+                </AdminRoutes>
+              }
+            />
             <Route path="/" element={<HomeFile />} />
           </Routes>
           {/* <FootherFile /> */}
