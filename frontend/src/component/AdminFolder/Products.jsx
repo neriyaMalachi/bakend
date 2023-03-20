@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 function Products() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -72,12 +72,12 @@ function Products() {
             key={item._id}
             dir="rtl"
           >
-            {/* <Image
+            <Image
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
               src={item.image}
               alt={item.name}
-            /> */}
+            />
 
             <Stack>
               <CardBody>
@@ -102,13 +102,11 @@ function Products() {
                 >
                   מחק מוצר
                 </Button>
-                <Button
-                  onClick={() => EditProduct(item)}
-                  variant="solid"
-                  colorScheme="green"
+                <Link 
+                to={"/Admin/EditProductes/"+ item._id}
                 >
                   עדכן מוצר
-                </Button>
+                </Link>
               </CardFooter>
             </Stack>
           </Card>

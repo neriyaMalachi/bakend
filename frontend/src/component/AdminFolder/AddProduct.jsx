@@ -16,20 +16,6 @@ import axios from "../axios";
 
 function AddProduct() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  // const [data, setData] = useState({
-  //   name: "",
-  //   category: "",
-  //   image: "",
-  //   price: "",
-  //   countInStock: "",
-  //   brand: "",
-  //   description: "",
-  // });
-
-  // useEffect(() => {
-  //   console.log(data);
-  // }, [data]);
-
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [image, setImage] = useState("");
@@ -40,25 +26,23 @@ function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   await axios
-      .post("/api/propertis/addProducts/add", {
-        name,
-        category,
-        // slug: '',
-        image,
-        price,
-        countInStock,
-        brand,
-        rating: 0,
-        numReviews: 0,
-        description,
-      })
-      onClose()
+    await axios.post("/api/propertis/addProducts/add", {
+      name,
+      category,
+      image,
+      price,
+      countInStock,
+      brand,
+      rating: 0,
+      numReviews: 0,
+      description,
+    });
+    onClose();
   };
 
   return (
     <>
-      <Button onClick={onOpen}>Open Modal</Button>
+      <Button onClick={onOpen}>הוסף מוצר</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -122,7 +106,7 @@ function AddProduct() {
 
           <ModalFooter>
             <Button bg="yellow.300" onClick={handleSubmit}>
-              AddProduct
+              הוסף מוצר
             </Button>
           </ModalFooter>
         </ModalContent>
