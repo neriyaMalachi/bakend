@@ -1,17 +1,60 @@
 import { Button, Card, Flex, Input, Text } from "@chakra-ui/react";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 function EditProductes() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
   const [price, setPrice] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [description, setDescription] = useState("");
-const params = useParams();
+  const [brand, setBrand] = useState("");
+  const [rating, setRating] = useState("");
 
-  const Editproduact = () => {
+  const params = useParams();
+  const navigate = useNavigate();
+  useEffect(() => {
+    getProductDetails();
+  }, []);
+
+  const getProductDetails = async () => {
+    console.log(params);
+    let result = await fetch(
+      `http://localhost:3000/api/propertis/${params.id}`
+    );
+    result = await result.json();
+    console.log(result);
+    setName(result.name);
+    setCategory(result.category);
+    setCountInStock(result.countInStock);
+    setPrice(result.price);
+    setDescription(result.description);
+  };
+
+  const Editproduact = async () => {
     console.log(name, category, price, countInStock, description);
+
+    let result = await fetch(
+      `http://localhost:3000/api/propertis/updateProducts/${params.id}`,
+      {
+        method: "put",
+        body: JSON.stringify({
+          name,
+          category,
+          price,
+          countInStock,
+          description,
+          brand,
+          rating,
+        }),
+        headers: {
+          "Content-Type": "Application/json",
+        },
+      }
+    );
+    result = await result.json();
+    if (result) {
+      navigate("/Admin/products");
+    }
   };
   return (
     <Flex
@@ -54,6 +97,22 @@ const params = useParams();
         w="50%"
         onChange={(e) => {
           setCountInStock(e.target.value);
+        }}
+      />
+            <Input
+        placeholder="Rating"
+        value={rating}
+        w="50%"
+        onChange={(e) => {
+          setRating(e.target.value);
+        }}
+      />
+            <Input
+        placeholder="Brand"
+        value={brand}
+        w="50%"
+        onChange={(e) => {
+          setBrand(e.target.value);
         }}
       />
       <Input

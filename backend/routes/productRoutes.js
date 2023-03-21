@@ -49,30 +49,12 @@ productRoute.delete("/deleteProduct/:id", async (req, res) => {
   res.send(result);
 });
 
-// productRoute.put("/updateProducts", async (req, res) => {
-//   console.log(req.body);
-  
-//   const data = await Product();
-//   let result = data.updateOne(
-//     { name: req.body.name },
-//     { category: req.body.category },
-//     // {image:req.body.image},
-//     { price: req.body.price },
-//     { countInStock: req.body.countInStock },
-//     { brand: req.body.brand },
-//     { description: req.body.description },
-//   );
-  
-
-// });
-
-productRoute.get("/product/:id",async (req,res)=>{
-  let result = await Product.findOne({_id:req.params.id})
-  if(result){
-    res.send(result)
-  }else{
-    res.send({"result":"No Record Found."})
-  }
-})
+productRoute.put("/updateProducts/:id", async (req, res) => {
+  let result = await Product.updateOne(
+    { _id: req.params.id },
+    { $set: req.body }
+  );
+  res.send(result);
+});
 
 export default productRoute;

@@ -9,6 +9,7 @@ import {
   Heading,
   Text,
   Button,
+  Flex,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
@@ -63,24 +64,29 @@ function Products() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box bg="silver">
+      <Box >
+        <Flex justifyContent="center"  >
+ 
         <AddProduct />
+        </Flex  >
         {items.map((item) => (
           <Card
             direction={{ base: "column", sm: "row" }}
             overflow="hidden"
             key={item._id}
             dir="rtl"
+            w="90%"
+            border="2px solid "
           >
-            <Image
+            {/* <Image
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
               src={item.image}
               alt={item.name}
-            />
+            /> */}
 
             <Stack>
-              <CardBody>
+              <CardBody color="white">
                 <Heading py="2" size="md">
                   {" "}
                   שם:{item.name}
@@ -105,7 +111,9 @@ function Products() {
                 <Link 
                 to={"/Admin/EditProductes/"+ item._id}
                 >
+                  <Button bg="green.400" >
                   עדכן מוצר
+                  </Button>
                 </Link>
               </CardFooter>
             </Stack>

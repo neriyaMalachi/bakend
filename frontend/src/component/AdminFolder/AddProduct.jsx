@@ -42,7 +42,7 @@ function AddProduct() {
 
   return (
     <>
-      <Button onClick={onOpen}>הוסף מוצר</Button>
+      <Button bg="yellow.200" w="20%" m="3%" onClick={onOpen}>הוסף מוצר</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
