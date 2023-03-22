@@ -42,6 +42,7 @@ function Cards(props) {
       {(matches) => {
         return matches ? (
           <Card
+          m="1%"
             boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
             display="flex"
             alignContent="flex-start"
@@ -129,6 +130,7 @@ function Cards(props) {
             mt="3%"
             bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
             dir="rtl"
+            m="1%"
           >
             <CardBody p={0}>
               <Grid h="105%">
