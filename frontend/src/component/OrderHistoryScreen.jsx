@@ -16,6 +16,7 @@ import {
   Card,
   CardHeader,
   CardFooter,
+  Flex,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
@@ -82,10 +83,15 @@ function OrderHistoryScreen() {
           <AlertIcon />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
+      ):orders ?(
+        <Flex justifyContent="center" dir="rtl"  >
+          <Text fontSize="3xl" color="red" >אין הזמנות בהסטוריה : </Text>
+        </Flex>
       ) : (
         <Media query="(min-width: 990px)">
           {(matches) => {
             return matches ? (
+
               <Box>
                 <TableContainer bg="white">
                   <Text textAlign="center" fontSize="2xl">

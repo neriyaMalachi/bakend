@@ -67,9 +67,9 @@ function Cards(props) {
                   {/* </Link> */}
                 </GridItem>
                 <GridItem py={3} pr={2} lineHeight="40px">
-                  {/* <Link to={`/product/${product.slug}`}> */}
+                  <Link to={`/product/${product.slug}`}>
                     <Heading size="md">{product.name}</Heading>
-                  {/* </Link> */}
+                  </Link>
                   <strong>
                     <Text fontSize="2xl"> ₪{product.price}</Text>
                   </strong>

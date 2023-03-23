@@ -72,7 +72,7 @@ function NavBarForwhidthBiger() {
           <GridItem w="50%">
             {!userInfo ? (
               <Flex justifyContent="end" color="whitesmoke">
-                <Link to="/signin">Sign In</Link>
+                <Link to="/signin">התחבר</Link>
               </Flex>
             ) : (
               <GridItem w="100%">
@@ -101,7 +101,6 @@ function NavBarForwhidthBiger() {
                         {isOpen ? "סגור" : "מנהל"}
                       </MenuButton>
                       <MenuList color="black">
-                       
                         <Link to="/Admin/products">
                           <MenuItem>מוצרים</MenuItem>
                         </Link>

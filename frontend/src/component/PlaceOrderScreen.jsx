@@ -267,9 +267,7 @@ function PlaceOrderScreen() {
               </Grid>
             </Grid>
           ) : (
-            <Box
-            bg="white"
-            >
+            <Box bg="white">
               <Center dir="rtl">
                 <Flex
                   flexDirection="column"
@@ -288,7 +286,7 @@ function PlaceOrderScreen() {
                     <Text>תצוגת הזמנה</Text>
 
                     <Box
-                      w="30%"
+                      w="17%"
                       display="flex"
                       alignItems="center"
                       justifyContent="space-between"
@@ -298,19 +296,19 @@ function PlaceOrderScreen() {
                       {cart.shippingAddress.fullName}
                     </Box>
                     <Box
-                      w="60%"
+                      w="90%"
                       display="flex"
                       alignItems="center"
                       justifyContent="space-between"
                     >
                       <Text fontSize="xl">כתובת:</Text>
-                      {cart.shippingAddress.address},{cart.shippingAddress.city},
-                      {cart.shippingAddress.postalCode},
+                      {cart.shippingAddress.address},{cart.shippingAddress.city}
+                      ,{cart.shippingAddress.postalCode},
                       {cart.shippingAddress.country}
                     </Box>
 
                     <Box color="blue">
-                      <Link to="/shipping">עדכן!</Link>
+                      <Link to="/shipping">עדכן:</Link>
                     </Box>
                   </Flex>
 
@@ -359,7 +357,7 @@ function PlaceOrderScreen() {
                           justifyContent="space-around"
                           alignItems="center"
                           border=" 1px solid"
-                          bg="silver"
+                          bg="whitesmoke"
                         >
                           <GridItem>
                             <Image
@@ -371,10 +369,10 @@ function PlaceOrderScreen() {
                             />
                           </GridItem>
 
-                          <GridItem color="blue.400">
-                            {/* <Link to={`/product/${item.slug}`}>
+                          <GridItem>
+                            <Link to={`/product/${item.slug}`}>
                               {item.name}
-                            </Link> */}
+                            </Link>
                           </GridItem>
                           <GridItem>
                             <Text>{item.quantity}</Text>
@@ -385,49 +383,55 @@ function PlaceOrderScreen() {
                         </GridItem>
                       </Grid>
                     ))}
-
-                    <Link to="/cart">עדכן:</Link>
+                    <Box color="blue">
+                      <Link to="/cart">עדכן:</Link>
+                    </Box>
                   </Box>
                 </Flex>
                 {/* Stack for order summary */}
               </Center>
               <Box>
                 <Box
-                  // border="1px solid"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                  bg="white"
+                  bg="whitesmoke"
                   dir="rtl"
                 >
                   <Text fontSize="2xl">סיכום הזמנה</Text>
 
-                  <Flex bg="silver"   justifyContent="space-evenly" >
+                  <Flex bg="whitesmoke" justifyContent="space-evenly">
                     <Text> פריט</Text>
                     <Text>${cart.itemsPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex bg="silver"  justifyContent="space-evenly">
+                  <Flex bg="whitesmoke" justifyContent="space-evenly">
                     <Text>משלוח</Text>
                     <Text>${cart.shippingPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex bg="silver"  justifyContent="space-evenly">
+                  <Flex bg="whitesmoke" justifyContent="space-evenly">
                     <Text>מס</Text>
                     <Text>${cart.taxPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex bg="silver" justifyContent="center" flexDirection="column" alignItems="center" >
-                    <Text fontSize="2xl"> סך כל ההזמנה</Text>
+                  <Flex
+                    bg="whitesmoke"
+                    justifyContent="space-evenly"
+                    alignItems="center"
+                  >
+                    <Text fontSize="xl"> סכו"ם</Text>
                     <Text>${cart.totalPrice.toFixed(2)} </Text>
                   </Flex>
-                  <Flex justifyContent="center" >
-                  <Button
-                    type="button"
-                    onClick={placeOrderHandler}
-                    disabled={cart.cartItems.length === 0}
-                    bg="green.600"
-                  >
-                    בצע הזמנה
-                  </Button>
+                  <Flex justifyContent="center">
+                    <Button
+                      type="button"
+                      onClick={placeOrderHandler}
+                      disabled={cart.cartItems.length === 0}
+                      bg="white"
+                      as='ins'
+                      color="black"
+                    >
+                      בצע הזמנה
+                    </Button>
                   </Flex>
                 </Box>
                 {loading && <LoadingBox></LoadingBox>}

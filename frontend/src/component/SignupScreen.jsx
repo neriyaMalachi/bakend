@@ -67,7 +67,7 @@ function SignupScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="whitesmoke">
+        <Center dir="rtl" h="90vh" bg="whitesmoke">
           <Card
             // bg="silver"
             h="60vh"

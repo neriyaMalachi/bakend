@@ -8,12 +8,14 @@ import {
   Card,
   CardBody,
   CardFooter,
+  Divider,
   Flex,
   Grid,
   GridItem,
   Image,
   Stack,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import {
   DeleteIcon,
@@ -27,6 +29,7 @@ import Media from "react-media";
 
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const [isLargerThen768] = useMediaQuery('(min-width:900px)')
 
   const {
     cart: { cartItems },
@@ -58,15 +61,28 @@ function CartScreen() {
       </Helmet>
 
       {cartItems.length === 0 ? (
-        <Box bg="tomato" w="100%" p={4} color="white">
-          Cart is empty. <Link to="/">Go Shoping</Link>
-        </Box>
+        <Flex
+          justifyContent="center"
+          direction="column"
+          alignItems="center"
+          dir="rtl"
+          color="red"
+          w="100%"
+          h={isLargerThen768 ? "70vh" : "50vh" }
+          fontSize="2xl"
+          p={4}
+        >
+          <Box>העגלת קניות ריקה!</Box>
+          <Box color="blue" as="ins">
+            <Link to="/"> למוצרים</Link>
+          </Box>
+        </Flex>
       ) : (
         <Media query="(min-width: 900px)">
           {(matches) => {
             return matches ? (
-              <Stack isInline gap={3} mt="4%" h="91vh">
-                <Grid w="70%" h="50vh" ml="3%">
+              <Stack isInline gap={3} mt="4%" h="90vh">
+                <Grid w="70%" h="100vh" ml="3%">
                   {cartItems.map((item) => (
                     <GridItem justifyContent="space-around" key={item._id}>
                       <Card
@@ -168,6 +184,7 @@ function CartScreen() {
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                         h="80%"
                         border="1px solid"
+                        mt="1%"
                       >
                         <Box h="100%">
                           <SmallCloseIcon
