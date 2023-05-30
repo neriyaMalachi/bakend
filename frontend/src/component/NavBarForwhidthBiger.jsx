@@ -2,6 +2,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
+  CSSReset,
   Card,
   Flex,
   Grid,
@@ -16,6 +17,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
+import DarkModeSwitch from "../Style/DarkModeSwitch";
 
 function NavBarForwhidthBiger() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -58,7 +60,8 @@ function NavBarForwhidthBiger() {
           <GridItem>
             <Link to="/">דף הבית</Link>
           </GridItem>
-
+         
+        
           {/* Shoping Cart  */}
           <GridItem textAlign="center">
             {cart.cartItems.length > 0 && (
@@ -68,11 +71,16 @@ function NavBarForwhidthBiger() {
             )}
             <Link to="/cart">עגלת קניות</Link>
           </GridItem>
-
+       
           <GridItem w="50%">
             {!userInfo ? (
+               
+                
               <Flex justifyContent="end" color="whitesmoke">
+           
                 <Link to="/signin">התחבר</Link>
+                <CSSReset />
+             <DarkModeSwitch />
               </Flex>
             ) : (
               <GridItem w="100%">

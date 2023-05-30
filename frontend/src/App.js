@@ -8,7 +8,7 @@ import SigninScreen from "./component/SigninScreen";
 import ShippingAddressScreen from "./component/ShippingAddressScreen";
 import SignupScreen from "./component/SignupScreen";
 import PaymentMethodScreen from "./component/PaymentMethodScreen";
-import { Box, ChakraProvider } from "@chakra-ui/react";
+import { Box, CSSReset, ChakraProvider } from "@chakra-ui/react";
 import PlaceOrderScreen from "./component/PlaceOrderScreen";
 import OrderScreen from "./component/OrderScreen";
 import OrderHistoryScreen from "./component/OrderHistoryScreen";
@@ -23,6 +23,8 @@ import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";
 import AddUser from "./component/AdminFolder/AddUser";
 import EditProductes from "./component/AdminFolder/EditProductes";
+import DarkModeSwitch from "./Style/DarkModeSwitch";
+import theme from "./Style/theme";
 
 function App() {
   return (
@@ -33,7 +35,8 @@ function App() {
       bgAttachment="fixed"
       minH="100vh"
     >
-      <ChakraProvider>
+      <ChakraProvider theme={theme} >
+  
         <BrowserRouter>
           <NavBar />
           <Routes>

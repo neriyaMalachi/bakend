@@ -12,11 +12,13 @@ import {
   Grid,
   GridItem,
   Text,
+  CSSReset,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
+import DarkModeSwitch from "../Style/DarkModeSwitch";
 
 function NavBarForwhidthstandart() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -168,6 +170,8 @@ function NavBarForwhidthstandart() {
             {!userInfo ? (
               <Flex justifyContent="end" color="whitesmoke">
                 <Link to="/signin">התחבר</Link>
+                <CSSReset />
+                <DarkModeSwitch />
               </Flex>
             ) : (
               <GridItem w="100%">
