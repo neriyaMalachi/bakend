@@ -2,24 +2,25 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  CSSReset,
-  Card,
+ 
   Flex,
   Grid,
   GridItem,
+  IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
   Text,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
-import DarkModeSwitch from "../Style/DarkModeSwitch";
 
 function NavBarForwhidthBiger() {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
   const signoutHandlet = () => {
@@ -57,11 +58,13 @@ function NavBarForwhidthBiger() {
         >
           <ToastContainer />
           {/* link for home page */}
+          <GridItem w="10%">
+            <IconButton  icon="moon" onClick={toggleColorMode} />
+          </GridItem>
           <GridItem>
             <Link to="/">דף הבית</Link>
           </GridItem>
-         
-        
+
           {/* Shoping Cart  */}
           <GridItem textAlign="center">
             {cart.cartItems.length > 0 && (
@@ -71,16 +74,11 @@ function NavBarForwhidthBiger() {
             )}
             <Link to="/cart">עגלת קניות</Link>
           </GridItem>
-       
-          <GridItem w="50%">
+
+          <GridItem w="40%">
             {!userInfo ? (
-               
-                
               <Flex justifyContent="end" color="whitesmoke">
-           
                 <Link to="/signin">התחבר</Link>
-                <CSSReset />
-             <DarkModeSwitch />
               </Flex>
             ) : (
               <GridItem w="100%">
