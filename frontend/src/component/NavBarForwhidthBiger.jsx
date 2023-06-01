@@ -1,8 +1,7 @@
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
- 
   Flex,
   Grid,
   GridItem,
@@ -59,7 +58,12 @@ function NavBarForwhidthBiger() {
           <ToastContainer />
           {/* link for home page */}
           <GridItem w="10%">
-            <IconButton  icon="moon" onClick={toggleColorMode} />
+            <IconButton
+             bg={colorMode === "dark" ? "black" : "white"}
+              color={colorMode === "dark" ? "white" : "black"}
+              icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+              onClick={toggleColorMode}
+            />
           </GridItem>
           <GridItem>
             <Link to="/">דף הבית</Link>

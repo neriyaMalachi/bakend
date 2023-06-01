@@ -1,4 +1,4 @@
-import { ChevronDownIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { ChevronDownIcon, HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -13,6 +13,7 @@ import {
   GridItem,
   Text,
   CSSReset,
+  useColorMode,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -20,6 +21,7 @@ import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
 
 function NavBarForwhidthstandart() {
+  const { colorMode, toggleColorMode } = useColorMode();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
   const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
@@ -118,6 +120,15 @@ function NavBarForwhidthstandart() {
           {/* link for home page */}
 
           <Flex w="65%" justifyContent="space-around">
+       
+             <GridItem>
+             <IconButton
+             bg={colorMode === "dark" ? "black" : "white"}
+              color={colorMode === "dark" ? "white" : "black"}
+              icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+              onClick={toggleColorMode}
+            />
+            </GridItem>
             <GridItem>
               <Link to="/">דף הבית</Link>
             </GridItem>
