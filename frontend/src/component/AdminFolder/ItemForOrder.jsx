@@ -1,25 +1,25 @@
-import { Text } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 import { React, useState } from "react";
 
-function ItemForOrder(item ,id) {
-  const [search, setSearch] = useState(item);
+function ItemForOrder({ props, id }) {
+  /* const [search, setSearch] = useState(item); */
 
   return (
     <>
-      {item
-        .filter((orderForUser) => {
+      {props
+        /* .filter((orderForUser) => {
           return orderForUser._id.toLowerCase() ===
             orderForUser.product.toLowerCase().includes(search)
             ? orderForUser
             : "";
-        })
+        }) */
         .map((ordersItem) => (
-          <>
+          <Box key={ordersItem._id} >
             <Text>שם: {ordersItem.name}</Text>
             <Text> כמות:{ordersItem.quantity}</Text>
             <Text> מחיר: {ordersItem.price}</Text>
             <Text> סוג: {ordersItem._id}</Text>
-          </>
+          </Box>
         ))}
     </>
   );

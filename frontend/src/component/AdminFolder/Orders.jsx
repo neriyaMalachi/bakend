@@ -33,6 +33,7 @@ function Orders() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
+  const [currentItem, setCurrentItem] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -73,35 +74,21 @@ function Orders() {
                 <Th isNumeric>שעת\יום חודש\ הזמנה</Th>
               </Tr>
             </Thead>
+            {console.log(items)}
             {items.map((item) => (
               <Tbody key={item._id}>
                 <Tr>
                   <Td>{item._id}</Td>
-                  <Td key={item._id}>
-                    <Button onClick={onOpen}> הזמנה</Button>
-
-                    {console.log(item.orderItems)}
-                    <Modal
-                      closeOnOverlayClick={false}
-                      isOpen={isOpen}
-                      onClose={onClose}
+                  <Td>
+                    <Button
+                      onClick={() => {
+                        setCurrentItem(item);
+                        onOpen();
+                      }}
                     >
-                      <ModalOverlay />
-                      <ModalContent>
-                        <ModalCloseButton />
-                        <ModalHeader>
-                          {item.shippingAddress.fullName}
-                        </ModalHeader>
-                        <ModalBody dir="rtl" key={item.orderItems._id} pb={6}>
-                       <ItemForOrder  id={item._id}  props={item.orderItems} />
-                        </ModalBody>
-                        <ModalFooter>
-                          <Button colorScheme="blue" mr={3} onClick={onClose}>
-                            סגור
-                          </Button>
-                        </ModalFooter>
-                      </ModalContent>
-                    </Modal>
+                      {" "}
+                      הזמנה
+                    </Button>
                   </Td>
                   <Td>
                     <Menu>
@@ -145,6 +132,25 @@ function Orders() {
             </Tfoot>
           </Table>
         </TableContainer>
+
+        <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalCloseButton />
+            <ModalHeader>{currentItem.shippingAddress?.fullName}</ModalHeader>
+            <ModalBody dir="rtl" pb={6}>
+              <ItemForOrder
+                id={currentItem._id}
+                props={currentItem.orderItems}
+              />
+            </ModalBody>
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                סגור
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </Box>
     );
   }
