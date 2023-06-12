@@ -22,7 +22,7 @@ import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 import { Helmet } from "react-helmet-async";
 import Media from "react-media";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { getError } from "../utils";
 import LoadingBox from "./LoadingBox";
@@ -84,8 +84,9 @@ function OrderHistoryScreen() {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ):orders ?(
-        <Flex justifyContent="center" dir="rtl"  >
+        <Flex h="62.5vh" justifyContent="center" alignItems={"center"} dir="rtl"  >
           <Text fontSize="3xl" color="red" >אין הזמנות בהסטוריה : </Text>
+          <Link to={"/"}>בחזרה לטפרית</Link>
         </Flex>
       ) : (
         <Media query="(min-width: 990px)">

@@ -69,60 +69,61 @@ function ProfileScreen() {
   };
 
   return (
-    <>
+    <Center>
       <Helmet>
         <title>User Profile</title>
       </Helmet>
-      <Box bg="radial-gradient(circle, rgba(181,181,181,0.9248074229691877) 0%, rgba(181,181,181,0.7819502801120448) 100%);">
-        <Text textAlign="center" fontSize="3xl">
-          User Profile
-        </Text>
-        <Center h={{ base: "82vh", sm: "84vh" }}>
-          <form onSubmit={submitHandler}>
-            <Box
-              // bg="white"
-              h="50vh"
-              justifyContent="space-around"
-            >
-              <FormLabel>שם</FormLabel>
-              <Input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                required
-              />
 
-              <FormLabel>אימייל</FormLabel>
-              <Input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+      <Center
+      mt="2%"
+        border="1px solid"
+        borderRadius="10%"
+        w="30%"
+        h={{ base: "82vh", sm: "84vh" }}
+      >
+        <form onSubmit={submitHandler}>
+        <Text m="5%" fontSize="3xl">User Profile</Text>
 
-              <FormLabel>סיסמה</FormLabel>
-              <Input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
+          <Box h="50vh" justifyContent="space-around">
+            
+            <FormLabel>שם</FormLabel>
+            <Input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
 
-              <FormLabel>אשר סיסמה</FormLabel>
-              <Input
-                type="password"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
-                required
-              />
+            <FormLabel>אימייל</FormLabel>
+            <Input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
 
-              <Box mt="10%">
-                <Button type="submit">עדכון</Button>
-              </Box>
+            <FormLabel>סיסמה</FormLabel>
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+
+            <FormLabel>אשר סיסמה</FormLabel>
+            <Input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+
+            <Box mt="10%">
+              <Button type="submit">עדכון</Button>
             </Box>
-          </form>
-        </Center>
-      </Box>
-    </>
+          </Box>
+        </form>
+      </Center>
+    </Center>
   );
 }
 
