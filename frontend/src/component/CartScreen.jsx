@@ -66,11 +66,11 @@ function CartScreen() {
           direction="column"
           alignItems="center"
           dir="rtl"
-          color="red"
           w="100%"
           h={isLargerThen768 ? "70vh" : "50vh" }
           fontSize="2xl"
           p={4}
+          bg="blackAlpha.100"
         >
           <Box>העגלת קניות ריקה!</Box>
           <Box color="blue" as="ins">
@@ -91,7 +91,7 @@ function CartScreen() {
                         flexDirection="row"
                         alignItems="center"
                         w="90%"
-                        bg="silver"
+                        bg="blackAlpha.100"
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                       >
                         <Image
@@ -102,7 +102,7 @@ function CartScreen() {
                           alt="Caffe Latte"
                         />
 
-                        {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
+                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
 
                         <Box
                           w="10%"
@@ -113,7 +113,7 @@ function CartScreen() {
                         >
                           <Button
                             borderRadius="50%"
-                            color="black"
+                            color="white"
                             colorScheme="white"
                             onClick={() =>
                               UpdateCartHandler(item, item.quantity + 1)
@@ -124,7 +124,7 @@ function CartScreen() {
                           </Button>{" "}
                           <Text>{item.quantity}</Text>{" "}
                           <Button
-                            color="black"
+                            color="white"
                             colorScheme="white"
                             borderRadius="50%"
                             onClick={() =>
@@ -147,7 +147,7 @@ function CartScreen() {
                   ))}
                 </Grid>
                 <hr />
-                <Card bg="silver" w="30%" h="160px" display="flex">
+                <Card bg="blackAlpha.100" w="30%" h="160px" display="flex">
                   <CardBody>
                     <h3 dir="rtl">
                       כמות מוצרים {" - "}{" "}
@@ -162,7 +162,7 @@ function CartScreen() {
                     <Button
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
-                      bg="orange.300"
+                      bg="green.400"
                     >
                       Process to Checkout
                     </Button>
@@ -170,7 +170,7 @@ function CartScreen() {
                 </Card>
               </Stack>
             ) : (
-              <Flex bg="white">
+              <Flex bg="blackAlpha.100"  >
                 <Grid w="100%" h="100vh">
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
@@ -180,7 +180,8 @@ function CartScreen() {
                         flexDirection="row"
                         alignItems="center"
                         w="100%"
-                        bg="whitesmoke"
+                        color="white"
+                        bg="blackAlpha.100"
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                         h="80%"
                         border="1px solid"
@@ -203,7 +204,6 @@ function CartScreen() {
                             >
                               <Button
                                 fontSize="xl"
-                                color="black"
                                 colorScheme="white"
                                 onClick={() =>
                                   UpdateCartHandler(item, item.quantity + 1)
@@ -214,7 +214,6 @@ function CartScreen() {
                               </Button>{" "}
                               <Text>{item.quantity}</Text>{" "}
                               <Button
-                                color="black"
                                 colorScheme="white"
                                 fontSize="xl"
                                 onClick={() =>
@@ -229,10 +228,6 @@ function CartScreen() {
                         </Box>
                         <Flex flexDirection="column-reverse" dir="rtl">
                           <Box>{item.description}</Box>
-                          {/* <Link to={`/product/${item.slug}`}> */}
-                          {/* סוג:{item.name} */}
-                          {/* </Link> */}
-
                           <Box>מחיר:{item.price} </Box>
                         </Flex>
 
@@ -246,7 +241,7 @@ function CartScreen() {
                       </Card>
                     </GridItem>
                   ))}
-                  <Card bg="whitesmoke" w="100%" h="65%" display="flex">
+                  <Card  w="100%" color="white" h="65%" display="flex">
                     <CardBody>
                       <Box fontSize="2xl" dir="rtl">
                         כמות מוצרים {" - "}{" "}

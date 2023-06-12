@@ -112,7 +112,6 @@ function PlaceOrderScreen() {
                 {/* Grid for address */}
                 <Grid
                   dir="rtl"
-                  bg="whitesmoke"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   w="100%"
                   rowSpan={2}
@@ -151,7 +150,6 @@ function PlaceOrderScreen() {
                 {/* Grid for Method */}
                 <Grid
                   dir="rtl"
-                  bg="whitesmoke"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   w="100%"
                 >
@@ -177,7 +175,6 @@ function PlaceOrderScreen() {
                 {/* Stack for items */}
                 <Grid
                   dir="rtl"
-                  bg="whitesmoke"
                   w="100%"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                 >
@@ -192,7 +189,7 @@ function PlaceOrderScreen() {
                         justifyContent="space-around"
                         alignItems="center"
                         border=" 1px solid"
-                        bg="silver"
+
                       >
                         <GridItem>
                           <Image
@@ -229,7 +226,6 @@ function PlaceOrderScreen() {
                   border="1px solid"
                   borderRadius="30%"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                  bg="whitesmoke"
                 >
                   <Text fontSize="2xl">Order Summary</Text>
 
@@ -259,6 +255,7 @@ function PlaceOrderScreen() {
                     onClick={placeOrderHandler}
                     disabled={cart.cartItems.length === 0}
                     bg="silver"
+                    color="black"
                   >
                     Place Order
                   </Button>
@@ -267,7 +264,7 @@ function PlaceOrderScreen() {
               </Grid>
             </Grid>
           ) : (
-            <Box bg="white">
+            <Box >
               <Center dir="rtl">
                 <Flex
                   flexDirection="column"
@@ -278,7 +275,6 @@ function PlaceOrderScreen() {
                   {/* Grid for address */}
                   <Flex
                     dir="rtl"
-                    bg="whitesmoke"
                     boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                     w="49vh"
                     flexDirection="column"
@@ -315,7 +311,6 @@ function PlaceOrderScreen() {
                   {/* Grid for Method */}
                   <Box
                     dir="rtl"
-                    bg="whitesmoke"
                     boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                     w="100%"
                   >
@@ -342,7 +337,6 @@ function PlaceOrderScreen() {
 
                   <Box
                     dir="rtl"
-                    bg="whitesmoke"
                     w="100%"
                     boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   >
@@ -357,7 +351,6 @@ function PlaceOrderScreen() {
                           justifyContent="space-around"
                           alignItems="center"
                           border=" 1px solid"
-                          bg="whitesmoke"
                         >
                           <GridItem>
                             <Image
@@ -393,33 +386,31 @@ function PlaceOrderScreen() {
               <Box>
                 <Box
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                  bg="whitesmoke"
                   dir="rtl"
                 >
                   <Text fontSize="2xl">סיכום הזמנה</Text>
 
-                  <Flex bg="whitesmoke" justifyContent="space-evenly">
+                  <Flex  justifyContent="space-evenly">
                     <Text> פריט</Text>
-                    <Text>${cart.itemsPrice.toFixed(2)}</Text>
+                    <Text>₪{cart.itemsPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex bg="whitesmoke" justifyContent="space-evenly">
+                  <Flex justifyContent="space-evenly">
                     <Text>משלוח</Text>
-                    <Text>${cart.shippingPrice.toFixed(2)}</Text>
+                    <Text>₪{cart.shippingPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex bg="whitesmoke" justifyContent="space-evenly">
+                  <Flex  justifyContent="space-evenly">
                     <Text>מס</Text>
-                    <Text>${cart.taxPrice.toFixed(2)}</Text>
+                    <Text>₪{cart.taxPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
                   <Flex
-                    bg="whitesmoke"
                     justifyContent="space-evenly"
                     alignItems="center"
                   >
                     <Text fontSize="xl"> סכו"ם</Text>
-                    <Text>${cart.totalPrice.toFixed(2)} </Text>
+                    <Text>₪{cart.totalPrice.toFixed(2)} </Text>
                   </Flex>
                   <Flex justifyContent="center">
                     <Button

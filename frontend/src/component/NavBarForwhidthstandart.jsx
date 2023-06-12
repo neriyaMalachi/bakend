@@ -106,26 +106,28 @@ function NavBarForwhidthstandart() {
         </GridItem>
 
         <GridItem
-          color="whitesmoke"
+          color="white"
           bg="black"
           h="100%"
           display="flex"
           justifyContent="space-between"
           textDecorationLine="none"
           alignItems="center"
-          fontSize="xl"
+          fontSize="90%"
           boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
         >
           <ToastContainer />
           {/* link for home page */}
 
-          <Flex w="65%" justifyContent="space-around">
+          <Flex w="78%" justifyContent="space-between" bg="black">
        
              <GridItem>
              <IconButton
-             bg={colorMode === "dark" ? "black" : "white"}
-              color={colorMode === "dark" ? "white" : "black"}
-              icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+             size=""
+           bg="black"
+           color="white"
+       
+              icon={ colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
               onClick={toggleColorMode}
             />
             </GridItem>
@@ -136,7 +138,7 @@ function NavBarForwhidthstandart() {
             {/* Shoping Cart  */}
             <GridItem textAlign="center">
               {cart.cartItems.length > 0 && (
-                <Button borderRadius="40%" bg="red" size="xs">
+                <Button borderRadius="40%" bg="black" color="yellow" size="xs">
                   {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                 </Button>
               )}

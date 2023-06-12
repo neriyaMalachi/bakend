@@ -47,8 +47,9 @@ function PaymentMethodScreen() {
       <form onSubmit={submitHandler}>
         <RadioGroup 
           defaultValue="Itachi"
-          h="91vh"
-          bg="radial-gradient(circle, rgba(7,65,2,1) 0%, rgba(181,181,181,0.9248074229691877) 0%)"
+          h="62.5vh"
+          color="white"
+          bg="blackAlpha.100"
           display="flex"
           flexDirection="column"
           justifyContent="space-around"

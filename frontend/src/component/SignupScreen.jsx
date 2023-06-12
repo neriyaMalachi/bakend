@@ -8,6 +8,7 @@ import {
   Center,
   Input,
   Text,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -26,10 +27,10 @@ function SignupScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
-
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -52,8 +53,6 @@ function SignupScreen() {
     }
   };
 
-
-  
   useEffect(() => {
     if (userInfo) {
       navigate(redirect);
@@ -67,16 +66,16 @@ function SignupScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center dir="rtl" h="90vh" bg="whitesmoke">
+        <Center  h="90vh" bg="blackAlpha.200" >
           <Card
-            // bg="silver"
+            color="white"
             h="60vh"
             w="60vh"
             display="flex"
             justifyContent="center"
             alignItems="center"
-            border="1px solid"
-            borderRadius="20%"
+            border={maxWidthforHamborger ? "1px solid" : "none"}
+            borderRadius={maxWidthforHamborger ? "20%" : "none"}
           >
             <CardHeader display="flex" justifyContent="center" h="5%" w="100%">
               <Text fontSize="3xl" as="b">
@@ -93,19 +92,19 @@ function SignupScreen() {
                 onChange={(e) => setName(e.target.value)}
               />
 
-              <Text>Email</Text>
-              <Input
-                placeholder="Email"
-                type="email"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
               <Text>Password</Text>
               <Input
                 placeholder="password"
                 type="password"
                 required
                 onChange={(e) => setPassword(e.target.value)}
+              />
+              <Text>Email</Text>
+              <Input
+                placeholder="Email"
+                type="email"
+                required
+                onChange={(e) => setEmail(e.target.value)}
               />
               <Text>Confim Password</Text>
               <Input
@@ -114,14 +113,8 @@ function SignupScreen() {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <Button
-                type="submit"
-                bg="silver"
-                p="1%"
-                w="30%"
-                mt="5%"
-              >
-               הירשם
+              <Button type="submit" bg="silver" p="1%" w="30%" mt="5%">
+                הירשם
               </Button>
             </CardBody>
 
@@ -133,7 +126,7 @@ function SignupScreen() {
             ></CardFooter>
             <Box>
               יש לך כבר חשבון?{" "}
-              <Link to={`/signin?redirect=${redirect}`}>התחבר</Link>
+              <Link to={`/signin?redirect=${redirect}`}><Text as="u" >התחבר</Text> </Link>
             </Box>
           </Card>
         </Center>
