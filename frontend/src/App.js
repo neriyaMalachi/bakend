@@ -27,11 +27,11 @@ import EditProductes from "./component/AdminFolder/EditProductes";
 function App() {
   return (
     <Box
-      bgImage={bgImage}
-      bgRepeat="no-repeat"
-      bgSize="100% 100%"
-      bgAttachment="fixed"
-      minH="100vh"
+      // bgImage={bgImage}
+      // bgRepeat="no-repeat"
+      // bgSize="100% 100%"
+      // bgAttachment="fixed"
+      // minH="100vh"
     >
       <ChakraProvider >
         
