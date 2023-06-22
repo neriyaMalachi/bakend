@@ -7,13 +7,16 @@ import {
   Flex,
   Grid,
   GridItem,
+  IconButton,
   Image,
+  Link,
   Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { BsFacebook, BsInstagram } from "react-icons/bs";
 import { AiFillLinkedin } from "react-icons/ai";
-import { FaTwitter } from "react-icons/fa";
+import { FaTwitter, FaWhatsapp } from "react-icons/fa";
+import { HiOutlineMail } from "react-icons/hi";
 import Media from "react-media";
 import imageForLogo from "../img/logoForTheProject.png";
 function FootherFile() {
@@ -21,7 +24,7 @@ function FootherFile() {
     <Media query="(min-width: 900px)">
       {(matches) => {
         return matches ? (
-          <Box bg="black"  mt="2%"  bottom={0}>
+          <Box bg="black" mt="2%" bottom={0}>
             <Grid
               templateRows="repeat(2, 1fr)"
               templateColumns="repeat(5, 1fr)"
@@ -74,27 +77,23 @@ function FootherFile() {
                 </Button>
                 <Divider orientation="vertical" h="60%" />
               </GridItem>
-              <GridItem
-                colSpan={3}
-                color="white"
-                display="flex"
-                alignItems="end"
-                justifyContent="space-around"
-              >
-                <Text fontSize={"xl"}>Email: neriyaMalachi@gmail.com </Text>
-                <Text fontSize={"xl"}> WhatsApp: 0585202271 </Text>
-              </GridItem>
-              <GridItem colSpan={1} bg="black">
+              <GridItem colSpan={2}></GridItem>
+              <GridItem colSpan={2}>
                 <Flex
                   alignItems="center"
                   h="60px"
-                  w="90%"
+                  w="60%"
                   justifyContent="space-around"
+                  color="white"
                 >
+                  <HiOutlineMail size={30} />
                   <BsFacebook size={25} />
                   <BsInstagram size={25} />
                   <AiFillLinkedin size={25} />
                   <FaTwitter size={25} />
+                  <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+                    <FaWhatsapp size={30} />
+                  </a>
                 </Flex>
               </GridItem>
             </Grid>
@@ -134,7 +133,8 @@ function FootherFile() {
               justifyContent="space-around"
               alignItems="center"
               h="100px"
-              w="50%"
+              w="60%"
+              color="white"
             >
               <Box>
                 <BsFacebook size={25} />
@@ -142,7 +142,11 @@ function FootherFile() {
               <Box>
                 <BsInstagram size={25} />
               </Box>
-
+              <Box>
+                <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+                <FaWhatsapp size={25} />
+                </a>
+              </Box>
               <Box>
                 <AiFillLinkedin size={25} />
               </Box>
@@ -150,19 +154,11 @@ function FootherFile() {
               <Box>
                 <FaTwitter size={25} />
               </Box>
+              <Box>
+              <HiOutlineMail size={30} />
+              </Box>
             </Flex>
-            <Flex
-              w="full"
-              color="white"
-              direction="column"
-              p="3%"
-              alignItems="center"
-            >
-              <Text fontSize={"xl"}>Email: neriyaMalachi@gmail.com </Text>
-              <Text fontSize={"xl"}> WhatsApp: 0585202271 </Text>
-            </Flex>
-          
-        
+         
           </Flex>
         );
       }}
