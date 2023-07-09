@@ -7,6 +7,9 @@ import {
   CardHeader,
   Center,
   Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
@@ -17,8 +20,12 @@ import Axios from "axios";
 import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 function SigninScreen() {
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
+
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
@@ -60,15 +67,15 @@ function SigninScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="blackAlpha.200" >
+        <Center h="90vh" bg="blackAlpha.200">
           <Card
-          color="white"
+            color="white"
             h="60vh"
             w="60vh"
             display="flex"
             justifyContent="center"
             alignItems="center"
-            border={ maxWidthforHamborger ? "1px solid" : "none" }
+            border={maxWidthforHamborger ? "1px solid" : "none"}
             borderRadius="20%"
           >
             <CardHeader
@@ -92,12 +99,22 @@ function SigninScreen() {
               />
 
               <Text>Password</Text>
+              <InputGroup size='md'>
               <Input
                 placeholder="password"
-                type="password"
+                pr="4.5rem"
+                type={show ? "text" : "password"}
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
+             
+              <InputRightElement width="4.5rem">
+                <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  {show ?  <ViewIcon/> : <ViewOffIcon/> }
+                </Button>
+              </InputRightElement>
+              </InputGroup>
+
             </CardBody>
 
             <CardFooter
