@@ -25,14 +25,11 @@ import imageForLogo from "../img/logoForTheProject.png";
 
 
 function ForgetPassword() {
-  const [show, setShow] = React.useState(false);
-  const handleClick = () => setShow(!show);
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
@@ -40,7 +37,7 @@ function ForgetPassword() {
     e.preventDefault();
 
     try {
-      const { data } = await Axios.post("/api/users/signin", {
+      const { data } = await Axios.post("/api/users/requestPasswordReset", {
         email,
       });
       console.log({ data });
