@@ -95,11 +95,12 @@ function ForgetPassword() {
               />
             </CardBody>
             <CardFooter
-              w="90%"
+            bg="yellow"
+              w="100%"
               h="30%"
               display="flex"
               flexDirection="column"
-              justifyContent="space-around"
+              justifyContent="center"
             >
               <Button type="submit" bg="silver" p="1%" w="40%">
                 submit
