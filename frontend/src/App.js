@@ -22,16 +22,16 @@ import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";
 import AddUser from "./component/AdminFolder/AddUser";
 import EditProductes from "./component/AdminFolder/EditProductes";
-
+import ForgetPassword from "./component/ForgetPassword";
 
 function App() {
   return (
     <Box>
-      <ChakraProvider >
-        
+      <ChakraProvider>
         <BrowserRouter>
           <NavBar />
           <Routes>
+            <Route path="/forgetPassword" element={<ForgetPassword />} />
             <Route path="/product/:slug" element={<ProductFile />} />
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/signIn" element={<SigninScreen />} />

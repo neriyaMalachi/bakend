@@ -22,7 +22,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-function SigninScreen() {
+function ForgetPassword() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const navigate = useNavigate();
@@ -40,7 +40,6 @@ function SigninScreen() {
     try {
       const { data } = await Axios.post("/api/users/signin", {
         email,
-        password,
       });
       console.log({ data });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
@@ -60,7 +59,7 @@ function SigninScreen() {
   return (
     <>
       <Helmet>
-        <title>Sign In</title>
+        <title>ForgetPassword</title>
       </Helmet>
 
       <form onSubmit={submitHandler}>
@@ -82,7 +81,7 @@ function SigninScreen() {
               h="20%"
             >
               <Text fontSize="3xl" as="b">
-                Sign In
+                Forget Password
               </Text>
             </CardHeader>
 
@@ -94,26 +93,7 @@ function SigninScreen() {
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
-
-              <Text>Password</Text>
-              <InputGroup size='md'>
-              <Input
-                placeholder="password"
-                pr="4.5rem"
-                type={show ? "text" : "password"}
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-             
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handleClick}>
-                  {show ?  <ViewIcon/> : <ViewOffIcon/> }
-                </Button>
-              </InputRightElement>
-              </InputGroup>
-<Link to="/forgetPassword" >forget password?</Link>
             </CardBody>
-
             <CardFooter
               w="90%"
               h="30%"
@@ -122,14 +102,8 @@ function SigninScreen() {
               justifyContent="space-around"
             >
               <Button type="submit" bg="silver" p="1%" w="40%">
-                התחבר
+                submit
               </Button>
-              <Box alignItems="end">
-                לקוח חדש?{" "}
-                <Link to={`/signup?redirect=${redirect}`}>
-                  <Text as="u">צור משתמש חדש</Text>
-                </Link>
-              </Box>
             </CardFooter>
           </Card>
         </Center>
@@ -138,4 +112,4 @@ function SigninScreen() {
   );
 }
 
-export default SigninScreen;
+export default ForgetPassword;
