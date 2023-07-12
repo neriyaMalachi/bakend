@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
   Center,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -20,7 +21,8 @@ import Axios from "axios";
 import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import imageForLogo from "../img/logoForTheProject.png";
+
 
 function ForgetPassword() {
   const [show, setShow] = React.useState(false);
@@ -76,17 +78,25 @@ function ForgetPassword() {
           >
             <CardHeader
               display="flex"
-              alignItems="center"
+              flexDirection="column"
+              // alignItems="center"
               justifyContent="center"
-              h="20%"
+              h="50%"
             >
+               <Image
+                    borderRadius="50%"
+                    w="40%"
+                    h="50%"
+                    src={imageForLogo}
+                    alt="LOGO FOR COMPONY"
+                  />
               <Text fontSize="3xl" as="b">
                 Forget Password
               </Text>
             </CardHeader>
 
             <CardBody h="50%">
-              <Text>Email</Text>
+              <Text>enter your email address</Text>
               <Input
                 placeholder="Email"
                 type="email"
@@ -95,11 +105,9 @@ function ForgetPassword() {
               />
             </CardBody>
             <CardFooter
-            bg="yellow"
               w="100%"
               h="30%"
               display="flex"
-              flexDirection="column"
               justifyContent="center"
             >
               <Button type="submit" bg="silver" p="1%" w="40%">
