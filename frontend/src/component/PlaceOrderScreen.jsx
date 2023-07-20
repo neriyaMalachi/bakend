@@ -39,7 +39,6 @@ const reducer = (state, action) => {
 
 function PlaceOrderScreen() {
   const navigate = useNavigate();
-  // const clientId = "AZKL-OCyN36PITH8tkDGcX0aznF66Hgui7spphjCtXcs3opUgVSd6mzFW-xAnR9MG-NCVMIm5BoYMZG_"
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
   });

@@ -66,49 +66,50 @@ function SignupScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center  h="90vh" bg="blackAlpha.200" >
+        <Center h="90vh" bg="blackAlpha.200">
           <Card
-            color="white"
-            h="60vh"
+            color="black"
+            h="65vh"
             w="60vh"
             display="flex"
             justifyContent="center"
             alignItems="center"
             border={maxWidthforHamborger ? "1px solid" : "none"}
             borderRadius={maxWidthforHamborger ? "20%" : "none"}
+            dir="rtl"
           >
             <CardHeader display="flex" justifyContent="center" h="5%" w="100%">
               <Text fontSize="3xl" as="b">
-                Sign Up
+                הירשם
               </Text>
             </CardHeader>
 
             <CardBody h="60%">
-              <Text>Name</Text>
+              <Text>שם</Text>
               <Input
-                placeholder="name"
+                placeholder="שם"
                 type="name"
                 required
                 onChange={(e) => setName(e.target.value)}
               />
-
-              <Text>Password</Text>
+              <Text>איימיל</Text>
               <Input
-                placeholder="password"
-                type="password"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Text>Email</Text>
-              <Input
-                placeholder="Email"
+                placeholder="איימיל"
                 type="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Text>Confim Password</Text>
+              <Text>סיסמה</Text>
               <Input
-                placeholder="Confirm Password"
+                placeholder="סיסמה"
+                type="password"
+                required
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+              <Text>אמת סיסמה</Text>
+              <Input
+                placeholder="אמת סיסמה"
                 type="password"
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
@@ -126,7 +127,9 @@ function SignupScreen() {
             ></CardFooter>
             <Box>
               יש לך כבר חשבון?{" "}
-              <Link to={`/signin?redirect=${redirect}`}><Text as="u" >התחבר</Text> </Link>
+              <Link to={`/signin?redirect=${redirect}`}>
+                <Text as="u">התחבר</Text>{" "}
+              </Link>
             </Box>
           </Card>
         </Center>

@@ -6,6 +6,7 @@ import {
   CardFooter,
   CardHeader,
   Center,
+  Image,
   Input,
   InputGroup,
   InputLeftElement,
@@ -21,7 +22,7 @@ import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-
+import imgi from "../img/hookah-bar-bg.png"
 function SigninScreen() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -65,8 +66,9 @@ function SigninScreen() {
 
       <form onSubmit={submitHandler}>
         <Center h="90vh" bg="blackAlpha.200">
+          <Image src={"../img/hookah-bar-bg.png"} alt={"image"}/>
           <Card
-            color="white"
+            color="black"
             h="60vh"
             w="60vh"
             display="flex"
@@ -74,6 +76,7 @@ function SigninScreen() {
             alignItems="center"
             border={maxWidthforHamborger ? "1px solid" : "none"}
             borderRadius="20%"
+            dir="rtl"
           >
             <CardHeader
               display="flex"
@@ -82,36 +85,40 @@ function SigninScreen() {
               h="20%"
             >
               <Text fontSize="3xl" as="b">
-                Sign In
+                התחברות
               </Text>
             </CardHeader>
 
             <CardBody h="50%">
-              <Text>Email</Text>
+              <Text>איימיל</Text>
               <Input
-                placeholder="Email"
+                placeholder="איימיל"
                 type="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
               />
 
-              <Text>Password</Text>
-              <InputGroup size='md'>
-              <Input
-                placeholder="password"
-                pr="4.5rem"
-                type={show ? "text" : "password"}
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-             
-              <InputRightElement width="4.5rem">
-                <Button h="1.75rem" size="sm" onClick={handleClick}>
-                  {show ?  <ViewIcon/> : <ViewOffIcon/> }
-                </Button>
-              </InputRightElement>
+              <Text>סיסמה</Text>
+              <InputGroup
+                border={"1px"}
+                borderRadius={"lg"}
+                borderColor={"gray.400"}
+                alignItems="center"
+              >
+                <Input
+                  placeholder="סיסמה"
+                  type={show ? "text" : "password"}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                  border="none"
+                />
+                {/* <InputLeftElement> */}
+                  <Button h="1.75rem" size="sm" onClick={handleClick}>
+                    {show ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+                {/* </InputLeftElement> */}
               </InputGroup>
-<Link to="/forgetPassword" >forget password?</Link>
+              <Link to="/forgetPassword">שכחתי סיסמה?</Link>
             </CardBody>
 
             <CardFooter

@@ -7,6 +7,7 @@ function EditProductes() {
   const [price, setPrice] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
   const [rating, setRating] = useState("");
 
@@ -45,6 +46,7 @@ function EditProductes() {
           description,
           brand,
           rating,
+          image,
         }),
         headers: {
           "Content-Type": "Application/json",
@@ -63,7 +65,7 @@ function EditProductes() {
       justifyContent="space-around"
       alignItems="center"
       direction="column"
-      color="white"
+      color="black"
     >
       <Text fontSize="4xl">Edit</Text>
       <Input
@@ -82,7 +84,15 @@ function EditProductes() {
           setCategory(e.target.value);
         }}
       />
-      {/* <Input placeholder='image' value={} /> */}
+      <Input 
+      placeholder='image'
+       value={image}
+       w="50%"
+       onChange={(e) => {
+        setImage(e.target.value);
+      }}
+       
+       />
       <Input
         placeholder="price"
         value={price}

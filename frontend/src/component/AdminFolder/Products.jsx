@@ -55,7 +55,7 @@ function Products() {
   const EditProduct = (item) => {
     console.log({ item });
     navigate("/admin/EditProductes");
-    return(<EditProduct item={item} />)
+    return <EditProduct item={item} />;
   };
 
   if (error) {
@@ -64,11 +64,10 @@ function Products() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box >
-        <Flex justifyContent="center"  >
- 
-        <AddProduct />
-        </Flex  >
+      <Box>
+        <Flex justifyContent="center">
+          <AddProduct />
+        </Flex>
         {items.map((item) => (
           <Card
             direction={{ base: "column", sm: "row" }}
@@ -78,15 +77,15 @@ function Products() {
             w="90%"
             border="2px solid "
           >
-            {/* <Image
+            <Image
               objectFit="cover"
               maxW={{ base: "100%", sm: "200px" }}
               src={item.image}
               alt={item.name}
-            /> */}
+            />
 
             <Stack>
-              <CardBody color="white">
+              <CardBody color="black">
                 <Heading py="2" size="md">
                   {" "}
                   שם:{item.name}
@@ -108,12 +107,8 @@ function Products() {
                 >
                   מחק מוצר
                 </Button>
-                <Link 
-                to={"/Admin/EditProductes/"+ item._id}
-                >
-                  <Button bg="green.400" >
-                  עדכן מוצר
-                  </Button>
+                <Link to={"/Admin/EditProductes/" + item._id}>
+                  <Button bg="green.400">עדכן מוצר</Button>
                 </Link>
               </CardFooter>
             </Stack>

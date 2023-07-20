@@ -48,7 +48,7 @@ function PaymentMethodScreen() {
         <RadioGroup 
           defaultValue="Itachi"
           h="62.5vh"
-          color="white"
+          color="black"
           bg="blackAlpha.100"
           display="flex"
           flexDirection="column"
