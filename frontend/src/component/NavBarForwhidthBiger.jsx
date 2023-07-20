@@ -17,7 +17,7 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
-
+import { RxHamburgerMenu } from "react-icons/rx";
 function NavBarForwhidthBiger() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -43,57 +43,72 @@ function NavBarForwhidthBiger() {
             לכל הארץ בהזמנה מעל{" "}
           </Box>
         </GridItem>
-
         <GridItem
           color="whitesmoke"
           bg="black"
-          h="100%"
-          display="flex"
-          justifyContent="space-between"
-          textDecorationLine="none"
-          alignItems="center"
           fontSize="xl"
           boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
+          dir="rtl"
         >
-          <ToastContainer />
+          {/* <ToastContainer /> */}
           {/* link for home page */}
-          <GridItem w="10%">
-            <IconButton
-             bg={colorMode === "dark" ? "black" : "white"}
-              color={colorMode === "dark" ? "white" : "black"}
-              icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
-              onClick={toggleColorMode}
-            />
-          </GridItem>
-          <GridItem>
-            <Link to="/">דף הבית</Link>
-          </GridItem>
 
-          {/* Shoping Cart  */}
-          <GridItem textAlign="center">
-            {cart.cartItems.length > 0 && (
-              <Button borderRadius="40%" bg="red" size="xs">
-                {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-              </Button>
-            )}
-            <Link to="/cart">עגלת קניות</Link>
-          </GridItem>
-
-          <GridItem w="40%">
+          <GridItem w="60%">
             {!userInfo ? (
-              <Flex justifyContent="end" color="whitesmoke">
+              <Flex
+                justifyContent="space-between"
+                alignItems="end"
+                color="whitesmoke"
+              >
+                <IconButton
+                  bg={"none"}
+                  color={"white"}
+                  icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+                  onClick={toggleColorMode}
+                />
+                <Link to="/">דף הבית</Link>
+
                 <Link to="/signin">התחבר</Link>
               </Flex>
             ) : (
-              <GridItem w="100%">
-                <Flex display="flex" justifyContent="space-around">
-                  <Link to="/orderhistory">הזמנות</Link>
-                  <Link to="/profile">פרופיל</Link>
-                  <Link to="/signIn" onClick={signoutHandlet}>
-                    התנתק
-                  </Link>
-                </Flex>
-              </GridItem>
+              <Flex justifyContent="space-around" alignItems="center">
+                <Menu>
+                  <MenuButton>
+                    <RxHamburgerMenu />
+                  </MenuButton>
+                  <MenuList color="black">
+                    <MenuItem>
+                      {" "}
+                      <Link to="/orderhistory">הזמנות</Link>
+                    </MenuItem>
+                    <MenuItem>
+                      {" "}
+                      <Link to="/profile">פרופיל</Link>
+                    </MenuItem>
+
+                    <MenuItem>
+                      <Link to="/signIn" onClick={signoutHandlet}>
+                        התנתק
+                      </Link>
+                    </MenuItem>
+                  </MenuList>
+                </Menu>
+                <IconButton
+                  bg={"none"}
+                  color={"white"}
+                  icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+                  onClick={toggleColorMode}
+                />
+                {/* Shoping Cart  */}
+                <GridItem textAlign="center">
+                  {cart.cartItems.length > 0 && (
+                    <Button borderRadius="40%" bg="red" size="xs">
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Button>
+                  )}
+                  <Link to="/cart">עגלת קניות</Link>
+                </GridItem>
+              </Flex>
             )}
           </GridItem>
           <GridItem>

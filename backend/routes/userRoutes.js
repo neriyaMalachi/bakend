@@ -26,6 +26,27 @@ userRouter.post(
     res.status(401).send({ message: "Invalid email or password " });
   })
 );
+userRouter.post(
+  "/forgetPassword",
+  expressAsyncHandler(async (req, res) => {
+    const user = await User.findOne({ email: req.body });
+    console.log(user);
+    if (!user.email) {
+       res.status(401).send({ message: "Invalid email or password " });
+    
+    }
+    if (bcrypt.compareSync(req.body.email, user.email)) {
+console.log("success123");
+      res.send({
+        email: user.email,
+        token: generateToken(user),
+
+      });
+
+      return;
+    }
+  })
+);
 
 userRouter.post(
   "/signup",
@@ -81,10 +102,9 @@ userRouter.get("/getAllUser", async (req, res) => {
   }
 });
 
-userRouter.delete("/deleteuser/:id",async (req, res) => {
-const result = await User.deleteOne({_id:req.params.id})
-res.send(result)
-
-});  
+userRouter.delete("/deleteuser/:id", async (req, res) => {
+  const result = await User.deleteOne({ _id: req.params.id });
+  res.send(result);
+});
 
 export default userRouter;

@@ -42,64 +42,60 @@ function PaymentMethodScreen() {
       <Helmet>
         <title>payment Method</title>
       </Helmet>
-      
 
       <form onSubmit={submitHandler}>
-        <RadioGroup 
-          defaultValue="Itachi"
-          h="62.5vh"
+        <Center
+          h="62vh"
           color="black"
           bg="blackAlpha.100"
           display="flex"
           flexDirection="column"
-          justifyContent="space-around"
         >
-          
-          <Text textAlign="center" >
-           אמצעי תשלום
-          </Text>
-          <HStack
-            spacing="-0.5%"
-            display="flex"
-            flexDirection="column"
-            justifyContent={"space-around"}
-            h="100px"
-          >
-            <Radio
-              type="radio"
-              id="bit"
-              label="bit"
-              value="bit"
-              checked={paymentMethodName === "bit"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
+          <RadioGroup defaultValue="Itachi" border="1px" borderRadius="20%" p="5%" >
+            <Text textAlign="center" fontSize="2xl" >אמצעי תשלום</Text>
+            <HStack
+              spacing="-0.5%"
+              display="flex"
+              flexDirection="column"
+              justifyContent={"space-around"}
+              h="100px"
             >
-              ביט
-            </Radio>
-            <Radio
-              type="radio"
-              id="cash"
-              label="cash"
-              value="cash"
-              checked={paymentMethodName === "cash"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            >
-              מזומן
-            </Radio>
-            <Radio
-              type="radio"
-              id="payPal"
-              label="payPal"
-              value="payPal"
-              checked={paymentMethodName === "payPal"}
-              onChange={(e) => setPaymentMethod(e.target.value)}
-            >
-              PayPal
-            </Radio>
-          </HStack>
-          <Box display="flex" justifyContent="center">
-            <Button type="submit">להמשיך</Button>
-          </Box>
-        </RadioGroup >
+              <Radio
+                type="radio"
+                id="bit"
+                label="bit"
+                value="bit"
+                checked={paymentMethodName === "bit"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                ביט
+              </Radio>
+              <Radio
+                type="radio"
+                id="cash"
+                label="cash"
+                value="cash"
+                checked={paymentMethodName === "cash"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                מזומן
+              </Radio>
+              <Radio
+                type="radio"
+                id="payPal"
+                label="payPal"
+                value="payPal"
+                checked={paymentMethodName === "payPal"}
+                onChange={(e) => setPaymentMethod(e.target.value)}
+              >
+                PayPal
+              </Radio>
+            </HStack>
+            <Box display="flex" justifyContent="center">
+              <Button bg="silver" type="submit">להמשיך</Button>
+            </Box>
+          </RadioGroup>
+        </Center>
       </form>
     </>
   );

@@ -35,17 +35,19 @@ function ForgetPassword() {
   const { userInfo } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
-
+console.log(email);
     try {
-      const { data } = await Axios.post("/api/users/requestPasswordReset", {
+      const {data}  = await Axios.post("/api/users/forgetPassword", {
         email,
       });
-      console.log({ data });
+      console.log(email);
+
+      console.log({data} );
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      toast.error("password or email invalid");
+      toast.error(" email invalid");
     }
   };
 
@@ -64,7 +66,7 @@ function ForgetPassword() {
       <form onSubmit={submitHandler}>
         <Center h="90vh" bg="blackAlpha.200">
           <Card
-            color="white"
+            color="black"
             h="60vh"
             w="60vh"
             display="flex"
@@ -80,13 +82,7 @@ function ForgetPassword() {
               justifyContent="center"
               h="50%"
             >
-               <Image
-                    borderRadius="50%"
-                    w="40%"
-                    h="50%"
-                    src={imageForLogo}
-                    alt="LOGO FOR COMPONY"
-                  />
+         
               <Text fontSize="3xl" as="b">
                 Forget Password
               </Text>

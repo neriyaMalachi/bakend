@@ -22,7 +22,6 @@ import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import imgi from "../img/hookah-bar-bg.png"
 function SigninScreen() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
@@ -66,7 +65,6 @@ function SigninScreen() {
 
       <form onSubmit={submitHandler}>
         <Center h="90vh" bg="blackAlpha.200">
-          <Image src={"../img/hookah-bar-bg.png"} alt={"image"}/>
           <Card
             color="black"
             h="60vh"
