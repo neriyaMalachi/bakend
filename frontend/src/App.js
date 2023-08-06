@@ -1,7 +1,6 @@
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomeFile from "./component/HomeFile";
-import NavBar from "./component/NavBar";
 import ProductFile from "./component/ProductFile";
 import CartScreen from "./component/CartScreen";
 import SigninScreen from "./component/SigninScreen";

@@ -35,7 +35,7 @@ function HomeFile() {
     error: "",
   });
   const [search, setSerch] = useState("");
-  const [isLargerThen768] = useMediaQuery('(min-width: 768px)')
+  const [isLargerThen768] = useMediaQuery("(min-width: 768px)");
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -62,7 +62,7 @@ function HomeFile() {
       flexWrap="wrap"
       justifyContent="space-around"
       w="100%"
-      // py="3rem"
+      bg="#116D6E"
     >
       <Helmet>
         <title>דף הבית</title>
@@ -73,10 +73,11 @@ function HomeFile() {
           dir="rtl"
           w="full"
           maxW={!isLargerThen768 ? "350px" : "600px"}
-          bg="silver"
           type="text"
           mt="1rem"
           mb="3rem"
+          bg="#321E1E"
+          border="none"
           placeholder="חפש..."
           onChange={(e) => {
             setSerch(e.target.value);

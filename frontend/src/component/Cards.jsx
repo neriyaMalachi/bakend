@@ -42,7 +42,7 @@ function Cards(props) {
       {(matches) => {
         return matches ? (
           <Card
-          m="1%"
+            m="1%"
             boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
             display="flex"
             alignContent="flex-start"
@@ -54,16 +54,16 @@ function Cards(props) {
               <Grid>
                 <GridItem>
                   {/* <Link to={`/product/${product.slug}`}> */}
-                    <Image
-                      filter="contrast(90%)"
-                      _hover={{ filter: "contrast(100%)" }}
-                      objectFit="fill"
-                      src={product.image}
-                      alt={product.name}
-                      w="100%"
-                      h="250px"
-                      borderRadius="5%"
-                    />
+                  <Image
+                    filter="contrast(90%)"
+                    _hover={{ filter: "contrast(100%)" }}
+                    objectFit="fill"
+                    src={product.image}
+                    alt={product.name}
+                    w="100%"
+                    h="250px"
+                    borderRadius="5%"
+                  />
                   {/* </Link> */}
                 </GridItem>
                 <GridItem py={3} pr={2} lineHeight="40px">
@@ -136,22 +136,22 @@ function Cards(props) {
               <Grid h="105%">
                 <GridItem>
                   {/* <Link to={`/product/${product.slug}`}> */}
-                    <Image
-                      filter="contrast(90%)"
-                      _hover={{ filter: "contrast(100%)" }}
-                      objectFit="fill"
-                      src={product.image}
-                      alt={product.name}
-                      w="100%"
-                      h="250px"
-                      borderRadius="5%"
-                    />
+                  <Image
+                    filter="contrast(90%)"
+                    _hover={{ filter: "contrast(100%)" }}
+                    objectFit="fill"
+                    src={product.image}
+                    alt={product.name}
+                    w="100%"
+                    h="250px"
+                    borderRadius="5%"
+                  />
                   {/* </Link> */}
                 </GridItem>
 
                 <GridItem pt={1} pb={5} pr={2} lineHeight="40px">
                   {/* <Link to={`/product/${product.slug}`}> */}
-                    <Heading size="md">{product.name}</Heading>
+                  <Heading size="md">{product.name}</Heading>
                   {/* </Link> */}
                   <strong>
                     <Text fontSize="xl"> {product.price} ש"ח </Text>
