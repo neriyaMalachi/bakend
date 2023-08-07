@@ -3,11 +3,15 @@ import {
   Button,
   Center,
   ChakraProvider,
+  Divider,
   Flex,
   Grid,
   GridItem,
+  HStack,
   Image,
+  Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import Axios from "axios";
 import React, { useContext } from "react";
@@ -106,8 +110,9 @@ function PlaceOrderScreen() {
               templateRows="repeat12, 1fr)"
               templateColumns="repeat(2, 1fr)"
               h="91vh"
+              bg="#116D6E"
             >
-              <Grid gap={45}>
+              <Grid mt="2%" gap={45}>
                 {/* Grid for address */}
                 <Grid
                   dir="rtl"
@@ -115,6 +120,8 @@ function PlaceOrderScreen() {
                   w="100%"
                   rowSpan={2}
                   colSpan={1}
+                  bg="#4E3636"
+                  color="white"
                 >
                   <Text>Preview Order</Text>
 
@@ -151,6 +158,8 @@ function PlaceOrderScreen() {
                   dir="rtl"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   w="100%"
+                  bg="#4E3636"
+                  color="white"
                 >
                   <Text>שיטת תשלום</Text>
 
@@ -176,55 +185,78 @@ function PlaceOrderScreen() {
                   dir="rtl"
                   w="100%"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                  bg="#4E3636"
+                  color="white"
                 >
                   <Text>פריטים</Text>
+                  <Stack
+                    overflowY={"scroll"}
+                    css={{
+                      "&::-webkit-scrollbar": {
+                        width: "4px",
+                      },
+                      "&::-webkit-scrollbar-track": {
+                        width: "6px",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "#4E3636",
+                        borderRadius: "24px",
+                      },
+                    }}
+                    mt="3%"
+                    w="100%"
+                    h="25vh"
+                    ml="7%"
+                  >
+                    {cart.cartItems.map((item) => (
+                      <Grid key={item._id}>
+                        <GridItem
+                          display="flex"
+                          w="100%"
+                          h="100%"
+                          justifyContent="space-around"
+                          alignItems="center"
+                          border=" 1px solid"
+                        >
+                          <GridItem>
+                            <Image
+                              w="60px"
+                              h="60px"
+                              src={item.image}
+                              alt={item.name}
+                              objectFit="contain"
+                            />
+                          </GridItem>
 
-                  {cart.cartItems.map((item) => (
-                    <Grid key={item._id}>
-                      <GridItem
-                        display="flex"
-                        w="100%"
-                        h="100%"
-                        justifyContent="space-around"
-                        alignItems="center"
-                        border=" 1px solid"
-
-                      >
-                        <GridItem>
-                          <Image
-                            w="60px"
-                            h="60px"
-                            src={item.image}
-                            alt={item.name}
-                            objectFit="contain"
-                          />
+                          <GridItem color="blue.400">
+                            {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
+                          </GridItem>
+                          <GridItem>
+                            <Text>{item.quantity}</Text>
+                          </GridItem>
+                          <GridItem>
+                            <Text>{item.price}</Text>
+                          </GridItem>
                         </GridItem>
-
-                        <GridItem color="blue.400">
-                          {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
-                        </GridItem>
-                        <GridItem>
-                          <Text>{item.quantity}</Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text>{item.price}</Text>
-                        </GridItem>
-                      </GridItem>
-                    </Grid>
-                  ))}
-
+                      </Grid>
+                    ))}
+                  </Stack>
+                  <Box color="blue">
                   <Link to="/cart">שינוי:</Link>
+                  </Box>
                 </Grid>
               </Grid>
               {/* Stack for order summary */}
 
               <Grid display="flex" textAlign="center" justifyContent="center">
-                <GridItem
+                <VStack
                   w="60%"
                   h="55%"
-                  border="1px solid"
-                  borderRadius="30%"
+                  bg="#4E3636"
+                  color="white"
+                  borderRadius="30"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                 
                 >
                   <Text fontSize="2xl">Order Summary</Text>
 
@@ -232,7 +264,7 @@ function PlaceOrderScreen() {
                     <Text>Item</Text>
                     <Text>${cart.itemsPrice.toFixed(2)}</Text>
                   </GridItem>
-                  <hr />
+
                   <GridItem>
                     <Text>Shipping</Text>
                     <Text>${cart.shippingPrice.toFixed(2)}</Text>
@@ -258,12 +290,12 @@ function PlaceOrderScreen() {
                   >
                     Place Order
                   </Button>
-                </GridItem>
+                </VStack>
                 {loading && <LoadingBox></LoadingBox>}
               </Grid>
             </Grid>
           ) : (
-            <Box >
+            <Box>
               <Center dir="rtl">
                 <Flex
                   flexDirection="column"
@@ -383,13 +415,10 @@ function PlaceOrderScreen() {
                 {/* Stack for order summary */}
               </Center>
               <Box>
-                <Box
-                  boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                  dir="rtl"
-                >
+                <Box boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)" dir="rtl">
                   <Text fontSize="2xl">סיכום הזמנה</Text>
 
-                  <Flex  justifyContent="space-evenly">
+                  <Flex justifyContent="space-evenly">
                     <Text> פריט</Text>
                     <Text>₪{cart.itemsPrice.toFixed(2)}</Text>
                   </Flex>
@@ -399,15 +428,12 @@ function PlaceOrderScreen() {
                     <Text>₪{cart.shippingPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex  justifyContent="space-evenly">
+                  <Flex justifyContent="space-evenly">
                     <Text>מס</Text>
                     <Text>₪{cart.taxPrice.toFixed(2)}</Text>
                   </Flex>
                   <hr />
-                  <Flex
-                    justifyContent="space-evenly"
-                    alignItems="center"
-                  >
+                  <Flex justifyContent="space-evenly" alignItems="center">
                     <Text fontSize="xl"> סכו"ם</Text>
                     <Text>₪{cart.totalPrice.toFixed(2)} </Text>
                   </Flex>
@@ -417,7 +443,7 @@ function PlaceOrderScreen() {
                       onClick={placeOrderHandler}
                       disabled={cart.cartItems.length === 0}
                       bg="white"
-                      as='ins'
+                      as="ins"
                       color="black"
                     >
                       בצע הזמנה

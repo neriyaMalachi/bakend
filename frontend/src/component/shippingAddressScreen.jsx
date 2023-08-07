@@ -62,10 +62,11 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="86vh">
+    <Center h="86vh"  bg="#116D6E">
       <Card
         p="4%"
-        bg="blackAlpha.200"
+       bg="#321E1E"
+       color="white"
       >
         <Helmet>
           <title>Shiping Address</title>

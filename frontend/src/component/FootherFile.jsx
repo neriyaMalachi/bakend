@@ -24,7 +24,7 @@ function FootherFile() {
     <Media query="(min-width: 900px)">
       {(matches) => {
         return matches ? (
-          <Box bg="#321E1E" mt="2%" bottom={0}>
+          <Box bg="#321E1E" bottom={0}>
             <Grid
               templateRows="repeat(2, 1fr)"
               templateColumns="repeat(5, 1fr)"
@@ -103,7 +103,6 @@ function FootherFile() {
             bg="#321E1E"
             w="100%"
             h="300px"
-            mt="20%"
           >
             <Flex
               direction="column"

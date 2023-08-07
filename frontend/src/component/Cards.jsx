@@ -47,24 +47,24 @@ function Cards(props) {
             display="flex"
             alignContent="flex-start"
             w="200px"
-            border="1px solid"
-            bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
+            bg="#4E3636"
+            color="white"
           >
             <CardBody p={0} dir="rtl">
               <Grid>
                 <GridItem>
-                  {/* <Link to={`/product/${product.slug}`}> */}
-                  <Image
-                    filter="contrast(90%)"
-                    _hover={{ filter: "contrast(100%)" }}
-                    objectFit="fill"
-                    src={product.image}
-                    alt={product.name}
-                    w="100%"
-                    h="250px"
-                    borderRadius="5%"
-                  />
-                  {/* </Link> */}
+                  <Link to={`/product/${product.slug}`}>
+                    <Image
+                      filter="contrast(90%)"
+                      _hover={{ filter: "contrast(100%)" }}
+                      objectFit="fill"
+                      src={product.image}
+                      alt={product.name}
+                      w="100%"
+                      h="250px"
+                      borderRadius="5%"
+                    />
+                  </Link>
                 </GridItem>
                 <GridItem py={3} pr={2} lineHeight="40px">
                   <Link to={`/product/${product.slug}`}>
@@ -84,25 +84,12 @@ function Cards(props) {
                       ))}
                   </Box>
                 </GridItem>
-                {/* <GridItem>
-                
-                </GridItem> */}
-                {/* <GridItem> */}
-                {/* <Flex direction="row" bg="red" w="100%" > */}
-                {/* <Heading fontSize="100%"> המלצות: */}
-
-                {/* </Heading> */}
-                {/* </Flex> */}
-                {/* <Heading fontSize="100%">
-                    Reviews:{product.numReviews}{" "}
-                  </Heading> */}
-                {/* </GridItem> */}
               </Grid>
             </CardBody>
 
             {product.countInStock !== "0" ? (
               <Button
-                bg="silver"
+                bg="#321E1E"
                 w="100%"
                 borderRadius="none"
                 onClick={() => addToCartHandler(product)}
@@ -123,19 +110,18 @@ function Cards(props) {
           <Card
             boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
             display="flex"
-            // flexWrap="wrap"
+            color={"white"}
             w="200px"
             alignContent="flex-end"
-            border="1px solid"
             mt="3%"
-            bg="radial-gradient(circle, rgba(3,3,3,1) 0%, rgba(179,161,161,0.700717787114846) 0%)"
+            bg="#4E3636"
             dir="rtl"
             m="1%"
           >
             <CardBody p={0}>
               <Grid h="105%">
                 <GridItem>
-                  {/* <Link to={`/product/${product.slug}`}> */}
+                  <Link to={`/product/${product.slug}`}>
                   <Image
                     filter="contrast(90%)"
                     _hover={{ filter: "contrast(100%)" }}
@@ -146,13 +132,13 @@ function Cards(props) {
                     h="250px"
                     borderRadius="5%"
                   />
-                  {/* </Link> */}
+                  </Link>
                 </GridItem>
 
                 <GridItem pt={1} pb={5} pr={2} lineHeight="40px">
-                  {/* <Link to={`/product/${product.slug}`}> */}
+                  <Link to={`/product/${product.slug}`}>
                   <Heading size="md">{product.name}</Heading>
-                  {/* </Link> */}
+                  </Link>
                   <strong>
                     <Text fontSize="xl"> {product.price} ש"ח </Text>
                   </strong>
@@ -173,7 +159,7 @@ function Cards(props) {
 
             {product.countInStock !== "0" ? (
               <Button
-                bg="silver"
+                bg="#321E1E"
                 w="100%"
                 borderRadius="none"
                 onClick={() => addToCartHandler(product)}

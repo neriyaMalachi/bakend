@@ -45,13 +45,13 @@ function PaymentMethodScreen() {
 
       <form onSubmit={submitHandler}>
         <Center
-          h="62vh"
+          h="82vh"
           color="black"
-          bg="blackAlpha.100"
+          bg="#116D6E"
           display="flex"
           flexDirection="column"
         >
-          <RadioGroup defaultValue="Itachi" border="1px" borderRadius="20%" p="5%" >
+          <RadioGroup  bg="#321E1E" color="white" defaultValue="Itachi" borderRadius="20%" p="5%" >
             <Text textAlign="center" fontSize="2xl" >אמצעי תשלום</Text>
             <HStack
               spacing="-0.5%"
@@ -92,7 +92,7 @@ function PaymentMethodScreen() {
               </Radio>
             </HStack>
             <Box display="flex" justifyContent="center">
-              <Button bg="silver" type="submit">להמשיך</Button>
+              <Button bg="#4E3636" type="submit">להמשיך</Button>
             </Box>
           </RadioGroup>
         </Center>

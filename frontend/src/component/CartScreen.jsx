@@ -12,9 +12,11 @@ import {
   Flex,
   Grid,
   GridItem,
+  HStack,
   Image,
   Stack,
   Text,
+  VStack,
   useMediaQuery,
 } from "@chakra-ui/react";
 import {
@@ -29,7 +31,7 @@ import Media from "react-media";
 
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const [isLargerThen768] = useMediaQuery('(min-width:900px)')
+  const [isLargerThen768] = useMediaQuery("(min-width:900px)");
 
   const {
     cart: { cartItems },
@@ -67,13 +69,13 @@ function CartScreen() {
           alignItems="center"
           dir="rtl"
           w="100%"
-          h={isLargerThen768 ? "70vh" : "50vh" }
+          h={isLargerThen768 ? "70vh" : "50vh"}
           fontSize="2xl"
           p={4}
-          bg="blackAlpha.100"
+          bg="#116D6E"
         >
-          <Box>העגלת קניות ריקה!</Box>
-          <Box color="blue" as="ins">
+          <Box color="#CD1818">העגלת קניות ריקה!</Box>
+          <Box color="#CD1818" as="ins">
             <Link to="/"> למוצרים</Link>
           </Box>
         </Flex>
@@ -81,17 +83,35 @@ function CartScreen() {
         <Media query="(min-width: 900px)">
           {(matches) => {
             return matches ? (
-              <Stack isInline gap={3} mt="4%" h="90vh">
-                <Grid w="70%" h="100vh" ml="3%">
+              <Stack bg="#116D6E" isInline gap={3} h="90vh">
+                <Stack
+                  overflowY={"scroll"}
+                  css={{
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      width: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "#4E3636",
+                      borderRadius: "24px",
+                    },
+                  }}
+                  mt="3%"
+                  w="50%"
+                  h="70vh"
+                  ml="7%"
+                >
                   {cartItems.map((item) => (
-                    <GridItem justifyContent="space-around" key={item._id}>
-                      <Card
-                        display="flex"
-                        justifyContent="space-around"
-                        flexDirection="row"
+                    <Stack>
+                      <HStack
+                        key={item._id}
+                        gap={16}
                         alignItems="center"
-                        w="90%"
-                        bg="blackAlpha.100"
+                        w="100%"
+                        color="white"
+                        bg="#4E3636"
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                       >
                         <Image
@@ -136,18 +156,18 @@ function CartScreen() {
                           </Button>
                         </Box>
 
-                        <Box>{item.price} ₪</Box>
+                        <Flex>{item.price} ₪</Flex>
 
                         <DeleteIcon
                           color="red.500"
                           onClick={() => RemoovItemHendler(item)}
                         />
-                      </Card>
-                    </GridItem>
+                      </HStack>
+                    </Stack>
                   ))}
-                </Grid>
+                </Stack>
                 <hr />
-                <Card bg="blackAlpha.100" w="30%" h="160px" display="flex">
+                <Card bg="#321E1E"  color="white" w="30%" h="160px" display="flex">
                   <CardBody>
                     <h3 dir="rtl">
                       כמות מוצרים {" - "}{" "}
@@ -162,16 +182,36 @@ function CartScreen() {
                     <Button
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
-                      bg="green.400"
+                      bg="#4E3636"
+                      
                     >
-                      Process to Checkout
+                     לקופה
                     </Button>
                   </CardFooter>
                 </Card>
               </Stack>
             ) : (
-              <Flex bg="blackAlpha.100"  >
-                <Grid w="100%" h="100vh">
+              // <Flex >
+                <HStack bg="#116D6E" w="100%" h="100vh">
+                <Stack
+                  overflowY={"scroll"}
+                  css={{
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      width: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "#4E3636",
+                      borderRadius: "24px",
+                    },
+                  }}
+                  mt="3%"
+                  w="50%"
+                  h="70vh"
+                  ml="7%"
+                >
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
                       <Card
@@ -181,7 +221,7 @@ function CartScreen() {
                         alignItems="center"
                         w="100%"
                         color="white"
-                        bg="blackAlpha.100"
+                        bg="#4E3636"
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                         h="80%"
                         border="1px solid"
@@ -241,9 +281,11 @@ function CartScreen() {
                       </Card>
                     </GridItem>
                   ))}
-                  <Card  w="100%" color="white" h="65%" display="flex">
+                  </Stack>
+
+                  <Card bg="#321E1E" w="40%" color="white" h="35%" >
                     <CardBody>
-                      <Box fontSize="2xl" dir="rtl">
+                      <Box fontSize="100%" dir="rtl">
                         כמות מוצרים {" - "}{" "}
                         {cartItems.reduce((a, c) => a + c.quantity, 0)}
                         <hr />
@@ -259,15 +301,13 @@ function CartScreen() {
                       <Button
                         onClick={checkoutHandler}
                         disabled={cartItems.length === 0}
-                        bg="silver"
+                        bg="#4E3636"
                       >
                         לקופה
                       </Button>
                     </CardFooter>
                   </Card>
-                </Grid>
-                {/* <hr /> */}
-              </Flex>
+                </HStack>
             );
           }}
         </Media>

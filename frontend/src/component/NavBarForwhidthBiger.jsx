@@ -43,10 +43,8 @@ function NavBarForwhidthBiger() {
         לכל הארץ בהזמנה מעל{" "}
       </Box>
       <HStack
-      
       gap={6} 
       bg="#321E1E"
-      
       color="whitesmoke"
       fontSize="xl"
       boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
@@ -78,6 +76,7 @@ function NavBarForwhidthBiger() {
                         <Link to="/Admin/users">
                           <MenuItem>משתמשים</MenuItem>
                         </Link>
+                      
                       </MenuList>
                     </>
                   )}
@@ -119,6 +118,11 @@ function NavBarForwhidthBiger() {
                           התנתק
                         </Link>
                       </MenuItem>
+                      <MenuItem>
+                        <Link to="/" >
+                          דף הבית
+                        </Link>
+                      </MenuItem>
                     </MenuList>
                   </Menu>
                   <IconButton
@@ -133,10 +137,10 @@ function NavBarForwhidthBiger() {
                   {cart.cartItems.length > 0 && (
                     <Button
                       _hover={"none"}
-                      m="-3"
-                      mt="-7"
+                      m="-5"
+                      mt="-10"
                       borderRadius="40%"
-                      bg="#116D6E"
+                      bg="none"
                       size="xs"
                     >
                       {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
