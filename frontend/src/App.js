@@ -4,7 +4,7 @@ import HomeFile from "./component/HomeFile";
 import ProductFile from "./component/ProductFile";
 import CartScreen from "./component/CartScreen";
 import SigninScreen from "./component/SigninScreen";
-import ShippingAddressScreen from "./component/ShippingAddressScreen";
+import ShippingAddressScreen from "./component/shippingAddressScreen";
 import SignupScreen from "./component/SignupScreen";
 import PaymentMethodScreen from "./component/PaymentMethodScreen";
 import { Box, ChakraProvider } from "@chakra-ui/react";

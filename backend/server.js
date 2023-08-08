@@ -9,15 +9,6 @@ import orderRouter from "./routes/orderRoutes.js";
 // import cors from "cors"
 
 dotenv.config();
-mongoose
-  .connect(process.env.MONGODB_URI)
- .mongoose.set('strictQuery', true)
-  .then(() => {
-    console.log("connected to db");
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
 
 const app = express();
 // const cors = require('cors')
@@ -25,6 +16,20 @@ const app = express();
 // app.use(cors({"strict-origin-when-cross-origin": * }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+mongoose.set('strictQuery', false)
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+ })
+ 
+  .then(() => {
+    console.log("connected to db");
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
