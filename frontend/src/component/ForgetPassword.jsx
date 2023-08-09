@@ -21,7 +21,7 @@ import Axios from "axios";
 import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import imageForLogo from "../img/logoForTheProject.png";
+import imageForLogo from "../img/logoNargilaStor.png";
 
 
 function ForgetPassword() {

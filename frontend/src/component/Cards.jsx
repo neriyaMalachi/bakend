@@ -47,7 +47,7 @@ function Cards(props) {
             display="flex"
             alignContent="flex-start"
             w="200px"
-            bg="#4E3636"
+            bg="#393E46"
             color="white"
           >
             <CardBody p={0} dir="rtl">
@@ -89,9 +89,8 @@ function Cards(props) {
 
             {product.countInStock !== "0" ? (
               <Button
-                bg="#321E1E"
+                bg="#00ADB5"
                 w="100%"
-                borderRadius="none"
                 onClick={() => addToCartHandler(product)}
               >
                 <CardFooter>
@@ -114,7 +113,7 @@ function Cards(props) {
             w="200px"
             alignContent="flex-end"
             mt="3%"
-            bg="#4E3636"
+            bg="#393E46"
             dir="rtl"
             m="1%"
           >
@@ -159,7 +158,7 @@ function Cards(props) {
 
             {product.countInStock !== "0" ? (
               <Button
-                bg="#321E1E"
+                bg="#00ADB5"
                 w="100%"
                 borderRadius="none"
                 onClick={() => addToCartHandler(product)}

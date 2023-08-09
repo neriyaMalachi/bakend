@@ -34,17 +34,17 @@ function NavBarForwhidthBiger() {
 
   return (
     <>
-      <Box bg="#321E1E" color="white" textAlign="center">
+      <Box bg="#222831" color="white" textAlign="center">
         {" "}
         699 משלוחים{" "}
-        <Text as="b" fontSize="120%" color="#CD1818">
+        <Text as="b" fontSize="120%" color="#00ADB5">
           חינם
         </Text>{" "}
         לכל הארץ בהזמנה מעל{" "}
       </Box>
       <HStack
       gap={6} 
-      bg="#321E1E"
+      bg="#222831"
       color="whitesmoke"
       fontSize="xl"
       boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"

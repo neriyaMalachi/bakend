@@ -18,13 +18,13 @@ import { AiFillLinkedin } from "react-icons/ai";
 import { FaTwitter, FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import Media from "react-media";
-import imageForLogo from "../img/logoForTheProject.png";
+import imageForLogo from "../img/logoNargilaStor.png";
 function FootherFile() {
   return (
     <Media query="(min-width: 900px)">
       {(matches) => {
         return matches ? (
-          <Box bg="#321E1E" bottom={0}>
+          <Box bg="#222831" bottom={0}>
             <Grid
               templateRows="repeat(2, 1fr)"
               templateColumns="repeat(5, 1fr)"
@@ -42,7 +42,6 @@ function FootherFile() {
                   alignItems="center"
                 >
                   <Image
-                    borderRadius="50%"
                     w="70%"
                     h="80%"
                     src={imageForLogo}
@@ -52,26 +51,25 @@ function FootherFile() {
               </GridItem>
               <GridItem
                 colSpan={4}
-                bg="#321E1E"
                 display="flex"
                 justifyContent="space-around"
                 alignItems="center"
               >
                 <Divider orientation="vertical" h="60%" />
 
-                <Button bg="#321E1E" color="white" _hover={"none"}>
+                <Button bg="none" color="white" _hover={"none"}>
                   יצירת קשר
                 </Button>
                 <Divider orientation="vertical" h="60%" />
-                <Button bg="#321E1E" color="white" _hover={"none"}>
+                <Button bg="none" color="white" _hover={"none"}>
                   תקנון
                 </Button>
                 <Divider orientation="vertical" h="60%" />
-                <Button bg="#321E1E" color="white" _hover={"none"}>
+                <Button bg="none" color="white" _hover={"none"}>
                   משלוחים והחזרות
                 </Button>
                 <Divider orientation="vertical" h="60%" />
-                <Button bg="#321E1E" color="white" _hover={"none"}>
+                <Button bg="none" color="white" _hover={"none"}>
                   אדות
                 </Button>
                 <Divider orientation="vertical" h="60%" />
@@ -100,7 +98,7 @@ function FootherFile() {
             direction="column"
             justifyContent="center"
             alignItems="center"
-            bg="#321E1E"
+            bg="#222831"
             w="100%"
             h="300px"
           >
