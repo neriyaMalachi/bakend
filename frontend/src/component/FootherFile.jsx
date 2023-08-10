@@ -24,7 +24,7 @@ function FootherFile() {
     <Media query="(min-width: 900px)">
       {(matches) => {
         return matches ? (
-          <Box bg="#222831" bottom={0}>
+          <Box color="#00ADB5" bg="#222831" bottom={0}>
             <Grid
               templateRows="repeat(2, 1fr)"
               templateColumns="repeat(5, 1fr)"
@@ -57,19 +57,19 @@ function FootherFile() {
               >
                 <Divider orientation="vertical" h="60%" />
 
-                <Button bg="none" color="white" _hover={"none"}>
+                <Button bg="none"  _hover={{  color:"white"}}>
                   יצירת קשר
                 </Button>
                 <Divider orientation="vertical" h="60%" />
-                <Button bg="none" color="white" _hover={"none"}>
+                <Button bg="none" _hover={{  color:"white"}}>
                   תקנון
                 </Button>
                 <Divider orientation="vertical" h="60%" />
-                <Button bg="none" color="white" _hover={"none"}>
+                <Button bg="none"  _hover={{  color:"white"}}>
                   משלוחים והחזרות
                 </Button>
                 <Divider orientation="vertical" h="60%" />
-                <Button bg="none" color="white" _hover={"none"}>
+                <Button bg="none" _hover={{  color:"white"}}>
                   אדות
                 </Button>
                 <Divider orientation="vertical" h="60%" />
@@ -99,6 +99,7 @@ function FootherFile() {
             justifyContent="center"
             alignItems="center"
             bg="#222831"
+            color={"#00ADB5"}
             w="100%"
             h="300px"
           >
@@ -108,18 +109,18 @@ function FootherFile() {
               h="50%"
               justifyContent="space-around"
             >
-              <Button mt="3%" bg="none" color="white" _hover={"none"}>
+              <Button mt="3%" bg="none" _hover={"none"}>
                 יצירת קשר
               </Button>
-              <Button mt="3%" bg="none" color="white" _hover={"none"}>
+              <Button mt="3%" bg="none"  _hover={"none"}>
                 תקנון
               </Button>
 
-              <Button mt="3%" bg="none" color="white" _hover={"none"}>
+              <Button mt="3%" bg="none"  _hover={"none"}>
                 משלוחים והחזרות
               </Button>
 
-              <Button mt="3%" bg="none" color="white" _hover={"none"}>
+              <Button mt="3%" bg="none" _hover={"none"}>
                 אדות
               </Button>
             </Flex>

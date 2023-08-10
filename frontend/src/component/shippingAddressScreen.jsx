@@ -62,16 +62,16 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="86vh"  bg="#116D6E">
+    <Center h="86vh"  bg="#00ADB5">
       <Card
         p="4%"
-       bg="#321E1E"
-       color="white"
+       bg="#222831"
+       color="#EEEEEE"
       >
         <Helmet>
           <title>Shiping Address</title>
         </Helmet>
-        <Box textAlign="center">פרטי משתמש</Box>
+        <Box textAlign="center" fontSize="2xl" >פרטי משתמש</Box>
         <form onSubmit={submitHandler}>
           <VStack
             spacing={4}
@@ -129,7 +129,7 @@ function ShippingAddressScreen() {
             </Box>
           </VStack>
           <CardFooter>
-            <Button variant="primary" type="submit" border="1px solid">
+            <Button variant="primary" type="submit" bg="#393E46">
               התחבר
             </Button>
           </CardFooter>

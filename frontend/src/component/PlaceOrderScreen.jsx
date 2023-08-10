@@ -106,26 +106,27 @@ function PlaceOrderScreen() {
           return matches ? (
             <Grid
               dir="rtl"
-              gap={100}
+              gap={30}
               templateRows="repeat12, 1fr)"
               templateColumns="repeat(2, 1fr)"
               h="91vh"
-              bg="#116D6E"
+              bg="#00ADB5"
             >
-              <Grid mt="2%" gap={45}>
+              <Grid mt="2%" gap={12}>
                 {/* Grid for address */}
                 <Grid
                   dir="rtl"
+                  borderRadius={20}
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   w="100%"
                   rowSpan={2}
                   colSpan={1}
-                  bg="#4E3636"
-                  color="white"
+                  bg="#222831"
+                  color="#EEEEEE"
                 >
-                  <Text>Preview Order</Text>
+                  <Text   mr={"3%"}>כתובת הזמנה</Text>
 
-                  <GridItem>
+                  <GridItem  mr={"3%"}> 
                     <Box
                       w="7%"
                       display="flex"
@@ -148,7 +149,7 @@ function PlaceOrderScreen() {
                       {cart.shippingAddress.country}
                     </Box>
                   </GridItem>
-                  <Box color="blue">
+                  <Box  mr={"3%"} color="blue">
                     <Link to="/shipping">שינוי:</Link>
                   </Box>
                 </Grid>
@@ -158,14 +159,17 @@ function PlaceOrderScreen() {
                   dir="rtl"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   w="100%"
-                  bg="#4E3636"
-                  color="white"
+                  bg="#222831"
+                  color="#EEEEEE"
+                  borderRadius={20}
+                  
                 >
-                  <Text>שיטת תשלום</Text>
+                  <Text mr={"3%"} >שיטת תשלום</Text>
 
-                  <Box>
+                  <Box  mr={"3%"}>
                     <Box
                       w="20%"
+                     
                       display="flex"
                       alignItems="center"
                       justifyContent="space-between"
@@ -175,7 +179,7 @@ function PlaceOrderScreen() {
                       {cart.paymentMethod}
                     </Box>
                   </Box>
-                  <Box color="blue">
+                  <Box  mr={"3%"} color="blue">
                     <Link to="/payment">שינוי:</Link>
                   </Box>
                 </Grid>
@@ -185,10 +189,12 @@ function PlaceOrderScreen() {
                   dir="rtl"
                   w="100%"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                  bg="#4E3636"
-                  color="white"
+                  bg="#222831"
+                  color="#EEEEEE"
+                  borderRadius={20}
                 >
-                  <Text>פריטים</Text>
+                  <Text mr="3%">פריטים</Text>
+                  
                   <Stack
                     overflowY={"scroll"}
                     css={{
@@ -217,6 +223,8 @@ function PlaceOrderScreen() {
                           justifyContent="space-around"
                           alignItems="center"
                           border=" 1px solid"
+                          borderRadius={20}
+                          color="#EEEEEE"
                         >
                           <GridItem>
                             <Image
@@ -228,8 +236,8 @@ function PlaceOrderScreen() {
                             />
                           </GridItem>
 
-                          <GridItem color="blue.400">
-                            {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
+                          <GridItem color="#00ADB5">
+                            <Link to={`/product/${item.slug}`}>{item.name}</Link>
                           </GridItem>
                           <GridItem>
                             <Text>{item.quantity}</Text>
@@ -241,7 +249,9 @@ function PlaceOrderScreen() {
                       </Grid>
                     ))}
                   </Stack>
-                  <Box color="blue">
+
+
+                  <Box mr="3%" color="blue">
                   <Link to="/cart">שינוי:</Link>
                   </Box>
                 </Grid>
@@ -252,33 +262,34 @@ function PlaceOrderScreen() {
                 <VStack
                   w="60%"
                   h="55%"
-                  bg="#4E3636"
-                  color="white"
+                  mt="2%"
+                  bg="#222831"
+                  color="#EEEEEE"
                   borderRadius="30"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                  
                 >
-                  <Text fontSize="2xl">Order Summary</Text>
+                  <Text fontSize="2xl">סיכום הזמנה</Text>
 
                   <GridItem>
-                    <Text>Item</Text>
-                    <Text>${cart.itemsPrice.toFixed(2)}</Text>
+                    <Text>מוצר</Text>
+                    <Text>₪{cart.itemsPrice.toFixed(2)}</Text>
                   </GridItem>
 
                   <GridItem>
-                    <Text>Shipping</Text>
-                    <Text>${cart.shippingPrice.toFixed(2)}</Text>
-                  </GridItem>
-                  <hr />
-                  <GridItem>
-                    <Text>Tax</Text>
-                    <Text>${cart.taxPrice.toFixed(2)}</Text>
+                    <Text>משלוח</Text>
+                    <Text>₪{cart.shippingPrice.toFixed(2)}</Text>
                   </GridItem>
                   <hr />
                   <GridItem>
-                    <Text fontSize="2xl"> Order Total</Text>
+                    <Text>מע"מ</Text>
+                    <Text>₪{cart.taxPrice.toFixed(2)}</Text>
+                  </GridItem>
+                  <hr />
+                  <GridItem>
+                    <Text fontSize="2xl"> סיכום הזמנה</Text>
 
-                    <Text>${cart.totalPrice.toFixed(2)} </Text>
+                    <Text>₪{cart.totalPrice.toFixed(2)} </Text>
                   </GridItem>
 
                   <Button
@@ -288,171 +299,214 @@ function PlaceOrderScreen() {
                     bg="silver"
                     color="black"
                   >
-                    Place Order
+                    ביצוע הזמנה
                   </Button>
                 </VStack>
                 {loading && <LoadingBox></LoadingBox>}
               </Grid>
             </Grid>
           ) : (
-            <Box>
-              <Center dir="rtl">
-                <Flex
-                  flexDirection="column"
-                  justifyContent="space-around"
-                  h="60vh"
-                  w="100%"
-                >
-                  {/* Grid for address */}
-                  <Flex
-                    dir="rtl"
-                    boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                    w="49vh"
-                    flexDirection="column"
-                  >
-                    <Text>תצוגת הזמנה</Text>
+            <Grid
+            dir="rtl"
+            gap={30}
+            templateRows="repeat12, 1fr)"
+            templateColumns="repeat(2, 1fr)"
+            h="91vh"
+            bg="#00ADB5"
+          >
+            <Grid mt="2%" gap={12}>
+              {/* Grid for address */}
+              <Grid
+                dir="rtl"
+                borderRadius={20}
+                boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                w="100%"
+                rowSpan={2}
+                colSpan={1}
+                bg="#222831"
+                color="#EEEEEE"
+              >
+                <Text   mr={"3%"}>כתובת הזמנה</Text>
 
-                    <Box
-                      w="17%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Text fontSize="xl">שם:</Text>
-                      {"    "}
-                      {cart.shippingAddress.fullName}
-                    </Box>
-                    <Box
-                      w="90%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Text fontSize="xl">כתובת:</Text>
-                      {cart.shippingAddress.address},{cart.shippingAddress.city}
-                      ,{cart.shippingAddress.postalCode},
-                      {cart.shippingAddress.country}
-                    </Box>
-
-                    <Box color="blue">
-                      <Link to="/shipping">עדכן:</Link>
-                    </Box>
-                  </Flex>
-
-                  {/* Grid for Method */}
+                <GridItem  mr={"3%"}> 
                   <Box
-                    dir="rtl"
-                    boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
-                    w="100%"
+                    w="7%"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
                   >
-                    <Text>פירטי תשלום</Text>
-
-                    <Box>
-                      <Box
-                        w="30%"
-                        display="flex"
-                        alignItems="center"
-                        justifyContent="space-between"
-                      >
-                        <Text fontSize="sm">שיטת תשלום:</Text>
-                        {"    "}
-                        {cart.paymentMethod}
-                      </Box>
-                    </Box>
-                    <Box color="blue">
-                      <Link to="/payment">עדכן:</Link>
-                    </Box>
+                    <Text fontSize="xl">שם:</Text>
+                    {"    "}
+                    {cart.shippingAddress.fullName}
                   </Box>
-
-                  {/* Stack for items */}
-
                   <Box
-                    dir="rtl"
-                    w="100%"
-                    boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                    w="40%"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
                   >
-                    <Text>פריטים</Text>
-
-                    {cart.cartItems.map((item) => (
-                      <Grid key={item._id}>
-                        <GridItem
-                          display="flex"
-                          w="100%"
-                          h="100%"
-                          justifyContent="space-around"
-                          alignItems="center"
-                          border=" 1px solid"
-                        >
-                          <GridItem>
-                            <Image
-                              w="60px"
-                              h="60px"
-                              src={item.image}
-                              alt={item.name}
-                              objectFit="contain"
-                            />
-                          </GridItem>
-
-                          <GridItem>
-                            <Link to={`/product/${item.slug}`}>
-                              {item.name}
-                            </Link>
-                          </GridItem>
-                          <GridItem>
-                            <Text>{item.quantity}</Text>
-                          </GridItem>
-                          <GridItem>
-                            <Text>{item.price}</Text>
-                          </GridItem>
-                        </GridItem>
-                      </Grid>
-                    ))}
-                    <Box color="blue">
-                      <Link to="/cart">עדכן:</Link>
-                    </Box>
+                    <Text fontSize="xl">כתובת:</Text>
+                    {cart.shippingAddress.address},{cart.shippingAddress.city}
+                    ,{cart.shippingAddress.postalCode},
+                    {cart.shippingAddress.country}
                   </Box>
-                </Flex>
-                {/* Stack for order summary */}
-              </Center>
-              <Box>
-                <Box boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)" dir="rtl">
-                  <Text fontSize="2xl">סיכום הזמנה</Text>
-
-                  <Flex justifyContent="space-evenly">
-                    <Text> פריט</Text>
-                    <Text>₪{cart.itemsPrice.toFixed(2)}</Text>
-                  </Flex>
-                  <hr />
-                  <Flex justifyContent="space-evenly">
-                    <Text>משלוח</Text>
-                    <Text>₪{cart.shippingPrice.toFixed(2)}</Text>
-                  </Flex>
-                  <hr />
-                  <Flex justifyContent="space-evenly">
-                    <Text>מס</Text>
-                    <Text>₪{cart.taxPrice.toFixed(2)}</Text>
-                  </Flex>
-                  <hr />
-                  <Flex justifyContent="space-evenly" alignItems="center">
-                    <Text fontSize="xl"> סכו"ם</Text>
-                    <Text>₪{cart.totalPrice.toFixed(2)} </Text>
-                  </Flex>
-                  <Flex justifyContent="center">
-                    <Button
-                      type="button"
-                      onClick={placeOrderHandler}
-                      disabled={cart.cartItems.length === 0}
-                      bg="white"
-                      as="ins"
-                      color="black"
-                    >
-                      בצע הזמנה
-                    </Button>
-                  </Flex>
+                </GridItem>
+                <Box  mr={"3%"} color="blue">
+                  <Link to="/shipping">שינוי:</Link>
                 </Box>
-                {loading && <LoadingBox></LoadingBox>}
-              </Box>
-            </Box>
+              </Grid>
+
+              {/* Grid for Method */}
+              <Grid
+                dir="rtl"
+                boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                w="100%"
+                bg="#222831"
+                color="#EEEEEE"
+                borderRadius={20}
+                
+              >
+                <Text mr={"3%"} >שיטת תשלום</Text>
+
+                <Box  mr={"3%"}>
+                  <Box
+                    w="20%"
+                   
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="space-between"
+                  >
+                    <Text fontSize="xl">Method:</Text>
+                    {"    "}
+                    {cart.paymentMethod}
+                  </Box>
+                </Box>
+                <Box  mr={"3%"} color="blue">
+                  <Link to="/payment">שינוי:</Link>
+                </Box>
+              </Grid>
+
+              {/* Stack for items */}
+              <Grid
+                dir="rtl"
+                w="100%"
+                boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+                bg="#222831"
+                color="#EEEEEE"
+                borderRadius={20}
+              >
+                <Text mr="3%">פריטים</Text>
+                
+                <Stack
+                  overflowY={"scroll"}
+                  css={{
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      width: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "#4E3636",
+                      borderRadius: "24px",
+                    },
+                  }}
+                  mt="3%"
+                  w="100%"
+                  h="25vh"
+                  ml="7%"
+                >
+                  {cart.cartItems.map((item) => (
+                    <Grid key={item._id}>
+                      <GridItem
+                        display="flex"
+                        w="100%"
+                        h="100%"
+                        justifyContent="space-around"
+                        alignItems="center"
+                        border=" 1px solid"
+                        borderRadius={20}
+                        color="#EEEEEE"
+                      >
+                        <GridItem>
+                          <Image
+                            w="60px"
+                            h="60px"
+                            src={item.image}
+                            alt={item.name}
+                            objectFit="contain"
+                          />
+                        </GridItem>
+
+                        <GridItem color="#00ADB5">
+                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.quantity}</Text>
+                        </GridItem>
+                        <GridItem>
+                          <Text>{item.price}</Text>
+                        </GridItem>
+                      </GridItem>
+                    </Grid>
+                  ))}
+                </Stack>
+
+
+                <Box mr="3%" color="blue">
+                <Link to="/cart">שינוי:</Link>
+                </Box>
+              </Grid>
+            </Grid>
+            {/* Stack for order summary */}
+
+            <Grid display="flex" textAlign="center" justifyContent="center">
+              <VStack
+                w="60%"
+                h="55%"
+                mt="2%"
+                bg="#222831"
+                color="#EEEEEE"
+                borderRadius="30"
+                boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
+               
+              >
+                <Text fontSize="2xl">סיכום הזמנה</Text>
+
+                <GridItem>
+                  <Text>מוצר</Text>
+                  <Text>₪{cart.itemsPrice.toFixed(2)}</Text>
+                </GridItem>
+
+                <GridItem>
+                  <Text>משלוח</Text>
+                  <Text>₪{cart.shippingPrice.toFixed(2)}</Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text>מע"מ</Text>
+                  <Text>₪{cart.taxPrice.toFixed(2)}</Text>
+                </GridItem>
+                <hr />
+                <GridItem>
+                  <Text fontSize="2xl"> סיכום הזמנה</Text>
+
+                  <Text>₪{cart.totalPrice.toFixed(2)} </Text>
+                </GridItem>
+
+                <Button
+                  type="button"
+                  onClick={placeOrderHandler}
+                  disabled={cart.cartItems.length === 0}
+                  bg="silver"
+                  color="black"
+                >
+                  ביצוע הזמנה
+                </Button>
+              </VStack>
+              {loading && <LoadingBox></LoadingBox>}
+            </Grid>
+          </Grid>
           );
         }}
       </Media>

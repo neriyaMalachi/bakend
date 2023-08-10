@@ -10,6 +10,7 @@ import {
   RadioGroup,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import CheckOutSteps from "./CheckOutSteps";
@@ -46,18 +47,13 @@ function PaymentMethodScreen() {
       <form onSubmit={submitHandler}>
         <Center
           h="82vh"
-          color="black"
-          bg="#116D6E"
+          bg="#00ADB5"
           display="flex"
           flexDirection="column"
         >
-          <RadioGroup  bg="#321E1E" color="white" defaultValue="Itachi" borderRadius="20%" p="5%" >
+          <RadioGroup  bg="#222831" color="#EEEEEE" defaultValue="Itachi" borderRadius="20%" p="5%" >
             <Text textAlign="center" fontSize="2xl" >אמצעי תשלום</Text>
-            <HStack
-              spacing="-0.5%"
-              display="flex"
-              flexDirection="column"
-              justifyContent={"space-around"}
+            <VStack
               h="100px"
             >
               <Radio
@@ -90,9 +86,9 @@ function PaymentMethodScreen() {
               >
                 PayPal
               </Radio>
-            </HStack>
+            </VStack>
             <Box display="flex" justifyContent="center">
-              <Button bg="#4E3636" type="submit">להמשיך</Button>
+              <Button bg="#393E46" type="submit">להמשיך</Button>
             </Box>
           </RadioGroup>
         </Center>

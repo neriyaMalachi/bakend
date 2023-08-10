@@ -66,9 +66,10 @@ function SignupScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="blackAlpha.200">
+        <Center h="90vh" bg="#00ADB5">
           <Card
-            color="black"
+            color="#EEEEEE"
+            bg={"#222831"}
             h="65vh"
             w="60vh"
             display="flex"
@@ -114,7 +115,7 @@ function SignupScreen() {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <Button type="submit" bg="silver" p="1%" w="30%" mt="5%">
+              <Button type="submit" bg="#393E46" _hover={"none"} p="1%" w="30%" mt="5%">
                 הירשם
               </Button>
             </CardBody>
@@ -124,8 +125,9 @@ function SignupScreen() {
               h="25%"
               display="flex"
               justifyContent="center"
+              
             ></CardFooter>
-            <Box>
+            <Box  >
               יש לך כבר חשבון?{" "}
               <Link to={`/signin?redirect=${redirect}`}>
                 <Text as="u">התחבר</Text>{" "}

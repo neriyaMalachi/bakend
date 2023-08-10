@@ -64,9 +64,9 @@ function SigninScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="blackAlpha.200">
+        <Center h="90vh" bg="#00ADB5">
           <Card
-            color="black"
+            color="#EEEEEE"
             h="60vh"
             w="60vh"
             display="flex"
@@ -75,6 +75,7 @@ function SigninScreen() {
             border={maxWidthforHamborger ? "1px solid" : "none"}
             borderRadius="20%"
             dir="rtl"
+            bg="#222831"
           >
             <CardHeader
               display="flex"
@@ -111,7 +112,7 @@ function SigninScreen() {
                   border="none"
                 />
                 {/* <InputLeftElement> */}
-                  <Button h="1.75rem" size="sm" onClick={handleClick}>
+                  <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
                     {show ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
                 {/* </InputLeftElement> */}
@@ -126,7 +127,7 @@ function SigninScreen() {
               flexDirection="column"
               justifyContent="space-around"
             >
-              <Button type="submit" bg="silver" p="1%" w="40%">
+              <Button type="submit" bg="#393E46" _hover={"none"} p="1%" w="40%">
                 התחבר
               </Button>
               <Box alignItems="end">
