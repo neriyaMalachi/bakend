@@ -47,7 +47,7 @@ console.log(email);
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      toast.error(" email invalid");
+      // toast.error(" email invalid");
     }
   };
 
@@ -64,9 +64,10 @@ console.log(email);
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="blackAlpha.200">
+        <Center dir="rtl" h="90vh" bg="#393E46">
           <Card
-            color="black"
+            color="#EEEEEE"
+            bg="#222831"
             h="60vh"
             w="60vh"
             display="flex"
@@ -78,20 +79,19 @@ console.log(email);
             <CardHeader
               display="flex"
               flexDirection="column"
-              // alignItems="center"
               justifyContent="center"
               h="50%"
             >
          
               <Text fontSize="3xl" as="b">
-                Forget Password
+                איפוס סיסמה
               </Text>
             </CardHeader>
 
             <CardBody h="50%">
-              <Text>enter your email address</Text>
+              <Text>הכנס אימיל</Text>
               <Input
-                placeholder="Email"
+                placeholder="אימיל"
                 type="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
@@ -103,8 +103,8 @@ console.log(email);
               display="flex"
               justifyContent="center"
             >
-              <Button type="submit" bg="silver" p="1%" w="40%">
-                submit
+              <Button type="submit" bg="#00ADB5" p="1%" w="40%">
+                המשך
               </Button>
             </CardFooter>
           </Card>

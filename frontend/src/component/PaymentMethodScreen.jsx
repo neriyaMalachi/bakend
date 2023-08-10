@@ -13,7 +13,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import CheckOutSteps from "./CheckOutSteps";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
@@ -47,7 +46,7 @@ function PaymentMethodScreen() {
       <form onSubmit={submitHandler}>
         <Center
           h="82vh"
-          bg="#00ADB5"
+          bg="#393E46"
           display="flex"
           flexDirection="column"
         >
@@ -88,7 +87,7 @@ function PaymentMethodScreen() {
               </Radio>
             </VStack>
             <Box display="flex" justifyContent="center">
-              <Button bg="#393E46" type="submit">להמשיך</Button>
+              <Button bg="#00ADB5" type="submit">להמשיך</Button>
             </Box>
           </RadioGroup>
         </Center>

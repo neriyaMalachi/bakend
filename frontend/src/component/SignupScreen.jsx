@@ -49,7 +49,7 @@ function SignupScreen() {
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      toast.error("password or email invalid");
+      // toast.error("password or email invalid");
     }
   };
 
@@ -66,7 +66,7 @@ function SignupScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="#00ADB5">
+        <Center h="90vh" bg="#393E46">
           <Card
             color="#EEEEEE"
             bg={"#222831"}
@@ -75,17 +75,16 @@ function SignupScreen() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            border={maxWidthforHamborger ? "1px solid" : "none"}
-            borderRadius={maxWidthforHamborger ? "20%" : "none"}
+            borderRadius={maxWidthforHamborger ? "10%" : "none"}
             dir="rtl"
           >
-            <CardHeader display="flex" justifyContent="center" h="5%" w="100%">
+            <CardHeader display="flex" justifyContent="center"  w="100%">
               <Text fontSize="3xl" as="b">
                 הירשם
               </Text>
             </CardHeader>
 
-            <CardBody h="60%">
+            <CardBody  >
               <Text>שם</Text>
               <Input
                 placeholder="שם"
@@ -115,7 +114,7 @@ function SignupScreen() {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <Button type="submit" bg="#393E46" _hover={"none"} p="1%" w="30%" mt="5%">
+              <Button type="submit" bg="#00ADB5" _hover={"none"} p="1%" w="30%" mt="5%">
                 הירשם
               </Button>
             </CardBody>

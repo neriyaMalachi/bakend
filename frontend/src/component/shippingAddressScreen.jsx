@@ -14,7 +14,6 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
-import CheckOutSteps from "./CheckOutSteps";
 
 function ShippingAddressScreen() {
   const navigate = useNavigate();
@@ -62,11 +61,12 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="86vh"  bg="#00ADB5">
+    <Center h="86vh"  bg="#393E46">
       <Card
         p="4%"
        bg="#222831"
        color="#EEEEEE"
+       borderRadius={20}
       >
         <Helmet>
           <title>Shiping Address</title>
@@ -77,10 +77,11 @@ function ShippingAddressScreen() {
             spacing={4}
             align="stretch"
             zIndex={1}
+            dir="rtl"
           >
             <Box h="40px">
               <Input
-                placeholder="Full name"
+                placeholder="שם מלא"
                 size="lg"
                 value={fullName}
                 required
@@ -90,7 +91,7 @@ function ShippingAddressScreen() {
 
             <Box h="40px">
               <Input
-                placeholder="Address"
+                placeholder="כתובת"
                 size="lg"
                 value={address}
                 required
@@ -100,7 +101,7 @@ function ShippingAddressScreen() {
 
             <Box h="40px">
               <Input
-                placeholder="City"
+                placeholder="עיר"
                 size="lg"
                 value={city}
                 required
@@ -110,7 +111,7 @@ function ShippingAddressScreen() {
 
             <Box h="40px">
               <Input
-                placeholder="Postal code"
+                placeholder="מיקוד"
                 size="lg"
                 value={postalCode}
                 required
@@ -120,7 +121,7 @@ function ShippingAddressScreen() {
 
             <Box h="40px">
               <Input
-                placeholder="Country"
+                placeholder="ארץ"
                 size="lg"
                 value={country}
                 required
@@ -129,7 +130,7 @@ function ShippingAddressScreen() {
             </Box>
           </VStack>
           <CardFooter>
-            <Button variant="primary" type="submit" bg="#393E46">
+            <Button variant="primary" type="submit" bg="#00ADB5">
               התחבר
             </Button>
           </CardFooter>

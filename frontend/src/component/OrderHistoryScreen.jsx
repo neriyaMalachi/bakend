@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardFooter,
   Flex,
+  VStack,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
@@ -74,7 +75,7 @@ function OrderHistoryScreen() {
   return (
     <>
       <Helmet>
-        <title>Order History</title>
+        <title>היסטורית הזמנות</title>
       </Helmet>
       {loading ? (
         <LoadingBox></LoadingBox>
@@ -84,10 +85,10 @@ function OrderHistoryScreen() {
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       ):orders ?(
-        <Flex h="62.5vh" justifyContent="center" alignItems={"center"} dir="rtl"  >
-          <Text fontSize="3xl" color="red" >אין הזמנות בהסטוריה : </Text>
-          <Link to={"/"}>בחזרה לטפרית</Link>
-        </Flex>
+        <VStack bg="#393E46" color="#00ADB5" h="75vh"  >
+          <Text fontSize="3xl" color="#EEEEEE" >אין הזמנות בהסטוריה  </Text>
+          <Link  to={"/"}>בחזרה לטפרית</Link>
+        </VStack>
       ) : (
         <Media query="(min-width: 990px)">
           {(matches) => {

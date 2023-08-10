@@ -43,7 +43,7 @@ function Cards(props) {
         return matches ? (
           <Card
             m="1%"
-            boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
+            boxShadow="1px 4px 8px 4px rgba(0,0,0,0.55)"
             display="flex"
             alignContent="flex-start"
             w="200px"
@@ -119,20 +119,18 @@ function Cards(props) {
           >
             <CardBody p={0}>
               <Grid h="105%">
-                <GridItem>
-                  <Link to={`/product/${product.slug}`}>
-                  <Image
-                    filter="contrast(90%)"
-                    _hover={{ filter: "contrast(100%)" }}
-                    objectFit="fill"
-                    src={product.image}
-                    alt={product.name}
-                    w="100%"
-                    h="250px"
-                    borderRadius="5%"
-                  />
+              <Link to={`/product/${product.slug}`}>
+                    <Image
+                      filter="contrast(90%)"
+                      _hover={{ filter: "contrast(100%)" }}
+                      objectFit="fill"
+                      src={product.image}
+                      alt={product.name}
+                      w="100%"
+                      h="250px"
+                      borderRadius="5%"
+                    />
                   </Link>
-                </GridItem>
 
                 <GridItem pt={1} pb={5} pr={2} lineHeight="40px">
                   <Link to={`/product/${product.slug}`}>

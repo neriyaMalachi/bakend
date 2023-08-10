@@ -42,6 +42,7 @@ app.use(function (req, res, next) {
 app.get("/api/keys/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
+app.use(express.json())
 app.use("/api/seed", seedRouter);
 app.use("/api/propertis", productRoute);
 app.use("/api/users", userRouter);

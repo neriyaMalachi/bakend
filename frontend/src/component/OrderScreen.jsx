@@ -4,6 +4,7 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
+  Button,
   Card,
   CardBody,
   CardFooter,
@@ -11,7 +12,9 @@ import {
   Flex,
   Grid,
   GridItem,
+  HStack,
   Image,
+  Stack,
   Text,
 } from "@chakra-ui/react";
 import {
@@ -158,7 +161,8 @@ function OrderScreen() {
       {(matches) => {
         return matches ? (
           <Grid
-            bg="whitesmoke"
+            bg="#393E46"
+            color="#EEEEEE"
             dir="rtl"
             templateColumns="repeat(2,1fr)"
             templateRows="repeat(1)"
@@ -167,13 +171,13 @@ function OrderScreen() {
               <title>order {orderId}</title>
             </Helmet>
             <GridItem gridColumn="1" gridRow="1">
-              <Text as="mark" fontSize="2xl">
+              <Text bg="#00ADB5" fontSize="2xl">
                 מספר הזמנה: {orderId}
               </Text>
             </GridItem>
             {/* Grid for address the user */}
             <GridItem gridColumn="1" gridRow="2">
-              <Card border="1px solid">
+              <Card bg="#222831" color="#EEEEEE" >
                 <CardHeader>
                   <Text fontSize={"xl"}> משלוח עבור:</Text>
                 </CardHeader>
@@ -191,9 +195,9 @@ function OrderScreen() {
                 </CardBody>
                 <CardFooter>
                   {order.isDelivered ? (
-                    <Alert>נשלח {order.delivered}</Alert>
+                    <Alert bg="green.200">נשלח {order.delivered}</Alert>
                   ) : (
-                    <Alert status="error">
+                    <Alert bg="red.300" status="error">
                       <AlertIcon />
                      לא נשלח
                     </Alert>
@@ -202,62 +206,74 @@ function OrderScreen() {
               </Card>
             </GridItem>
             {/* Grid for pay */}
-            <GridItem gridColumn="1" gridRow="3">
-              <Card border="1px solid">
-                <CardHeader>תשלום</CardHeader>
+            <GridItem bg="#222831" color="#EEEEEE" gridColumn="1" gridRow="3">
+              <Card >
+                <CardHeader color="#EEEEEE">תשלום</CardHeader>
 
-                <CardBody>
+                <CardBody color="#EEEEEE">
                   {order.isPaid ? (
                     <Alert status="success">
                       <AlertIcon />
                       Paid at {order.paidAt}
                     </Alert>
                   ) : (
-                    <Alert status="error">
+                    <Alert bg="red.300" status="error">
                       <AlertIcon />
-                      Not Paid
+                      לא שולם
                     </Alert>
                   )}
                 </CardBody>
               </Card>
             </GridItem>
             {/* Grid for Item */}
-            <GridItem gridColumn="1" gridRow="4">
-              <Card border="1px solid">
-                <CardHeader>Items</CardHeader>
+            <GridItem mt="5%" gridColumn="1" gridRow="4">
+              <Card bg="#222831" >
+                <CardHeader color="#EEEEEE">מוצרים</CardHeader>
                 <CardBody>
+                <Stack
+                  overflowY={"scroll"}
+                  css={{
+                    "&::-webkit-scrollbar": {
+                      width: "5px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      width: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "#222831",
+                      borderRadius: "24px",
+                    },
+                  }}
+                  mt="3%"
+                  w="100%"
+                  h="40vh"
+                  ml="7%"
+                >
                   {order.orderItems.map((item) => (
-                    <Grid key={item._id}>
-                      <GridItem
-                        display="flex"
-                        w="100%"
-                        h="100%"
-                        justifyContent="space-around"
-                        alignItems="center"
-                        border=" 1px solid"
-                        bg="silver"
-                      >
-                        <GridItem>
-                          <Image
-                            w="60px"
-                            h="60px"
-                            src={item.image}
-                            alt={item.name}
-                            objectFit="contain"
-                          />
-                        </GridItem>
-                        <GridItem color="blue.400">
-                          {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
-                        </GridItem>
-                        <GridItem>
-                          <Text>{item.quantity}</Text>
-                        </GridItem>
-                        <GridItem>
-                          <Text>{item.price}</Text>
-                        </GridItem>
-                      </GridItem>
-                    </Grid>
+                    <Stack  >
+                    <HStack
+                      key={item._id}
+                      justifyContent={"space-around"}
+                      alignItems="center"
+                    
+                      color="#EEEEEE"
+                      bg="#393E46"
+                      boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
+                      borderRadius={10}
+                    >
+                      <Image
+                        objectFit="cover"
+                        h="90px"
+                        w="90px"
+                        src={item.image}
+                        alt="Caffe Latte"
+                      />
+                      <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                      <Flex>{item.price} ₪</Flex>
+                    </HStack>
+                  </Stack>
                   ))}
+                  </Stack>
                 </CardBody>
               </Card>
             </GridItem>
@@ -272,31 +288,31 @@ function OrderScreen() {
               <GridItem
                 w="60%"
                 h="100%"
-                border="1px solid"
-                borderRadius="30%"
+               bg="#222831"
+                borderRadius="10%"
                 boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
               >
-                <Text fontSize="2xl">Order Summary</Text>
+                <Text fontSize="2xl">סיכום הזמנה</Text>
 
                 <GridItem>
-                  <Text>Item</Text>
-                  <Text>{order.itemsPrice.toFixed(2)} ש"ח </Text>
+                  <Text>מוצרים</Text>
+                  <Text>₪{order.itemsPrice.toFixed(2)}</Text>
                 </GridItem>
                 <hr />
                 <GridItem>
-                  <Text>Shipping</Text>
-                  <Text>{order.shippingPrice.toFixed(2)} ש"ח </Text>
+                  <Text>משלוח</Text>
+                  <Text>{order.shippingPrice.toFixed(2)} ₪</Text>
                 </GridItem>
                 <hr />
                 <GridItem>
-                  <Text>Tax</Text>
-                  <Text>{order.taxPrice.toFixed(2)} ש"ח </Text>
+                  <Text>מע"מ</Text>
+                  <Text>₪{order.taxPrice.toFixed(2)}</Text>
                 </GridItem>
                 <hr />
                 <GridItem>
-                  <Text fontSize="2xl"> Order Total</Text>
+                  <Text fontSize="2xl"> סכו"ם</Text>
 
-                  <Text>{order.totalPrice.toFixed(2)} ש"ח </Text>
+                  <Text>{order.totalPrice.toFixed(2)} ₪</Text>
 
                   <Flex justifyContent="center" alignItems="center">
                     {!order.isPaid && (

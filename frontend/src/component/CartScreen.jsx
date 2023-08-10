@@ -72,10 +72,11 @@ function CartScreen() {
           h={isLargerThen768 ? "70vh" : "50vh"}
           fontSize="2xl"
           p={4}
-          bg="#116D6E"
+          bg="#393E46"
+          color="#EEEEEE"
         >
-          <Box color="#CD1818">העגלת קניות ריקה!</Box>
-          <Box color="#CD1818" as="ins">
+          <Box >העגלת קניות ריקה!</Box>
+          <Box  as="ins">
             <Link to="/"> למוצרים</Link>
           </Box>
         </Flex>
@@ -83,7 +84,7 @@ function CartScreen() {
         <Media query="(min-width: 900px)">
           {(matches) => {
             return matches ? (
-              <HStack bg="#00ADB5" isInline gap={3} h="90vh">
+              <HStack bg="#393E46" isInline gap={3} h="90vh">
                 <Stack
                   overflowY={"scroll"}
                   css={{
@@ -183,7 +184,7 @@ function CartScreen() {
                     <Button
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
-                      bg="#393E46"
+                      bg="#00ADB5"
 
                     >
                       לקופה
@@ -192,7 +193,7 @@ function CartScreen() {
                 </Card>
               </HStack>
             ) : (
-              <HStack bg="#00ADB5" w="100%" h="100vh">
+              <HStack bg="#393E46" w="100%" h="100vh">
                 <Stack
                   overflowY={"scroll"}
                   css={{
@@ -298,7 +299,7 @@ function CartScreen() {
                     <Button
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
-                      bg="#393E46"
+                      bg="#00ADB5"
                     >
                       לקופה
                     </Button>

@@ -64,7 +64,7 @@ function SigninScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="#00ADB5">
+        <Center h="90vh" bg="#393E46">
           <Card
             color="#EEEEEE"
             h="60vh"
@@ -72,8 +72,7 @@ function SigninScreen() {
             display="flex"
             justifyContent="center"
             alignItems="center"
-            border={maxWidthforHamborger ? "1px solid" : "none"}
-            borderRadius="20%"
+            borderRadius="10%"
             dir="rtl"
             bg="#222831"
           >
@@ -127,7 +126,7 @@ function SigninScreen() {
               flexDirection="column"
               justifyContent="space-around"
             >
-              <Button type="submit" bg="#393E46" _hover={"none"} p="1%" w="40%">
+              <Button type="submit" bg="#00ADB5" _hover={"none"} p="1%" w="40%">
                 התחבר
               </Button>
               <Box alignItems="end">

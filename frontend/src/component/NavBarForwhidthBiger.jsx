@@ -43,60 +43,71 @@ function NavBarForwhidthBiger() {
         לכל הארץ בהזמנה מעל{" "}
       </Box>
       <HStack
-      gap={6} 
-      bg="#222831"
-      color="whitesmoke"
-      fontSize="xl"
-      boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
-      dir="rtl"
+        gap={4}
+        bg="#222831"
+        color="whitesmoke"
+        fontSize="xl"
+        boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
+        dir="rtl"
       >
-      
-          <ToastContainer />
-          <HStack gap={12} >
-            {userInfo && userInfo.isAdmin && (
-              <Box title="Admin">
-                <Menu>
-                  {({ isOpen }) => (
-                    <>
-                      <MenuButton
-                        isActive={isOpen}
-                        as={Button}
-                        rightIcon={<ChevronDownIcon />}
-                        color="red"
-                      >
-                        {isOpen ? "סגור" : "מנהל"}
-                      </MenuButton>
-                      <MenuList color="black">
-                        <Link to="/Admin/products">
-                          <MenuItem>מוצרים</MenuItem>
-                        </Link>
-                        <Link to="/Admin/orders">
-                          <MenuItem>הזמנות</MenuItem>
-                        </Link>
-                        <Link to="/Admin/users">
-                          <MenuItem>משתמשים</MenuItem>
-                        </Link>
-                      
-                      </MenuList>
-                    </>
-                  )}
-                </Menu>
-              </Box>
-            )}
-            {!userInfo ? (
-              <HStack gap={12}>
-                <IconButton
-                  bg={"none"}
-                  color={"white"}
-                  icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
-                  onClick={toggleColorMode}
-                />
-                <Link to="/">דף הבית</Link>
 
-                <Link to="/signin">התחבר</Link>
+        <ToastContainer />
+        <HStack >
+
+          {!userInfo ? (
+            <HStack gap={12}>
+
+              <Link to="/">דף הבית</Link>
+
+              <Link to="/signin">התחבר</Link>
+            </HStack>
+          ) : (
+            userInfo.isAdmin ? (
+              <HStack gap={12} >
+                {/* dark mode and light mode and hamburger */}
+                <HStack>
+                  <Menu>
+                    <MenuButton>
+                      <RxHamburgerMenu />
+                    </MenuButton>
+                    <MenuList color="black">
+                      <MenuItem>
+                        {" "}
+                        <Link to="/orderhistory">הזמנות</Link>
+                      </MenuItem>
+                      <MenuItem>
+                        {" "}
+                        <Link to="/profile">פרופיל</Link>
+                      </MenuItem>
+
+                      <MenuItem>
+                        <Link to="/signIn" onClick={signoutHandlet}>
+                          התנתק
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link to="/" >
+                          דף הבית
+                        </Link>
+                      </MenuItem>
+                      <Link to="/Admin/products">
+                        <MenuItem>מוצרים</MenuItem>
+                      </Link>
+                      <Link to="/Admin/orders">
+                        <MenuItem>הזמנות</MenuItem>
+                      </Link>
+                      <Link to="/Admin/users">
+                        <MenuItem>משתמשים</MenuItem>
+                      </Link>
+                    </MenuList>
+                  </Menu>
+
+                </HStack>
+                )
+
               </HStack>
             ) : (
-              <HStack gap={12} >
+              <HStack color="#EEEEEE" gap={12} >
                 {/* dark mode and light mode and hamburger */}
                 <HStack>
                   <Menu>
@@ -125,34 +136,38 @@ function NavBarForwhidthBiger() {
                       </MenuItem>
                     </MenuList>
                   </Menu>
-                  <IconButton
-                    bg={"none"}
-                    color={"white"}
-                    icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
-                    onClick={toggleColorMode}
-                  />
+
                 </HStack>
-                {/* Shoping Cart  */}
-                <HStack color="white" textAlign="center">
-                  {cart.cartItems.length > 0 && (
-                    <Button
-                      _hover={"none"}
-                      m="-5"
-                      mt="-10"
-                      borderRadius="40%"
-                      bg="none"
-                      size="xs"
-                    >
-                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                    </Button>
-                  )}
-                  <Link to="/cart">
-                    <GrCart />
-                  </Link>
-                </HStack>
+                )
+
               </HStack>
-            )}
-          </HStack>
+            ))}
+
+        </HStack>
+        <HStack color={"white"} textAlign="center">
+          {cart.cartItems.length > 0 && (
+            <Button
+              _hover={"none"}
+              m="-5"
+              mt="-10"
+              borderRadius="40%"
+              bg="none"
+              size="xs"
+            >
+              {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+            </Button>
+          )}
+          <Link to="/cart">
+            <GrCart size={25} />
+          </Link>
+        </HStack>
+        <IconButton
+          bg={"none"}
+          color={"white"}
+          icon={colorMode === "dark" ? <SunIcon /> : <MoonIcon />}
+          onClick={toggleColorMode}
+          _hover={"none"}
+        />
       </HStack>
     </>
   );

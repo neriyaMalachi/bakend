@@ -62,7 +62,7 @@ function HomeFile() {
       flexWrap="wrap"
       justifyContent="space-around"
       w="100%"
-      bg="#00ADB5"
+      bg="#393E46"
     >
       <Helmet>
         <title>דף הבית</title>
@@ -76,7 +76,7 @@ function HomeFile() {
           type="text"
           mt="1rem"
           mb="3rem"
-          bg="#393E46"
+          bg="#222831"
           border="none"
           placeholder="חפש..."
           onChange={(e) => {

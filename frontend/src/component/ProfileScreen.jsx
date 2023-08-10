@@ -69,17 +69,17 @@ function ProfileScreen() {
   };
 
   return (
-    <Center>
+    <Center h={{ base: "72vh", sm: "74vh" }}  bg="#393E46">
       <Helmet>
         <title>User Profile</title>
       </Helmet>
 
       <Center
-      mt="2%"
-        border="1px solid"
+        border="1px solid black"
         borderRadius="10%"
         w="30%"
-        h={{ base: "82vh", sm: "84vh" }}
+       bg="#222831"
+       color={"#EEEEEE"}
       >
         <form onSubmit={submitHandler}>
         <Text m="5%" fontSize="3xl">User Profile</Text>
@@ -118,7 +118,7 @@ function ProfileScreen() {
             />
 
             <Box mt="10%">
-              <Button type="submit">עדכון</Button>
+              <Button bg="#00ADB5" type="submit">עדכון</Button>
             </Box>
           </Box>
         </form>
