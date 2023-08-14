@@ -76,7 +76,7 @@ function CartScreen() {
           color="#EEEEEE"
         >
           <Box >העגלת קניות ריקה!</Box>
-          <Box  as="ins">
+          <Box as="ins">
             <Link to="/"> למוצרים</Link>
           </Box>
         </Flex>
@@ -193,7 +193,31 @@ function CartScreen() {
                 </Card>
               </HStack>
             ) : (
-              <HStack bg="#393E46" w="100%" h="100vh">
+              <VStack bg="#393E46" w="100%" h="100vh">
+                <Card mt="3%" bg="#222831" w="90%" color="#EEEEEE" h="35%" >
+                  <CardBody>
+                    <Box fontSize="100%" dir="rtl">
+                      כמות מוצרים {" - "}{" "}
+                      {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      <hr />
+                      ש"ח :{" "}
+                      {cartItems.reduce(
+                        (a, c) => a + c.price * c.quantity,
+                        0
+                      )}
+                    </Box>
+                    <hr />
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      onClick={checkoutHandler}
+                      disabled={cartItems.length === 0}
+                      bg="#00ADB5"
+                    >
+                      לקופה
+                    </Button>
+                  </CardFooter>
+                </Card>
                 <Stack
                   overflowY={"scroll"}
                   css={{
@@ -208,18 +232,17 @@ function CartScreen() {
                       borderRadius: "24px",
                     },
                   }}
-                  mt="3%"
-                  w="50%"
+                  m="3%"
+                  w="90%"
                   h="70vh"
-                  ml="7%"
+                  // ml="3%"
                 >
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
                       <HStack
-                       key={item._id}
+                        key={item._id}
                         justifyContent={"space-around"}
                         alignItems="center"
-                        w="100%"
                         color="#EEEEEE"
                         bg="#222831"
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
@@ -281,31 +304,8 @@ function CartScreen() {
                   ))}
                 </Stack>
 
-                <Card bg="#222831" w="40%" color="#EEEEEE" h="35%" >
-                  <CardBody>
-                    <Box fontSize="100%" dir="rtl">
-                      כמות מוצרים {" - "}{" "}
-                      {cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      <hr />
-                      ש"ח :{" "}
-                      {cartItems.reduce(
-                        (a, c) => a + c.price * c.quantity,
-                        0
-                      )}
-                    </Box>
-                    <hr />
-                  </CardBody>
-                  <CardFooter>
-                    <Button
-                      onClick={checkoutHandler}
-                      disabled={cartItems.length === 0}
-                      bg="#00ADB5"
-                    >
-                      לקופה
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </HStack>
+                
+              </VStack>
             );
           }}
         </Media>

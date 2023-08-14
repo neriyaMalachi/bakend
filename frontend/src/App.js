@@ -106,6 +106,7 @@ function App() {
             />
             <Route path="/" element={<HomeFile />} />
           </Routes>
+          
           <FootherFile />
         </BrowserRouter>
       </ChakraProvider>

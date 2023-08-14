@@ -170,13 +170,13 @@ function OrderScreen() {
             <Helmet>
               <title>order {orderId}</title>
             </Helmet>
-            <GridItem gridColumn="1" gridRow="1">
+            <GridItem m="3%" gridColumn="1" gridRow="1">
               <Text bg="#00ADB5" fontSize="2xl">
                 מספר הזמנה: {orderId}
               </Text>
             </GridItem>
             {/* Grid for address the user */}
-            <GridItem gridColumn="1" gridRow="2">
+            <GridItem m="3%" gridColumn="1" gridRow="2">
               <Card bg="#222831" color="#EEEEEE" >
                 <CardHeader>
                   <Text fontSize={"xl"}> משלוח עבור:</Text>
@@ -206,7 +206,7 @@ function OrderScreen() {
               </Card>
             </GridItem>
             {/* Grid for pay */}
-            <GridItem bg="#222831" color="#EEEEEE" gridColumn="1" gridRow="3">
+            <GridItem m="3%" bg="#222831" color="#EEEEEE" gridColumn="1" gridRow="3">
               <Card >
                 <CardHeader color="#EEEEEE">תשלום</CardHeader>
 
@@ -226,7 +226,7 @@ function OrderScreen() {
               </Card>
             </GridItem>
             {/* Grid for Item */}
-            <GridItem mt="5%" gridColumn="1" gridRow="4">
+            <GridItem m="3%" gridColumn="1" gridRow="4">
               <Card bg="#222831" >
                 <CardHeader color="#EEEEEE">מוצרים</CardHeader>
                 <CardBody>
@@ -339,7 +339,7 @@ function OrderScreen() {
         ) : (
           <Flex
             flexDirection="column"
-            bg="whitesmoke"
+            bg="#393E46"
             dir="rtl"
             templateColumns="repeat(2,1fr)"
             templateRows="repeat(1)"
@@ -347,12 +347,12 @@ function OrderScreen() {
             <Helmet>
               <title>order {orderId}</title>
             </Helmet>
-            <Flex>
+            <Flex m="3%" bg="#00ADB5">
               <Text fontSize="xl">מספר הזמנה: {orderId}</Text>
             </Flex>
             {/* Grid for address the user */}
             <Box>
-              <Card border="1px solid">
+              <Card m="3%" bg="#222831" color="#EEEEEE" >
                 <CardHeader>
                   <Text fontSize={"l"}> משלוח עבור:</Text>
 
@@ -371,7 +371,7 @@ function OrderScreen() {
                   {order.isDelivered ? (
                     <Alert>נשלח {order.delivered}</Alert>
                   ) : (
-                    <Alert status="error">
+                    <Alert bg="red.300" status="error">
                       <AlertIcon />
                       לא נשלח
                     </Alert>
@@ -381,7 +381,7 @@ function OrderScreen() {
             </Box>
             {/* Grid for pay */}
             <GridItem gridColumn="1" gridRow="3">
-              <Card border="1px solid">
+              <Card m="3%" bg="#222831" color="#EEEEEE" >
                 <CardHeader>תשלום:</CardHeader>
 
                 <CardBody>
@@ -391,7 +391,7 @@ function OrderScreen() {
                       שולם {order.paidAt}
                     </Alert>
                   ) : (
-                    <Alert status="error">
+                    <Alert bg="red.300"  status="error">
                       <AlertIcon />
                       לא שולם
                     </Alert>
@@ -401,7 +401,7 @@ function OrderScreen() {
             </GridItem>
             {/* Grid for Item */}
             <GridItem>
-              <Card border="1px solid">
+              <Card bg="#222831" color="#EEEEEE" m="3%">
                 <CardHeader>פרטים :</CardHeader>
                 <CardBody>
                   {order.orderItems.map((item) => (
@@ -409,15 +409,17 @@ function OrderScreen() {
                       flexDirection="column"
                       justifyContent="space-around"
                       key={item._id}
+
                     >
                       <GridItem
                         display="flex"
                         w="100%"
                         h="100%"
+                        m="1%"
                         justifyContent="space-around"
                         alignItems="center"
-                        border=" 1px solid"
-                        bg="white"
+                        bg="#393E46"
+                        borderRadius={10}
                       >
                         <GridItem>
                           <Image
@@ -443,34 +445,34 @@ function OrderScreen() {
                 </CardBody>
               </Card>
             </GridItem>
-            {/* Grid for order */}
-            <Box display="flex" textAlign="center" justifyContent="center">
-              <GridItem w="100%" h="100%">
-                <Text fontSize="2xl">Order Summary</Text>
+            {/* Grid for order */} 
+            <Box bg="#222831" m="3%" borderRadius={10} color="#EEEEEE" display="flex" textAlign="center" justifyContent="center">
+              <GridItem w="100%" h="100%" >
+                <Text fontSize="2xl">סיכום הזמנה</Text>
 
                 <GridItem>
-                  <Text>Item</Text>
-                  <Text>{order.itemsPrice.toFixed(2)} ש"ח </Text>
+                  <Text>מוצרים</Text>
+                  <Text>{order.itemsPrice.toFixed(2)} ₪</Text>
                 </GridItem>
                 <hr />
                 <GridItem>
-                  <Text>Shipping</Text>
-                  <Text>{order.shippingPrice.toFixed(2)} ש"ח </Text>
+                  <Text>משלוח</Text>
+                  <Text>{order.shippingPrice.toFixed(2)} ₪</Text>
                 </GridItem>
                 <hr />
                 <GridItem>
-                  <Text>Tax</Text>
-                  <Text>{order.taxPrice.toFixed(2)} ש"ח </Text>
+                  <Text>מע"מ</Text>
+                  <Text>{order.taxPrice.toFixed(2)} ₪</Text>
                 </GridItem>
                 <hr />
                 <GridItem>
-                  <Text fontSize="2xl"> Order Total</Text>
+                  <Text fontSize="2xl"> מחיר </Text>
 
-                  <Text>{order.totalPrice.toFixed(2)} ש"ח </Text>
+                  <Text>{order.totalPrice.toFixed(2)} ₪</Text>
 
-                  <Flex justifyContent="center" alignItems="center">
+                  <Flex mt="3%" justifyContent="center" alignItems="center">
                     {!order.isPaid && (
-                      <Box justifyItems="center" alignItems="start" w="50%">
+                      <Box justifyItems="center" alignItems="start" w="40%">
                         {isPending ? (
                           <LoadingBox />
                         ) : (

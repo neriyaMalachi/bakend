@@ -7,6 +7,7 @@ import {
   Flex,
   Grid,
   GridItem,
+  HStack,
   IconButton,
   Image,
   Link,
@@ -24,6 +25,7 @@ function FootherFile() {
     <Media query="(min-width: 900px)">
       {(matches) => {
         return matches ? (
+          <>
           <Box color="#00ADB5" bg="#222831" bottom={0}>
             <Grid
               templateRows="repeat(2, 1fr)"
@@ -90,10 +92,19 @@ function FootherFile() {
                     <FaWhatsapp size={30} />
                   </a>
                 </Flex>
+           
               </GridItem>
+           
             </Grid>
+            <Box bg="#222831" color="white" textAlign="center">
+        {" "}
+        N.M AMBITION © 2023
+      </Box>
           </Box>
+        
+          </>
         ) : (
+          <>
           <Flex
             direction="column"
             justifyContent="center"
@@ -149,8 +160,14 @@ function FootherFile() {
               <HiOutlineMail size={30} />
               </Box>
             </Flex>
-         
+            <Box bg="#222831" color="white" textAlign="center">
+        {" "}
+        N.M AMBITION © 2023
+      </Box>
           </Flex>
+         
+
+          </>
         );
       }}
     </Media>
