@@ -60,16 +60,17 @@ function EditProductes() {
   };
   return (
     <Flex
-      h="70vh"
+      h="90vh"
       w="100%"
       justifyContent="space-around"
       alignItems="center"
       direction="column"
-      color="black"
+      color="#EEEEEE"
+      bg="#393E46"
     >
-      <Text fontSize="4xl">Edit</Text>
+      <Text fontSize="4xl">שינוי</Text>
       <Input
-        placeholder="name"
+        placeholder="שם"
         value={name}
         w="50%"
         onChange={(e) => {
@@ -77,7 +78,7 @@ function EditProductes() {
         }}
       />
       <Input
-        placeholder="category"
+        placeholder="קטגוריה"
         value={category}
         w="50%"
         onChange={(e) => {
@@ -85,7 +86,7 @@ function EditProductes() {
         }}
       />
       <Input 
-      placeholder='image'
+      placeholder='תמונה'
        value={image}
        w="50%"
        onChange={(e) => {
@@ -94,7 +95,7 @@ function EditProductes() {
        
        />
       <Input
-        placeholder="price"
+        placeholder="מחיר"
         value={price}
         w="50%"
         onChange={(e) => {
@@ -102,7 +103,7 @@ function EditProductes() {
         }}
       />
       <Input
-        placeholder="count In Stock"
+        placeholder="כמומת במלאי"
         value={countInStock}
         w="50%"
         onChange={(e) => {
@@ -110,7 +111,7 @@ function EditProductes() {
         }}
       />
             <Input
-        placeholder="Rating"
+        placeholder="המלצות"
         value={rating}
         w="50%"
         onChange={(e) => {
@@ -118,7 +119,7 @@ function EditProductes() {
         }}
       />
             <Input
-        placeholder="Brand"
+        placeholder="מותג"
         value={brand}
         w="50%"
         onChange={(e) => {
@@ -126,14 +127,14 @@ function EditProductes() {
         }}
       />
       <Input
-        placeholder="description"
+        placeholder="הסבר"
         value={description}
         w="50%"
         onChange={(e) => {
           setDescription(e.target.value);
         }}
       />
-      <Button bg="yellow.400" onClick={() => Editproduact()}>
+      <Button bg="#00ADB5" onClick={() => Editproduact()}>
         עדכן
       </Button>
     </Flex>

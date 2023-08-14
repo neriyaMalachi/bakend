@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Users() {
   const [error, setError] = useState(null);
@@ -70,7 +70,7 @@ function Users() {
                 <Th>ת"ז</Th>
                 <Th isNumeric>זמן הרשמות</Th>
               </Tr>
-              {/* <Link to="/Admin/addUser">Add User</Link> */}
+              <Link to="/Admin/addUser">Add User</Link>
             </Thead>
             {items.map((item) => (
               <Tbody border="2px " key={item._id}>

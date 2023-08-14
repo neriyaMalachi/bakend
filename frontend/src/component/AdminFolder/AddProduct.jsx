@@ -42,61 +42,61 @@ function AddProduct() {
 
   return (
     <>
-      <Button bg="yellow.200" w="20%" m="3%" onClick={onOpen}>הוסף מוצר</Button>
+      <Button bg="#00ADB5" w="20%" m="3%" onClick={onOpen}>הוסף מוצר</Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen}  onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>צור מוצר</ModalHeader>
+        <ModalContent dir="rtl" bg="#222831" color="#EEEEEE">
+          <ModalHeader mt="4">צור מוצר</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             {/* <form onSubmit={handleSubmit}> */}
-            <Text>Name</Text>
+            <Text>שם</Text>
             <Input
               type="text"
-              placeholder="Name"
+              placeholder="שם"
               onChange={(e) => setName(e.target.value)}
               value={name}
             />
-            <Text>Type product</Text>
+            <Text>סוג מוצר</Text>
             <Input
               type="text"
-              placeholder="category"
+              placeholder="סוג"
               onChange={(e) => setCategory(e.target.value)}
               value={category}
             />
-            <Text>Url Image</Text>
+            <Text>כתובת תמונה</Text>
             <Input
               type="text"
-              placeholder="image"
+              placeholder="כתובת תמונה"
               onChange={(e) => setImage(e.target.value)}
               value={image}
             />
-            <Text>Price</Text>
+            <Text>מחיר</Text>
             <Input
               type="text"
-              placeholder="price"
+              placeholder="מחיר"
               onChange={(e) => setPrice(e.target.value)}
               value={price}
             />
-            <Text>Counte products</Text>
+            <Text>כמות</Text>
             <Input
               type="text"
-              placeholder="countInStock"
+              placeholder="כמות מוצר"
               onChange={(e) => setCountInStock(e.target.value)}
               value={countInStock}
             />
             <Text>מותג</Text>
             <Input
               type="text"
-              placeholder="brand"
+              placeholder="מותג"
               onChange={(e) => setbrand(e.target.value)}
               value={brand}
             />
-            <Text>Description</Text>
+            <Text>הסבר על המוצר</Text>
             <Input
               type="text"
-              placeholder="description"
+              placeholder="הסבר על המוצר"
               onChange={(e) => setDescription(e.target.value)}
               value={description}
             />
@@ -105,7 +105,7 @@ function AddProduct() {
           </ModalBody>
 
           <ModalFooter>
-            <Button bg="yellow.300" onClick={handleSubmit}>
+            <Button bg="#00ADB5" onClick={handleSubmit}>
               הוסף מוצר
             </Button>
           </ModalFooter>

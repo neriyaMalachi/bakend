@@ -10,6 +10,8 @@ import {
   Text,
   Button,
   Flex,
+  Center,
+  VStack,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
@@ -64,56 +66,61 @@ function Products() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box>
+      <Box bg="#393E46">
         <Flex justifyContent="center">
           <AddProduct />
         </Flex>
-        {items.map((item) => (
-          <Card
-            direction={{ base: "column", sm: "row" }}
-            overflow="hidden"
-            key={item._id}
-            dir="rtl"
-            w="90%"
-            border="2px solid "
-          >
-            <Image
-              objectFit="cover"
-              maxW={{ base: "100%", sm: "200px" }}
-              src={item.image}
-              alt={item.name}
-            />
+        <VStack  >
+          {items.map((item) => (
+            <Card
+              bg="#222831"
+              color="#EEEEEE"
+              direction={{ base: "column", sm: "row" }}
+              overflow="hidden"
+              key={item._id}
+              dir="rtl"
+              w="60%"
+             
+            >
+              <Image
+                objectFit="cover"
+                maxW={{ base: "100%", sm: "200px" }}
+                src={item.image}
+                alt={item.name}
+              />
 
-            <Stack>
-              <CardBody color="black">
-                <Heading py="2" size="md">
-                  {" "}
-                  שם:{item.name}
-                </Heading>
-                <Text> קטגוריה: {item.category}</Text>
-                <Text> פירוט:{item.description}</Text>
-                <Text> מחיר:{item.price}</Text>
-                <Text> כמות :{item.countInStock}</Text>
-                <Text>מותג:{item.brand}</Text>
-                <Text> דרוג:{item.rating}</Text>
-                <Text>ביקורות:{item.numReviews}</Text>
-              </CardBody>
+              <VStack>
+                <CardBody >
+                  <Heading py="2" size="md">
+                    {" "}
+                    שם:{item.name}
+                  </Heading>
+                  <Text> קטגוריה: {item.category}</Text>
+                  <Text> פירוט:{item.description}</Text>
+                  <Text> מחיר:{item.price}</Text>
+                  <Text> כמות :{item.countInStock}</Text>
+                  <Text>מותג:{item.brand}</Text>
+                  <Text> דרוג:{item.rating}</Text>
+                  <Text>ביקורות:{item.numReviews}</Text>
+                </CardBody>
 
-              <CardFooter>
-                <Button
-                  onClick={() => deleteProduct(item._id)}
-                  variant="solid"
-                  colorScheme="red"
-                >
-                  מחק מוצר
-                </Button>
-                <Link to={"/Admin/EditProductes/" + item._id}>
-                  <Button bg="green.400">עדכן מוצר</Button>
-                </Link>
-              </CardFooter>
-            </Stack>
-          </Card>
-        ))}
+                <CardFooter>
+                  <Button
+                    onClick={() => deleteProduct(item._id)}
+                    variant="solid"
+                    colorScheme="red"
+                    m="1%"
+                  >
+                    מחק מוצר
+                  </Button>
+                  <Link to={"/Admin/EditProductes/" + item._id}>
+                    <Button  m="1%" bg="green.400">עדכן מוצר</Button>
+                  </Link>
+                </CardFooter>
+              </VStack>
+            </Card>
+          ))}
+        </VStack>
       </Box>
     );
   }
