@@ -26,6 +26,18 @@ function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const fromDate = new FormData();
+    fromDate.append("image", image);
+    
+    const result = await axios.post(
+      "http:loclhost:5000/upload-image",
+      FormData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    )
+
+
     await axios.post("/api/propertis/addProducts/add", {
       name,
       category,
@@ -39,12 +51,17 @@ function AddProduct() {
     });
     onClose();
   };
+  const onInputChange = (e) => {
+
+    console.log(e.target.files[0]);
+    setImage(e.target.files[0]);
+  }
 
   return (
     <>
       <Button bg="#00ADB5" w="20%" m="3%" onClick={onOpen}>הוסף מוצר</Button>
 
-      <Modal isOpen={isOpen}  onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent dir="rtl" bg="#222831" color="#EEEEEE">
           <ModalHeader mt="4">צור מוצר</ModalHeader>
@@ -69,7 +86,7 @@ function AddProduct() {
             <Input
               type="file"
               placeholder="כתובת תמונה"
-              onChange={(e) => setImage(e.target.value)}
+              onChange={onInputChange}
               value={image}
               accept="image/* "
             />
