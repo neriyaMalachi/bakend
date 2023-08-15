@@ -67,10 +67,11 @@ function AddProduct() {
             />
             <Text>כתובת תמונה</Text>
             <Input
-              type="text"
+              type="file"
               placeholder="כתובת תמונה"
               onChange={(e) => setImage(e.target.value)}
               value={image}
+              accept="image/* "
             />
             <Text>מחיר</Text>
             <Input
