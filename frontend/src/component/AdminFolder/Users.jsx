@@ -71,6 +71,7 @@ function Users() {
                 <Th isNumeric>זמן הרשמות</Th>
               </Tr>
               <Link to="/Admin/addUser">Add User</Link>
+              
             </Thead>
             {items.map((item) => (
               <Tbody border="2px " key={item._id}>

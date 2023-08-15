@@ -66,30 +66,46 @@ function Products() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box bg="#393E46">
-        <Flex justifyContent="center">
-          <AddProduct />
-        </Flex>
-        <VStack  >
+      <Box 
+      bg="#393E46"
+      
+      >
+
+      <Flex justifyContent="center">
+      <AddProduct />
+    </Flex>
+      <Box 
+      
+      display="flex"
+      flexWrap="wrap"
+      justifyContent="space-evenly"
+      w="100%"
+      bg="#393E46"
+      minH={"70vh"}
+      >
+       
           {items.map((item) => (
             <Card
-              bg="#222831"
-              color="#EEEEEE"
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              key={item._id}
-              dir="rtl"
-              w="60%"
-             
+            my={5}
+            mx={2}
+            shadow={"dark-lg"}
+            display="flex"
+            alignContent="flex-start"
+            w="100%"
+            maxW={"250px"}
+            bg="#393E46"
+            color="white"
             >
+            
+
+              <VStack>
+         
               <Image
                 objectFit="cover"
                 maxW={{ base: "100%", sm: "200px" }}
                 src={item.image}
                 alt={item.name}
               />
-
-              <VStack>
                 <CardBody >
                   <Heading py="2" size="md">
                     {" "}
@@ -120,7 +136,7 @@ function Products() {
               </VStack>
             </Card>
           ))}
-        </VStack>
+      </Box>
       </Box>
     );
   }

@@ -8,6 +8,9 @@ import {
   Input,
   Form,
   useMediaQuery,
+  GridItem,
+  Grid,
+  Text,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
@@ -53,16 +56,23 @@ function HomeFile() {
   }, []);
 
   return loading ? (
-    <LoadingBox />
+    <Grid>
+      <GridItem bg="#393E46" h={"90vh"}>
+        <Center>
+          <LoadingBox />
+        </Center>
+      </GridItem>
+    </Grid>
   ) : error ? (
     <Center>{error}</Center>
   ) : (
     <Box
       display="flex"
       flexWrap="wrap"
-      justifyContent="space-around"
+      justifyContent="space-evenly"
       w="100%"
       bg="#393E46"
+      minH={"70vh"}
     >
       <Helmet>
         <title>דף הבית</title>
@@ -76,6 +86,7 @@ function HomeFile() {
           type="text"
           mt="1rem"
           mb="3rem"
+          color="#EEEEEE"
           bg="#222831"
           border="none"
           placeholder="חפש..."
@@ -91,8 +102,13 @@ function HomeFile() {
             ? item
             : item.name.toLowerCase().includes(search);
         })
-        .map((product) => (
-          <Cards product={product} key={product.name}></Cards>
+        .map((product)  => (
+          product?(
+
+            <Cards product={product} key={product.name}></Cards>
+          ):(
+            <Center color="white"> no props</Center>
+          )
         ))}
     </Box>
   );

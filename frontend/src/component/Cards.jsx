@@ -38,15 +38,17 @@ function Cards(props) {
     });
   };
   return (
-    <Media query="(min-width: 900px)">
-      {(matches) => {
-        return matches ? (
+    
+       
           <Card
-            m="1%"
-            boxShadow="1px 4px 8px 4px rgba(0,0,0,0.55)"
+            my={5}
+            mx={2}
+            // boxShadow="1px 4px 8px 4px rgba(0,0,0,0.55)"
+            shadow={"dark-lg"}
             display="flex"
             alignContent="flex-start"
-            w="200px"
+            w="100%"
+            maxW={"250px"}
             bg="#393E46"
             color="white"
           >
@@ -105,77 +107,8 @@ function Cards(props) {
               </Button>
             )}
           </Card>
-        ) : (
-          <Card
-            boxShadow="5px 5px 8px 9px rgba(0,0,0,0.75)"
-            display="flex"
-            color={"white"}
-            w="200px"
-            alignContent="flex-end"
-            mt="3%"
-            bg="#393E46"
-            dir="rtl"
-            m="1%"
-          >
-            <CardBody p={0}>
-              <Grid h="105%">
-              <Link to={`/product/${product.slug}`}>
-                    <Image
-                      filter="contrast(90%)"
-                      _hover={{ filter: "contrast(100%)" }}
-                      objectFit="fill"
-                      src={product.image}
-                      alt={product.name}
-                      w="100%"
-                      h="250px"
-                      borderRadius="5%"
-                    />
-                  </Link>
-
-                <GridItem pt={1} pb={5} pr={2} lineHeight="40px">
-                  <Link to={`/product/${product.slug}`}>
-                  <Heading size="md">{product.name}</Heading>
-                  </Link>
-                  <strong>
-                    <Text fontSize="xl"> {product.price} ש"ח </Text>
-                  </strong>
-                  <Box display="flex" alignItems="center">
-                    {Array(5)
-                      .fill("")
-                      .map((_, i) => (
-                        <StarIcon
-                          key={i}
-                          color={i < product.rating ? "yellow" : "white"}
-                          boxSize={4}
-                        />
-                      ))}
-                  </Box>
-                </GridItem>
-              </Grid>
-            </CardBody>
-
-            {product.countInStock !== "0" ? (
-              <Button
-                bg="#00ADB5"
-                w="100%"
-                borderRadius="none"
-                onClick={() => addToCartHandler(product)}
-              >
-                <CardFooter>
-                  <Text>הוסף לעגלה</Text>
-                </CardFooter>
-              </Button>
-            ) : (
-              <Button bg="red" w="100%" borderRadius="none">
-                <CardFooter>
-                  <Text> חסר במלאי</Text>
-                </CardFooter>
-              </Button>
-            )}
-          </Card>
-        );
-      }}
-    </Media>
+      
+    
   );
 }
 
