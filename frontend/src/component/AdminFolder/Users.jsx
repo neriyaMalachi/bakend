@@ -5,9 +5,14 @@ import {
   Tr,
   Th,
   Tbody,
-  Td,
+  Text,
   TableContainer,
   Button,
+  Stack,
+  Flex,
+  VStack,
+  HStack,
+  Divider,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
@@ -58,42 +63,62 @@ function Users() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box bg="silver">
-        <TableContainer>
-          <Table variant="striped" colorScheme="teal">
-            <Thead>
-              <Tr>
-                <Th>מחיקת משתמש</Th>
+      <HStack bg="#393E46">
+          <Table colorScheme="#222831">
+        
+            <Stack
+                  overflowY={"scroll"}
+                  css={{
+                    "&::-webkit-scrollbar": {
+                      width: "4px",
+                    },
+                    "&::-webkit-scrollbar-track": {
+                      width: "6px",
+                    },
+                    "&::-webkit-scrollbar-thumb": {
+                      background: "#4E3636",
+                      borderRadius: "24px",
+                    },
+                  }}
+                  m="3%"
+                  w="50%"
+                  h="70vh"
+                >
+                   <Thead >
+            
+              <Flex  justifyContent={"space-around"}>
                 <Th>שם</Th>
-                <Th>קוד אישי</Th>
                 <Th>אימל</Th>
-                <Th>ת"ז</Th>
                 <Th isNumeric>זמן הרשמות</Th>
-              </Tr>
-              <Link to="/Admin/addUser">Add User</Link>
-              
+                </Flex>
             </Thead>
+            
             {items.map((item) => (
-              <Tbody border="2px " key={item._id}>
-                <Tr>
-                  <Td display="flex" justifyContent="space-between">
+              <>
+                <HStack gap={16} key={item._id} >
+                  <Text >
                     {" "}
-                    <Button onClick={() => HendleDelete(item._id)}>
+                    <Button bg="none" onClick={() => HendleDelete(item._id)}>
                       {" "}
-                      <TiDelete color="red" size={20} />
+                      <TiDelete color="#F24C3D" size={20} />
                     </Button>
-                  </Td>
-                  <Td>{item.name}</Td>
-                  <Td>{item._id}</Td>
-                  <Td>{item.email}</Td>
-                  <Td>{item.password}</Td>
-                  <Td isNumeric>{item.createdAt}</Td>
-                </Tr>
-              </Tbody>
+                  </Text>
+                  <Text>{item.name}</Text>
+                  <Text>{item.email}</Text>
+                  <Text isNumeric>{item.createdAt}</Text>
+                </HStack>
+              
+                <Divider/>
+                </>
             ))}
+            </Stack>
           </Table>
-        </TableContainer>
-      </Box>
+
+        <Box>
+              <Link to="/Admin/addUser">Add User</Link>
+
+        </Box>
+      </HStack>
     );
   }
 }

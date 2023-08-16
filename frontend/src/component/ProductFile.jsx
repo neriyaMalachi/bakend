@@ -35,26 +35,26 @@ const reducer = (state, action) => {
 };
 function ProductFile() {
   const params = useParams();
-  // const { slug } = params;
+  const { slug } = params;
   const navigat = useNavigate();
   const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
     error: "",
   });
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     dispatch({ type: "FETCH_REQUEST" });
-  //     try {
-  //       const result = await axios.get(`/api/propertis/slug/${slug}`);
-  //       console.log(result);
-  //       dispatch({ type: "FETCH_SUCCESS", payload: result.data });
-  //     } catch (err) {
-  //       dispatch({ type: "FETCH_FAIL", payload: err.message });
-  //     }
-  //   };
-  //   fetchData();
-  // }, [slug]);
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch({ type: "FETCH_REQUEST" });
+      try {
+        const result = await axios.get(`/api/propertis/slug/${slug}`);
+        console.log(result);
+        dispatch({ type: "FETCH_SUCCESS", payload: result.data });
+      } catch (err) {
+        dispatch({ type: "FETCH_FAIL", payload: err.message });
+      }
+    };
+    fetchData();
+  }, [slug]);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart } = state;
@@ -67,13 +67,13 @@ function ProductFile() {
       window.alert("Sorry. Product is out of stock");
       return;
     }
+
     ctxDispatch({
       type: "CART_ADD_ITEM",
       payload: { ...propertis, quantity },
     });
     navigat("/cart");
   };
-
   return loading ? (
     <Center>Loading...</Center>
   ) : error ? (

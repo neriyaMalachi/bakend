@@ -66,46 +66,43 @@ function Products() {
     return <div>Loading...</div>;
   } else {
     return (
-      <Box 
-      bg="#393E46"
-      
+      <Box
+        bg="#393E46"
       >
+        <Flex justifyContent="center">
+          <AddProduct />
+        </Flex>
+        <Box
+          display="flex"
+          flexWrap="wrap"
+          justifyContent="space-evenly"
+          w="100%"
+          bg="#393E46"
+          minH={"70vh"}
+        >
 
-      <Flex justifyContent="center">
-      <AddProduct />
-    </Flex>
-      <Box 
-      
-      display="flex"
-      flexWrap="wrap"
-      justifyContent="space-evenly"
-      w="100%"
-      bg="#393E46"
-      minH={"70vh"}
-      >
-       
           {items.map((item) => (
             <Card
-            my={5}
-            mx={2}
-            shadow={"dark-lg"}
-            display="flex"
-            alignContent="flex-start"
-            w="100%"
-            maxW={"250px"}
-            bg="#393E46"
-            color="white"
+              my={5}
+              mx={2}
+              shadow={"dark-lg"}
+              display="flex"
+              alignContent="flex-start"
+              w="100%"
+              maxW={"350px"}
+              bg="#222831"
+              color="white"
             >
-            
+
 
               <VStack>
-         
-              <Image
-                objectFit="cover"
-                maxW={{ base: "100%", sm: "200px" }}
-                src={item.image}
-                alt={item.name}
-              />
+
+                <Image
+                  objectFit="cover"
+                  maxW={{ base: "100%", sm: "200px" }}
+                  src={item.image}
+                  alt={item.name}
+                />
                 <CardBody >
                   <Heading py="2" size="md">
                     {" "}
@@ -130,13 +127,13 @@ function Products() {
                     מחק מוצר
                   </Button>
                   <Link to={"/Admin/EditProductes/" + item._id}>
-                    <Button  m="1%" bg="green.400">עדכן מוצר</Button>
+                    <Button m="1%" bg="green.400">עדכן מוצר</Button>
                   </Link>
                 </CardFooter>
               </VStack>
             </Card>
           ))}
-      </Box>
+        </Box>
       </Box>
     );
   }

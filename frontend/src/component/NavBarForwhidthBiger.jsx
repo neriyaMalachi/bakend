@@ -71,7 +71,7 @@ function NavBarForwhidthBiger() {
                   <MenuButton>
                     <RxHamburgerMenu />
                   </MenuButton>
-                  <MenuList color="black">
+                  <MenuList color="#EEEEEE">
                     <MenuItem>
                       {" "}
                       <Link to="/orderhistory">הזמנות</Link>
@@ -115,7 +115,7 @@ function NavBarForwhidthBiger() {
                   <MenuButton>
                     <RxHamburgerMenu />
                   </MenuButton>
-                  <MenuList color="black">
+                  <MenuList color="#EEEEEE">
                     <MenuItem>
                       {" "}
                       <Link to="/orderhistory">הזמנות</Link>
@@ -148,8 +148,7 @@ function NavBarForwhidthBiger() {
             <Button
               _hover={"none"}
               ml="10"
-              mt="1"
-              // borderRadius="40%"
+              my="-5"
               bg="none"
               size="xs"
             >
@@ -159,7 +158,7 @@ function NavBarForwhidthBiger() {
 
           <Link to="/cart">
             <Button _hover={"none"}
-              bg="none" mt="-11" ml="5" >
+              bg="none"  ml="5" >
               <LuShoppingCart size={25} />
             </Button>
           </Link>
