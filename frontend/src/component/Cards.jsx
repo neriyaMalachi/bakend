@@ -48,7 +48,7 @@ function Cards(props) {
             display="flex"
             alignContent="flex-start"
             w="100%"
-            maxW={"250px"}
+            maxW={"350px"}
             bg="#393E46"
             color="white"
           >

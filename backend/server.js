@@ -6,7 +6,7 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRoute from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
-import multer from "multer";
+// import multer from "multer";
 // import cors from "cors"
 
 dotenv.config();
@@ -61,7 +61,7 @@ app.listen(port, () => {
   console.log(data.propertis);
 });
 
-const multer = multer();
+const multer = require('multer')
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -69,13 +69,13 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
-    cb(null,  uniqueSuffix + file.originalname );
+    cb(null, uniqueSuffix + file.originalname);
   }
 })
 
 const upload = multer({ storage: storage })
 
-app.post("/upload-image",upload.single("image"),async(req,res)=>{
+app.post("/upload-image", upload.single("image"), async (req, res) => {
   console.log(req.body);
   res.send("Uploaded!!!");
 })
