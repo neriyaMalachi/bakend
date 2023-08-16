@@ -472,7 +472,7 @@ function OrderScreen() {
 
                   <Flex mt="3%" justifyContent="center" alignItems="center">
                     {!order.isPaid && (
-                      <Box justifyItems="center" alignItems="start" w="40%">
+                      <Box  justifyItems="center" alignItems="start" w="40%">
                         {isPending ? (
                           <LoadingBox />
                         ) : (
