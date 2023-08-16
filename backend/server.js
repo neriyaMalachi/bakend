@@ -61,7 +61,7 @@ app.listen(port, () => {
   console.log(data.propertis);
 });
 
-const multer = multer;
+const multer = multer();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
