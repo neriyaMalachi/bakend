@@ -27,15 +27,15 @@ function AddProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const fromDate = new FormData();
-    fromDate.append("image", image);
-
-    const result = await axios.post("http:loclhost:5000/upload-image",
-      FormData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-      }
-    )
+    // const fromDate = new FormData();
+    // fromDate.append("image", image);
+    // const result = await axios.post("http:loclhost:5000/upload-image",
+    //   FormData,
+    //   {
+    //     headers: { "Content-Type": "multipart/form-data" },
+    //   }
+    // )
+    console.log("ffff");
 
 
     await axios.post("/api/propertis/addProducts/add", {

@@ -39,6 +39,7 @@ function HomeFile() {
     loading: true,
     error: "",
   });
+  console.log(propertis);
   const [search, setSerch] = useState("");
   const [isLargerThen768] = useMediaQuery("(min-width: 768px)");
   useEffect(() => {
