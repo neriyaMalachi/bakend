@@ -35,7 +35,6 @@ function AddProduct() {
     //     headers: { "Content-Type": "multipart/form-data" },
     //   }
     // )
-    console.log("ffff");
 
 
     await axios.post("/api/propertis/addProducts/add", {

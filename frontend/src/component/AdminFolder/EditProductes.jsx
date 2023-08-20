@@ -7,6 +7,8 @@ function EditProductes() {
   const [price, setPrice] = useState("");
   const [countInStock, setCountInStock] = useState("");
   const [description, setDescription] = useState("");
+  const [slug, setSlug] = useState("");
+
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
   const [rating, setRating] = useState("");
@@ -45,6 +47,7 @@ function EditProductes() {
           countInStock,
           description,
           brand,
+          slug,
           rating,
           image,
         }),
@@ -83,6 +86,14 @@ function EditProductes() {
         w="50%"
         onChange={(e) => {
           setCategory(e.target.value);
+        }}
+      />
+      <Input
+        placeholder="Slug"
+        value={slug}
+        w="50%"
+        onChange={(e) => {
+          setSlug(e.target.value);
         }}
       />
       <Input 
