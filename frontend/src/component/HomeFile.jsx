@@ -11,12 +11,14 @@ import {
   GridItem,
   Grid,
   Text,
+  Flex,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
 // import bgImage from '../img/hookah-bar-bg.png'
+import { HashLoader } from "react-spinners"
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -44,7 +46,7 @@ function HomeFile() {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get("/api/propertis");
-
+        console.log(result.data.slug);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
@@ -57,10 +59,8 @@ function HomeFile() {
 
   return loading ? (
     <Grid>
-      <GridItem bg="#393E46" h={"90vh"}>
-        <Center>
-          <LoadingBox />
-        </Center>
+      <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+        <HashLoader color="#00ADB5" />
       </GridItem>
     </Grid>
   ) : error ? (
@@ -103,11 +103,11 @@ function HomeFile() {
             ? item
             : item.name.toLowerCase().includes(search);
         })
-        .map((product)  => (
-          product?(
+        .map((product) => (
+          product ? (
 
-            <Cards product={product} key={product.name}></Cards>
-          ):(
+            <Cards product={product} key={product.slug}></Cards>
+          ) : (
             <Center color="white"> no props</Center>
           )
         ))}
