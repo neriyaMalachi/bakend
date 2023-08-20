@@ -56,7 +56,7 @@ function Cards(props) {
               <Grid>
                 <GridItem>
                   <Link to={`/product/${product.slug}`}>
-                    <Image
+                    {/* <Image
                       filter="contrast(90%)"
                       _hover={{ filter: "contrast(100%)" }}
                       objectFit="fill"
@@ -65,7 +65,8 @@ function Cards(props) {
                       w="100%"
                       h="250px"
                       borderRadius="5%"
-                    />
+                    /> */}
+                    {product.name}
                   </Link>
                 </GridItem>
                 <GridItem py={3} pr={2} lineHeight="40px">
