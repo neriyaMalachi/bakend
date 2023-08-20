@@ -11,7 +11,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  Stack,
   Text,
   useColorMode,
 } from "@chakra-ui/react";
@@ -148,7 +147,8 @@ function NavBarForwhidthBiger() {
             <Button
               _hover={"none"}
               ml="10"
-              my="-5"
+              mt="1"
+              // borderRadius="40%"
               bg="none"
               size="xs"
             >
@@ -158,7 +158,7 @@ function NavBarForwhidthBiger() {
 
           <Link to="/cart">
             <Button _hover={"none"}
-              bg="none"  ml="5" >
+              bg="none" mt="-11" ml="5" >
               <LuShoppingCart size={25} />
             </Button>
           </Link>

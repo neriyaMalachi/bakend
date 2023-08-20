@@ -61,21 +61,21 @@ app.listen(port, () => {
   console.log(data.propertis);
 });
 
-// const multer = require('multer')
+const multer = require('multer')
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/")
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now();
-//     cb(null, uniqueSuffix + file.originalname);
-//   }
-// })
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "uploads/")
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now();
+    cb(null, uniqueSuffix + file.originalname);
+  }
+})
 
-// const upload = multer({ storage: storage })
+const upload = multer({ storage: storage })
 
-// app.post("/upload-image", upload.single("image"), async (req, res) => {
-//   console.log(req.body);
-//   res.send("Uploaded!!!");
-// })
+app.post("/upload-image", upload.single("image"), async (req, res) => {
+  console.log(req.body);
+  res.send("Uploaded!!!");
+})
