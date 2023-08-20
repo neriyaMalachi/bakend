@@ -22,6 +22,7 @@ function AddProduct() {
   const [image, setImage] = useState("");
   const [price, setPrice] = useState("");
   const [countInStock, setCountInStock] = useState("");
+  const [rating, setRating] = useState("");
   const [brand, setbrand] = useState("");
   const [description, setDescription] = useState("");
 
@@ -45,7 +46,7 @@ function AddProduct() {
       price,
       countInStock,
       brand,
-      rating: 0,
+      rating,
       numReviews: 0,
       description,
     });
@@ -113,6 +114,13 @@ function AddProduct() {
                 placeholder="כמות מוצר"
                 onChange={(e) => setCountInStock(e.target.value)}
                 value={countInStock}
+              />
+               <Text>rating</Text>
+              <Input
+                type="text"
+                placeholder="rating"
+                onChange={(e) => setRating(e.target.value)}
+                value={rating}
               />
               <Text>מותג</Text>
               <Input

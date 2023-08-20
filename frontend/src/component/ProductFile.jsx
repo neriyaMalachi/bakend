@@ -11,6 +11,8 @@ import {
   CardHeader,
   Box,
   Flex,
+  HStack,
+  VStack,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -47,7 +49,6 @@ function ProductFile() {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get(`/api/propertis/slug/${slug}`);
-        console.log(result);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
@@ -87,39 +88,30 @@ function ProductFile() {
       <Media query="(min-width: 900px)">
         {(matches) => {
           return matches ? (
-            <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              display="flex"
-              justifyContent="center"
+            <HStack
+            gap={6}
               h="91vh"
+              bg="#393E46"
             >
-              <Box display="flex" alignItems="center" bg="wh">
+              <Box  bg="wh">
                 <Image
                   src={propertis.image}
                   alt="Caffe Latte"
                   filter="contrast(60%)"
                   _hover={{ filter: "contrast(100%)" }}
-                  p="12%"
-                  h="55%"
-                  w="80%"
+                  h="90%"
+                  w="420px"
                 />
               </Box>
-              <SimpleGrid
-                spacing={200}
-                display="flex"
-                w="80%"
-                h="100%"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Card w="60%" textAlign="end" bg="silver" color="black">
+
+
+              <VStack>
+                <Card  textAlign="end" bg="#222831" color="#EEEEEE">
                   <CardHeader>
                     <Heading size="md"> {propertis.name} </Heading>
                   </CardHeader>
                   <CardBody>
-                    <hr color="silver" />
+                    
                     <Box>
                       {" "}
                       {propertis.rating} :המלצות
@@ -134,29 +126,10 @@ function ProductFile() {
                           ))}
                       </Box>
                     </Box>
-                    <hr color="silver" />
                     <Text> {propertis.price} :מחיר </Text>
-                    <hr color="silver" />
                     <Text> :תיאור </Text>
-                  </CardBody>
-                  <CardFooter p="3%">
-                    <Text>{propertis.description}</Text>
-                  </CardFooter>
-                </Card>
-
-                <Card
-                  w="60%"
-                  alignSelf="start"
-                  textAlign="end"
-                  border="silver 1px solid"
-                  p="3%"
-                  bg="silver"
-                >
-                  <CardHeader>
                     <Heading size="md"> {propertis.price} :מחיר </Heading>
-                    <hr color="black" />
-                  </CardHeader>
-                  <CardBody>
+
                     {propertis.countInStock > 0 ? (
                       <Text>
                         <Button bg="green.400" border="none">
@@ -172,24 +145,13 @@ function ProductFile() {
                         :מצב מוצר{" "}
                       </Text>
                     )}
-                    <hr color="silver" />
                   </CardBody>
-                  {propertis.countInStock > 0 ? (
-                    <CardFooter>
-                      <Button
-                        variant="solid"
-                        bg="yellow"
-                        onClick={addToCartHandler}
-                      >
-                        הוסף להגלה
-                      </Button>
-                    </CardFooter>
-                  ) : (
-                    <Text>איו אפשרות להוסיף להגלה</Text>
-                  )}
+                  <CardFooter >
+                    <Text>{propertis.description}</Text>
+                  </CardFooter>
                 </Card>
-              </SimpleGrid>
-            </Card>
+              </VStack>
+            </HStack>
           ) : (
             <Card
               direction={{ base: "column", sm: "row" }}
