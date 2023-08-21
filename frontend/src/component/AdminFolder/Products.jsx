@@ -103,7 +103,7 @@ function Products() {
                   src={item.image}
                   alt={item.name}
                 />
-                <CardBody >
+                <CardBody dir="rtl" >
                   <Heading py="2" size="md">
                     {" "}
                     שם:{item.name}

@@ -39,7 +39,6 @@ function HomeFile() {
     loading: true,
     error: "",
   });
-  console.log(propertis);
   const [search, setSerch] = useState("");
   const [isLargerThen768] = useMediaQuery("(min-width: 768px)");
   useEffect(() => {
@@ -47,7 +46,6 @@ function HomeFile() {
       dispatch({ type: "FETCH_REQUEST" });
       try {
         const result = await axios.get("/api/propertis");
-        console.log(result.data.slug);
         dispatch({ type: "FETCH_SUCCESS", payload: result.data });
       } catch (err) {
         dispatch({ type: "FETCH_FAIL", payload: err.message });
@@ -79,7 +77,7 @@ function HomeFile() {
         <title>דף הבית</title>
       </Helmet>
 
-      <FormControl display="flex" justifyContent="center" alignItems="center">
+      <FormControl mt={{base:"30%",sm:"20%" ,md:"7%"} } display="flex" justifyContent="center" alignItems="center">
         <Input
           dir="rtl"
           w="full"

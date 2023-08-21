@@ -89,33 +89,32 @@ function ProductFile() {
         {(matches) => {
           return matches ? (
             <HStack
-            gap={6}
-              h="91vh"
+              gap={24}
+              h="100vh"
               bg="#393E46"
             >
-              <Box  bg="wh">
+              <Box ml="3%" bg="wh">
                 <Image
                   src={propertis.image}
-                  alt="Caffe Latte"
-                  filter="contrast(60%)"
-                  _hover={{ filter: "contrast(100%)" }}
-                  h="90%"
-                  w="420px"
+                  alt="nargila image"
+                  // filter="contrast(60%)"
+                  // _hover={{ filter: "contrast(100%)" }}
+                  h="70vh"
+                  w="30vw"
                 />
               </Box>
 
 
               <VStack>
-                <Card  textAlign="end" bg="#222831" color="#EEEEEE">
+                <Card h="70vh" w="40vw" textAlign="end" bg="#222831" color="#EEEEEE">
                   <CardHeader>
-                    <Heading size="md"> {propertis.name} </Heading>
+                    <Heading size="2xl"> {propertis.name} </Heading>
                   </CardHeader>
-                  <CardBody>
-                    
-                    <Box>
-                      {" "}
-                      {propertis.rating} :המלצות
-                      <Box display="flex" mt="2" alignItems="center">
+                  <CardBody >
+                    <Flex direction={"column"}  >
+                      <HStack mt="3%" dir="rtl" >
+                        <Heading size="md"> המלצות:</Heading>
+
                         {Array(5)
                           .fill("")
                           .map((_, i) => (
@@ -124,29 +123,27 @@ function ProductFile() {
                               color={i < propertis.rating ? "yellow" : "white"}
                             />
                           ))}
-                      </Box>
-                    </Box>
-                    <Text> {propertis.price} :מחיר </Text>
-                    <Text> :תיאור </Text>
-                    <Heading size="md"> {propertis.price} :מחיר </Heading>
+                      </HStack>
 
-                    {propertis.countInStock > 0 ? (
-                      <Text>
-                        <Button bg="green.400" border="none">
-                          קיים במלאי{" "}
-                        </Button>{" "}
-                        :מצב מוצר{" "}
-                      </Text>
-                    ) : (
-                      <Text>
-                        <Button bg="red" border="none">
-                          {propertis.rating}אזל מהמלאי{" "}
-                        </Button>{" "}
-                        :מצב מוצר{" "}
-                      </Text>
-                    )}
+                      <Heading mt="3%" size="md"> {propertis.price} :מחיר </Heading>
+                      <Box mt="3%">
+                        {propertis.countInStock > 0 ? (
+                          <Heading size="md" color="green.400" >
+                            קיים במלאי
+                          </Heading>
+                        ) : (
+                          <Heading size="md" color="red" >
+                            אזל במלאי
+                          </Heading>
+                        )}
+                      </Box>
+                    </Flex>
+
+
                   </CardBody>
-                  <CardFooter >
+                  <CardFooter dir="rtl" >
+                    <Heading size="md"> תיאור :</Heading>
+
                     <Text>{propertis.description}</Text>
                   </CardFooter>
                 </Card>
@@ -154,103 +151,76 @@ function ProductFile() {
             </HStack>
           ) : (
             <Card
-              direction={{ base: "column", sm: "row" }}
-              overflow="hidden"
-              variant="outline"
-              display="flex"
-              justifyContent="center"
-              h="91vh"
+              h="100vh"
+              mt="3%"
             >
-              <Box w="50vh" h="100vh">
-                <Image
-                  src={propertis.image}
-                  alt="Caffe Latte"
-                  //  filter="contrast(60%)"
-                  _hover={{ filter: "contrast(100%)" }}
-                  h="50vh"
-                  w="100vh"
-                />
-              </Box>
-              <Flex
-                // spacing={200}
-                display="flex"
+              <Image
+                src={propertis.image}
+                alt="Caffe Latte"
+                _hover={{ filter: "contrast(100%)" }}
                 w="100%"
-                h="100%"
-                justifyContent="space-between"
-                alignItems="center"
-              >
-                <Card
-                  w="100vh"
-                  h="40vh"
-                  textAlign="end"
-                  bg="whitesmoke"
-                  color="black"
-                  borderRadius="none"
-                >
-                  <CardHeader>
-                    <Flex justifyContent="space-around">
-                      <Heading size="md"> {propertis.price} :מחיר </Heading>
-                      <Heading size="md"> {propertis.name} </Heading>
-                    </Flex>
-                    <hr color="black" />
-                  </CardHeader>
-                  <CardBody>
+                h="50%"
+              />
+              <Card   dir="rtl">
+                <CardHeader>
+                  <Heading size="xl"> {propertis.name} </Heading>
+                </CardHeader>
+                <CardBody >
+                  <Heading size="md"> מחיר : {propertis.price} ₪</Heading>
+                  <Box mt="2" dir="rtl">
+
                     {propertis.countInStock > 0 ? (
-                      <Flex justifyContent={"end"}>
-                        <Text w="25%" fontSize="110%" color="green.400" border="none">
+                      <Flex >
+                        <Heading size={"md"} > מצב מוצר{" "}: {" "}</Heading>
+                        <Heading size={"md"} w="30%"  color="green.400" >
                           קיים במלאי
-                        </Text>
-                        :מצב מוצר{" "}
+                        </Heading>
                       </Flex>
                     ) : (
-                      <Text>
-                        <Button bg="red" border="none">
-                          {propertis.rating}אזל מהמלאי{" "}
-                        </Button>{" "}
-                        :מצב מוצר{" "}
-                      </Text>
+                      <Flex >
+
+                      <Heading size={"md"} > מצב מוצר{" "}: {" "}</Heading>
+                      <Heading size={"md"} w="35%"  color="red" >
+                       אזל מהמלאי
+                      </Heading>
+                    </Flex>
                     )}
 
-                    <hr color="silver" />
-                    <Box dir="rtl">
-                      <Flex alignItems="center">
-                        המלצות:{" "}
-                        {Array(5)
-                          .fill("")
-                          .map((_, i) => (
-                            <StarIcon
-                              boxSize={3}
-                              key={i}
-                              color={i < propertis.rating ? "yellow" : "white"}
-                            />
-                          ))}
-                      </Flex>
-                      <hr color="silver" />
-                      <Flex>
-                        <Text>מחיר : {propertis.price} </Text>
-                      </Flex>
-                      <hr color="silver" />
+                    <Flex mt="2" alignItems="center">
+                      <Heading size="md" >
+                      המלצות:{" "}
+                      </Heading>
+                      {Array(5)
+                        .fill("")
+                        .map((_, i) => (
+                          <StarIcon
+                            boxSize={3}
+                            key={i}
+                            color={i < propertis.rating ? "yellow" : "white"}
+                          />
+                        ))}
+                    </Flex>
 
-                      <Flex>תיאור :{propertis.description}</Flex>
-                    </Box>
-                  </CardBody>
-                  <CardFooter>
-                    {propertis.countInStock > 0 ? (
-                      <CardFooter>
-                        <Button
-                          variant="solid"
-                          bg="silver"
-                          onClick={addToCartHandler}
-                        >
-                          הוסף להגלה
-                        </Button>
-                      </CardFooter>
-                    ) : (
-                      <Text>איו אפשרות להוסיף להגלה</Text>
-                    )}
-                  </CardFooter>
-                </Card>
-              </Flex>
+
+                    <Flex mt="2"><strong> תיאור :</strong>{propertis.description}</Flex>
+                  </Box>
+                </CardBody>
+                <CardFooter>
+                  {propertis.countInStock > 0 ? (
+                    <CardFooter>
+                      <Button
+                        variant="solid"
+                        bg="#00ADB5"
+                        onClick={addToCartHandler}
+                      >
+                        הוסף להגלה
+                      </Button>
+                    </CardFooter>
+                  ) : (
+                    <Text color="red">איו אפשרות להוסיף להגלה</Text>
+                  )}
+                </CardFooter>
+              </Card>
             </Card>
           );
         }}

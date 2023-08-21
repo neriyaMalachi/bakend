@@ -207,7 +207,7 @@ function OrderScreen() {
             </GridItem>
             {/* Grid for pay */}
             <GridItem m="3%" bg="#222831" color="#EEEEEE" gridColumn="1" gridRow="3">
-              <Card >
+              <Card bg="#222831" >
                 <CardHeader color="#EEEEEE">תשלום</CardHeader>
 
                 <CardBody color="#EEEEEE">

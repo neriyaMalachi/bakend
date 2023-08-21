@@ -43,7 +43,6 @@ function Cards(props) {
           <Card
             my={5}
             mx={2}
-            // boxShadow="1px 4px 8px 4px rgba(0,0,0,0.55)"
             shadow={"dark-lg"}
             display="flex"
             alignContent="flex-start"
@@ -63,7 +62,7 @@ function Cards(props) {
                       src={product.image}
                       alt={product.name}
                       w="100%"
-                      h="250px"
+                      maxH="350px"
                       borderRadius="5%"
                     />
                   </Link>
@@ -91,6 +90,7 @@ function Cards(props) {
 
             {product.countInStock !== "0" ? (
               <Button
+              _hover={"none"}
                 bg="#00ADB5"
                 w="100%"
                 onClick={() => addToCartHandler(product)}
@@ -100,11 +100,9 @@ function Cards(props) {
                 </CardFooter>
               </Button>
             ) : (
-              <Button bg="red" w="100%" borderRadius="none">
-                <CardFooter>
+                <CardFooter display={"flex"} alignItems={"center"}  justifyContent={"center"} h="40px" _hover={"none"} bg="red" w="100%" borderRadius="10">
                   <Text> חסר במלאי</Text>
                 </CardFooter>
-              </Button>
             )}
           </Card>
       

@@ -22,14 +22,14 @@ import FootherFile from "./component/FootherFile";
 import AddUser from "./component/AdminFolder/AddUser";
 import EditProductes from "./component/AdminFolder/EditProductes";
 import ForgetPassword from "./component/ForgetPassword";
-import NavBarForwhidthBiger from "./component/NavBarForwhidthBiger";
+import NavBar from "./component/NavBar";
 
 function App() {
   return (
     <Box>
       <ChakraProvider>
         <BrowserRouter>
-          <NavBarForwhidthBiger />
+          <NavBar/>
           <Routes>
             <Route path="/forgetPassword" element={<ForgetPassword />} />
             <Route path="/product/:slug" element={<ProductFile />} />
