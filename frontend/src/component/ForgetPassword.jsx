@@ -22,6 +22,7 @@ import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import imageForLogo from "../img/logoNargilaStor.png";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 
 function ForgetPassword() {
@@ -30,9 +31,53 @@ function ForgetPassword() {
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const [email, setEmail] = useState("");
+  const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
+  const [validationPassword, setValidationPassword] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  const onSubmitForResetPassword = async () => {
+
+    if (password === validationPassword) {
+      setError(false);
+
+      try {
+        const response = await fetch(
+          "/api/users/reasetPassword",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              password,
+              email: email,
+            }),
+          }
+        );
+
+        if (response.ok) {
+          setError(false);
+          setPassword("");
+          setValidationPassword("");
+          navigate("/signIn");
+        } else {
+          const data = await response.json();
+        }
+      } catch (error) {
+        setError(true);
+      }
+    }
+    console.log(email);
+  }
+
+
   const submitHandler = async (e) => {
     e.preventDefault();
     console.log(email);
@@ -40,14 +85,8 @@ function ForgetPassword() {
       const { data } = await Axios.post("/api/users/forgetPassword", {
         email,
       });
-      console.log(email);
-
-      console.log({ data });
-      // ctxDispatch({ type: "USER_SIGNIN", payload: data });
-      // localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate("/resetPassword");
     } catch (err) {
-      toast.error(" email invalid");
+      setError(true);
     }
   };
 
@@ -59,57 +98,158 @@ function ForgetPassword() {
 
   return (
     <>
-      <Helmet>
-        <title>ForgetPassword</title>
-      </Helmet>
 
-      <form onSubmit={submitHandler}>
-        <Center dir="rtl" h="90vh" bg="#393E46">
-          <Card
-            color="#EEEEEE"
-            bg="#222831"
-            h="60vh"
-            w="60vh"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            border={maxWidthforHamborger ? "1px solid" : "none"}
-            borderRadius="20%"
-          >
-            <CardHeader
+      {!success ? (
+        <>
+          <Helmet>
+            <title>שכחתי סיסמה</title>
+          </Helmet>
+          <form onSubmit={submitHandler}>
+            <Center dir="rtl" h="90vh" bg="#393E46">
+              <Card
+                color="#EEEEEE"
+                bg="#222831"
+                h="60vh"
+                w="60vh"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                border={maxWidthforHamborger ? "1px solid" : "none"}
+                borderRadius="20%"
+              >
+                <CardHeader
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  h="30%"
+                >
+
+                  <Text fontSize="3xl" as="b">
+                    איפוס סיסמה
+                  </Text>
+                </CardHeader>
+
+                <CardBody >
+                  <Text>הכנס אימיל</Text>
+                  <Input
+                    placeholder="אימיל"
+                    type="email"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {error === true && (
+                    <>
+                      <Text> לא קיים</Text>
+
+                    </>
+                  )}
+                </CardBody>
+                <CardFooter
+                  w="100%"
+                  h="30%"
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <Button type="submit" bg="#00ADB5" p="1%" w="40%">
+                    אפס
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Center>
+          </form>
+        </>
+      ) : (
+        <>
+          <Helmet>
+            <title>איפוס סיסמה</title>
+          </Helmet>
+
+          <Center h="90vh" bg="#393E46">
+            <Card
+              color="#EEEEEE"
+              h="60vh"
+              w="60vh"
               display="flex"
-              flexDirection="column"
               justifyContent="center"
-              h="30%"
+              alignItems="center"
+              borderRadius="10%"
+              dir="rtl"
+              bg="#222831"
             >
+              <CardHeader
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                h="20%"
+              >
+                <Text fontSize="3xl" as="b">
+                  אפס
+                </Text>
+              </CardHeader>
 
-              <Text fontSize="3xl" as="b">
-                איפוס סיסמה
-              </Text>
-            </CardHeader>
+              <CardBody h="50%">
 
-            <CardBody >
-              <Text>הכנס אימיל</Text>
-              <Input
-                placeholder="אימיל"
-                type="email"
-                required
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </CardBody>
-            <CardFooter
-              w="100%"
-              h="30%"
-              display="flex"
-              justifyContent="center"
-            >
-              <Button type="submit" bg="#00ADB5" p="1%" w="40%">
-                אפס
-              </Button>
-            </CardFooter>
-          </Card>
-        </Center>
-      </form>
+
+
+                <Text>סיסמה</Text>
+                <InputGroup
+                  border={"1px"}
+                  borderRadius={"lg"}
+                  borderColor={"gray.400"}
+                  alignItems="center"
+                >
+                  <Input
+                    placeholder="סיסמה"
+                    type={show ? "text" : "password"}
+                    required
+                    border={"none"}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+                    {show ? <ViewIcon /> : <ViewOffIcon />}
+                  </Button>
+
+                </InputGroup>
+
+                <Text>אימות סיסמה</Text>
+                <InputGroup
+                  border={"1px"}
+                  borderRadius={"lg"}
+                  borderColor={"gray.400"}
+                  alignItems="center"
+                >
+                  <Input
+                    placeholder="אימות סיסמה"
+                    type={show ? "text" : "password"}
+                    required
+                    onChange={(e) => setValidationPassword(e.target.value)}
+                    border="none"
+                  />
+
+
+
+                </InputGroup>
+
+              </CardBody>
+
+              <CardFooter
+                w="90%"
+                h="30%"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-around"
+              >
+                <Button onClick={onSubmitForResetPassword()} bg="#00ADB5" _hover={"none"} p="1%" w="40%">
+                  אפס
+                </Button>
+
+              </CardFooter>
+            </Card>
+          </Center>
+        </>
+
+      )}
+
     </>
   );
 }

@@ -23,7 +23,6 @@ import AddUser from "./component/AdminFolder/AddUser";
 import EditProductes from "./component/AdminFolder/EditProductes";
 import ForgetPassword from "./component/ForgetPassword";
 import NavBar from "./component/NavBar";
-import ReasetPassword from "./component/ReasetPassword";
 
 function App() {
   return (
@@ -33,7 +32,6 @@ function App() {
           <NavBar/>
           <Routes>
             <Route path="/forgetPassword" element={<ForgetPassword />} />
-            <Route path="/ReasetPassword" element={<ReasetPassword/>} />
             <Route path="/product/:slug" element={<ProductFile />} />
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/signIn" element={<SigninScreen />} />
