@@ -29,13 +29,12 @@ userRouter.post(
 userRouter.post(
   "/forgetPassword",
   expressAsyncHandler(async (req, res) => {
-    const user = await User.findOne({ email: req.body });
+    const user = await User.findOne({ email: req.body.email });
     console.log(user);
-    if (!user.email) {
+    if (!user) {
        res.status(401).send({ message: "Invalid email or password " });
     
-    }
-    if (bcrypt.compareSync(req.body.email, user.email)) {
+    }else  {
 console.log("success123");
       res.send({
         email: user.email,

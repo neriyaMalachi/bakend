@@ -35,19 +35,19 @@ function ForgetPassword() {
   const { userInfo } = state;
   const submitHandler = async (e) => {
     e.preventDefault();
-console.log(email);
+    console.log(email);
     try {
-      const {data}  = await Axios.post("/api/users/forgetPassword", {
+      const { data } = await Axios.post("/api/users/forgetPassword", {
         email,
       });
       console.log(email);
 
-      console.log({data} );
-      ctxDispatch({ type: "USER_SIGNIN", payload: data });
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/");
+      console.log({ data });
+      // ctxDispatch({ type: "USER_SIGNIN", payload: data });
+      // localStorage.setItem("userInfo", JSON.stringify(data));
+      navigate("/resetPassword");
     } catch (err) {
-      // toast.error(" email invalid");
+      toast.error(" email invalid");
     }
   };
 
@@ -80,15 +80,15 @@ console.log(email);
               display="flex"
               flexDirection="column"
               justifyContent="center"
-              h="50%"
+              h="30%"
             >
-         
+
               <Text fontSize="3xl" as="b">
                 איפוס סיסמה
               </Text>
             </CardHeader>
 
-            <CardBody h="50%">
+            <CardBody >
               <Text>הכנס אימיל</Text>
               <Input
                 placeholder="אימיל"
@@ -104,7 +104,7 @@ console.log(email);
               justifyContent="center"
             >
               <Button type="submit" bg="#00ADB5" p="1%" w="40%">
-                המשך
+                אפס
               </Button>
             </CardFooter>
           </Card>
