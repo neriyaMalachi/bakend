@@ -35,7 +35,6 @@ userRouter.post(
        res.status(401).send({ message: "Invalid email or password " });
     
     }else  {
-console.log("success123");
       res.send({
         email: user.email,
         token: generateToken(user),

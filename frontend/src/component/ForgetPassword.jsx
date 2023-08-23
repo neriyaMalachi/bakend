@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import imageForLogo from "../img/logoNargilaStor.png";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+import axios from "axios";
 
 
 function ForgetPassword() {
@@ -42,34 +43,21 @@ function ForgetPassword() {
   const [password, setPassword] = useState("");
 
 
-  const onSubmitForResetPassword = async () => {
-
+  const onSubmitForResetPassword = async (e) => {
+    e.preventDefault();
     if (password === validationPassword) {
       setError(false);
-
       try {
-        const response = await fetch(
+        const {data} = await axios.put(
           "/api/users/reasetPassword",
           {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              password,
-              email: email,
-            }),
-          }
-        );
-
-        if (response.ok) {
-          setError(false);
-          setPassword("");
-          setValidationPassword("");
-          navigate("/signIn");
-        } else {
-          const data = await response.json();
-        }
+          password,
+          },
+            {
+          headers: { Authorization: `Bearer ${userInfo.token}` },
+        });
+        
+     
       } catch (error) {
         setError(true);
       }
@@ -84,17 +72,19 @@ function ForgetPassword() {
     try {
       const { data } = await Axios.post("/api/users/forgetPassword", {
         email,
+       
       });
+       setSuccess(true);
     } catch (err) {
       setError(true);
     }
   };
 
-  useEffect(() => {
-    if (userInfo) {
-      navigate(redirect);
-    }
-  }, [navigate, redirect, userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     navigate(redirect);
+  //   }
+  // }, [navigate, redirect, userInfo]);
 
   return (
     <>
@@ -103,6 +93,7 @@ function ForgetPassword() {
         <>
           <Helmet>
             <title>שכחתי סיסמה</title>
+
           </Helmet>
           <form onSubmit={submitHandler}>
             <Center dir="rtl" h="90vh" bg="#393E46">
@@ -151,7 +142,7 @@ function ForgetPassword() {
                   justifyContent="center"
                 >
                   <Button type="submit" bg="#00ADB5" p="1%" w="40%">
-                    אפס
+                  החל
                   </Button>
                 </CardFooter>
               </Card>
@@ -162,6 +153,7 @@ function ForgetPassword() {
         <>
           <Helmet>
             <title>איפוס סיסמה</title>
+
           </Helmet>
 
           <Center h="90vh" bg="#393E46">
