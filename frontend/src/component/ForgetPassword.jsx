@@ -47,7 +47,7 @@ function ForgetPassword() {
 
 
   const handleChangePassword = async () => {
-    if (password === validationPassword && password.length >3) {
+    if (password === validationPassword && password.length > 3) {
       try {
         // Send a request to your server to update the password
         const response = await fetch('/api/users/change-password', {
@@ -138,10 +138,10 @@ function ForgetPassword() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {error === true && (
-                 <Alert dir="rtl" status='error'>
-                 <AlertIcon />
-               בעיה באימיל
-               </Alert>
+                    <Alert dir="rtl" status='error'>
+                      <AlertIcon />
+                      בעיה באימיל
+                    </Alert>
 
                   )}
                 </CardBody>
