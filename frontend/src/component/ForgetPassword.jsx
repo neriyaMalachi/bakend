@@ -32,38 +32,41 @@ function ForgetPassword() {
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [validationPassword, setValidationPassword] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState('');
   const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-  const [validationPassword, setValidationPassword] = useState("");
-  const [password, setPassword] = useState("");
 
 
-  const onSubmitForResetPassword = async (e) => {
-    e.preventDefault();
-    if (password === validationPassword) {
-      setError(false);
-      try {
-        const {data} = await axios.put(
-          "/api/users/reasetPassword",
-          {
-          password,
-          },
-            {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
-        });
-        
-     
-      } catch (error) {
-        setError(true);
+  const handleChangePassword = async () => {
+    try {
+      // Send a request to your server to update the password
+      const response = await fetch('/api/users/change-password', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ password,email }),
+      });
+
+      const data = await response.json();
+
+      if (response.status === 200) {
+        setMessage('Password updated successfully.');
+        navigate("/signin")
+      } else {
+        setMessage(data.message || 'Password update failed.');
       }
+    } catch (error) {
+      console.error('Error updating password:', error);
     }
-    console.log(email);
-  }
+  };
 
 
   const submitHandler = async (e) => {
@@ -195,6 +198,7 @@ function ForgetPassword() {
                     type={show ? "text" : "password"}
                     required
                     border={"none"}
+                    // value={password} 
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
@@ -231,7 +235,7 @@ function ForgetPassword() {
                 flexDirection="column"
                 justifyContent="space-around"
               >
-                <Button onClick={onSubmitForResetPassword()} bg="#00ADB5" _hover={"none"} p="1%" w="40%">
+                <Button onClick={handleChangePassword} bg="#00ADB5" _hover={"none"} p="1%" w="40%">
                   אפס
                 </Button>
 

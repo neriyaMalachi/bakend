@@ -12,7 +12,8 @@ userRouter.post(
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      if (bcrypt.compareSync(req.body.password, user.password)) {
+      const isEqualPassword = await bcrypt.compare(req.body.password, user.password)
+      if (isEqualPassword) {
         res.send({
           _id: user._id,
           name: user.name,
@@ -32,9 +33,9 @@ userRouter.post(
     const user = await User.findOne({ email: req.body.email });
     console.log(user);
     if (!user) {
-       res.status(401).send({ message: "Invalid email or password " });
-    
-    }else  {
+      res.status(401).send({ message: "Invalid email or password " });
+
+    } else {
       res.send({
         email: user.email,
         token: generateToken(user),
@@ -74,7 +75,7 @@ userRouter.put(
       user.name = req.body.name || user.name;
       user.email = req.body.email || user.email;
       if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 8);
+        user.password = await bcrypt.hash(req.body.password, 8);
       }
 
       const updatedUser = await user.save();
@@ -90,28 +91,32 @@ userRouter.put(
     }
   })
 );
-userRouter.put(
-  "/reasetPassword",
-  isAuth,
-  expressAsyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
-    if (user) {
-      user.name = req.body.name || user.name;
-      user.email = req.body.email || user.email;
-      if (req.body.password) {
-        user.password = bcrypt.hashSync(req.body.password, 8);
-      }
 
-      const updatedUser = await user.save();
-      res.send({
-        password: updatedUser.password,
-        token: generateToken(updatedUser),
-      });
-    } else {
-      res.status(404).send({ message: "User not found" });
-    }
-  })
-);
+userRouter.post('/change-password', async (req, res) => {
+  const { password } = req.body;
+  const { email } = req.body;
+  console.log(password, email);
+  const user = await User.findOne({ email }).exec();
+
+
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+
+  if (!password) {
+    return res.status(401).json({ message: 'Current password is incorrect' });
+  }
+
+  console.log(user);
+  
+  user.password = await bcrypt.hash(password, 8);;
+
+  user.save()
+
+  res.status(200).json({ message: 'Password updated successfully' });
+});
+
+
 userRouter.get("/getAllUser", async (req, res) => {
   try {
     const allUser = await User.find({});
