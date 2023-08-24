@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Card,
@@ -36,7 +38,7 @@ function ForgetPassword() {
   const [validationPassword, setValidationPassword] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState(false);
   const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
@@ -45,26 +47,30 @@ function ForgetPassword() {
 
 
   const handleChangePassword = async () => {
-    try {
-      // Send a request to your server to update the password
-      const response = await fetch('/api/users/change-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ password,email }),
-      });
+    if (password === validationPassword && password.length >3) {
+      try {
+        // Send a request to your server to update the password
+        const response = await fetch('/api/users/change-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ password, email }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (response.status === 200) {
-        setMessage('Password updated successfully.');
-        navigate("/signin")
-      } else {
-        setMessage(data.message || 'Password update failed.');
+        if (response.status === 200) {
+          setMessage('Password updated successfully.');
+          navigate("/signin")
+        } else {
+          setMessage(data.message || 'Password update failed.');
+        }
+      } catch (error) {
+        console.error('Error updating password:', error);
       }
-    } catch (error) {
-      console.error('Error updating password:', error);
+    } else {
+      setMessage(true);
     }
   };
 
@@ -75,9 +81,9 @@ function ForgetPassword() {
     try {
       const { data } = await Axios.post("/api/users/forgetPassword", {
         email,
-       
+
       });
-       setSuccess(true);
+      setSuccess(true);
     } catch (err) {
       setError(true);
     }
@@ -132,10 +138,11 @@ function ForgetPassword() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {error === true && (
-                    <>
-                      <Text> לא קיים</Text>
+                 <Alert dir="rtl" status='error'>
+                 <AlertIcon />
+               בעיה באימיל
+               </Alert>
 
-                    </>
                   )}
                 </CardBody>
                 <CardFooter
@@ -145,7 +152,7 @@ function ForgetPassword() {
                   justifyContent="center"
                 >
                   <Button type="submit" bg="#00ADB5" p="1%" w="40%">
-                  החל
+                    החל
                   </Button>
                 </CardFooter>
               </Card>
@@ -225,7 +232,12 @@ function ForgetPassword() {
 
 
                 </InputGroup>
-
+                {message === true && (
+                  <Alert dir="rtl" status='error'>
+                    <AlertIcon />
+                    בעיה בסיסמה!
+                  </Alert>
+                )}
               </CardBody>
 
               <CardFooter
