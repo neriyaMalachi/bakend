@@ -28,6 +28,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Media from "react-media";
+import imagecart from "../img/image-for-cart.png"
 
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -63,23 +64,18 @@ function CartScreen() {
       </Helmet>
 
       {cartItems.length === 0 ? (
-        <Flex
-          justifyContent="center"
-          direction="column"
-          alignItems="center"
+        <VStack
           dir="rtl"
-          w="100%"
+          py={"80px"}
           h={isLargerThen768 ? "70vh" : "50vh"}
           fontSize="2xl"
-          p={4}
           bg="#393E46"
           color="#EEEEEE"
         >
           <Box >העגלת קניות ריקה!</Box>
-          <Box as="ins">
-            <Link to="/"> למוצרים</Link>
-          </Box>
-        </Flex>
+          <Image maxW={"20vw"}  src={imagecart} />
+            <Button maxW={"250px"} w="full" onClick={()=> navigate("/")} variant={"outline"} colorScheme="cyan" _hover={"none"} > למוצרים</Button>
+        </VStack>
       ) : (
         <Media query="(min-width: 900px)">
           {(matches) => {
