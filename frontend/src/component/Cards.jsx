@@ -74,7 +74,7 @@ function Cards(props) {
                   <strong>
                     <Text fontSize="2xl"> ₪{product.price}</Text>
                   </strong>
-                  <Box>
+                  <Box >
                     {Array(5)
                       .fill("")
                       .map((_, i) => (

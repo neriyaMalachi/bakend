@@ -12,12 +12,16 @@ import {
   Grid,
   Text,
   Flex,
+  VStack,
+  Button,
+  Image,
 } from "@chakra-ui/react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import LoadingBox from "./LoadingBox";
-// import bgImage from '../img/hookah-bar-bg.png'
+import imagecart from "../img/image-for-cart.png"
+
 import { HashLoader } from "react-spinners"
 const reducer = (state, action) => {
   switch (action.type) {
@@ -83,8 +87,8 @@ function HomeFile() {
           w="full"
           maxW={!isLargerThen768 ? "350px" : "600px"}
           type="text"
-          mt="1rem"
-          mb="3rem"
+          // mt="1rem"
+          // mb="3rem"
           color="#EEEEEE"
           bg="#222831"
           border="none"
@@ -107,7 +111,17 @@ function HomeFile() {
 
             <Cards product={product} key={product.slug}></Cards>
           ) : (
-            <Center color="white"> no props</Center>
+            <VStack
+            dir="rtl"
+            py={"80px"}
+            h={isLargerThen768 ? "70vh" : "50vh"}
+            fontSize="2xl"
+            bg="#393E46"
+            color="#EEEEEE"
+          >
+            <Box >העגלת קניות ריקה!</Box>
+            <Image maxW={"100vw"}  src={imagecart} />
+          </VStack>
           )
         ))}
     </Box>

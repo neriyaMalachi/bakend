@@ -65,7 +65,7 @@ function Orders() {
         <TableContainer>
           <Table size="sm">
 
-            <Stack
+            {/* <Stack
               overflowY={"scroll"}
               css={{
                 "&::-webkit-scrollbar": {
@@ -81,8 +81,8 @@ function Orders() {
               }}
               w="100%"
               h="90vh"
-            >
-              <Flex>
+            > */}
+              {/* <Flex bg="red" w="100%">
                 <Tr>
                   <Th>מספר הזמנה</Th>
                   <Th>הזמנות</Th>
@@ -94,7 +94,7 @@ function Orders() {
                   <Th>נשלח\לא נשלח</Th>
                   <Th isNumeric>שעת\יום חודש\ הזמנה</Th>
                 </Tr>
-              </Flex>
+              </Flex> */}
 
               {items.map((item) => (
                 <Tbody key={item._id}>
@@ -139,7 +139,7 @@ function Orders() {
                   </Tr>
                 </Tbody>
               ))}
-            </Stack>
+            {/* </Stack> */}
 
           </Table>
         </TableContainer>

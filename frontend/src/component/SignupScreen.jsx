@@ -7,6 +7,7 @@ import {
   CardHeader,
   Center,
   Input,
+  InputGroup,
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
@@ -17,10 +18,14 @@ import Axios from "axios";
 import { Store } from "../Store";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+
 
 function SignupScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
+  const [show, setShow] = React.useState(false);
+  const handleClick = () => setShow(!show);
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const [name, setName] = useState("");
@@ -78,7 +83,7 @@ function SignupScreen() {
             borderRadius={maxWidthforHamborger ? "10%" : "none"}
             dir="rtl"
           >
-            <CardHeader display="flex" justifyContent="center"  w="100%">
+            <CardHeader display="flex" justifyContent="center" w="100%">
               <Text fontSize="3xl" as="b">
                 הירשם
               </Text>
@@ -100,17 +105,26 @@ function SignupScreen() {
                 onChange={(e) => setEmail(e.target.value)}
               />
               <Text>סיסמה</Text>
+              <InputGroup
+                border={"1px"}
+                borderRadius={"lg"}
+                borderColor={"gray.400"}
+                alignItems="center"
+              >
               <Input
                 placeholder="סיסמה"
-                type="password"
+                type={show ? "text" : "password"}
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-
+              <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+                {show ? <ViewIcon /> : <ViewOffIcon />}
+              </Button>
+              </InputGroup>
               <Text>אמת סיסמה</Text>
               <Input
                 placeholder="אמת סיסמה"
-                type="password"
+                type={show ? "text" : "password"}
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
@@ -124,7 +138,7 @@ function SignupScreen() {
               h="25%"
               display="flex"
               justifyContent="center"
-              
+
             ></CardFooter>
             <Box  >
               יש לך כבר חשבון?{" "}
