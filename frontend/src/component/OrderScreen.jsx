@@ -31,6 +31,7 @@ import { getError } from "../utils";
 import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
 import Media from "react-media";
+import { HashLoader } from "react-spinners";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -149,7 +150,11 @@ function OrderScreen() {
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
 
   return loading ? (
-    <LoadingBox></LoadingBox>
+    <Grid>
+      <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+        <HashLoader color="#00ADB5" />
+      </GridItem>
+    </Grid>
   ) : error ? (
     <Alert status="error">
       <AlertIcon />
@@ -185,13 +190,20 @@ function OrderScreen() {
                   <Text fontSize={"xl"}>
                     שם: {order.shippingAddress.fullName}
                   </Text>
-
                   <Text fontSize={"xl"}>
                     כתובת: {order.shippingAddress.address},
-                    {order.shippingAddress.city},
-                    {order.shippingAddress.postalCode},
-                    {order.shippingAddress.country}{" "}
                   </Text>
+                  <Text fontSize={"xl"}>
+                    עיר: {order.shippingAddress.city},
+                  </Text>
+                  <Text fontSize={"xl"}>
+                    מיקוד: {order.shippingAddress.postalCode},
+                  </Text>
+                  <Text fontSize={"xl"}>
+                    מדינה:  {order.shippingAddress.country}{" "}
+                  </Text>
+
+
                 </CardBody>
                 <CardFooter>
                   {order.isDelivered ? (
@@ -199,7 +211,7 @@ function OrderScreen() {
                   ) : (
                     <Alert bg="red.300" status="error">
                       <AlertIcon />
-                     לא נשלח
+                      לא נשלח
                     </Alert>
                   )}
                 </CardFooter>
@@ -230,49 +242,49 @@ function OrderScreen() {
               <Card bg="#222831" >
                 <CardHeader color="#EEEEEE">מוצרים</CardHeader>
                 <CardBody>
-                <Stack
-                  overflowY={"scroll"}
-                  css={{
-                    "&::-webkit-scrollbar": {
-                      width: "5px",
-                    },
-                    "&::-webkit-scrollbar-track": {
-                      width: "6px",
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                      background: "#222831",
-                      borderRadius: "24px",
-                    },
-                  }}
-                  mt="3%"
-                  w="100%"
-                  h="40vh"
-                  ml="7%"
-                >
-                  {order.orderItems.map((item) => (
-                    <Stack  >
-                    <HStack
-                      key={item._id}
-                      justifyContent={"space-around"}
-                      alignItems="center"
-                    
-                      color="#EEEEEE"
-                      bg="#393E46"
-                      boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
-                      borderRadius={10}
-                    >
-                      <Image
-                        objectFit="cover"
-                        h="90px"
-                        w="90px"
-                        src={item.image}
-                        alt="Caffe Latte"
-                      />
-                      <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                      <Flex>{item.price} ₪</Flex>
-                    </HStack>
-                  </Stack>
-                  ))}
+                  <Stack
+                    overflowY={"scroll"}
+                    css={{
+                      "&::-webkit-scrollbar": {
+                        width: "5px",
+                      },
+                      "&::-webkit-scrollbar-track": {
+                        width: "6px",
+                      },
+                      "&::-webkit-scrollbar-thumb": {
+                        background: "#222831",
+                        borderRadius: "24px",
+                      },
+                    }}
+                    mt="3%"
+                    w="100%"
+                    h="40vh"
+                    ml="7%"
+                  >
+                    {order.orderItems.map((item) => (
+                      <Stack  >
+                        <HStack
+                          key={item._id}
+                          justifyContent={"space-around"}
+                          alignItems="center"
+
+                          color="#EEEEEE"
+                          bg="#393E46"
+                          boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
+                          borderRadius={10}
+                        >
+                          <Image
+                            objectFit="cover"
+                            h="90px"
+                            w="90px"
+                            src={item.image}
+                            alt="Caffe Latte"
+                          />
+                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                          <Flex>{item.price} ₪</Flex>
+                        </HStack>
+                      </Stack>
+                    ))}
                   </Stack>
                 </CardBody>
               </Card>
@@ -288,7 +300,7 @@ function OrderScreen() {
               <GridItem
                 w="60%"
                 h="100%"
-               bg="#222831"
+                bg="#222831"
                 borderRadius="10%"
                 boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
               >
@@ -314,7 +326,7 @@ function OrderScreen() {
 
                   <Text>{order.totalPrice.toFixed(2)} ₪</Text>
 
-                  <Flex justifyContent="center" alignItems="center">
+                  {/* <Flex justifyContent="center" alignItems="center">
                     {!order.isPaid && (
                       <Box justifyItems="center" alignItems="start" w="50%">
                         {isPending ? (
@@ -331,7 +343,7 @@ function OrderScreen() {
                         {loadingPay && <LoadingBox></LoadingBox>}
                       </Box>
                     )}
-                  </Flex>
+                  </Flex> */}
                 </GridItem>
               </GridItem>
             </GridItem>
@@ -361,10 +373,19 @@ function OrderScreen() {
                   </Text>
 
                   <Text fontSize={"l"}>
+                    שם: {order.shippingAddress.fullName}
+                  </Text>
+                  <Text fontSize={"l"}>
                     כתובת: {order.shippingAddress.address},
-                    {order.shippingAddress.city},
-                    {order.shippingAddress.postalCode},
-                    {order.shippingAddress.country}{" "}
+                  </Text>
+                  <Text >
+                    עיר: {order.shippingAddress.city},
+                  </Text>
+                  <Text fontSize={"l"}>
+                    מיקוד: {order.shippingAddress.postalCode},
+                  </Text>
+                  <Text fontSize={"l"}>
+                    מדינה:  {order.shippingAddress.country}{" "}
                   </Text>
                 </CardHeader>
                 <CardFooter>
@@ -391,7 +412,7 @@ function OrderScreen() {
                       שולם {order.paidAt}
                     </Alert>
                   ) : (
-                    <Alert bg="red.300"  status="error">
+                    <Alert bg="red.300" status="error">
                       <AlertIcon />
                       לא שולם
                     </Alert>
@@ -445,7 +466,7 @@ function OrderScreen() {
                 </CardBody>
               </Card>
             </GridItem>
-            {/* Grid for order */} 
+            {/* Grid for order */}
             <Box bg="#222831" m="3%" borderRadius={10} color="#EEEEEE" display="flex" textAlign="center" justifyContent="center">
               <GridItem w="100%" h="100%" >
                 <Text fontSize="2xl">סיכום הזמנה</Text>

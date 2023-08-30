@@ -104,12 +104,12 @@ function HomeFile() {
         .filter((item) => {
           return search.toLowerCase() === ""
             ? item
-            : item.name.toLowerCase().includes(search);
+            : item.name.toLowerCase().includes(search) 
         })
         .map((product) => (
           product ? (
-
             <Cards product={product} key={product.slug}></Cards>
+          
           ) : (
             <VStack
             dir="rtl"
@@ -119,11 +119,12 @@ function HomeFile() {
             bg="#393E46"
             color="#EEEEEE"
           >
-            <Box >העגלת קניות ריקה!</Box>
+            <Box >אין מוצרים!</Box>
             <Image maxW={"100vw"}  src={imagecart} />
           </VStack>
           )
         ))}
+       
     </Box>
   );
 }
