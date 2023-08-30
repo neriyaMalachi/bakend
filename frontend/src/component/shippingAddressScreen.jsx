@@ -5,6 +5,7 @@ import {
   CardFooter,
   Center,
   Input,
+  Select,
   StackDivider,
   VStack,
 } from "@chakra-ui/react";
@@ -14,6 +15,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
+import countrys from "../data"
 
 function ShippingAddressScreen() {
   const navigate = useNavigate();
@@ -29,7 +31,6 @@ function ShippingAddressScreen() {
     shippingAddress.postalCode || ""
   );
   const [country, setcountry] = useState(shippingAddress.country || "");
-
   useEffect(() => {
     if (!userInfo) {
       navigate("/signin?redirect=/shipping");
@@ -61,12 +62,12 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    <Center h="86vh"  bg="#393E46">
+    <Center h="86vh" bg="#393E46">
       <Card
         p="4%"
-       bg="#222831"
-       color="#EEEEEE"
-       borderRadius={20}
+        bg="#222831"
+        color="#EEEEEE"
+        borderRadius={20}
       >
         <Helmet>
           <title>Shiping Address</title>
@@ -120,13 +121,21 @@ function ShippingAddressScreen() {
             </Box>
 
             <Box h="40px">
-              <Input
+              <Select
                 placeholder="ארץ"
                 size="lg"
-                value={country}
+                value={countrys.countrys.code}
                 required
                 onChange={(e) => setcountry(e.target.value)}
-              />
+                icon={"none"}
+                bg="#222831"
+                color="#EEEEEE"
+              >
+                {countrys.countrys.map((getcountry, index) => (
+                  <option key={index}  style={{backgroundColor:"#222831" ,height:"10%",color:"#EEEEEE" }}  value={getcountry.code} >{getcountry.name}</option>
+                ))}
+
+              </Select>
             </Box>
           </VStack>
           <CardFooter>
@@ -136,7 +145,7 @@ function ShippingAddressScreen() {
           </CardFooter>
         </form>
 
-        
+
       </Card>
     </Center>
   );
