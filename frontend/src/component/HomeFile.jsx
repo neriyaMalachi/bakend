@@ -102,27 +102,17 @@ function HomeFile() {
 
       {propertis
         .filter((item) => {
-          console.log(propertis.length);
+          // console.log(propertis.length);
           return search.toLowerCase() === ""
             ? item
             : item.name.toLowerCase().includes(search) 
         })
         .map((product) => (
           product ? (
-            <Cards product={product} key={product.slug}></Cards>
+            <Cards product={product} key={product.slug}/>
           
           ) : (
-            <VStack
-            dir="rtl"
-            py={"80px"}
-            h={isLargerThen768 ? "70vh" : "50vh"}
-            fontSize="2xl"
-            bg="#393E46"
-            color="#EEEEEE"
-          >
-            <Box >אין מוצרים!</Box>
-            <Image maxW={"100vw"}  src={imagecart} />
-          </VStack>
+      <></>
           )
         ))}
        

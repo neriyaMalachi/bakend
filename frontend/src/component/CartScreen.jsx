@@ -101,9 +101,9 @@ function CartScreen() {
                   ml="7%"
                 >
                   {cartItems.map((item) => (
-                    <Stack>
+                    <Stack    key={item._id}>
                       <HStack
-                        key={item._id}
+                     
                         justifyContent={"space-around"}
                         alignItems="center"
                         w="100%"
@@ -164,17 +164,17 @@ function CartScreen() {
                     </Stack>
                   ))}
                 </Stack>
-                <hr />
+               
                 <Card borderRadius={20} bg="#222831" color="#EEEEEE" w="20%" h="40%" display="flex">
-                  <CardBody>
-                    <Text fontSize={"2xl"} dir="rtl">
+                  <CardBody  dir="rtl">
+                    <Text fontSize={"2xl"}>
                       כמות מוצרים {" - "}{" "}
                       {cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      <hr />
+                    </Text>
+                    <Text >
                       ש"ח :{" "}
                       {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                     </Text>
-                    <hr />
                   </CardBody>
                   <CardFooter>
                     <Button
@@ -236,7 +236,7 @@ function CartScreen() {
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
                       <HStack
-                        key={item._id}
+                       
                         justifyContent={"space-around"}
                         alignItems="center"
                         color="#EEEEEE"
