@@ -102,6 +102,7 @@ function HomeFile() {
 
       {propertis
         .filter((item) => {
+          console.log(propertis.length);
           return search.toLowerCase() === ""
             ? item
             : item.name.toLowerCase().includes(search) 
