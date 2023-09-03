@@ -26,8 +26,6 @@ function AddUser() {
 
 
   const HendlerSubmit = async (e) => {
-  //  e.preventDefault;
-
    await axios.post("/api/users/addUser", {
     name,
     email,

@@ -13,11 +13,14 @@ import {
   VStack,
   HStack,
   Divider,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
 import AddUser from "./AddUser";
+import { HashLoader } from "react-spinners";
 
 function Users() {
   const [error, setError] = useState(null);
@@ -47,28 +50,32 @@ function Users() {
   };
   const HendleDelete = async (id) => {
     await fetch(`http://localhost:3000/api/users/deleteuser/${id}`, {
-       method: "DELETE"
-     })
+      method: "DELETE"
+    })
       .then((result) => {
         result.json().then((resp) => {
           console.warn(resp);
           getUsers();
         });
       })
-   
+
   };
 
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
-    return <div>Loading...</div>;
+    return <Grid>
+      <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+        <HashLoader color="#00ADB5" />
+      </GridItem>
+    </Grid>;
   } else {
     return (
       <VStack bg="#393E46">
         <Box>
-          <AddUser/>
-          </Box>
-            <Stack
+          <AddUser />
+        </Box>
+        <Stack
                   overflowY={"scroll"}
                   css={{
                     "&::-webkit-scrollbar": {
@@ -90,7 +97,7 @@ function Users() {
               <HStack justifyContent={"space-around"} >
                 <Text >שם</Text>
                 <Text>אימל</Text>
-                <Text isNumeric>זמן הרשמות</Text>
+                <Text>זמן הרשמות</Text>
                 </HStack>
             
             {items.map((item) => (
@@ -110,7 +117,7 @@ function Users() {
             ))}
             </Stack>
 
-      
+
       </VStack>
     );
   }
