@@ -32,8 +32,6 @@ productRoute.get("/:id", async (req, res) => {
 
 productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
-  console.log(productDetail);
-  console.log("errorre111");
   await Product.create(productDetail, (err, data) => {
     if (err) {
       console.log(err.message);

@@ -17,6 +17,7 @@ import {
 import { useEffect, useState } from "react";
 import { TiDelete } from "react-icons/ti";
 import { Link, useNavigate } from "react-router-dom";
+import AddUser from "./AddUser";
 
 function Users() {
   const [error, setError] = useState(null);
@@ -63,9 +64,10 @@ function Users() {
     return <div>Loading...</div>;
   } else {
     return (
-      <HStack bg="#393E46">
-          <Table colorScheme="#222831">
-        
+      <VStack bg="#393E46">
+        <Box>
+          <AddUser/>
+          </Box>
             <Stack
                   overflowY={"scroll"}
                   css={{
@@ -81,38 +83,35 @@ function Users() {
                     },
                   }}
                   m="3%"
-                  w="60%"
-                  h="60vh"
+                  w={{base:"100%",sm:"100%",md:"80%",lg:"80%"}}
+                  h="80vh"
                 >
             
-              <HStack gap={16}>
-                <Text mr={7}>שם</Text>
+              <HStack justifyContent={"space-around"} >
+                <Text >שם</Text>
                 <Text>אימל</Text>
                 <Text isNumeric>זמן הרשמות</Text>
                 </HStack>
             
             {items.map((item) => (
-              <>
-                <HStack gap={6} key={item._id} >
+              <Stack  key={item._id}>
+                <HStack gap={6} >
                     <Button  bg="none" onClick={() => HendleDelete(item._id)}>
                       {" "}
                       <TiDelete color="#F24C3D" size={20} />
                     </Button>
                   <Text w="30%">{item.name}</Text>
                   <Text w="30%">{item.email}</Text>
-                  <Text  w="30%" isNumeric>{item.createdAt}</Text>
+                  <Text  w="30%">{item.createdAt}</Text>
                 </HStack>
                 <Divider/>
-                </>
+            </Stack>
+
             ))}
             </Stack>
-          </Table>
 
-        {/* <Box>
-              <Link to="/Admin/addUser">Add User</Link>
-
-        </Box> */}
-      </HStack>
+      
+      </VStack>
     );
   }
 }

@@ -7,8 +7,7 @@ import expressAsyncHandler from "express-async-handler";
 
 const userRouter = express.Router();
 
-userRouter.post(
-  "/signin",
+userRouter.post("/signin",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
@@ -27,8 +26,7 @@ userRouter.post(
     res.status(401).send({ message: "Invalid email or password " });
   })
 );
-userRouter.post(
-  "/forgetPassword",
+userRouter.post("/forgetPassword",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     console.log(user);
@@ -47,8 +45,7 @@ userRouter.post(
   })
 );
 
-userRouter.post(
-  "/signup",
+userRouter.post("/signup",
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,
@@ -66,8 +63,7 @@ userRouter.post(
   })
 );
 
-userRouter.put(
-  "/profile",
+userRouter.put("/profile",
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -108,7 +104,7 @@ userRouter.post('/change-password', async (req, res) => {
   }
 
   console.log(user);
-  
+
   user.password = await bcrypt.hash(password, 8);;
 
   user.save()
@@ -130,5 +126,17 @@ userRouter.delete("/deleteuser/:id", async (req, res) => {
   const result = await User.deleteOne({ _id: req.params.id });
   res.send(result);
 });
+userRouter.post("/addUser", async (req, res) => {
+  const userDetail = req.body;
+  await User.create(userDetail, (err, data) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
+    } else {
+      console.log(userDetail);
+      res.status(201).send(data);
+    }
+  });
+})
 
 export default userRouter;

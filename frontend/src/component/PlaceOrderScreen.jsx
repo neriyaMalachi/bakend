@@ -89,7 +89,7 @@ function PlaceOrderScreen() {
       navigate("/payment");
     }
   }, [cart, navigate]);
-
+console.log(cart.paymentMethod);
   return (
     <>
       <Helmet>

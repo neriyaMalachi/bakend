@@ -9,6 +9,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Divider,
   Flex,
   Grid,
   GridItem,
@@ -16,6 +17,7 @@ import {
   Image,
   Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import {
   PayPalButtons,
@@ -32,6 +34,7 @@ import { Helmet } from "react-helmet-async";
 import { toast } from "react-toastify";
 import Media from "react-media";
 import { HashLoader } from "react-spinners";
+import { FaWhatsapp } from "react-icons/fa";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -148,7 +151,6 @@ function OrderScreen() {
       loadPaypalScript();
     }
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
-console.log(order);
   return loading ? (
     <Grid>
       <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
@@ -325,25 +327,51 @@ console.log(order);
                   <Text fontSize="2xl"> סכו"ם</Text>
 
                   <Text>{order.totalPrice.toFixed(2)} ₪</Text>
+                  {order.paymentMethod === "payPal" ? (
 
-                  {/* <Flex justifyContent="center" alignItems="center">
-                    {!order.isPaid && (
-                      <Box justifyItems="center" alignItems="start" w="50%">
-                        {isPending ? (
-                          <LoadingBox />
-                        ) : (
-                          <div>
-                            <PayPalButtons
-                              createOrder={createOrder}
-                              onApprove={onApprove}
-                              onError={onError}
-                            ></PayPalButtons>
-                          </div>
-                        )}
-                        {loadingPay && <LoadingBox></LoadingBox>}
-                      </Box>
-                    )}
-                  </Flex> */}
+                    <Flex justifyContent="center" alignItems="center">
+                      {!order.isPaid && (
+                        <Box justifyItems="center" alignItems="start" w="50%">
+                          {isPending ? (
+                            <LoadingBox />
+                          ) : (
+                            <div>
+                              <PayPalButtons
+                                createOrder={createOrder}
+                                onApprove={onApprove}
+                                onError={onError}
+                              ></PayPalButtons>
+                            </div>
+                          )}
+                          {loadingPay && <LoadingBox></LoadingBox>}
+                        </Box>
+                      )}
+                    </Flex>
+                  ) : order.paymentMethod === "bit" ? (
+                    <>
+                      <Divider />
+                      <Text>קיימת בעיה בתשלום בביט </Text>
+                      <VStack textAlign={"center"}>
+                        <Text> אנה צרו קשר </Text>
+                        <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+
+                          <FaWhatsapp size={25} />
+                        </a>
+                      </VStack>
+                    </>
+                  ) : (
+                    <>
+                      <Divider />
+                      <Text>קיימת בעיה בתשלום כרגע </Text>
+                      <VStack textAlign={"center"}>
+                        <Text> אנה צרו קשר </Text>
+                        <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+
+                          <FaWhatsapp size={25} />
+                        </a>
+                      </VStack>
+                    </>
+                  )}
                 </GridItem>
               </GridItem>
             </GridItem>
@@ -498,11 +526,51 @@ console.log(order);
                           <LoadingBox />
                         ) : (
                           <div>
-                            <PayPalButtons
-                              createOrder={createOrder}
-                              onApprove={onApprove}
-                              onError={onError}
-                            ></PayPalButtons>
+                            {order.paymentMethod === "payPal" ? (
+
+                              <Flex justifyContent="center" alignItems="center">
+                                {!order.isPaid && (
+                                  <Box justifyItems="center" alignItems="start" w="50%">
+                                    {isPending ? (
+                                      <LoadingBox />
+                                    ) : (
+                                      <div>
+                                        <PayPalButtons
+                                          createOrder={createOrder}
+                                          onApprove={onApprove}
+                                          onError={onError}
+                                        ></PayPalButtons>
+                                      </div>
+                                    )}
+                                    {loadingPay && <LoadingBox></LoadingBox>}
+                                  </Box>
+                                )}
+                              </Flex>
+                            ) : order.paymentMethod === "bit" ? (
+                              <>
+                                <Divider />
+                                <Text>קיימת בעיה בתשלום בביט </Text>
+                                <VStack textAlign={"center"}>
+                                  <Text> אנה צרו קשר </Text>
+                                  <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+
+                                    <FaWhatsapp size={25} />
+                                  </a>
+                                </VStack>
+                              </>
+                            ) : (
+                              <>
+                                <Divider />
+                                <Text>קיימת בעיה בתשלום כרגע </Text>
+                                <VStack textAlign={"center"}>
+                                  <Text> אנה צרו קשר </Text>
+                                  <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+
+                                    <FaWhatsapp size={25} />
+                                  </a>
+                                </VStack>
+                              </>
+                            )}
                           </div>
                         )}
                         {loadingPay && <LoadingBox></LoadingBox>}
