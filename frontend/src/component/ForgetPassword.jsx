@@ -138,10 +138,10 @@ function ForgetPassword() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {error === true && (
-                    <Alert dir="rtl" status='error'>
-                      <AlertIcon />
-                      בעיה באימיל
-                    </Alert>
+                    <Text color={"red.600"}>
+                      
+                      בעיה באימיל !
+                    </Text>
 
                   )}
                 </CardBody>

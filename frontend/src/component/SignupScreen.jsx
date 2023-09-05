@@ -54,7 +54,7 @@ function SignupScreen() {
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      // toast.error("password or email invalid");
+      console.log("password or email invalid");
     }
   };
 

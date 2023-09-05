@@ -244,13 +244,14 @@ function CartScreen() {
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                         borderRadius={10}
                       >
-                        <Box h="100%">
                           <SmallCloseIcon
                             flex="start"
                             color="red.500"
                             boxSize={7}
                             onClick={() => RemoovItemHendler(item)}
                           />
+                        <Box h="100%">
+                        
                           <Box display="flex" flex="end" h="50%" fontSize="xl">
                             <Box
                               w="20%"
@@ -284,7 +285,6 @@ function CartScreen() {
                           </Box>
                         </Box>
                         <HStack gap={6}>
-                          <Box>{item.description}</Box>
                           <Box>₪{item.price} </Box>
                         </HStack>
 

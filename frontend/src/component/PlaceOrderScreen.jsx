@@ -81,7 +81,7 @@ function PlaceOrderScreen() {
       navigate(`/order/${data.order._id}`);
     } catch (err) {
       dispatch({ type: "CREATE_FAIL" });
-      // toast.error(getError(err));
+      console.log(getError(err));
     }
   };
   useEffect(() => {
@@ -89,7 +89,6 @@ function PlaceOrderScreen() {
       navigate("/payment");
     }
   }, [cart, navigate]);
-console.log(cart.paymentMethod);
   return (
     <>
       <Helmet>
@@ -462,6 +461,7 @@ console.log(cart.paymentMethod);
               </Stack>
               {loading && <LoadingBox></LoadingBox>}
             </VStack>
+
           );
         }}
       </Media>

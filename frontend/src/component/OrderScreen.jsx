@@ -18,13 +18,14 @@ import {
   Stack,
   Text,
   VStack,
+  useToast,
 } from "@chakra-ui/react";
 import {
   PayPalButtons,
   PayPalScriptProvider,
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
-import { React, useContext, useEffect, useReducer } from "react";
+import { React, useContext, useEffect, useReducer, useState } from "react";
 import LoadingBox from "../component/LoadingBox";
 import { Store } from "../Store";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -64,6 +65,9 @@ function OrderScreen() {
   const { state } = useContext(Store);
   const { userInfo } = state;
   const params = useParams();
+  const [success,setSuccess]=useState(false);
+  const [alerterror,setAlertErrorrror]=useState(false);
+  const toast = useToast()
   const { id: orderId } = params;
   const navigate = useNavigate();
   const [{ loading, error, order, successPay, loadingPay }, dispatch] =
@@ -102,15 +106,21 @@ function OrderScreen() {
           }
         );
         dispatch({ type: "PAY_SUCCESS", payload: data });
-        toast.success("Order is paid");
+        toast({
+          title: 'ההזמנה בוצעה.',
+          description: "נשמח לראותכם שוב .",
+          status: 'success',
+          duration: 4000,
+          isClosable: true,
+        })
       } catch (err) {
         dispatch({ type: "PAY_FAIL", payload: getError(err) });
-        toast.error(getError(err));
+        setAlertErrorrror(true)
       }
     });
   }
   function onError(err) {
-    toast.error(getError(err));
+   setAlertErrorrror(true)
   }
 
   useEffect(() => {
@@ -264,7 +274,7 @@ function OrderScreen() {
                     ml="7%"
                   >
                     {order.orderItems.map((item) => (
-                      <Stack  >
+                     
                         <HStack
                           key={item._id}
                           justifyContent={"space-around"}
@@ -285,7 +295,7 @@ function OrderScreen() {
                           <Link to={`/product/${item.slug}`}>{item.name}</Link>
                           <Flex>{item.price} ₪</Flex>
                         </HStack>
-                      </Stack>
+                   
                     ))}
                   </Stack>
                 </CardBody>

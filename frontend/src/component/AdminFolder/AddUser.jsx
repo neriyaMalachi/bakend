@@ -48,7 +48,7 @@ function AddUser() {
 
               <Stack spacing={3}>
                 <Input
-                  placeholder='שם'
+                  placeholder='שם מלא'
                   onChange={(e) => setName(e.target.value)}
                 />
                 <Input
@@ -62,7 +62,7 @@ function AddUser() {
                 />
                 <Input
 
-                  placeholder='הוא אדמין? true / folse'
+                  placeholder='הוא אדמין? true / false'
                   onChange={(e) => setAdmin(e.target.value)}
                 />
               </Stack>

@@ -75,6 +75,11 @@ function Users() {
         <Box>
           <AddUser />
         </Box>
+        <HStack justifyContent={"space-around"}  w="80%" >
+                <Text >שם</Text>
+                <Text>אימל</Text>
+                <Text>זמן הרשמות</Text>
+                </HStack>
         <Stack
                   overflowY={"scroll"}
                   css={{
@@ -94,11 +99,7 @@ function Users() {
                   h="80vh"
                 >
             
-              <HStack justifyContent={"space-around"} >
-                <Text >שם</Text>
-                <Text>אימל</Text>
-                <Text>זמן הרשמות</Text>
-                </HStack>
+           
             
             {items.map((item) => (
               <Stack  key={item._id}>

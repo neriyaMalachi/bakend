@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Card,
@@ -31,7 +33,8 @@ function SigninScreen() {
   const redirect = redirectInUrl ? redirectInUrl : "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
+  const [error, setError] = useState(false);
+
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
   const submitHandler = async (e) => {
@@ -47,7 +50,9 @@ function SigninScreen() {
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/");
     } catch (err) {
-      toast.error("password or email invalid");
+      console.log("password or email invalid");
+      setError(true);
+      console.log(error);
     }
   };
 
@@ -111,12 +116,17 @@ function SigninScreen() {
                   border="none"
                 />
                 {/* <InputLeftElement> */}
-                  <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
-                    {show ? <ViewIcon /> : <ViewOffIcon />}
-                  </Button>
+                <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+                  {show ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
                 {/* </InputLeftElement> */}
               </InputGroup>
               <Link to="/forgetPassword">שכחתי סיסמה?</Link>
+              {error === true ? (
+                <Text color="red"  >
+                  בעיה בפרטי ההתחברות !
+                </Text>
+              ) : (<></>)}
             </CardBody>
 
             <CardFooter
@@ -138,6 +148,8 @@ function SigninScreen() {
             </CardFooter>
           </Card>
         </Center>
+
+
       </form>
     </>
   );

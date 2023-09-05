@@ -82,7 +82,7 @@ function NavBar() {
                   <MenuButton>
                     <RxHamburgerMenu />
                   </MenuButton>
-                  <MenuList color="#EEEEEE">
+                  <MenuList  color="#EEEEEE">
                     <MenuItem>
                       {" "}
                       <Link to="/orderhistory">הזמנות</Link>
@@ -119,7 +119,7 @@ function NavBar() {
 
             </HStack>
           ) : (
-            <HStack color="#EEEEEE" gap={12} >
+            <HStack  color="#EEEEEE" gap={12} >
               {/* dark mode and light mode and hamburger */}
               <HStack>
                 <Menu>

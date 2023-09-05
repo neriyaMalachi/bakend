@@ -38,7 +38,7 @@ function Orders() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
-  const [currentItem, setCurrentItem] = useState({});
+  const [currentItem, setCurrentItem] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
@@ -121,11 +121,13 @@ function Orders() {
           <ModalContent>
             <ModalCloseButton />
             <ModalHeader>{currentItem.shippingAddress?.fullName}</ModalHeader>
-            <ModalBody dir="rtl" pb={6}>
+            <ModalBody dir="rtl" >
               <ItemForOrder
+              
                 id={currentItem._id}
                 props={currentItem.orderItems}
               />
+            
             </ModalBody>
             <ModalFooter>
               <Button colorScheme="blue" mr={3} onClick={onClose}>
