@@ -190,31 +190,7 @@ function CartScreen() {
               </HStack>
             ) : (
               <VStack bg="#393E46" w="100%" h="100vh">
-                <Card mt="3%" bg="#222831" w="90%" color="#EEEEEE" h="35%" >
-                  <CardBody>
-                    <Box fontSize="100%" dir="rtl">
-                      כמות מוצרים {" - "}{" "}
-                      {cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      <hr />
-                      ש"ח :{" "}
-                      {cartItems.reduce(
-                        (a, c) => a + c.price * c.quantity,
-                        0
-                      )}
-                    </Box>
-                    <hr />
-                  </CardBody>
-                  <CardFooter>
-                    <Button
-                      onClick={checkoutHandler}
-                      disabled={cartItems.length === 0}
-                      bg="#00ADB5"
-                    >
-                      לקופה
-                    </Button>
-                  </CardFooter>
-                </Card>
-                <Stack
+                 <Stack
                   overflowY={"scroll"}
                   css={{
                     "&::-webkit-scrollbar": {
@@ -230,13 +206,12 @@ function CartScreen() {
                   }}
                   m="3%"
                   w="90%"
-                  h="70vh"
+                  h="40vh"
                   // ml="3%"
                 >
                   {cartItems.map((item) => (
                     <GridItem key={item._id}>
                       <HStack
-                       
                         justifyContent={"space-around"}
                         alignItems="center"
                         color="#EEEEEE"
@@ -299,6 +274,31 @@ function CartScreen() {
                     </GridItem>
                   ))}
                 </Stack>
+                <Card  bg="#222831" w="90%" color="#EEEEEE" h="35%" >
+                  <CardBody>
+                    <Box fontSize="100%" dir="rtl">
+                      כמות מוצרים {" - "}{" "}
+                      {cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      <hr />
+                      ש"ח :{" "}
+                      {cartItems.reduce(
+                        (a, c) => a + c.price * c.quantity,
+                        0
+                      )}
+                    </Box>
+                    <hr />
+                  </CardBody>
+                  <CardFooter>
+                    <Button
+                      onClick={checkoutHandler}
+                      disabled={cartItems.length === 0}
+                      bg="#00ADB5"
+                    >
+                      לקופה
+                    </Button>
+                  </CardFooter>
+                </Card>
+               
 
                 
               </VStack>

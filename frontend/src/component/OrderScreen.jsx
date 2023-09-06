@@ -9,6 +9,7 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Center,
   Divider,
   Flex,
   Grid,
@@ -341,19 +342,28 @@ function OrderScreen() {
 
                     <Flex justifyContent="center" alignItems="center">
                       {!order.isPaid && (
-                        <Box justifyItems="center" alignItems="start" w="50%">
+                        <Box  w="50%">
                           {isPending ? (
-                            <LoadingBox />
+                            <Grid>
+                            <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+                              <HashLoader color="#00ADB5" />
+                            </GridItem>
+                          </Grid>
                           ) : (
-                            <div>
                               <PayPalButtons
+                             
                                 createOrder={createOrder}
                                 onApprove={onApprove}
                                 onError={onError}
-                              ></PayPalButtons>
-                            </div>
+                              />
                           )}
-                          {loadingPay && <LoadingBox></LoadingBox>}
+                          {loadingPay && 
+                            <Grid>
+                            <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+                              <HashLoader color="#00ADB5" />
+                            </GridItem>
+                          </Grid>
+                          }
                         </Box>
                       )}
                     </Flex>
@@ -397,7 +407,7 @@ function OrderScreen() {
             <Helmet>
               <title>order {orderId}</title>
             </Helmet>
-            <Flex m="3%" bg="#00ADB5">
+            <Flex m="3%" color="#EEEEEE" bg="#00ADB5">
               <Text fontSize="xl">מספר הזמנה: {orderId}</Text>
             </Flex>
             {/* Grid for address the user */}
@@ -531,16 +541,16 @@ function OrderScreen() {
 
                   <Flex mt="3%" justifyContent="center" alignItems="center">
                     {!order.isPaid && (
-                      <Box justifyItems="center" alignItems="start" w="40%">
+                      <Box  justifyItems="center" alignItems="center" w="40%">
                         {isPending ? (
                           <LoadingBox />
                         ) : (
-                          <div>
+                          <Center>
                             {order.paymentMethod === "payPal" ? (
 
-                              <Flex justifyContent="center" alignItems="center">
+                              <Flex >
                                 {!order.isPaid && (
-                                  <Box justifyItems="center" alignItems="start" w="50%">
+                                  <Box  w="50%">
                                     {isPending ? (
                                       <LoadingBox />
                                     ) : (
@@ -581,7 +591,7 @@ function OrderScreen() {
                                 </VStack>
                               </>
                             )}
-                          </div>
+                          </Center>
                         )}
                         {loadingPay && <LoadingBox></LoadingBox>}
                       </Box>

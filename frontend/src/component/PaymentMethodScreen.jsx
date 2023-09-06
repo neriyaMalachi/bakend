@@ -45,12 +45,12 @@ function PaymentMethodScreen() {
 
       <form onSubmit={submitHandler}>
         <Center
-          h="82vh"
+          h="80vh"
           bg="#393E46"
           display="flex"
           flexDirection="column"
         >
-          <RadioGroup  bg="#222831" color="#EEEEEE" defaultValue="Itachi" borderRadius="20%" p="5%" >
+          <RadioGroup  bg="#222831" color="#EEEEEE" defaultValue="Itachi" borderRadius="20%" p={{base:"15%" , sm:"7%"}} >
             <Text textAlign="center" fontSize="2xl" >אמצעי תשלום</Text>
             <VStack
               h="100px"

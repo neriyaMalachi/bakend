@@ -126,7 +126,8 @@ function Orders() {
               
                 id={currentItem._id}
                 props={currentItem.orderItems}
-              />
+                />
+                {console.log(currentItem.orderItems)}
             
             </ModalBody>
             <ModalFooter>

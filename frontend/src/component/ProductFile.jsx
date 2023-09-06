@@ -100,12 +100,10 @@ function ProductFile() {
               h="100vh"
               bg="#393E46"
             >
-              <Box ml="3%" bg="wh">
+              <Box ml="3%" >
                 <Image
                   src={propertis.image}
                   alt="nargila image"
-                  // filter="contrast(60%)"
-                  // _hover={{ filter: "contrast(100%)" }}
                   h="70vh"
                   w="30vw"
                 />
@@ -172,10 +170,7 @@ function ProductFile() {
               </VStack>
             </HStack>
           ) : (
-            <Card
-              h="100vh"
-              mt="3%"
-            >
+            <Card >
               <Image
                 src={propertis.image}
                 alt="Caffe Latte"
@@ -183,7 +178,7 @@ function ProductFile() {
                 w="100%"
                 h="50%"
               />
-              <Card dir="rtl">
+              <Card bg="#222831" color="#EEEEEE"  dir="rtl">
                 <CardHeader>
                   <Heading size="xl"> {propertis.name} </Heading>
                 </CardHeader>

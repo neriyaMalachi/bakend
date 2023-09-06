@@ -42,8 +42,8 @@ function NavBar() {
 
   return (
     <Box
-    // position="fixed"
-    w="100%"
+      // position="fixed"
+      w="100%"
     // zIndex={1}
     >
       <Box bg="#222831" color="white" textAlign="center">
@@ -54,146 +54,133 @@ function NavBar() {
         </Text>{" "}
         לכל הארץ בהזמנה מעל{" "}
       </Box>
-      <HStack
-        py={4}
-        gap={3}
+
+      <Flex
+        py={3}
         bg="#222831"
-        color="whitesmoke"
+        color="#EEEEEE"
         fontSize="xl"
         boxShadow="0px 15px 19px -7px rgba(0,0,0,0.75)"
         dir="rtl"
+        justifyContent={"space-between"}
+        alignItems={"end"}
       >
-
-        <ToastContainer  />
-
-        {!userInfo ? (
-          <HStack spacing={5}>
-
-            <Link to="/">דף הבית</Link>
-
-            <Link to="/signin">התחבר</Link>
-          </HStack>
-        ) : (
-          userInfo.isAdmin ? (
-            <HStack gap={12} >
-              {/* dark mode and light mode and hamburger */}
-              <HStack>
+        <Flex  w={{ base:"60%", sm:"30%",md:"20%",lg:"10%" }} justifyContent={"space-around"} alignItems={"end"} >
+          <Flex  >
+            {!userInfo ? (
+                <Link to="/signin">התחבר</Link>
+            ) : (
+              userInfo.isAdmin ? (
                 <Menu>
                   <MenuButton>
                     <RxHamburgerMenu />
                   </MenuButton>
-                  <MenuList  color="#EEEEEE">
-                    <MenuItem>
+                  <MenuList border="none" bg="#222831" color="#EEEEEE">
+                    <MenuItem bg="#222831">
                       {" "}
                       <Link to="/orderhistory">הזמנות</Link>
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem bg="#222831">
                       {" "}
                       <Link to="/profile">פרופיל</Link>
                     </MenuItem>
 
-                    <MenuItem>
+                    <MenuItem bg="#222831">
                       <Link to="/signIn" onClick={signoutHandlet}>
                         התנתק
                       </Link>
                     </MenuItem>
-                    <MenuItem>
+                    <MenuItem bg="#222831">
                       <Link to="/" >
                         דף הבית
                       </Link>
-                    </MenuItem>
+                    </MenuItem >
                     <Link to="/Admin/products">
-                      <MenuItem>מוצרים</MenuItem>
+                      <MenuItem bg="#222831">מוצרים</MenuItem>
                     </Link>
                     <Link to="/Admin/orders">
-                      <MenuItem>הזמנות</MenuItem>
+                      <MenuItem bg="#222831">הזמנות</MenuItem>
                     </Link>
                     <Link to="/Admin/users">
-                      <MenuItem>משתמשים</MenuItem>
+                      <MenuItem bg="#222831">משתמשים</MenuItem>
                     </Link>
                   </MenuList>
                 </Menu>
+              ) : (
+                <HStack color="#EEEEEE"  >
+                  <Menu>
+                    <MenuButton>
+                      <RxHamburgerMenu />
+                    </MenuButton>
+                    <MenuList color="#EEEEEE">
+                      <MenuItem>
+                        {" "}
+                        <Link to="/orderhistory">הזמנות</Link>
+                      </MenuItem>
+                      <MenuItem>
+                        {" "}
+                        <Link to="/profile">פרופיל</Link>
+                      </MenuItem>
 
-              </HStack>
-              )
+                      <MenuItem>
+                        <Link to="/signIn" onClick={signoutHandlet}>
+                          התנתק
+                        </Link>
+                      </MenuItem>
+                      <MenuItem>
+                        <Link to="/" >
+                          דף הבית
+                        </Link>
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
 
-            </HStack>
-          ) : (
-            <HStack  color="#EEEEEE" gap={12} >
-              {/* dark mode and light mode and hamburger */}
-              <HStack>
-                <Menu>
-                  <MenuButton>
-                    <RxHamburgerMenu />
-                  </MenuButton>
-                  <MenuList color="#EEEEEE">
-                    <MenuItem>
-                      {" "}
-                      <Link to="/orderhistory">הזמנות</Link>
-                    </MenuItem>
-                    <MenuItem>
-                      {" "}
-                      <Link to="/profile">פרופיל</Link>
-                    </MenuItem>
 
-                    <MenuItem>
-                      <Link to="/signIn" onClick={signoutHandlet}>
-                        התנתק
-                      </Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Link to="/" >
-                        דף הבית
-                      </Link>
-                    </MenuItem>
-                  </MenuList>
-                </Menu>
 
-              </HStack>
-              )
-
-            </HStack>
-          ))}
-        <Stack  >
+                </HStack>
+              ))}
+          </Flex>
+         
+            <Link to="/">
+              <RxHome size={25} />
+            </Link>
+          
+<Flex>
           <Link to="/cart">
-          {cart.cartItems.length > 0 && (
-            <Button
-              _hover={"none"}
-              mt="-7"
-              ml="-7"
-              bg="none"
-              size="xs"
-            >
-              {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-            </Button>
-          )}
-
-            <Button _hover={"none"}
-              bg="none"  >
+            {cart.cartItems.length > 0 && (
+              <Button
+                _hover={"none"}
+                bg="none"
+                size="xs"
+              >
+                <Box mt="-6">
+                {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                </Box>
               <LuShoppingCart size={25} />
-            </Button>
+
+              </Button>
+            )}
+
+            
           </Link>
-
-        </Stack>
-        <Link to="/">
-          <RxHome size={25} />
-        </Link>
-
-      </HStack>
-
-      <Flex display={["none", "flex", "flex", "flex"]}  gap={9} ml="5" mt="-10">
-        <Box>
-          <BsFacebook size={25} />
-        </Box>
-        <Box>
-          <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
-            <FaWhatsapp size={25} />
-          </a>
-        </Box>
-        <Box>
-          <HiOutlineMail size={25} />
-        </Box>
+          </Flex>
         </Flex>
+
+        <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
+          <Box>
+            <BsFacebook size={25} />
+          </Box>
+          <Box>
+            <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
+              <FaWhatsapp size={25} />
+            </a>
+          </Box>
+          <Box>
+            <HiOutlineMail size={25} />
+          </Box>
+        </Flex>
+
+      </Flex>
     </Box>
   );
 }

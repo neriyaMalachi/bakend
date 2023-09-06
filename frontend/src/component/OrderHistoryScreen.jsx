@@ -93,16 +93,16 @@ function OrderHistoryScreen() {
         </Alert>
       ): 
       
-              <Box mt="3%" minH="70vh">
+              <Box bg="#393E46" color="#EEEEEE"  minH="70vh">
                 <TableContainer >
-                  <Table variant="simple">
+                  <Table>
                     <Thead>
-                      <Tr>
-                        <Th>מספר הזמנה</Th>
-                        <Th>סה"כ</Th>
-                        <Th>שולם</Th>
-                        <Th>נשלח</Th>
-                        <Th >פעולות</Th>
+                      <Tr  >
+                        <Th color="#EEEEEE">מספר הזמנה</Th>
+                        <Th color="#EEEEEE">סה"כ</Th>
+                        <Th color="#EEEEEE">שולם</Th>
+                        <Th color="#EEEEEE">נשלח</Th>
+                        <Th color="#EEEEEE" >פעולות</Th>
                       </Tr>
                     </Thead>
 
@@ -121,6 +121,7 @@ function OrderHistoryScreen() {
                             <Button
                               type="button"
                               color={"#00ADB5"}
+                              bg="#222831"
                               onClick={() => {
                                 navigate(`/order/${order._id}`);
                               }}

@@ -401,9 +401,9 @@ function PlaceOrderScreen() {
                     <HStack
                       key={item._id}
                       display="flex"
-                      gap={12}
+                      gap={10}
                       border=" 1px solid"
-                      borderRadius={20}
+                      borderRadius={10}
                       color="#EEEEEE"
                       dir="rtl"
                     >
