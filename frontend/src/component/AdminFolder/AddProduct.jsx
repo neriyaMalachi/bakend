@@ -60,7 +60,7 @@ function AddProduct() {
 
   return (
     <>
-      <Button bg="#00ADB5" w="20%" m="3%" onClick={onOpen}>הוסף מוצר</Button>
+      <Button bg="#00ADB5" w="20%" onClick={onOpen}>הוסף מוצר</Button>
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />

@@ -44,7 +44,7 @@ function NavBar() {
     <Box
       // position="fixed"
       w="100%"
-    // zIndex={1}
+      // zIndex={1}
     >
       <Box bg="#222831" color="white" textAlign="center">
         {" "}
@@ -65,13 +65,13 @@ function NavBar() {
         justifyContent={"space-between"}
         alignItems={"end"}
       >
-        <Flex  w={{ base:"60%", sm:"30%",md:"20%",lg:"10%" }} justifyContent={"space-around"} alignItems={"end"} >
-          <Flex  >
+        <Flex  w={{ base: "40%", sm: "30%", md: "20%", lg: "10%" }} justifyContent={"space-evenly"} alignItems={"end"} >
+          <Flex   >
             {!userInfo ? (
-                <Link to="/signin">התחבר</Link>
+              <Link to="/signin">התחבר</Link>
             ) : (
               userInfo.isAdmin ? (
-                <Menu>
+                <Menu >
                   <MenuButton>
                     <RxHamburgerMenu />
                   </MenuButton>
@@ -140,29 +140,29 @@ function NavBar() {
                 </HStack>
               ))}
           </Flex>
-         
+          <Flex >
             <Link to="/">
               <RxHome size={25} />
             </Link>
-          
-<Flex>
-          <Link to="/cart">
-            {cart.cartItems.length > 0 && (
-              <Button
-                _hover={"none"}
-                bg="none"
-                size="xs"
-              >
-                <Box mt="-6">
-                {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                </Box>
-              <LuShoppingCart size={25} />
+          </Flex>
+          <Flex>
+            <Link to="/cart">
+              {cart.cartItems.length > 0 && (
+                <Button
+                  _hover={"none"}
+                  bg="none"
+                  size="xs"
+                >
+                  <Box mt="-6">
+                    {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  </Box>
 
-              </Button>
-            )}
+                  <LuShoppingCart size={25} />
+                </Button>
+              )}
 
-            
-          </Link>
+
+            </Link>
           </Flex>
         </Flex>
 
