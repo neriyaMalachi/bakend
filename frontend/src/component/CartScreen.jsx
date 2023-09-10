@@ -18,6 +18,7 @@ import {
   Text,
   VStack,
   useMediaQuery,
+  useToast,
 } from "@chakra-ui/react";
 import {
   DeleteIcon,
@@ -33,7 +34,7 @@ import imagecart from "../img/image-for-cart.png"
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const [isLargerThen768] = useMediaQuery("(min-width:900px)");
-
+  const toast = useToast();
   const {
     cart: { cartItems },
   } = state;
@@ -42,7 +43,13 @@ function CartScreen() {
   const UpdateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/propertis/${item._id}`);
     if (data.countInStock < quantity) {
-      window.alert("Sorry. Product is out of stock");
+      toast({
+        title: '!בעיה ',
+        description: 'אזל מהמלאי',
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      })
       return;
     }
     ctxDispatch({
@@ -67,7 +74,7 @@ function CartScreen() {
         <VStack
           dir="rtl"
           py={"80px"}
-          h={isLargerThen768 ? "70vh" : "50vh"}
+          h={isLargerThen768 ? "75vh" : "50vh"}
           fontSize="2xl"
           bg="#393E46"
           color="#EEEEEE"

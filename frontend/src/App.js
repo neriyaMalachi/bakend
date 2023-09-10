@@ -23,6 +23,7 @@ import AddUser from "./component/AdminFolder/AddUser";
 import EditProductes from "./component/AdminFolder/EditProductes";
 import ForgetPassword from "./component/ForgetPassword";
 import NavBar from "./component/NavBar";
+import FaivoritsList from "./component/FaivoritsList";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/signup" element={<SignupScreen />} />
             <Route path="/payment" element={<PaymentMethodScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
+            <Route path="/faivoritList" element={<FaivoritsList />} />
             <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
             <Route
               path="/orderHistory"

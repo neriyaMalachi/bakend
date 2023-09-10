@@ -30,6 +30,13 @@ productRoute.get("/:id", async (req, res) => {
   console.log(product);
 });
 
+productRoute.post("addFaivoriProductToList/add/:id",async(req,res)=>{
+ 
+
+  
+})
+
+
 productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
   await Product.create(productDetail, (err, data) => {

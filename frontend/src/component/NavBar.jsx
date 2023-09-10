@@ -26,7 +26,7 @@ import { LuShoppingCart } from "react-icons/lu";
 import { BsFacebook } from "react-icons/bs";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-
+import {AiOutlineHeart, AiTwotoneHeart}from "react-icons/ai";
 function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -45,6 +45,7 @@ function NavBar() {
       // position="fixed"
       w="100%"
       // zIndex={1}
+    
     >
       <Box bg="#222831" color="white" textAlign="center">
         {" "}
@@ -65,7 +66,7 @@ function NavBar() {
         justifyContent={"space-between"}
         alignItems={"end"}
       >
-        <Flex  w={{ base: "40%", sm: "30%", md: "20%", lg: "10%" }} justifyContent={"space-evenly"} alignItems={"end"} >
+        <Flex  w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-evenly"} alignItems={"end"} >
           <Flex   >
             {!userInfo ? (
               <Link to="/signin">התחבר</Link>
@@ -145,25 +146,26 @@ function NavBar() {
               <RxHome size={25} />
             </Link>
           </Flex>
-          <Flex>
+          <Flex >
             <Link to="/cart">
               {cart.cartItems.length > 0 && (
-                <Button
-                  _hover={"none"}
-                  bg="none"
-                  size="xs"
+                <Flex
+                textAlign={"end"}
+                  fontSize={"70%"}
+                  // w="20%"
+                  m={"-2"}
                 >
-                  <Box mt="-6">
                     {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                  </Box>
-
-                  <LuShoppingCart size={25} />
-                </Button>
+                </Flex>
               )}
+              <LuShoppingCart size={25} />
 
 
             </Link>
           </Flex>
+        <Link to="/faivoritList">
+          <AiOutlineHeart color="red" size={25}/>
+        </Link>
         </Flex>
 
         <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
