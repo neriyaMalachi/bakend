@@ -122,6 +122,7 @@ function Orders() {
             <ModalCloseButton />
             <ModalHeader>{currentItem.shippingAddress?.fullName}</ModalHeader>
             <ModalBody dir="rtl" >
+           
               <ItemForOrder
               
                 id={currentItem._id}

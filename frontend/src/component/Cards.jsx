@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import {
   Image,
   Button,
@@ -21,6 +21,7 @@ function Cards(props) {
   const { product } = props;
   const toast = useToast();
   const { state, dispatch: ctxDispatch } = useContext(Store);
+  const [heart, setHeart] = useState("empty");
   const {
     cart: { cartItems },
   } = state;
@@ -30,7 +31,6 @@ function Cards(props) {
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/propertis/${item._id}`);
-    console.log(data);
     if (data.countInStock < quantity) {
       toast({
         title: '!בעיה ',
@@ -49,9 +49,12 @@ function Cards(props) {
 
 
   const addToFaivoritList = async (item) => {
-    
-    const {faivori} = await axios.get(`/api/propertis/${item._id}`);
-    console.log(faivori);
+
+    item.prventDefault();
+    axios.post("/api/favorite/faivorite/add", { item })
+      .then(() => {
+        console.log("success_faivorite");
+      }).catch((error) => console.log(error.message))
   }
   return (
 
@@ -100,9 +103,21 @@ function Cards(props) {
                   />
                 ))}
             </Box>
-            <Button _hover={"none"} bg="none" onClick={() => addToFaivoritList(product)}>
-              
-              <AiOutlineHeart />
+            <Button _hover={"none"} bg="none" onClick={() => {
+              addToFaivoritList(product)
+              if (heart === "empty") { setHeart("full") }
+              else { setHeart("empty") }
+            }
+            }>
+
+
+              {heart === "empty" ? (
+
+                <AiOutlineHeart size={25} color="red" />
+              ) : (
+
+                <AiTwotoneHeart size={25} color="red" />
+              )}
             </Button>
           </GridItem>
         </Grid>

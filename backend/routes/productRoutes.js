@@ -7,7 +7,6 @@ productRoute.get("/", async (req, res) => {
   const products = await Product.find();
   res.send(products);
 });
-
 //chack for slug
 productRoute.get("/slug/:slug", async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug });
@@ -18,7 +17,6 @@ productRoute.get("/slug/:slug", async (req, res) => {
   }
   console.log(product);
 });
-
 //chack for id
 productRoute.get("/:id", async (req, res) => {
   const product = await Product.findById(req.params.id);
@@ -29,14 +27,23 @@ productRoute.get("/:id", async (req, res) => {
   }
   console.log(product);
 });
+productRoute.post("addFaivoriProductToList/add/:id", async (req, res) => {
+  const faivorit = req.body;
+  await Faivorit.create(faivorit, (err, data) => {
+    if (err) {
+      console.log(err.message);
+      res.status(500).send(err.message);
+      console.log("success faivorit");
+    } else {
+      console.log(faivorit);
+      res.status(201).send(data);
+      console.log("error faivorit");
 
-productRoute.post("addFaivoriProductToList/add/:id",async(req,res)=>{
- 
+    }
+  })
 
-  
+
 })
-
-
 productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
   await Product.create(productDetail, (err, data) => {
@@ -49,12 +56,10 @@ productRoute.post("/addProducts/add", async (req, res) => {
     }
   });
 });
-
 productRoute.delete("/deleteProduct/:id", async (req, res) => {
   const result = await Product.deleteOne({ _id: req.params.id });
   res.send(result);
 });
-
 productRoute.put("/updateProducts/:id", async (req, res) => {
   let result = await Product.updateOne(
     { _id: req.params.id },
