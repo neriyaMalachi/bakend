@@ -1,6 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from 'mongoose';
 
-const FaivoriteSchema = mongoose.Schema({
+
+const FaivoriteSchema = new mongoose.Schema({
     name: { type: String, require: true, unique: true },
     category: { type: String, require: true },
     slug: { type: String, require: true, unique: true },
@@ -14,6 +15,5 @@ const FaivoriteSchema = mongoose.Schema({
 });
 
 
-module.exports=mongoose.Model("faivorite",FaivoriteSchema);
-
-
+const Faivorit=mongoose.model("faivorite",FaivoriteSchema);
+export default Faivorit;

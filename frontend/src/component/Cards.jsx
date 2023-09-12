@@ -50,7 +50,6 @@ function Cards(props) {
 
   const addToFaivoritList = async (item) => {
 
-    item.prventDefault();
     axios.post("/api/favorite/faivorite/add", { item })
       .then(() => {
         console.log("success_faivorite");
@@ -90,9 +89,7 @@ function Cards(props) {
             <Link to={`/product/${product.slug}`}>
               <Heading size="md">{product.name}</Heading>
             </Link>
-            <strong>
               <Text fontSize="2xl"> ₪{product.price}</Text>
-            </strong>
             <Box >
               {Array(5)
                 .fill("")
@@ -103,7 +100,7 @@ function Cards(props) {
                   />
                 ))}
             </Box>
-            <Button _hover={"none"} bg="none" onClick={() => {
+            <Text  bg="none" onClick={() => {
               addToFaivoritList(product)
               if (heart === "empty") { setHeart("full") }
               else { setHeart("empty") }
@@ -118,14 +115,14 @@ function Cards(props) {
 
                 <AiTwotoneHeart size={25} color="red" />
               )}
-            </Button>
+            </Text>
           </GridItem>
         </Grid>
       </CardBody>
 
       {product.countInStock !== "0" ? (
         <Button
-          _hover={"none"}
+      
           bg="#00ADB5"
           w="100%"
           onClick={() => addToCartHandler(product)}
