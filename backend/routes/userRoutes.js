@@ -126,6 +126,8 @@ userRouter.delete("/deleteuser/:id", async (req, res) => {
   const result = await User.deleteOne({ _id: req.params.id });
   res.send(result);
 });
+
+
 userRouter.post("/addUser", async (req, res) => {
   const userDetail = req.body;
   await User.create(userDetail, (err, data) => {

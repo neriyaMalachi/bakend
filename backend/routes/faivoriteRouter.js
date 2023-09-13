@@ -28,6 +28,12 @@ faivorite.post('/add', async (req, res) => {
 })
 
 
+faivorite.delete("/deleteFaivorit/:item",async (req, res) => {
+    const result = await Faivorite.deleteOne({ _id: req.params.item });
+    console.log(result);
+    res.send(result);
+  })
+
 
 export default faivorite;
 
