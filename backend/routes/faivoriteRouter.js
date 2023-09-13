@@ -6,19 +6,25 @@ const faivorite = express.Router();
 
 faivorite.get("/", async (req, res) => {
     const faivorite = await Faivorite.find();
-    res.send(faivorite);
+    res.status(200).send(faivorite);
 })
 
-faivorite.post('/faivorite/add', (req, res) => {
-    const faivorite = req.body;
-    console.log("faivorite detail >>>>>", faivorite);
-    faivorite.create(faivorite, (err, data) => {
-        if (err) {
-            res.status(500).send(err.message)
-        } else {
-            res.status(201).send(data)
-        }
-    })
+
+
+
+faivorite.post('/add', async (req, res) => {
+    const faivoriteDto = req.body;
+    const newFavourite = new Faivorite(faivoriteDto.item);
+    try {
+        const favourite = await newFavourite.save();
+        res.status(201).send(favourite)
+    } catch (err) {
+        console.log(err)
+        if (err.code === 11000)
+            res.status(409).send()
+
+        res.status(400).send()
+    }
 })
 
 

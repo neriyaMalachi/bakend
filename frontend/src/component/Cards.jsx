@@ -49,11 +49,12 @@ function Cards(props) {
 
 
   const addToFaivoritList = async (item) => {
-
-    axios.post("/api/favorite/faivorite/add", { item })
-      .then(() => {
-        console.log("success_faivorite");
-      }).catch((error) => console.log(error.message))
+    axios.post("http://localhost:5000/api/favorite/add", { item })
+    .then((error) => {
+      console.log(error.message)
+    }).catch(() => 
+      console.log("success")
+      )
   }
   return (
 

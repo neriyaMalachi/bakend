@@ -27,23 +27,7 @@ productRoute.get("/:id", async (req, res) => {
   }
   console.log(product);
 });
-productRoute.post("addFaivoriProductToList/add/:id", async (req, res) => {
-  const faivorit = req.body;
-  await Faivorit.create(faivorit, (err, data) => {
-    if (err) {
-      console.log(err.message);
-      res.status(500).send(err.message);
-      console.log("success faivorit");
-    } else {
-      console.log(faivorit);
-      res.status(201).send(data);
-      console.log("error faivorit");
 
-    }
-  })
-
-
-})
 productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
   await Product.create(productDetail, (err, data) => {
