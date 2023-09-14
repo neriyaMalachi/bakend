@@ -21,11 +21,12 @@ function Cards(props) {
   const { product } = props;
   const toast = useToast();
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const [heart, setHeart] = useState("empty");
+  const [heart, setHeart] = useState(false);
+  // const [faivorit, setFaivorit] = useState();
+
   const {
     cart: { cartItems },
   } = state;
-
 
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
@@ -46,16 +47,42 @@ function Cards(props) {
       payload: { ...item, quantity },
     });
   };
-
-
   const addToFaivoritList = async (item) => {
-    axios.post("http://localhost:5000/api/favorite/add", { item })
+    console.log(item)
+    axios.post("http://localhost:5000/api/users/add", { item })
     .then((error) => {
       console.log(error.message)
     }).catch(() => 
-      console.log("success")
+
+      console.log("success"),
       )
   }
+  const deleteFaivorit= async(item)=>{
+    await fetch(`http://localhost:3000/api/favorite/deleteFaivorit/${item}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+   }
+
+  //  const Editproduact = async (item) => {
+  //   console.log(item);
+  //   let result = await fetch(
+  //     `http://localhost:3000/api/favorite/update/${item}`,
+  //     {
+  //       method: "put",
+  //       body: JSON.stringify({
+  //       faivorit,
+  //       }),
+  //       // headers: {
+  //       //   "Content-Type": "Application/json",
+  //       // },
+  //     }
+  //   );
+  //   result = await result.json();
+  // };
+
   return (
 
 
@@ -102,14 +129,19 @@ function Cards(props) {
                 ))}
             </Box>
             <Text  bg="none" onClick={() => {
-              addToFaivoritList(product)
-              if (heart === "empty") { setHeart("full") }
-              else { setHeart("empty") }
+              if (heart === false) {
+                setHeart(true)
+                addToFaivoritList(product)
+                
+                }
+              else {
+                 setHeart(false) 
+                deleteFaivorit(product._id);
+                }
             }
             }>
 
-
-              {heart === "empty" ? (
+              {!heart ? (
 
                 <AiOutlineHeart size={25} color="red" />
               ) : (

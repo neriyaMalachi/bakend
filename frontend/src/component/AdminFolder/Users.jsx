@@ -22,6 +22,7 @@ function Users() {
   useEffect(() => {
     getUsers();
   }, []);
+  
   const getUsers = () => {
     fetch("http://localhost:5000/api/users/getAllUser", {
       method: "GET",
@@ -31,6 +32,7 @@ function Users() {
         (result) => {
           setIsLoaded(true);
           setItems(result);
+          console.log(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -50,6 +52,7 @@ function Users() {
       })
 
   };
+
   if (error) {
     return Toast({
       title: 'בעיה בהוספה',

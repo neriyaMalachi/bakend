@@ -17,7 +17,7 @@ import {
   useBreakpointValue,
   useColorMode,
 } from "@chakra-ui/react";
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
@@ -31,6 +31,11 @@ function NavBar() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
+  const [count,setCount]=useState("");
+  // useEffect(() => {
+  //   fetchData();
+  //   console.log("uu");
+  // })
   const signoutHandlet = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
@@ -38,8 +43,16 @@ function NavBar() {
     localStorage.removeItem("Paymentmethod");
     window.localStorage.href = "/signin";
   };
-
-
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch('http://localhost:5000/api/favorite')
+  //     const result = await response.json();
+  //     setCount(result.length)
+  //     console.log(count);
+  //   } catch (error) {
+  //     console.error('Error fetching data:', error);
+  //   }
+  // }
   return (
     <Box
       // position="fixed"
@@ -55,7 +68,6 @@ function NavBar() {
         </Text>{" "}
         לכל הארץ בהזמנה מעל{" "}
       </Box>
-
       <Flex
         py={3}
         bg="#222831"
@@ -164,7 +176,14 @@ function NavBar() {
             </Link>
           </Flex>
         <Link to="/faivoritList">
-          <AiOutlineHeart color="red" size={25}/>
+          {count > 0 ?(
+
+            <AiTwotoneHeart size={25} color="red" />
+            ):(
+            <AiOutlineHeart color="red" size={25}/>
+
+          )}
+
         </Link>
         </Flex>
 

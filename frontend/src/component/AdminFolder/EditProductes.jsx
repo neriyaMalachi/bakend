@@ -8,7 +8,6 @@ function EditProductes() {
   const [countInStock, setCountInStock] = useState("");
   const [description, setDescription] = useState("");
   const [slug, setSlug] = useState("");
-
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
   const [rating, setRating] = useState("");

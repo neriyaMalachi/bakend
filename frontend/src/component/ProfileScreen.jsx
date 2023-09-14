@@ -46,7 +46,7 @@ function ProfileScreen() {
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   });
-
+console.log(userInfo);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {

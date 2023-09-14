@@ -345,7 +345,7 @@ function OrderScreen() {
                         <Box  w="50%">
                           {isPending ? (
                             <Grid>
-                            <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+                            <GridItem bg="#393E46" display={"flex"} alignItems={"center"} justifyContent={"center"} >
                               <HashLoader color="#00ADB5" />
                             </GridItem>
                           </Grid>
@@ -359,7 +359,7 @@ function OrderScreen() {
                           )}
                           {loadingPay && 
                             <Grid>
-                            <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+                            <GridItem bg="#393E46"  display={"flex"} alignItems={"center"} justifyContent={"center"} >
                               <HashLoader color="#00ADB5" />
                             </GridItem>
                           </Grid>

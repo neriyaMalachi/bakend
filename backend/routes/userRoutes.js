@@ -4,6 +4,7 @@ import * as mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { isAuth, generateToken } from "../utils.js";
 import expressAsyncHandler from "express-async-handler";
+import Faivorit from "../models/faivoritListModel.js";
 
 const userRouter = express.Router();
 
@@ -140,5 +141,30 @@ userRouter.post("/addUser", async (req, res) => {
     }
   });
 })
+userRouter.post('/add', async (req, res) => {
+  const faivoriteDto = req.body;
+  // const newFavourite = new Faivorit(faivoriteDto.item);
+  const faivoritePerUser = new User(faivoriteDto.item)
+  try {
+      // const favourite = await newFavourite.save();
+      const favouriteforListUser = await faivoritePerUser.save();
 
+      // res.status(201).send(favourite)
+      res.status(201).send(favouriteforListUser)
+
+   
+  } catch (err) {
+      console.log(err)
+      if (err.code === 11000)
+          res.status(409).send()
+
+      res.status(400).send()
+  }
+})
+userRouter.get("/getAllListFaivoritProps", async (req, res) => {
+  const faivorite = await Faivorit.find();
+  console.log(faivorite);
+  res.status(200).send(faivorite);
+
+})
 export default userRouter;

@@ -24,20 +24,11 @@ function AddProduct() {
   const [countInStock, setCountInStock] = useState("");
   const [rating, setRating] = useState("");
   const [brand, setbrand] = useState("");
+  const [faivorit, setFaivorit] = useState(false);
   const [description, setDescription] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // const fromDate = new FormData();
-    // fromDate.append("image", image);
-    // const result = await axios.post("http:loclhost:5000/upload-image",
-    //   FormData,
-    //   {
-    //     headers: { "Content-Type": "multipart/form-data" },
-    //   }
-    // )
-
-
     await axios.post("/api/propertis/addProducts/add", {
       name,
       category,
@@ -46,22 +37,16 @@ function AddProduct() {
       price,
       countInStock,
       brand,
+      faivorit,
       rating,
       numReviews: 0,
       description,
     });
     onClose();
   };
-  const onInputChange = (e) => {
-
-    console.log(e.target.files[0]);
-    setImage(e.target.files[0]);
-  }
-
   return (
     <>
       <Button bg="#00ADB5" w="20%" onClick={onOpen}>הוסף מוצר</Button>
-
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent dir="rtl" bg="#222831" color="#EEEEEE">
@@ -139,7 +124,6 @@ function AddProduct() {
 
             </form>
           </ModalBody>
-
           <ModalFooter>
             <Button bg="#00ADB5" onClick={handleSubmit}>
               הוסף מוצר
