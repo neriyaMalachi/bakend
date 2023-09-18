@@ -30,7 +30,7 @@ function HomeFile() {
     error: "",
   });
   const [search, setSearch] = useState("");
-   console.log(propertis);
+  
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });

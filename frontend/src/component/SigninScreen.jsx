@@ -116,7 +116,7 @@ function SigninScreen() {
                   border="none"
                 />
                 {/* <InputLeftElement> */}
-                <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+                <Button h="1.75rem" bg="none"  size="sm" onClick={handleClick}>
                   {show ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
                 {/* </InputLeftElement> */}
@@ -136,7 +136,7 @@ function SigninScreen() {
               flexDirection="column"
               justifyContent="space-around"
             >
-              <Button type="submit" bg="#00ADB5" _hover={"none"} p="1%" w="40%">
+              <Button type="submit" bg="#00ADB5"  p="1%" w="40%">
                 התחבר
               </Button>
               <Box alignItems="end">

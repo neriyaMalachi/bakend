@@ -117,7 +117,7 @@ function SignupScreen() {
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+              <Button h="1.75rem" bg="none" size="sm" onClick={handleClick}>
                 {show ? <ViewIcon /> : <ViewOffIcon />}
               </Button>
               </InputGroup>
@@ -128,7 +128,7 @@ function SignupScreen() {
                 required
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <Button type="submit" bg="#00ADB5" _hover={"none"} p="1%" w="30%" mt="5%">
+              <Button type="submit" bg="#00ADB5" p="1%" w="30%" mt="5%">
                 הירשם
               </Button>
             </CardBody>

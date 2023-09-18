@@ -143,13 +143,10 @@ userRouter.post("/addUser", async (req, res) => {
 })
 userRouter.post('/add', async (req, res) => {
   const faivoriteDto = req.body;
-  // const newFavourite = new Faivorit(faivoriteDto.item);
   const faivoritePerUser = new User(faivoriteDto.item)
   try {
-      // const favourite = await newFavourite.save();
       const favouriteforListUser = await faivoritePerUser.save();
 
-      // res.status(201).send(favourite)
       res.status(201).send(favouriteforListUser)
 
    
