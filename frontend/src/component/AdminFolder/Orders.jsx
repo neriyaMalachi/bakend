@@ -67,7 +67,7 @@ function Orders() {
     </Grid>;
   } else {
     return (
-      <Box bg="#393E46">
+      <Box minH={"80vh"} bg="#393E46">
         <TableContainer>
           <Table size="sm">
             {items.map((item) => (

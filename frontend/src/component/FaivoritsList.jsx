@@ -9,7 +9,7 @@ function FaivoritsList() {
   }, [])
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/favorite/getAllListFaivoritProps')
+      const response = await fetch('http://localhost:5000/api/users/getAllListFaivoritProps')
       const result = await response.json();
       setData(result);
     } catch (error) {
@@ -35,6 +35,7 @@ function FaivoritsList() {
   
     minH={"75vh"}
     >
+      <Text textAlign={"center"} fontSize={"xx-large"}>מועדפים</Text>
       {data &&
    (   
         data.map(item => (

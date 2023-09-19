@@ -9,6 +9,7 @@ import {
   GridItem,
   Flex,
   useToast,
+  position,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -23,7 +24,7 @@ function Cards(props) {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const [heart, setHeart] = useState(false);
   // const [faivorit, setFaivorit] = useState();
-
+  const user = state.userInfo._id;
   const {
     cart: { cartItems },
   } = state;
@@ -48,22 +49,22 @@ function Cards(props) {
     });
   };
   const addToFaivoritList = async (item) => {
-    console.log(item)
-    axios.post("http://localhost:5000/api/users/add", { item })
-    .then((error) => {
-      console.log(error.message)
-    }).catch(() => 
-      console.log("success"),
+    // console.log(item,user);
+    axios.post(`http://localhost:3000/api/users/addFaivoritItem:${user}`, { item })
+      .then((error) => {
+        console.log(error.message)
+      }).catch(() =>
+        console.log("success"),
       )
   }
-  const deleteFaivorit= async(item)=>{
+  const deleteFaivorit = async (item) => {
     await fetch(`http://localhost:3000/api/favorite/deleteFaivorit/${item}`, {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json"
-        }
-      })
-   }
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json"
+      }
+    })
+  }
 
   //  const Editproduact = async (item) => {
   //   console.log(item);
@@ -116,7 +117,7 @@ function Cards(props) {
             <Link to={`/product/${product.slug}`}>
               <Heading size="md">{product.name}</Heading>
             </Link>
-              <Text fontSize="2xl"> ₪{product.price}</Text>
+            <Text fontSize="2xl"> ₪{product.price}</Text>
             <Box >
               {Array(5)
                 .fill("")
@@ -127,16 +128,16 @@ function Cards(props) {
                   />
                 ))}
             </Box>
-            <Text  bg="none" onClick={() => {
+            <Text bg="none" onClick={() => {
               if (heart === false) {
                 setHeart(true)
-                addToFaivoritList(product)
-                
-                }
+                addToFaivoritList(product,user)
+
+              }
               else {
-                 setHeart(false) 
+                setHeart(false)
                 deleteFaivorit(product._id);
-                }
+              }
             }
             }>
 
@@ -154,7 +155,7 @@ function Cards(props) {
 
       {product.countInStock !== "0" ? (
         <Button
-      
+          id="button"
           bg="#00ADB5"
           w="100%"
           onClick={() => addToCartHandler(product)}

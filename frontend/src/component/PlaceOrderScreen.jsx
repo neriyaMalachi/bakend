@@ -54,6 +54,7 @@ function PlaceOrderScreen() {
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(0);
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: "CREATE_REQUEST" });
@@ -84,6 +85,8 @@ function PlaceOrderScreen() {
       console.log(getError(err));
     }
   };
+
+
   useEffect(() => {
     if (!cart.paymentMethod) {
       navigate("/payment");

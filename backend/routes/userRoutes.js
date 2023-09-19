@@ -141,22 +141,22 @@ userRouter.post("/addUser", async (req, res) => {
     }
   });
 })
-userRouter.post('/add', async (req, res) => {
+userRouter.post('/addFaivoritItem:id', async (req, res) => {
+  const result = await User.findById({ _id: req.params.id });
+
   const faivoriteDto = req.body;
-  const faivoritePerUser = new User(faivoriteDto.item)
-  try {
-      const favouriteforListUser = await faivoritePerUser.save();
+  console.log(faivoriteDto,result);
+  // const faivoritePerUser = new User(faivoriteDto.item)
+  // try {
+  //   const favouriteforListUser = await faivoritePerUser.save();
+  //   res.status(201).send(favouriteforListUser)
+  // } catch (err) {
+  //   console.log(err)
+  //   if (err.code === 11000)
+  //     res.status(409).send()
+  //   res.status(400).send()
+  // }
 
-      res.status(201).send(favouriteforListUser)
-
-   
-  } catch (err) {
-      console.log(err)
-      if (err.code === 11000)
-          res.status(409).send()
-
-      res.status(400).send()
-  }
 })
 userRouter.get("/getAllListFaivoritProps", async (req, res) => {
   const faivorite = await Faivorit.find();
