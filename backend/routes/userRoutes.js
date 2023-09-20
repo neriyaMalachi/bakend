@@ -112,8 +112,6 @@ userRouter.post('/change-password', async (req, res) => {
 
   res.status(200).json({ message: 'Password updated successfully' });
 });
-
-
 userRouter.get("/getAllUser", async (req, res) => {
   try {
     const allUser = await User.find({});
@@ -122,13 +120,10 @@ userRouter.get("/getAllUser", async (req, res) => {
     console.log(error);
   }
 });
-
 userRouter.delete("/deleteuser/:id", async (req, res) => {
   const result = await User.deleteOne({ _id: req.params.id });
   res.send(result);
 });
-
-
 userRouter.post("/addUser", async (req, res) => {
   const userDetail = req.body;
   await User.create(userDetail, (err, data) => {
@@ -141,27 +136,49 @@ userRouter.post("/addUser", async (req, res) => {
     }
   });
 })
-userRouter.post('/addFaivoritItem:id', async (req, res) => {
-  const result = await User.findById({ _id: req.params.id });
-
-  const faivoriteDto = req.body;
-  console.log(faivoriteDto,result);
-  // const faivoritePerUser = new User(faivoriteDto.item)
-  // try {
-  //   const favouriteforListUser = await faivoritePerUser.save();
-  //   res.status(201).send(favouriteforListUser)
-  // } catch (err) {
-  //   console.log(err)
-  //   if (err.code === 11000)
-  //     res.status(409).send()
-  //   res.status(400).send()
-  // }
+userRouter.post('/addFaivoritItem/:id', async (req, res) => {
+  try {
+    const user = await User.findById({ _id: req.params.id });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    const favouriteProduct = req.body;
+    console.log(user);
+    const ObjectId = mongoose.Types.ObjectId;
+    user.faivorit.push(ObjectId(favouriteProduct.item._id));
+    await user.save();
+    res.json({ message: 'Product added to user successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+})
+userRouter.get("/getAllListFaivoritProps/:id", async (req, res) => {
+  const user = await User.findById({ _id: req.params.id });
+  const faivoritelist = (await user.populate('faivorit')).faivorit;
+  console.log(faivoritelist);
+  res.status(200).send(faivoritelist);
 
 })
-userRouter.get("/getAllListFaivoritProps", async (req, res) => {
-  const faivorite = await Faivorit.find();
-  console.log(faivorite);
-  res.status(200).send(faivorite);
+userRouter.delete("/deleteFaivourite", async (req, res) => {
+  console.log('body', req.body)
+  const ObjectId = mongoose.Types.ObjectId;
+  await User.updateOne({ _id: req.body.userId },
+    {
+      $pull: {
+        'faivorit': ObjectId(req.body.productId)
+      }
+    }
+  ).exec();
+  res.send(true);
 
+  // console.log(result);
+
+  // const result = await user.faivorit.deleteOne({ id: req.params.id });
+
+  // console.log(req.params.id);
+  // res.send(result);
 })
+
+
 export default userRouter;

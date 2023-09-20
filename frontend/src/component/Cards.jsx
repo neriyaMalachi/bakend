@@ -21,10 +21,12 @@ import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 function Cards(props) {
   const { product } = props;
   const toast = useToast();
-  const { state, dispatch: ctxDispatch } = useContext(Store);
   const [heart, setHeart] = useState(false);
-  // const [faivorit, setFaivorit] = useState();
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+
   const user = state.userInfo._id;
+  // const [faivorit, setFaivorit] = useState();
+  const id = state.userInfo._id;
   const {
     cart: { cartItems },
   } = state;
@@ -49,21 +51,35 @@ function Cards(props) {
     });
   };
   const addToFaivoritList = async (item) => {
-    // console.log(item,user);
-    axios.post(`http://localhost:3000/api/users/addFaivoritItem:${user}`, { item })
-      .then((error) => {
-        console.log(error.message)
-      }).catch(() =>
-        console.log("success"),
-      )
+    console.log(item);
+    try {
+      axios.post(`http://localhost:5000/api/users/addFaivoritItem/${id}`,{
+         item,
+        })
+      // console.log("success")
+    } catch (error) {
+
+      console.log(error.message)
+    }
   }
   const deleteFaivorit = async (item) => {
-    await fetch(`http://localhost:3000/api/favorite/deleteFaivorit/${item}`, {
+    console.log(item);
+    const requestBody = {
+      userId: user,
+      productId: item,
+    }
+    await fetch(`http://localhost:5000/api/users/deleteFaivourite`, {
+      body: JSON.stringify(requestBody),
       method: "DELETE",
       headers: {
         "Content-type": "application/json"
       }
     })
+      .then((result) => {
+        result.json().then((resp) => {
+        
+        });
+      })
   }
 
   //  const Editproduact = async (item) => {
@@ -131,12 +147,12 @@ function Cards(props) {
             <Text bg="none" onClick={() => {
               if (heart === false) {
                 setHeart(true)
-                addToFaivoritList(product,user)
+                addToFaivoritList(product)
 
               }
               else {
                 setHeart(false)
-                deleteFaivorit(product._id);
+                deleteFaivorit(product._id,user);
               }
             }
             }>
