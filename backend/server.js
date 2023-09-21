@@ -7,7 +7,6 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRoute from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
-import faivoriteRouter from "./routes/faivoriteRouter.js"
 dotenv.config();
 const app = express();
 app.use(cors())
@@ -55,7 +54,6 @@ app.use("/api/seed", seedRouter);
 app.use("/api/propertis", productRoute);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/favorite", faivoriteRouter);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

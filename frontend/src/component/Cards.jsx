@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Image,
   Button,
@@ -23,14 +23,14 @@ function Cards(props) {
   const toast = useToast();
   const [heart, setHeart] = useState(false);
   const { state, dispatch: ctxDispatch } = useContext(Store);
-
   const user = state.userInfo._id;
-  // const [faivorit, setFaivorit] = useState();
   const id = state.userInfo._id;
   const {
     cart: { cartItems },
   } = state;
-
+  useEffect(() => {
+    checkIfAFaivoritExists(product._id,id);
+  }, [])
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -51,14 +51,11 @@ function Cards(props) {
     });
   };
   const addToFaivoritList = async (item) => {
-    console.log(item);
     try {
-      axios.post(`http://localhost:5000/api/users/addFaivoritItem/${id}`,{
-         item,
-        })
-      // console.log("success")
+      axios.post(`http://localhost:5000/api/users/addFaivoritItem/${id}`, {
+        item,
+      })
     } catch (error) {
-
       console.log(error.message)
     }
   }
@@ -77,28 +74,20 @@ function Cards(props) {
     })
       .then((result) => {
         result.json().then((resp) => {
-        
+
         });
       })
   }
-
-  //  const Editproduact = async (item) => {
-  //   console.log(item);
-  //   let result = await fetch(
-  //     `http://localhost:3000/api/favorite/update/${item}`,
-  //     {
-  //       method: "put",
-  //       body: JSON.stringify({
-  //       faivorit,
-  //       }),
-  //       // headers: {
-  //       //   "Content-Type": "Application/json",
-  //       // },
-  //     }
-  //   );
-  //   result = await result.json();
-  // };
-
+  const checkIfAFaivoritExists = async (item) => {
+    const requestBody = {
+      userId: user,
+      productId: item,
+    }
+    const response = axios.post("http://localhost:5000/api/users/checkIfAFaivoritExists", requestBody)
+    // setHeart(response)
+    // console.log(heart);
+    console.log ((await response).data)
+  }
   return (
 
 
@@ -152,7 +141,7 @@ function Cards(props) {
               }
               else {
                 setHeart(false)
-                deleteFaivorit(product._id,user);
+                deleteFaivorit(product._id, user);
               }
             }
             }>
@@ -160,9 +149,9 @@ function Cards(props) {
               {!heart ? (
 
                 <AiOutlineHeart size={25} color="red" />
-              ) : (
+                ) : (
+                  <AiTwotoneHeart size={25} color="red" /> 
 
-                <AiTwotoneHeart size={25} color="red" />
               )}
             </Text>
           </GridItem>

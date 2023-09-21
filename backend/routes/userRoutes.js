@@ -4,7 +4,6 @@ import * as mongoose from "mongoose";
 import bcrypt from "bcryptjs";
 import { isAuth, generateToken } from "../utils.js";
 import expressAsyncHandler from "express-async-handler";
-import Faivorit from "../models/faivoritListModel.js";
 
 const userRouter = express.Router();
 
@@ -45,7 +44,6 @@ userRouter.post("/forgetPassword",
     }
   })
 );
-
 userRouter.post("/signup",
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
@@ -63,7 +61,6 @@ userRouter.post("/signup",
     });
   })
 );
-
 userRouter.put("/profile",
   isAuth,
   expressAsyncHandler(async (req, res) => {
@@ -88,7 +85,6 @@ userRouter.put("/profile",
     }
   })
 );
-
 userRouter.post('/change-password', async (req, res) => {
   const { password } = req.body;
   const { email } = req.body;
@@ -143,7 +139,7 @@ userRouter.post('/addFaivoritItem/:id', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
     const favouriteProduct = req.body;
-    console.log(user);
+    
     const ObjectId = mongoose.Types.ObjectId;
     user.faivorit.push(ObjectId(favouriteProduct.item._id));
     await user.save();
@@ -156,12 +152,10 @@ userRouter.post('/addFaivoritItem/:id', async (req, res) => {
 userRouter.get("/getAllListFaivoritProps/:id", async (req, res) => {
   const user = await User.findById({ _id: req.params.id });
   const faivoritelist = (await user.populate('faivorit')).faivorit;
-  console.log(faivoritelist);
   res.status(200).send(faivoritelist);
 
 })
 userRouter.delete("/deleteFaivourite", async (req, res) => {
-  console.log('body', req.body)
   const ObjectId = mongoose.Types.ObjectId;
   await User.updateOne({ _id: req.body.userId },
     {
@@ -171,14 +165,17 @@ userRouter.delete("/deleteFaivourite", async (req, res) => {
     }
   ).exec();
   res.send(true);
-
-  // console.log(result);
-
-  // const result = await user.faivorit.deleteOne({ id: req.params.id });
-
-  // console.log(req.params.id);
-  // res.send(result);
 })
+userRouter.post("/checkIfAFaivoritExists", async (req, res) => {
+  // console.log("item"+req.body.productId);
+  
+  const user = await User.findById({ _id: req.body.userId });
+  const item = user.faivorit.find(faivorit => faivorit.toString() === req.body.productId );
+  console.log("item", item);
 
+  
+  if (item ){ res.send(true);}
+  else{res.send(false)}
+})
 
 export default userRouter;

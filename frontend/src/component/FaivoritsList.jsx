@@ -21,7 +21,6 @@ function FaivoritsList() {
   }
 
   const deleteFaivorit = async (item) => {
-    console.log(item);
     const requestBody = {
       userId: user,
       productId: item,
