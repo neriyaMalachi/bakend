@@ -1,41 +1,27 @@
-import { ChevronDownIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
   Box,
-  Button,
   Flex,
-  Grid,
-  GridItem,
   HStack,
-  IconButton,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
-  Stack,
   Text,
-  useBreakpoint,
-  useBreakpointValue,
-  useColorMode,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { Store } from "../Store";
 import { RxHamburgerMenu, RxHome } from "react-icons/rx";
 import { LuShoppingCart } from "react-icons/lu";
 import { BsFacebook } from "react-icons/bs";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import {AiOutlineHeart, AiTwotoneHeart}from "react-icons/ai";
+import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 function NavBar() {
-  const { colorMode, toggleColorMode } = useColorMode();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
-  const [count,setCount]=useState("");
-  // useEffect(() => {
-  //   fetchData();
-  //   console.log("uu");
-  // })
+  const [count, setCount] = useState("");
+
   const signoutHandlet = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
@@ -43,22 +29,12 @@ function NavBar() {
     localStorage.removeItem("Paymentmethod");
     window.localStorage.href = "/signin";
   };
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch('http://localhost:5000/api/favorite')
-  //     const result = await response.json();
-  //     setCount(result.length)
-  //     console.log(count);
-  //   } catch (error) {
-  //     console.error('Error fetching data:', error);
-  //   }
-  // }
   return (
     <Box
       // position="fixed"
       w="100%"
-      // zIndex={1}
-    
+    // zIndex={1}
+
     >
       <Box bg="#222831" color="white" textAlign="center">
         {" "}
@@ -78,7 +54,7 @@ function NavBar() {
         justifyContent={"space-between"}
         alignItems={"end"}
       >
-        <Flex  w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-evenly"} alignItems={"end"} >
+        <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-evenly"} alignItems={"end"} >
           <Flex   >
             {!userInfo ? (
               <Link to="/signin">התחבר</Link>
@@ -147,9 +123,6 @@ function NavBar() {
                       </MenuItem>
                     </MenuList>
                   </Menu>
-
-
-
                 </HStack>
               ))}
           </Flex>
@@ -162,12 +135,11 @@ function NavBar() {
             <Link to="/cart">
               {cart.cartItems.length > 0 && (
                 <Flex
-                textAlign={"end"}
+                  textAlign={"end"}
                   fontSize={"70%"}
-                  // w="20%"
                   m={"-2"}
                 >
-                    {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                 </Flex>
               )}
               <LuShoppingCart size={25} />
@@ -175,16 +147,16 @@ function NavBar() {
 
             </Link>
           </Flex>
-        <Link to="/faivoritList">
-          {count > 0 ?(
+          <Link to="/faivoritList">
+            {count > 0 ? (
 
-            <AiTwotoneHeart size={25} color="red" />
-            ):(
-            <AiOutlineHeart color="red" size={25}/>
+              <AiTwotoneHeart size={25} color="red" />
+            ) : (
+              <AiOutlineHeart color="red" size={25} />
 
-          )}
+            )}
 
-        </Link>
+          </Link>
         </Flex>
 
         <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">

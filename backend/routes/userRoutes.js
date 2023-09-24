@@ -139,7 +139,6 @@ userRouter.post('/addFaivoritItem/:id', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
     const favouriteProduct = req.body;
-    
     const ObjectId = mongoose.Types.ObjectId;
     user.faivorit.push(ObjectId(favouriteProduct.item._id));
     await user.save();
@@ -167,13 +166,8 @@ userRouter.delete("/deleteFaivourite", async (req, res) => {
   res.send(true);
 })
 userRouter.post("/checkIfAFaivoritExists", async (req, res) => {
-  // console.log("item"+req.body.productId);
-  
   const user = await User.findById({ _id: req.body.userId });
   const item = user.faivorit.find(faivorit => faivorit.toString() === req.body.productId );
-  console.log("item", item);
-
-  
   if (item ){ res.send(item._id);}
   else{res.send(false)}
 })

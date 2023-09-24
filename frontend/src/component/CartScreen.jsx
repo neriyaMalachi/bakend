@@ -244,7 +244,9 @@ function CartScreen() {
                             >
                               <Button
                                 fontSize="xl"
-                                colorScheme="white"
+                                color="white"
+                                bg="none"
+
                                 onClick={() =>
                                   UpdateCartHandler(item, item.quantity + 1)
                                 }
@@ -254,7 +256,8 @@ function CartScreen() {
                               </Button>{" "}
                               <Text>{item.quantity}</Text>{" "}
                               <Button
-                                colorScheme="white"
+                                color="white"
+                                bg="none"
                                 fontSize="xl"
                                 onClick={() =>
                                   UpdateCartHandler(item, item.quantity - 1)
