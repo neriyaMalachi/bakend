@@ -51,6 +51,7 @@ function Cards(props) {
     });
   };
   const addToFaivoritList = async (item) => {
+    
     try {
       axios.post(`http://localhost:5000/api/users/addFaivoritItem/${id}`, {
         item,
@@ -84,9 +85,11 @@ function Cards(props) {
       productId: item,
     }
     const response = axios.post("http://localhost:5000/api/users/checkIfAFaivoritExists", requestBody)
-    // setHeart(response)
-    // console.log(heart);
-    console.log ((await response).data)
+   if((await response).data === false){
+    setHeart(false)
+   }else{
+    setHeart(true)
+   }
   }
   return (
 

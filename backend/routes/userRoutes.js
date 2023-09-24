@@ -174,7 +174,7 @@ userRouter.post("/checkIfAFaivoritExists", async (req, res) => {
   console.log("item", item);
 
   
-  if (item ){ res.send(true);}
+  if (item ){ res.send(item._id);}
   else{res.send(false)}
 })
 
