@@ -16,7 +16,8 @@ import { LuShoppingCart } from "react-icons/lu";
 import { BsFacebook } from "react-icons/bs";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
-import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
+import { MdOutlineReviews } from "react-icons/md"
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -126,39 +127,29 @@ function NavBar() {
                 </HStack>
               ))}
           </Flex>
-          <Flex >
-            <Link to="/">
-              <RxHome size={25} />
-            </Link>
-          </Flex>
-          <Flex >
-            <Link to="/cart">
-              {cart.cartItems.length > 0 && (
-                <Flex
-                  textAlign={"end"}
-                  fontSize={"70%"}
-                  m={"-2"}
-                >
-                  {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                </Flex>
-              )}
-              <LuShoppingCart size={25} />
-
-
-            </Link>
-          </Flex>
-          <Link to="/faivoritList">
-            {count > 0 ? (
-
-              <AiTwotoneHeart size={25} color="red" />
-            ) : (
-              <AiOutlineHeart color="red" size={25} />
-
+          <Link to="/">
+            <RxHome size={25} />
+          </Link>
+         
+          <Link to="/cart">
+            {cart.cartItems.length > 0 && (
+              <Flex
+                textAlign={"end"}
+                fontSize={"70%"}
+                m={"-2"}
+              >
+                {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+              </Flex>
             )}
-
+            <LuShoppingCart size={25} />
+          </Link>
+          <Link to="/reviewFile">
+            <MdOutlineReviews size={23} />
+          </Link>
+          <Link to="/faivoritList">
+            <AiOutlineHeart color="red" size={25} />
           </Link>
         </Flex>
-
         <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
           <Box>
             <BsFacebook size={25} />

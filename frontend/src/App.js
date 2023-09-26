@@ -24,6 +24,7 @@ import EditProductes from "./component/AdminFolder/EditProductes";
 import ForgetPassword from "./component/ForgetPassword";
 import NavBar from "./component/NavBar";
 import FaivoritsList from "./component/FaivoritsList";
+import ReviewFile from "./component/ReviewFile";
 
 function App() {
   return (
@@ -40,6 +41,8 @@ function App() {
             <Route path="/payment" element={<PaymentMethodScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
             <Route path="/faivoritList" element={<FaivoritsList />} />
+            <Route path="/reviewFile" element={<ReviewFile />} />
+
             <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
             <Route
               path="/orderHistory"

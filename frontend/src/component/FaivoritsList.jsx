@@ -81,11 +81,11 @@ function FaivoritsList() {
       })
   }
   return (
-    <>
+    <Box  bg="#393E46">
     <Text textAlign={"center"} fontSize={"xx-large"}>מועדפים</Text>
     <Box
       display="flex"
-
+     
       flexWrap="wrap"
       justifyContent="space-evenly"
       minH={"75vh"}
@@ -172,7 +172,7 @@ function FaivoritsList() {
 
       }
     </Box>
-    </>
+    </Box>
   )
 }
 

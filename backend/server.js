@@ -1,5 +1,4 @@
 import express from "express";
-import data from "./data.js";
 import mongoose from "mongoose";
 import cors from "cors"
 import dotenv from "dotenv";
@@ -7,6 +6,7 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRoute from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
+import reviewRouter from "./models/reviewsModel.js"
 dotenv.config();
 const app = express();
 app.use(cors())
@@ -18,25 +18,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/Store_N")
 app.listen(3001,()=>{
   console.log("new server conect");
 })
-
-
-
-
-
-
-
-// mongoose.set('strictQuery', false)
-// mongoose
-//   .connect(process.env.MONGODB_URI, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-//   })
-//   .then(() => {
-//     console.log("connected to db");
-//   })
-//   .catch((err) => {
-//     console.log(err.message);
-//   });
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -54,6 +35,8 @@ app.use("/api/seed", seedRouter);
 app.use("/api/propertis", productRoute);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
+app.use("/api/review", reviewRouter);
+
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
@@ -62,5 +45,4 @@ app.use((err, req, res, next) => {
 const port = process.env.PORT || 5000;
 app.listen(port, () => {
   console.log(`server at http://localhost:${port}`);
-  // console.log(data.propertis);
 });
