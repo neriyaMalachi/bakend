@@ -2,7 +2,10 @@ import express from "express";
 import Review from "../models/reviewsModel.js";
 
 const reviewRouter = express.Router();
-
+reviewRouter.get("/", async (req, res) => {
+    const reviews = await Review.find();
+    res.send(reviews);
+  });
 reviewRouter.post("/addReview", async (req, res) => {
     const reviewDetail = req.body;
     await Review.create(reviewDetail, (err, data) => {

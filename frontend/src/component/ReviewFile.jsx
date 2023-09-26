@@ -1,13 +1,32 @@
 import { Box, Button, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react'
 import axios from 'axios';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Store } from "../Store";
 
 function ReviewFile() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [review, setReview] = useState();
+  const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const user = state.userInfo.name;
+  useEffect(() => {
+    getReviews();
+  }, []);
+  const getReviews = () => {
+    fetch("http://localhost:5000/api/reviews", {
+      method: "GET",
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setItems(result);
+        },
+        (error) => {
+          setError(error);
+        }
+      );
+  };
   const handleSubmit = async(e) => {
     e.preventDefault();
 console.log(review);
@@ -50,6 +69,13 @@ await axios.post("/api/reviews/addReview",{
           </ModalFooter>
         </ModalContent>
       </Modal>
+
+{items.map((item,index)=>(
+  <Text>
+    {item.review}
+  </Text>
+))}
+
 
     </Box>
   )
