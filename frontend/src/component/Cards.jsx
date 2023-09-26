@@ -10,6 +10,7 @@ import {
   Flex,
   useToast,
   position,
+  Icon,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -17,7 +18,8 @@ import axios from "axios";
 import { Store } from "../Store";
 import { StarIcon } from "@chakra-ui/icons";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
-
+import './stayle/stayle.css';
+// import Heart from "react-animated-heart";
 function Cards(props) {
   const { product } = props;
   const toast = useToast();
@@ -29,7 +31,7 @@ function Cards(props) {
     cart: { cartItems },
   } = state;
   useEffect(() => {
-    checkIfAFaivoritExists(product._id,id);
+    checkIfAFaivoritExists(product._id, id);
   }, [])
   const addToCartHandler = async (item) => {
     const existItem = cartItems.find((x) => x._id === product._id);
@@ -51,7 +53,7 @@ function Cards(props) {
     });
   };
   const addToFaivoritList = async (item) => {
-    
+
     try {
       axios.post(`http://localhost:5000/api/users/addFaivoritItem/${id}`, {
         item,
@@ -61,7 +63,7 @@ function Cards(props) {
     }
   }
   const deleteFaivorit = async (item) => {
-    console.log(item);
+ 
     const requestBody = {
       userId: user,
       productId: item,
@@ -85,11 +87,11 @@ function Cards(props) {
       productId: item,
     }
     const response = axios.post("http://localhost:5000/api/users/checkIfAFaivoritExists", requestBody)
-   if((await response).data === false){
-    setHeart(false)
-   }else{
-    setHeart(true)
-   }
+    if ((await response).data === false) {
+      setHeart(false)
+    } else {
+      setHeart(true)
+    }
   }
   return (
 
@@ -105,21 +107,43 @@ function Cards(props) {
       bg="#393E46"
       color="white"
     >
-      <CardBody p={0} dir="rtl">
+      <CardBody className="container" p={0} dir="rtl">
         <Grid>
           <GridItem>
             <Link to={`/product/${product.slug}`}>
-              <Image
-                filter="contrast(90%)"
-                _hover={{ filter: "contrast(100%)" }}
-                objectFit="fill"
-                src={product.image}
-                alt={product.name}
-                w="100%"
-                maxH="350px"
-                borderRadius="5%"
-              />
+                <Image
+                  _hover={{ filter: "contrast(100%)" }}
+                  objectFit="fill"
+                  src={product.image}
+                  alt={product.name}
+                  w="100%"
+                  maxH="350px"
+                  borderRadius="5%"
+                />
             </Link>
+            <Box className="overlay">
+              <Button _hover={"none"} bg="none" onClick={() => {
+                if (heart === false) {
+                  setHeart(true)
+                  addToFaivoritList(product)
+
+                }
+                else {
+                  setHeart(false)
+                  deleteFaivorit(product._id, user);
+                }
+              }
+              }>
+                {!heart ? (
+
+                  <AiOutlineHeart size={25} color="red" />
+                ) : (
+                  <AiTwotoneHeart size={25} color="red" />
+
+                )}
+              </Button>
+            </Box>
+
           </GridItem>
           <GridItem py={3} pr={2} lineHeight="40px">
             <Link to={`/product/${product.slug}`}>
@@ -136,30 +160,20 @@ function Cards(props) {
                   />
                 ))}
             </Box>
-            <Text bg="none" onClick={() => {
-              if (heart === false) {
-                setHeart(true)
-                addToFaivoritList(product)
 
-              }
-              else {
-                setHeart(false)
-                deleteFaivorit(product._id, user);
-              }
-            }
-            }>
-
-              {!heart ? (
-
-                <AiOutlineHeart size={25} color="red" />
-                ) : (
-                  <AiTwotoneHeart size={25} color="red" /> 
-
-              )}
-            </Text>
           </GridItem>
         </Grid>
       </CardBody>
+
+
+
+
+
+
+
+
+
+
 
       {product.countInStock !== "0" ? (
         <Button
