@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const reviewSchema = new mongoose.Schema(
   {
-    name: { type: String, require: true, unique: true },
-    description: { type: String, require: true },
+    user: { type: String, require: true },
+    review: { type: String, require: true },
   },
   {
     timestamps: true,

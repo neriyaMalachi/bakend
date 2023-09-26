@@ -6,7 +6,7 @@ import seedRouter from "./routes/seedRoutes.js";
 import productRoute from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
-import reviewRouter from "./models/reviewsModel.js"
+import reviewRouter from "./routes/reviewRoutes.js";
 dotenv.config();
 const app = express();
 app.use(cors())
@@ -35,7 +35,7 @@ app.use("/api/seed", seedRouter);
 app.use("/api/propertis", productRoute);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
-app.use("/api/review", reviewRouter);
+app.use("/api/reviews", reviewRouter);
 
 
 app.use((err, req, res, next) => {
