@@ -19,7 +19,6 @@ import { Store } from "../Store";
 import { StarIcon } from "@chakra-ui/icons";
 import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import './stayle/stayle.css';
-// import Heart from "react-animated-heart";
 function Cards(props) {
   const { product } = props;
   const toast = useToast();
