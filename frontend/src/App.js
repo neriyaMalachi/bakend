@@ -42,7 +42,6 @@ function App() {
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
             <Route path="/faivoritList" element={<FaivoritsList />} />
             <Route path="/reviewFile" element={<ReviewFile />} />
-
             <Route path="/shipping" element={<ShippingAddressScreen />}></Route>
             <Route
               path="/orderHistory"

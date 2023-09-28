@@ -22,7 +22,7 @@ reviewRouter.post("/addReview", async (req, res) => {
 
 
 })
-reviewRouter.put("/editeReview", async (req, res) => {
+reviewRouter.put("/editeReview/:id", async (req, res) => {
     let newReview = await Review.updateOne(
         { _id: req.params.id },
         { $set: req.body }
@@ -30,6 +30,13 @@ reviewRouter.put("/editeReview", async (req, res) => {
     res.send(newReview);
 
 })
-
+reviewRouter.get("/checkIfExists", async (req, res) => {
+    const review = await Review.findOne({ email: req.body.email });
+    if (!review) {
+        res.send(false);
+    } else {
+        res.send(review);
+    }
+})
 
 export default reviewRouter;
