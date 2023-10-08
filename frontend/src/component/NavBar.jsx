@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   HStack,
   Menu,
@@ -7,9 +8,22 @@ import {
   MenuItem,
   MenuList,
   Text,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  Input,
+  IconButton,
+  useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
 import { Store } from "../Store";
 import { RxHamburgerMenu, RxHome } from "react-icons/rx";
 import { LuShoppingCart } from "react-icons/lu";
@@ -18,11 +32,12 @@ import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { MdOutlineReviews } from "react-icons/md"
+import ReviewFile from "./ReviewFile";
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
-  const [count, setCount] = useState("");
-
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const btnRef = React.useRef()
   const signoutHandlet = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
@@ -30,13 +45,9 @@ function NavBar() {
     localStorage.removeItem("Paymentmethod");
     window.localStorage.href = "/signin";
   };
-  return (
-    <Box
-      // position="fixed"
-      w="100%"
-    // zIndex={1}
 
-    >
+  return (
+    <>
       <Box bg="#222831" color="white" textAlign="center">
         {" "}
         699 משלוחים{" "}
@@ -55,101 +66,155 @@ function NavBar() {
         justifyContent={"space-between"}
         alignItems={"end"}
       >
+
+
         <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-evenly"} alignItems={"end"} >
-          <Flex   >
             {!userInfo ? (
               <Link to="/signin">התחבר</Link>
             ) : (
               userInfo.isAdmin ? (
-                <Menu >
-                  <MenuButton>
-                    <RxHamburgerMenu />
-                  </MenuButton>
-                  <MenuList border="none" bg="#222831" color="#EEEEEE">
-                    <MenuItem bg="#222831">
-                      {" "}
-                      <Link to="/orderhistory">הזמנות</Link>
-                    </MenuItem>
-                    <MenuItem bg="#222831">
-                      {" "}
-                      <Link to="/profile">פרופיל</Link>
-                    </MenuItem>
-
-                    <MenuItem bg="#222831">
-                      <Link to="/signIn" onClick={signoutHandlet}>
-                        התנתק
-                      </Link>
-                    </MenuItem>
-                    <MenuItem bg="#222831">
-                      <Link to="/" >
-                        דף הבית
-                      </Link>
-                    </MenuItem >
-                    <Link to="/Admin/products">
-                      <MenuItem bg="#222831">מוצרים</MenuItem>
-                    </Link>
-                    <Link to="/Admin/orders">
-                      <MenuItem bg="#222831">הזמנות</MenuItem>
-                    </Link>
-                    <Link to="/Admin/users">
-                      <MenuItem bg="#222831">משתמשים</MenuItem>
-                    </Link>
-                  </MenuList>
-                </Menu>
-              ) : (
-                <HStack color="#EEEEEE"  >
-                  <Menu>
+                <Flex  w={{ base: "200px", sm: "200px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"} >
+                  <Menu >
                     <MenuButton>
                       <RxHamburgerMenu />
                     </MenuButton>
-                    <MenuList color="#EEEEEE">
-                      <MenuItem>
+                    <MenuList border="none" bg="#222831" color="#EEEEEE">
+                      <MenuItem bg="#222831">
                         {" "}
                         <Link to="/orderhistory">הזמנות</Link>
                       </MenuItem>
-                      <MenuItem>
+                      <MenuItem bg="#222831">
                         {" "}
                         <Link to="/profile">פרופיל</Link>
                       </MenuItem>
 
-                      <MenuItem>
+                      <MenuItem bg="#222831">
                         <Link to="/signIn" onClick={signoutHandlet}>
                           התנתק
                         </Link>
                       </MenuItem>
-                      <MenuItem>
+                      <MenuItem bg="#222831">
                         <Link to="/" >
                           דף הבית
                         </Link>
-                      </MenuItem>
+                      </MenuItem >
+                      <Link to="/Admin/products">
+                        <MenuItem bg="#222831">מוצרים</MenuItem>
+                      </Link>
+                      <Link to="/Admin/orders">
+                        <MenuItem bg="#222831">הזמנות</MenuItem>
+                      </Link>
+                      <Link to="/Admin/users">
+                        <MenuItem bg="#222831">משתמשים</MenuItem>
+                      </Link>
                     </MenuList>
                   </Menu>
-                </HStack>
-              ))}
-          </Flex>
-          <Link to="/">
-            <RxHome size={25} />
-          </Link>
-         
-          <Link to="/cart">
-            {cart.cartItems.length > 0 && (
-              <Flex
-                textAlign={"end"}
-                fontSize={"70%"}
-                m={"-2"}
-              >
-                {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-              </Flex>
+                  <Link to="/">
+                    <RxHome size={25} />
+                  </Link>
+                  <Link to="/cart">
+                    {cart.cartItems.length > 0 && (
+                      <Flex
+                        textAlign={"end"}
+                        fontSize={"70%"}
+                        m={"-2"}
+                      >
+                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      </Flex>
+                    )}
+                    <LuShoppingCart size={25} />
+                  </Link>
+                  <MdOutlineReviews size={23} onClick={onOpen} />
+                  <Drawer
+                    size={"md"}
+                    isOpen={isOpen}
+                    placement='right'
+                    onClose={onClose}
+                    finalFocusRef={btnRef}
+                  >
+                    <DrawerOverlay />
+                    <DrawerCloseButton />
+                    <DrawerContent bg="#393E46" >
+                      <DrawerBody>
+                        <ReviewFile />
+                      </DrawerBody>
+                    </DrawerContent>
+                  </Drawer>
+                  <Link to="/faivoritList">
+                    <AiOutlineHeart color="red" size={25} />
+                  </Link>
+                </Flex>
+              ) : (
+                <Flex  w={{ base: "200px", sm: "1800px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"}>
+                  <HStack color="#EEEEEE"  >
+                    <Menu>
+                      <MenuButton>
+                        <RxHamburgerMenu />
+                      </MenuButton>
+                      <MenuList color="#EEEEEE">
+                        <MenuItem>
+                          {" "}
+                          <Link to="/orderhistory">הזמנות</Link>
+                        </MenuItem>
+                        <MenuItem>
+                          {" "}
+                          <Link to="/profile">פרופיל</Link>
+                        </MenuItem>
+
+                        <MenuItem>
+                          <Link to="/signIn" onClick={signoutHandlet}>
+                            התנתק
+                          </Link>
+                        </MenuItem>
+                        <MenuItem>
+                          <Link to="/" >
+                            דף הבית
+                          </Link>
+                        </MenuItem>
+                      </MenuList>
+                    </Menu>
+                  </HStack>
+                  <Link to="/">
+                    <RxHome size={25} />
+                  </Link>
+                  
+
+                  <Link to="/cart">
+                    {cart.cartItems.length > 0 && (
+                      <Flex
+                        textAlign={"end"}
+                        fontSize={"70%"}
+                        m={"-2"}
+                      >
+                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                      </Flex>
+                    )}
+                    <LuShoppingCart size={25} />
+                  </Link>
+                  <MdOutlineReviews size={23} onClick={onOpen} />
+                  <Drawer
+                    size={"md"}
+                    isOpen={isOpen}
+                    placement='right'
+                    onClose={onClose}
+                    finalFocusRef={btnRef}
+                  >
+                    <DrawerOverlay />
+                    <DrawerCloseButton />
+                    <DrawerContent bg="#393E46" >
+                      <DrawerBody>
+                        <ReviewFile />
+                      </DrawerBody>
+                    </DrawerContent>
+                  </Drawer>
+                  <Link to="/faivoritList">
+                    <AiOutlineHeart color="red" size={25} />
+                  </Link>
+                </Flex>
+              )
             )}
-            <LuShoppingCart size={25} />
-          </Link>
-          <Link to="/reviewFile">
-            <MdOutlineReviews size={23} />
-          </Link>
-          <Link to="/faivoritList">
-            <AiOutlineHeart color="red" size={25} />
-          </Link>
         </Flex>
+
         <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
           <Box>
             <BsFacebook size={25} />
@@ -165,7 +230,7 @@ function NavBar() {
         </Flex>
 
       </Flex>
-    </Box>
+    </>
   );
 }
 

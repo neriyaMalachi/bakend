@@ -39,4 +39,9 @@ reviewRouter.get("/checkIfExists", async (req, res) => {
     }
 })
 
+reviewRouter.delete("/deleteReview",async(req,res)=>{
+    const review = await Review.deleteOne({ _id: req.params.id });
+    res.send(review);
+})
+
 export default reviewRouter;

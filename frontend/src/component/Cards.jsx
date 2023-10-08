@@ -24,7 +24,6 @@ function Cards(props) {
   const toast = useToast();
   const [heart, setHeart] = useState(false);
   const { state, dispatch: ctxDispatch } = useContext(Store);
-  const user = state.userInfo._id;
   const id = state.userInfo._id;
   const {
     cart: { cartItems },
@@ -64,7 +63,7 @@ function Cards(props) {
   const deleteFaivorit = async (item) => {
  
     const requestBody = {
-      userId: user,
+      userId: id,
       productId: item,
     }
     await fetch(`http://localhost:5000/api/users/deleteFaivourite`, {
@@ -82,7 +81,7 @@ function Cards(props) {
   }
   const checkIfAFaivoritExists = async (item) => {
     const requestBody = {
-      userId: user,
+      userId: id,
       productId: item,
     }
     const response = axios.post("http://localhost:5000/api/users/checkIfAFaivoritExists", requestBody)
@@ -129,7 +128,7 @@ function Cards(props) {
                 }
                 else {
                   setHeart(false)
-                  deleteFaivorit(product._id, user);
+                  deleteFaivorit(product._id, id);
                 }
               }
               }>
@@ -163,17 +162,6 @@ function Cards(props) {
           </GridItem>
         </Grid>
       </CardBody>
-
-
-
-
-
-
-
-
-
-
-
       {product.countInStock !== "0" ? (
         <Button
           id="button"
