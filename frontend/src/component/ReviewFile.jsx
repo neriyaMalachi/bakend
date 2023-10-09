@@ -33,7 +33,6 @@ function ReviewFile() {
       .then(
         (result) => {
           setItems(result);
-          console.log(userPutInReview);
         },
         (error) => {
           setError(error);
@@ -44,16 +43,17 @@ function ReviewFile() {
   };
   const check = async () => {
 
-      try {
-        await axios.get("/api/reviews/checkIfExists", {
-          email,
-        });
-        setUserPutInReview(true);
-  
-      } catch (err) {
-  
-        setUserPutInReview(false);
-  
+    try {
+      await axios.get("/api/reviews/checkIfExists", {
+        email,
+      });
+      console.log("check");
+
+      setUserPutInReview(true);
+
+    } catch (err) {
+
+      setUserPutInReview(false);
     }
   };
   const AddReview = async () => {
@@ -67,7 +67,7 @@ function ReviewFile() {
       onClose();
       getReviews();
       setUserPutInReview(true)
-    } catch (err) {
+    } catch  {
       toast({
         title: 'קיימת במערכת חוות דעת ממך',
         status: 'error',
@@ -84,6 +84,7 @@ function ReviewFile() {
       await axios.get("/api/reviews/checkIfExists", {
         email,
       });
+      console.log("checkEditReviewAccordingToUser");
       setUserPutInReview(true);
       onOpen();
     } catch (err) {
@@ -121,64 +122,67 @@ function ReviewFile() {
       });
     });
   }
-
   return (
 
     <Box >
       <Text m="5%" textAlign={"center"} fontSize={"xx-large"}>ביקורות</Text>
       <Flex justifyContent={"center"}>
-        {userPutInReview  ? (
-          items
-            .filter((item) => {
-              return item.email === email ? item : !item
-            }).map((item, index) => (
+        {userPutInReview === true ? (
+          <>
+        {  items.filter((item) => {
+            return item.email === email ? item : !item
+          }).map((item, index) => (
 
-              <Card mt="1%" key={index} minH={"400px"} h="200px" minW={"150px"} w="300px" dir="rtl" bg="#222831" >
-                <CardHeader letterSpacing={"1px"} fontSize={"lg"} >
-                  <Avatar size="sm" name={item.user} src='https://bit.ly/broken-link' />
-                  {" "}
-                  השארת חוות דעת מ
-                  {item.user}:
-                  <Divider />
-                  {item.createdAt}
-                </CardHeader>
-                <CardBody>
+            <Card mt="1%" key={index} minH={"400px"} h="200px" minW={"150px"} w="300px" dir="rtl" bg="#222831" >
+              <CardHeader letterSpacing={"1px"} fontSize={"lg"} >
+                <Avatar size="sm" name={item.user} src='https://bit.ly/broken-link' />
+                {" "}
+                השארת חוות דעת מ
+                {item.user}:
+                <Divider />
+                {item.createdAt}
+              </CardHeader>
+              <CardBody>
 
 
-                  {item.review}
-                </CardBody>
-                <CardFooter display={"flex"} justifyContent={"space-between"}>
-                  <Flex alignItems={"end"}   >
-                    {Array(item.rating).fill("")
-                      .map((star, i) => (
-                        <StarIcon
-                          ml="5%"
-                          key={i}
-                          color="yellow"
-                        />
-                      ))}
-                  </Flex>
-                  <Flex >
-                    {item.user === user && item.email === email ? (
-                      <>
-                        <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
-                          <BiEditAlt />
-                        </IconButton>
-                        <IconButton bg="none" onClick={() => { deletereview(item._id) }}>
+                {item.review}
+              </CardBody>
+              <CardFooter display={"flex"} justifyContent={"space-between"}>
+                <Flex alignItems={"end"}   >
+                  {Array(item.rating).fill("")
+                    .map((star, i) => (
+                      <StarIcon
+                        ml="5%"
+                        key={i}
+                        color="yellow"
+                      />
+                    ))}
+                </Flex>
+                <Flex >
+                  {item.user === user && item.email === email ? (
+                    <>
+                      <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
+                        <BiEditAlt />
+                      </IconButton>
+                      <IconButton bg="none" onClick={() => { deletereview(item._id) }}>
 
-                          <MdOutlineDelete />
-                        </IconButton>
-                      </>
-                    ) : (<></>)
-                    }
-                  </Flex>
+                        <MdOutlineDelete />
+                      </IconButton>
+                    </>
+                  ) : (<></>)
+                  }
+                </Flex>
 
-                </CardFooter>
-              </Card>
-            ))
-
+              </CardFooter>
+            </Card>
+          ))}
+          <Text>true</Text>
+          </>
         ) : (
-          <Button onClick={onOpen} >הוסף ביקורת</Button>
+          <>
+           <Button onClick={onOpen} >הוסף ביקורת</Button>
+          <Text>false</Text>
+          </>
         )}
 
       </Flex>
@@ -206,7 +210,7 @@ function ReviewFile() {
 
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
-          {userPutInReview ? (
+          {userPutInReview  ? (
             <ModalContent>
               <ModalHeader dir='rtl'>עידכון חוות דעת</ModalHeader>
               <Flex

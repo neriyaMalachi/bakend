@@ -133,9 +133,9 @@ function NavBar() {
                     onClose={onClose}
                     finalFocusRef={btnRef}
                   >
-                    <DrawerOverlay />
-                    <DrawerCloseButton />
+                    {/* <DrawerOverlay /> */}
                     <DrawerContent bg="#393E46" >
+                    <DrawerCloseButton />
                       <DrawerBody>
                         <ReviewFile />
                       </DrawerBody>

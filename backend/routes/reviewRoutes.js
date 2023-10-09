@@ -1,5 +1,6 @@
 import express from "express";
 import Review from "../models/reviewsModel.js";
+import { Error } from "mongoose";
 
 const reviewRouter = express.Router();
 reviewRouter.get("/", async (req, res) => {
@@ -8,16 +9,21 @@ reviewRouter.get("/", async (req, res) => {
 });
 reviewRouter.post("/addReview", async (req, res) => {
     const reviewDetail = req.body;
-    console.log(reviewDetail);
+    const review = await Review.findOne({ email: req.body.email });
+
     await Review.create(reviewDetail, (err, data) => {
         if (err) {
             console.log(err.message);
             res.status(500).send(err);
-        } else {
+        } if(!review) {
             console.log(reviewDetail);
             res.status(201).send(data);
         }
+        // else{
+        //     res.send
+        // }
     });
+
 
 
 
