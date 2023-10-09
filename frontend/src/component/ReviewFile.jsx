@@ -5,7 +5,7 @@ import { Store } from "../Store";
 import { StarIcon } from '@chakra-ui/icons';
 import { useNavigate } from "react-router-dom";
 import { BiEditAlt } from 'react-icons/bi';
-
+import { MdOutlineDelete } from 'react-icons/md'
 
 
 function ReviewFile() {
@@ -17,16 +17,15 @@ function ReviewFile() {
   const [obg, setObg] = useState({});
   const [error, setError] = useState(null);
   const [userPutInReview, setUserPutInReview] = useState(false);
-  const navigate = useNavigate();
   const toast = useToast();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const user = state.userInfo.name;
   const email = state.userInfo.email;
   useEffect(() => {
     getReviews();
-    // check();
+    check();
   }, []);
-  const getReviews = async() => {
+  const getReviews = async () => {
     fetch("http://localhost:5000/api/reviews", {
       method: "GET",
     })
@@ -34,25 +33,27 @@ function ReviewFile() {
       .then(
         (result) => {
           setItems(result);
+          console.log(userPutInReview);
         },
         (error) => {
           setError(error);
         }
       );
 
-      
+
   };
   const check = async () => {
-    try {
-      await axios.get("/api/reviews/checkIfExists", {
-        email,
-      });
-      setUserPutInReview(true);
 
-    } catch (err) {
-
-      setUserPutInReview(false);
-
+      try {
+        await axios.get("/api/reviews/checkIfExists", {
+          email,
+        });
+        setUserPutInReview(true);
+  
+      } catch (err) {
+  
+        setUserPutInReview(false);
+  
     }
   };
   const AddReview = async () => {
@@ -65,6 +66,7 @@ function ReviewFile() {
       });
       onClose();
       getReviews();
+      setUserPutInReview(true)
     } catch (err) {
       toast({
         title: 'קיימת במערכת חוות דעת ממך',
@@ -89,8 +91,6 @@ function ReviewFile() {
       setUserPutInReview(false);
 
     }
-    console.log(obg);
-
   }
   const chenghReview = async (item) => {
     let result = await fetch(
@@ -109,13 +109,25 @@ function ReviewFile() {
     getReviews()
     onClose()
   }
+  const deletereview = async (id) => {
+    await fetch(`http://localhost:3000/api/reviews/deleteReview/${id}`, {
+      method: "DELETE",
+    }).then((result) => {
+      result.json().then((resp) => {
+        console.warn(resp);
+        setUserPutInReview(false)
+        setRating(null)
+        getReviews();
+      });
+    });
+  }
+
   return (
 
     <Box >
       <Text m="5%" textAlign={"center"} fontSize={"xx-large"}>ביקורות</Text>
       <Flex justifyContent={"center"}>
-        {userPutInReview === true ? (
-
+        {userPutInReview  ? (
           items
             .filter((item) => {
               return item.email === email ? item : !item
@@ -148,20 +160,26 @@ function ReviewFile() {
                   </Flex>
                   <Flex >
                     {item.user === user && item.email === email ? (
-                      <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
-                        <BiEditAlt />
-                      </IconButton>
+                      <>
+                        <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
+                          <BiEditAlt />
+                        </IconButton>
+                        <IconButton bg="none" onClick={() => { deletereview(item._id) }}>
+
+                          <MdOutlineDelete />
+                        </IconButton>
+                      </>
                     ) : (<></>)
                     }
                   </Flex>
 
                 </CardFooter>
               </Card>
-
-
             ))
 
-        ) : (<Button onClick={onOpen} >הוסף ביקורת</Button>)}
+        ) : (
+          <Button onClick={onOpen} >הוסף ביקורת</Button>
+        )}
 
       </Flex>
       <Box
@@ -201,7 +219,7 @@ function ReviewFile() {
                   type='reviewText'
                   rows="10"
                   cols="5"
-                  value={review.review}
+                  // value={review.review}
                   onChange={(e) => { setReview(e.target.value) }}
                 />
                 <Box>

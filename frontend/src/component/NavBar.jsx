@@ -69,11 +69,12 @@ function NavBar() {
 
 
         <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-evenly"} alignItems={"end"} >
-            {!userInfo ? (
-              <Link to="/signin">התחבר</Link>
-            ) : (
-              userInfo.isAdmin ? (
-                <Flex  w={{ base: "200px", sm: "200px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"} >
+          {!userInfo ? (
+            <Link to="/signin">התחבר</Link>
+          ) : (
+            userInfo.isAdmin ? (
+              <>
+                <Flex w={{ base: "200px", sm: "200px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"} >
                   <Menu >
                     <MenuButton>
                       <RxHamburgerMenu />
@@ -144,8 +145,11 @@ function NavBar() {
                     <AiOutlineHeart color="red" size={25} />
                   </Link>
                 </Flex>
-              ) : (
-                <Flex  w={{ base: "200px", sm: "1800px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"}>
+                {/* <Flex>שלום וברכה {userInfo.name}</Flex> */}
+              </>
+            ) : (
+              <>
+                <Flex w={{ base: "200px", sm: "1800px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"}>
                   <HStack color="#EEEEEE"  >
                     <Menu>
                       <MenuButton>
@@ -177,7 +181,7 @@ function NavBar() {
                   <Link to="/">
                     <RxHome size={25} />
                   </Link>
-                  
+
 
                   <Link to="/cart">
                     {cart.cartItems.length > 0 && (
@@ -211,10 +215,11 @@ function NavBar() {
                     <AiOutlineHeart color="red" size={25} />
                   </Link>
                 </Flex>
-              )
-            )}
+                {/* <Flex>שלום וברכה {userInfo.name}</Flex> */}
+              </>
+            )
+          )}
         </Flex>
-
         <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
           <Box>
             <BsFacebook size={25} />
