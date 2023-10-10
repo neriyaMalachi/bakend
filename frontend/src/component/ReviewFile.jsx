@@ -14,13 +14,14 @@ function ReviewFile() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [items, setItems] = useState([]);
-  const [obg, setObg] = useState({});
+  const [obg, setObg] = useState();
   const [error, setError] = useState(null);
   const [userPutInReview, setUserPutInReview] = useState(false);
   const toast = useToast();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const user = state.userInfo.name;
   const email = state.userInfo.email;
+
   useEffect(() => {
     getReviews();
     check();
@@ -44,15 +45,11 @@ function ReviewFile() {
   const check = async () => {
 
     try {
-      await axios.get("/api/reviews/checkIfExists", {
+      await axios.get("/api/reviews/checkIfUserInputReview", {
         email,
       });
-      console.log("check");
-
       setUserPutInReview(true);
-
-    } catch (err) {
-
+    } catch {
       setUserPutInReview(false);
     }
   };
@@ -67,7 +64,7 @@ function ReviewFile() {
       onClose();
       getReviews();
       setUserPutInReview(true)
-    } catch  {
+    } catch {
       toast({
         title: 'קיימת במערכת חוות דעת ממך',
         status: 'error',
@@ -77,14 +74,18 @@ function ReviewFile() {
       onClose();
     }
   }
+
+
+  //the function not givs the id for item and bicose this the button "add review" not work but the edit yes working
   const checkEditReviewAccordingToUser = async (item) => {
     setReview(item)
     setObg(item)
+    console.log(obg, email);
     try {
       await axios.get("/api/reviews/checkIfExists", {
         email,
       });
-      console.log("checkEditReviewAccordingToUser");
+
       setUserPutInReview(true);
       onOpen();
     } catch (err) {
@@ -93,9 +94,15 @@ function ReviewFile() {
 
     }
   }
-  const chenghReview = async (item) => {
+
+
+
+
+  const editReview = async (item) => {
+    console.log(item, rating, obg);
+    // checkEditReviewAccordingToUser();
     let result = await fetch(
-      `http://localhost:3000/api/reviews/editeReview/${obg._id}`,
+      `http://localhost:3000/api/reviews/editeReview/${obg}`,
       {
         method: "put",
         body: JSON.stringify({
@@ -119,73 +126,165 @@ function ReviewFile() {
         setUserPutInReview(false)
         setRating(null)
         getReviews();
+        console.log(userPutInReview);
       });
     });
   }
+  console.log(userPutInReview);
+
   return (
 
     <Box >
       <Text m="5%" textAlign={"center"} fontSize={"xx-large"}>ביקורות</Text>
-      <Flex justifyContent={"center"}>
-        {userPutInReview === true ? (
-          <>
-        {  items.filter((item) => {
-            return item.email === email ? item : !item
-          }).map((item, index) => (
+      <Flex alignItems={"center"} justifyContent={"center"} direction={"column"} >
+        <Button onClick={() => {
+          checkEditReviewAccordingToUser(obg)
+          // check();
+          onOpen();
 
-            <Card mt="1%" key={index} minH={"400px"} h="200px" minW={"150px"} w="300px" dir="rtl" bg="#222831" >
-              <CardHeader letterSpacing={"1px"} fontSize={"lg"} >
-                <Avatar size="sm" name={item.user} src='https://bit.ly/broken-link' />
-                {" "}
-                השארת חוות דעת מ
-                {item.user}:
-                <Divider />
-                {item.createdAt}
-              </CardHeader>
-              <CardBody>
+        }} >הוסף ביקורת</Button>
 
 
-                {item.review}
-              </CardBody>
-              <CardFooter display={"flex"} justifyContent={"space-between"}>
-                <Flex alignItems={"end"}   >
-                  {Array(item.rating).fill("")
-                    .map((star, i) => (
-                      <StarIcon
-                        ml="5%"
-                        key={i}
-                        color="yellow"
-                      />
-                    ))}
-                </Flex>
-                <Flex >
-                  {item.user === user && item.email === email ? (
-                    <>
-                      <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
-                        <BiEditAlt />
-                      </IconButton>
-                      <IconButton bg="none" onClick={() => { deletereview(item._id) }}>
+        {items.filter((item) => {
+          return item.email === email ? item : !item
+        }).map((item, index) => (
+          <Card mt="1%" key={index} minH={"400px"} h="200px" minW={"150px"} w="300px" dir="rtl" bg="#222831" >
+            <CardHeader letterSpacing={"1px"} fontSize={"lg"} >
+              <Avatar size="sm" name={item.user} src='https://bit.ly/broken-link' />
+              {" "}
+              השארת חוות דעת מ
+              {item.user}:
+              <Divider />
+              {item.createdAt}
+            </CardHeader>
+            <CardBody>
 
-                        <MdOutlineDelete />
-                      </IconButton>
-                    </>
-                  ) : (<></>)
-                  }
-                </Flex>
 
-              </CardFooter>
-            </Card>
-          ))}
-          <Text>true</Text>
-          </>
-        ) : (
-          <>
-           <Button onClick={onOpen} >הוסף ביקורת</Button>
-          <Text>false</Text>
-          </>
-        )}
+              {item.review}
+            </CardBody>
+            <CardFooter display={"flex"} justifyContent={"space-between"}>
+              <Flex alignItems={"end"}   >
+                {Array(item.rating).fill("")
+                  .map((star, i) => (
+                    <StarIcon
+                      ml="5%"
+                      key={i}
+                      color="yellow"
+                    />
+                  ))}
+              </Flex>
+              <Flex >
+                {item.user === user && item.email === email ? (
+                  <>
+                    <IconButton bg="none" onClick={() => {
+                      console.log(item._id);
+                      checkEditReviewAccordingToUser(item._id)
 
+                    }}>
+                      <BiEditAlt />
+                    </IconButton>
+                    <IconButton bg="none" onClick={() => { deletereview(item._id) }}>
+
+                      <MdOutlineDelete />
+                    </IconButton>
+                  </>
+                ) : (<></>)
+                }
+              </Flex>
+
+            </CardFooter>
+          </Card>
+        ))}
       </Flex>
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        {userPutInReview ? (
+          <ModalContent>
+            <ModalHeader dir='rtl'>עידכון חוות דעת</ModalHeader>
+            <Flex
+              justifyContent="space-evenly"
+              alignItems="center"
+              direction="column"
+            >
+              <Textarea
+                dir="rtl"
+                type='reviewText'
+                rows="10"
+                cols="5"
+                // value={review.review}
+                onChange={(e) => { setReview(e.target.value) }}
+              />
+              <Box>
+                {[...Array(5)].map((star, index) => {
+                  const currentRating = index + 1
+                  return (
+                    <label key={index}>
+                      <Input
+                        type='radio'
+                        value={currentRating}
+                        onClick={() => setRating(currentRating)}
+                        display={"none"}
+                      />
+                      <StarIcon
+                        cursor={"pointer"}
+                        color={currentRating <= (hover || rating) ? "yellow" : "silver"}
+                        onMouseEnter={() => setHover(currentRating)}
+                        onMouseLeave={() => setHover(null)}
+                      />
+                    </label>
+                  );
+                })}
+              </Box>
+            </Flex>
+            <ModalFooter>
+              <Button bg='red.300' mr={3} onClick={onClose}>
+                ביטול
+              </Button>
+              <Button bg='#00ADB5' onClick={() => { editReview(obg) }}> עדכן</Button>
+            </ModalFooter>
+          </ModalContent>
+        ) : (
+          <ModalContent>
+            <ModalHeader dir='rtl'>ביקורת</ModalHeader>
+            <ModalBody dir='rtl'>
+              <form onSubmit={AddReview}>
+                <Textarea
+                  type='reviewText'
+                  rows="10"
+                  cols="5"
+                  placeholder='הוסף ביקורת'
+                  onChange={(e) => { setReview(e.target.value) }}
+                />
+                {[...Array(5)].map((star, index) => {
+                  const currentRating = index + 1
+                  return (
+                    <label key={index}>
+                      <Input
+                        type='radio'
+                        value={currentRating}
+                        onClick={() => setRating(currentRating)}
+                        display={"none"}
+                      />
+                      <StarIcon
+                        cursor={"pointer"}
+                        color={currentRating <= (hover || rating) ? "yellow" : "silver"}
+                        onMouseEnter={() => setHover(currentRating)}
+                        onMouseLeave={() => setHover(null)}
+                      />
+                    </label>
+                  );
+                })}
+              </form>
+            </ModalBody>
+            <ModalFooter>
+              <Button bg='red.300' mr={3} onClick={onClose}>
+                ביטול
+              </Button>
+              <Button bg='#00ADB5' onClick={AddReview} >הוסף ביקורת</Button>
+            </ModalFooter>
+          </ModalContent>
+        )}
+      </Modal>
       <Box
         mt="15%"
         minH={"80vh"}
@@ -207,101 +306,7 @@ function ReviewFile() {
           },
         }}
       >
-
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          {userPutInReview  ? (
-            <ModalContent>
-              <ModalHeader dir='rtl'>עידכון חוות דעת</ModalHeader>
-              <Flex
-                justifyContent="space-evenly"
-                alignItems="center"
-                direction="column"
-              >
-                <Textarea
-                  dir="rtl"
-                  type='reviewText'
-                  rows="10"
-                  cols="5"
-                  // value={review.review}
-                  onChange={(e) => { setReview(e.target.value) }}
-                />
-                <Box>
-                  {[...Array(5)].map((star, index) => {
-                    const currentRating = index + 1
-                    return (
-                      <label key={index}>
-                        <Input
-                          type='radio'
-                          value={currentRating}
-                          onClick={() => setRating(currentRating)}
-                          display={"none"}
-                        />
-                        <StarIcon
-                          cursor={"pointer"}
-                          color={currentRating <= (hover || rating) ? "yellow" : "silver"}
-                          onMouseEnter={() => setHover(currentRating)}
-                          onMouseLeave={() => setHover(null)}
-                        />
-                      </label>
-                    );
-                  })}
-                </Box>
-
-              </Flex>
-              <ModalFooter>
-                <Button bg='red.300' mr={3} onClick={onClose}>
-                  ביטול
-                </Button>
-                <Button bg='#00ADB5' onClick={() => { chenghReview(review) }}> עדכן</Button>
-              </ModalFooter>
-            </ModalContent>
-          ) : (
-            <ModalContent>
-              <ModalHeader dir='rtl'>ביקורת</ModalHeader>
-              <ModalBody dir='rtl'>
-                <form onSubmit={AddReview}>
-                  <Textarea
-                    type='reviewText'
-                    rows="10"
-                    cols="5"
-                    placeholder='הוסף ביקורת'
-                    onChange={(e) => { setReview(e.target.value) }}
-                  />
-                  {[...Array(5)].map((star, index) => {
-                    const currentRating = index + 1
-                    return (
-                      <label key={index}>
-                        <Input
-                          type='radio'
-                          value={currentRating}
-                          onClick={() => setRating(currentRating)}
-                          display={"none"}
-                        />
-                        <StarIcon
-                          cursor={"pointer"}
-                          color={currentRating <= (hover || rating) ? "yellow" : "silver"}
-                          onMouseEnter={() => setHover(currentRating)}
-                          onMouseLeave={() => setHover(null)}
-                        />
-                      </label>
-                    );
-                  })}
-                </form>
-              </ModalBody>
-              <ModalFooter>
-                <Button bg='red.300' mr={3} onClick={onClose}>
-                  ביטול
-                </Button>
-                <Button bg='#00ADB5' onClick={AddReview} >הוסף ביקורת</Button>
-              </ModalFooter>
-            </ModalContent>
-          )}
-
-
-        </Modal>
-
-        {items
+        {/* {items
           .filter((item) => {
             return item.email === email ? !item : item
           })
@@ -333,19 +338,19 @@ function ReviewFile() {
                     ))}
                 </Flex>
                 <Flex >
-                  {item.user === user && item.email === email ? (
+                  {/* {item.user === user && item.email === email ? (
                     <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
                       <BiEditAlt />
                     </IconButton>
                   ) : (<></>)
-                  }
+                  } 
                 </Flex>
 
               </CardFooter>
             </Card>
 
 
-          ))}
+          ))} */}
 
 
       </Box>
