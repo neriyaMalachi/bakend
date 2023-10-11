@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Store } from "../Store";
 import { StarIcon } from '@chakra-ui/icons';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import { BiEditAlt } from 'react-icons/bi';
 import { MdOutlineDelete } from 'react-icons/md'
 
@@ -14,8 +14,8 @@ function ReviewFile() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [items, setItems] = useState([]);
-  const [obg, setObg] = useState();
-  const [error, setError] = useState(null);
+  // const [reviewaccordingUser, setReviewaccordingUser] = useState();
+  // const [error, setError] = useState(null);
   const [userPutInReview, setUserPutInReview] = useState(false);
   const toast = useToast();
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -24,7 +24,6 @@ function ReviewFile() {
 
   useEffect(() => {
     getReviews();
-    check();
   }, []);
   const getReviews = async () => {
     fetch("http://localhost:5000/api/reviews", {
@@ -35,23 +34,23 @@ function ReviewFile() {
         (result) => {
           setItems(result);
         },
-        (error) => {
-          setError(error);
-        }
+        // (error) => {
+        //   setError(error);
+        // }
       );
 
 
   };
   const check = async () => {
-
-    try {
-      await axios.get("/api/reviews/checkIfUserInputReview", {
-        email,
-      });
+    const res = await axios.post("/api/reviews/checkIfUserInputReview", {
+      email,
+    })
+    if (res.data) {
       setUserPutInReview(true);
-    } catch {
+    } else {
       setUserPutInReview(false);
     }
+
   };
   const AddReview = async () => {
     try {
@@ -74,18 +73,24 @@ function ReviewFile() {
       onClose();
     }
   }
-
-
-  //the function not givs the id for item and bicose this the button "add review" not work but the edit yes working
+  // const checkEditReviewAccordingToUserForHederButton = async (item) => {
+  //   {
+  //     items.filter((edit) => {
+  //       return edit.email === email ? (
+  //         setReviewaccordingUser(edit._id)
+  //       ) : (
+  //         <></>
+  //       )
+  //     })
+  //   }
+  // }
   const checkEditReviewAccordingToUser = async (item) => {
     setReview(item)
-    setObg(item)
-    console.log(obg, email);
+    // setReviewaccordingUser(item)
     try {
       await axios.get("/api/reviews/checkIfExists", {
         email,
       });
-
       setUserPutInReview(true);
       onOpen();
     } catch (err) {
@@ -94,15 +99,20 @@ function ReviewFile() {
 
     }
   }
-
-
-
-
   const editReview = async (item) => {
-    console.log(item, rating, obg);
-    // checkEditReviewAccordingToUser();
-    let result = await fetch(
-      `http://localhost:3000/api/reviews/editeReview/${obg}`,
+    let idForReview;
+    {
+      items.filter((edit) => {
+        return edit.email === email ? (
+          // setReviewaccordingUser(edit._id),
+          idForReview = edit._id
+        ) : (
+          <></>
+        )
+      })
+    }
+    await fetch(
+      `http://localhost:3000/api/reviews/editeReview/${idForReview}`,
       {
         method: "put",
         body: JSON.stringify({
@@ -113,7 +123,6 @@ function ReviewFile() {
           "Content-Type": "Application/json",
         },
       })
-    result = await result.json();
     getReviews()
     onClose()
   }
@@ -130,7 +139,6 @@ function ReviewFile() {
       });
     });
   }
-  console.log(userPutInReview);
 
   return (
 
@@ -138,10 +146,11 @@ function ReviewFile() {
       <Text m="5%" textAlign={"center"} fontSize={"xx-large"}>ביקורות</Text>
       <Flex alignItems={"center"} justifyContent={"center"} direction={"column"} >
         <Button onClick={() => {
-          checkEditReviewAccordingToUser(obg)
-          // check();
+          check();
+          // if (userPutInReview) {
+          //   checkEditReviewAccordingToUserForHederButton(email)
+          // }
           onOpen();
-
         }} >הוסף ביקורת</Button>
 
 
@@ -177,7 +186,6 @@ function ReviewFile() {
                 {item.user === user && item.email === email ? (
                   <>
                     <IconButton bg="none" onClick={() => {
-                      console.log(item._id);
                       checkEditReviewAccordingToUser(item._id)
 
                     }}>
@@ -196,9 +204,9 @@ function ReviewFile() {
           </Card>
         ))}
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        {userPutInReview ? (
+      {userPutInReview ? (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
           <ModalContent>
             <ModalHeader dir='rtl'>עידכון חוות דעת</ModalHeader>
             <Flex
@@ -211,7 +219,7 @@ function ReviewFile() {
                 type='reviewText'
                 rows="10"
                 cols="5"
-                // value={review.review}
+                // value={review}
                 onChange={(e) => { setReview(e.target.value) }}
               />
               <Box>
@@ -240,10 +248,17 @@ function ReviewFile() {
               <Button bg='red.300' mr={3} onClick={onClose}>
                 ביטול
               </Button>
-              <Button bg='#00ADB5' onClick={() => { editReview(obg) }}> עדכן</Button>
+              <Button bg='#00ADB5' onClick={
+                () => {
+                  editReview(state.userInfo._id)
+                }
+              }> עדכן</Button>
             </ModalFooter>
           </ModalContent>
-        ) : (
+        </Modal>
+      ) : (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
           <ModalContent>
             <ModalHeader dir='rtl'>ביקורת</ModalHeader>
             <ModalBody dir='rtl'>
@@ -283,8 +298,8 @@ function ReviewFile() {
               <Button bg='#00ADB5' onClick={AddReview} >הוסף ביקורת</Button>
             </ModalFooter>
           </ModalContent>
-        )}
-      </Modal>
+        </Modal>
+      )}
       <Box
         mt="15%"
         minH={"80vh"}
@@ -306,7 +321,7 @@ function ReviewFile() {
           },
         }}
       >
-        {/* {items
+        {items
           .filter((item) => {
             return item.email === email ? !item : item
           })
@@ -338,19 +353,19 @@ function ReviewFile() {
                     ))}
                 </Flex>
                 <Flex >
-                  {/* {item.user === user && item.email === email ? (
+                  {item.user === user && item.email === email ? (
                     <IconButton bg="none" onClick={() => { checkEditReviewAccordingToUser(item) }}>
                       <BiEditAlt />
                     </IconButton>
                   ) : (<></>)
-                  } 
+                  }
                 </Flex>
 
               </CardFooter>
             </Card>
 
 
-          ))} */}
+          ))}
 
 
       </Box>
