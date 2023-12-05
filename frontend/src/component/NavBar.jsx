@@ -13,9 +13,17 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  Button,
+  ModalOverlay,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { RxHamburgerMenu, RxHome } from "react-icons/rx";
 import { LuShoppingCart } from "react-icons/lu";
@@ -29,7 +37,22 @@ function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
   const { isOpen, onOpen, onClose } = useDisclosure()
+  const [exitModal, setExitModal] = useState(false);
+  const [reviewModal, setReviewModal] = useState(false);
+ 
+  const openFirstModal = () => setExitModal(false);
+  const closeFirstModal = () => setExitModal(false);
+  const navigate = useNavigate();
+  const openSecondModal = () => setReviewModal(true);
+  const closeSecondModal = () => setReviewModal(false);
   const btnRef = React.useRef()
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg='blackAlpha.300'
+      backdropFilter='blur(10px) hue-rotate(90deg)'
+    />
+  )
+  const [overlay, setOverlay] = React.useState(<OverlayOne />)
   const signoutHandlet = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
@@ -63,7 +86,7 @@ function NavBar() {
         <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-between"} alignItems={"end"} >
           {!userInfo ? (
             <Box mr="7%" >
-            <Link  to="/signin">התחבר</Link>
+              <Link to="/signin">התחבר</Link>
             </Box>
           ) : (
             userInfo.isAdmin ? (
@@ -84,9 +107,36 @@ function NavBar() {
                       </MenuItem>
 
                       <MenuItem bg="#222831">
-                        <Link to="/signIn" onClick={signoutHandlet}>
+                        <Button bg="red" onClick={
+                          () => {
+                            openFirstModal()
+                            // setOverlay(<OverlayOne />)
+                            // onOpen2()
+                            // signoutHandlet();
+                          }
+                        }>
                           התנתק
-                        </Link>
+                        </Button>
+                        {/* <Modal isCentered isOpen={openFirstModal} onClose={closeFirstModal}>
+                          {overlay}
+                          <ModalContent dir="rtl" >
+                            <ModalCloseButton />
+                            <ModalHeader>התנתק</ModalHeader>
+
+                            <ModalBody>
+                              <Text>אתה בטוח שבירצונך לצאת</Text>
+                            </ModalBody>
+                            <ModalFooter>
+                              <Button onClick={closeFirstModal}>חזור</Button>
+                              <Button onClick={() => {
+                                signoutHandlet();
+                                navigate('signIn')
+
+                              }}>התנתק</Button>
+
+                            </ModalFooter>
+                          </ModalContent>
+                        </Modal> */}
                       </MenuItem>
                       <MenuItem bg="#222831">
                         <Link to="/" >
@@ -119,18 +169,18 @@ function NavBar() {
                     )}
                     <LuShoppingCart size={25} />
                   </Link>
-                  <MdOutlineReviews size={23} onClick={onOpen} />
+                  <MdOutlineReviews size={23} onClick={()=>{openSecondModal()}} />
                   <Drawer
                     size={"md"}
                     isOpen={isOpen}
                     placement='right'
-                    onClose={onClose}
+                    onClose={closeSecondModal}
                     finalFocusRef={btnRef}
                   >
                     {/* <DrawerOverlay /> */}
                     <DrawerContent bg="#393E46" >
                       <DrawerBody>
-                    <DrawerCloseButton />
+                        <DrawerCloseButton />
                         <ReviewFile />
                       </DrawerBody>
                     </DrawerContent>
