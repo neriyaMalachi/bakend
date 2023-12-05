@@ -62,68 +62,68 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
+    
     <Center h="86vh" bg="#393E46">
       <Card
-        p="4%"
+        p="2%"
         bg="#222831"
         color="#EEEEEE"
         borderRadius={20}
       >
         <Helmet>
-          <title>Shiping Address</title>
+          <title>פרטי משתמש</title>
         </Helmet>
         <Box textAlign="center" fontSize="2xl" >פרטי משתמש</Box>
         <form onSubmit={submitHandler}>
           <VStack
             spacing={4}
             align="stretch"
-            zIndex={1}
             dir="rtl"
           >
-            <Box h="40px">
+            <Box >
               <Input
                 placeholder="שם מלא"
-                size="lg"
+                // size="lg"
                 value={fullName}
                 required
                 onChange={(e) => setFullName(e.target.value)}
               />
             </Box>
 
-            <Box h="40px">
+            <Box >
               <Input
                 placeholder="כתובת"
-                size="lg"
+                
                 value={address}
                 required
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Box>
 
-            <Box h="40px">
+            <Box >
               <Input
                 placeholder="עיר"
-                size="lg"
+                
                 value={city}
                 required
                 onChange={(e) => setCity(e.target.value)}
               />
             </Box>
 
-            <Box h="40px">
+            <Box >
               <Input
                 placeholder="מיקוד"
-                size="lg"
+                
                 value={postalCode}
                 required
                 onChange={(e) => setPostalCode(e.target.value)}
               />
             </Box>
 
-            <Box h="40px">
+            <Box >
               <Select
                 placeholder="ארץ"
-                size="lg"
+                
                 value={countrys.countrys.code}
                 required
                 onChange={(e) => setcountry(e.target.value)}

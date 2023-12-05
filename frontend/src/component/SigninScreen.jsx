@@ -30,7 +30,7 @@ function SigninScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
   const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
+  const redirect = redirectInUrl ? redirectInUrl : "/home";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -48,7 +48,7 @@ function SigninScreen() {
       console.log({ data });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/");
+      navigate(redirect || '/home');
     } catch (err) {
       console.log("password or email invalid");
       setError(true);
@@ -69,11 +69,11 @@ function SigninScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="#393E46">
+        <Center h="80vh" bg="#393E46">
           <Card
             color="#EEEEEE"
-            h="60vh"
-            w="60vh"
+            h="50vh"
+            w="50vh"
             display="flex"
             justifyContent="center"
             alignItems="center"

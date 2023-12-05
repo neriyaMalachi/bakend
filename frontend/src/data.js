@@ -1,5 +1,6 @@
 const data = {
    countrys: [
+{"name": "ישראל", "code": "IL"},
 {"name": "Afghanistan", "code": "AF"},
 {"name": "Åland Islands", "code": "AX"},
 {"name": "Albania", "code": "AL"},
@@ -105,7 +106,6 @@ const data = {
 {"name": "Iraq", "code": "IQ"},
 {"name": "Ireland", "code": "IE"},
 {"name": "Isle of Man", "code": "IM"},
-{"name": "ישראל", "code": "IL"},
 {"name": "Italy", "code": "IT"},
 {"name": "Jamaica", "code": "JM"},
 {"name": "Japan", "code": "JP"},

@@ -87,7 +87,7 @@ function CartScreen() {
         <Media query="(min-width: 900px)">
           {(matches) => {
             return matches ? (
-              <HStack bg="#393E46" isInline gap={3} h="90vh">
+              <HStack bg="#393E46" isInline justifyContent={"space-around"} h="100%">
                 <Stack
                   overflowY={"scroll"}
                   css={{
@@ -172,18 +172,18 @@ function CartScreen() {
                   ))}
                 </Stack>
                
-                <Card borderRadius={20} bg="#222831" color="#EEEEEE" w="20%" h="40%" display="flex">
+                <Card borderRadius={20} bg="#222831" color="#EEEEEE" w="20%" h="60vh" display="flex">
                   <CardBody  dir="rtl">
                     <Text fontSize={"2xl"}>
-                      כמות מוצרים {" - "}{" "}
+                      כמות מוצרים {": "}{" "}
                       {cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </Text>
-                    <Text >
+                    <Text fontSize={"2xl"} >
                       ש"ח :{" "}
                       {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                     </Text>
                   </CardBody>
-                  <CardFooter>
+                  <CardFooter dir="rtl" >
                     <Button
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}

@@ -52,7 +52,7 @@ function SignupScreen() {
       // console.log({ data });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/");
+      navigate(redirect || "/Home");
     } catch (err) {
       console.log("password or email invalid");
     }
@@ -71,12 +71,12 @@ function SignupScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="90vh" bg="#393E46">
+        <Center h="80vh" bg="#393E46">
           <Card
             color="#EEEEEE"
             bg={"#222831"}
-            h="65vh"
-            w="60vh"
+            h="50vh"
+            w="50vh"
             display="flex"
             justifyContent="center"
             alignItems="center"
@@ -139,13 +139,14 @@ function SignupScreen() {
               display="flex"
               justifyContent="center"
 
-            ></CardFooter>
-            <Box  >
+            >
+            <Box >
               יש לך כבר חשבון?{" "}
               <Link to={`/signin?redirect=${redirect}`}>
                 <Text as="u">התחבר</Text>{" "}
               </Link>
             </Box>
+            </CardFooter>
           </Card>
         </Center>
       </form>

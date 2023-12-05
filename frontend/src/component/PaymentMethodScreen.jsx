@@ -1,14 +1,11 @@
 import {
   Box,
   Button,
+  Card,
+  CardHeader,
   Center,
-  ChakraProvider,
-  Container,
-  FormControl,
-  HStack,
   Radio,
   RadioGroup,
-  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -45,13 +42,15 @@ function PaymentMethodScreen() {
 
       <form onSubmit={submitHandler}>
         <Center
-          h="80vh"
+        
+          h="70vh"
           bg="#393E46"
-          display="flex"
-          flexDirection="column"
+            display="flex"
+            flexDirection="column"
         >
-          <RadioGroup  bg="#222831" color="#EEEEEE" defaultValue="Itachi" borderRadius="20%" p={{base:"15%" , sm:"7%"}} >
-            <Text textAlign="center" fontSize="2xl" >אמצעי תשלום</Text>
+          <RadioGroup  bg="#222831" color="#EEEEEE" defaultValue="Itachi" borderRadius="20" p={{base:"10%" , sm:"4%"}} >
+        
+            <Text textAlign="center"  justifyContent={"start"} fontSize="2xl" >אמצעי תשלום</Text>
             <VStack
               h="100px"
             >

@@ -97,21 +97,21 @@ function ProductFile() {
           return matches ? (
             <HStack
               gap={24}
-              h="100vh"
+              h="80vh"
               bg="#393E46"
+              justifyContent={"space-evenly"}
             >
-              <Box ml="3%" >
+              <Box  >
                 <Image
                   src={propertis.image}
                   alt="nargila image"
-                  h="70vh"
-                  w="30vw"
+                  h="60vh"
+                  w="25vw"
+                  borderRadius={"20"}
                 />
               </Box>
-
-
               <VStack>
-                <Card h="70vh" w="40vw" textAlign="end" bg="#222831" color="#EEEEEE">
+                <Card borderRadius={"20"} h="60vh" w="25vw" textAlign="end" bg="#222831" color="#EEEEEE">
                   <CardHeader>
                     <Heading size="2xl"> {propertis.name} </Heading>
                   </CardHeader>
@@ -133,26 +133,16 @@ function ProductFile() {
                       <Heading mt="3%" size="md"> {propertis.price} :מחיר </Heading>
                       <Box mt="3%">
                         <Flex dir="rtl">
-                        <Heading size="md"> תיאור :</Heading>
+                          <Heading size="md"> תיאור :</Heading>
 
-                        <Text>{propertis.description}</Text>
-                      </Flex>
+                          <Text>{propertis.description}</Text>
+                        </Flex>
                         {propertis.countInStock > 0 ? (
                           <Box mt="3" >
                             <Heading size="md" color="green.400" >
                               קיים במלאי
                             </Heading>
-                            <Center mt="20">
-                            <Button
-                              m={"3%"}
-                              variant="solid"
-                              bg="#00ADB5"
-                              onClick={addToCartHandler}
-                              w="30%"
-                            >
-                              הוסף להגלה
-                            </Button>
-                            </Center>
+
                           </Box>
                         ) : (
                           <Heading size="md" color="red" >
@@ -160,12 +150,17 @@ function ProductFile() {
                           </Heading>
                         )}
                       </Box>
-                      
                     </Flex>
-
-
                   </CardBody>
-
+                  <CardFooter justifyContent={"center"} >
+                      <Button
+                        variant="solid"
+                        bg="#00ADB5"
+                        onClick={addToCartHandler}
+                      >
+                        הוסף להגלה
+                      </Button>
+                  </CardFooter>
                 </Card>
               </VStack>
             </HStack>
@@ -178,25 +173,22 @@ function ProductFile() {
                 w="100%"
                 h="50%"
               />
-              <Card bg="#222831" color="#EEEEEE"  dir="rtl">
+              <Card bg="#222831" color="#EEEEEE" dir="rtl">
                 <CardHeader>
                   <Heading size="xl"> {propertis.name} </Heading>
                 </CardHeader>
                 <CardBody >
                   <Heading size="md"> מחיר : {propertis.price} ₪</Heading>
-                  <Box mt="2" dir="rtl">
+                  <Box  mt="2" dir="rtl">
 
                     {propertis.countInStock > 0 ? (
-                      <Flex >
-                        <Heading size={"md"} > מצב מוצר{" "}: {" "}</Heading>
-                        <Heading size={"md"} w="30%" color="green.400" >
+                      <Flex  >
+                        <Heading size={"md"}  color="green.400" >
                           קיים במלאי
                         </Heading>
                       </Flex>
                     ) : (
                       <Flex >
-
-                        <Heading size={"md"} > מצב מוצר{" "}: {" "}</Heading>
                         <Heading size={"md"} w="35%" color="red" >
                           אזל מהמלאי
                         </Heading>

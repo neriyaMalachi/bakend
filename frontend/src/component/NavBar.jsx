@@ -1,6 +1,5 @@
 import {
   Box,
-  Button,
   Flex,
   HStack,
   Menu,
@@ -11,19 +10,12 @@ import {
   useDisclosure,
   Drawer,
   DrawerBody,
-  DrawerFooter,
-  DrawerHeader,
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Input,
-  IconButton,
-  useToast,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from 'axios';
-
 import { Store } from "../Store";
 import { RxHamburgerMenu, RxHome } from "react-icons/rx";
 import { LuShoppingCart } from "react-icons/lu";
@@ -68,9 +60,11 @@ function NavBar() {
       >
 
 
-        <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-evenly"} alignItems={"end"} >
+        <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-between"} alignItems={"end"} >
           {!userInfo ? (
-            <Link to="/signin">התחבר</Link>
+            <Box mr="7%" >
+            <Link  to="/signin">התחבר</Link>
+            </Box>
           ) : (
             userInfo.isAdmin ? (
               <>
@@ -110,7 +104,7 @@ function NavBar() {
                       </Link>
                     </MenuList>
                   </Menu>
-                  <Link to="/">
+                  <Link to="/home">
                     <RxHome size={25} />
                   </Link>
                   <Link to="/cart">
@@ -135,8 +129,8 @@ function NavBar() {
                   >
                     {/* <DrawerOverlay /> */}
                     <DrawerContent bg="#393E46" >
-                    <DrawerCloseButton />
                       <DrawerBody>
+                    <DrawerCloseButton />
                         <ReviewFile />
                       </DrawerBody>
                     </DrawerContent>
@@ -171,14 +165,14 @@ function NavBar() {
                           </Link>
                         </MenuItem>
                         <MenuItem>
-                          <Link to="/" >
+                          <Link to="/home" >
                             דף הבית
                           </Link>
                         </MenuItem>
                       </MenuList>
                     </Menu>
                   </HStack>
-                  <Link to="/">
+                  <Link to="/home">
                     <RxHome size={25} />
                   </Link>
 

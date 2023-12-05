@@ -144,16 +144,7 @@ function ReviewFile() {
 
     <Box >
       <Text m="5%" textAlign={"center"} fontSize={"xx-large"}>ביקורות</Text>
-      <Flex alignItems={"center"} justifyContent={"center"} direction={"column"} >
-        <Button onClick={() => {
-          check();
-          // if (userPutInReview) {
-          //   checkEditReviewAccordingToUserForHederButton(email)
-          // }
-          onOpen();
-        }} >הוסף ביקורת</Button>
-
-
+      <Flex  alignItems={"center"} justifyContent={"center"} direction={"column"} >
         {items.filter((item) => {
           return item.email === email ? item : !item
         }).map((item, index) => (
@@ -164,7 +155,7 @@ function ReviewFile() {
               השארת חוות דעת מ
               {item.user}:
               <Divider />
-              {item.createdAt}
+              {/* {item.createdAt} */}
             </CardHeader>
             <CardBody>
 
@@ -203,6 +194,17 @@ function ReviewFile() {
             </CardFooter>
           </Card>
         ))}
+        {!userPutInReview ?(
+           <Button mt="3" onClick={() => {
+            check();
+            onOpen();
+          }} >הוסף ביקורת</Button>
+        ):(
+          <></>
+        )}
+       
+
+
       </Flex>
       {userPutInReview ? (
         <Modal isOpen={isOpen} onClose={onClose}>
@@ -334,7 +336,7 @@ function ReviewFile() {
                 השארת חוות דעת מ
                 {item.user}:
                 <Divider />
-                {item.createdAt}
+                {/* {item.createdAt} */}
               </CardHeader>
               <CardBody>
 

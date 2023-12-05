@@ -54,7 +54,7 @@ function PlaceOrderScreen() {
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(0);
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
-  
+
   const placeOrderHandler = async () => {
     try {
       dispatch({ type: "CREATE_REQUEST" });
@@ -95,7 +95,7 @@ function PlaceOrderScreen() {
   return (
     <>
       <Helmet>
-        <title>Preview Order</title>
+        <title>סיכום הזמנה</title>
       </Helmet>
       <Media query="(min-width: 990px)">
         {(matches) => {
@@ -105,7 +105,7 @@ function PlaceOrderScreen() {
               gap={30}
               templateRows="repeat12, 1fr)"
               templateColumns="repeat(2, 1fr)"
-              h="91vh"
+              h="100vh"
               bg="#393E46"
             >
               <Grid mt="2%" gap={12}>
@@ -120,35 +120,20 @@ function PlaceOrderScreen() {
                   bg="#222831"
                   color="#EEEEEE"
                 >
-                  <Text mr={"3%"}>כתובת הזמנה</Text>
+                  <Text mr={"3%"} fontSize={"25px"}>כתובת הזמנה</Text>
 
                   <GridItem mr={"3%"}>
-                    <Box
-                      w="7%"
-                      display="flex"
-                      alignItems="center"
-                      justifyContent="space-between"
-                    >
-                      <Text fontSize="xl">שם:</Text>
-                      {"    "}
-                      {cart.shippingAddress.fullName}
-                    </Box>
+
                     <Flex
                       w="40%"
                       direction={"column"}
                       justifyContent="space-between"
                     >
+                      <Text fontSize="xl">שם:   {cart.shippingAddress.fullName}</Text>
                       <Text fontSize="xl">כתובת: {cart.shippingAddress.address}</Text>
-
                       <Text fontSize="xl">עיר:{cart.shippingAddress.city}</Text>
-
-
                       <Text fontSize="xl">מיקוד:{cart.shippingAddress.postalCode}</Text>
-
-
                       <Text fontSize="xl">מדינה: {cart.shippingAddress.country}</Text>
-
-
                     </Flex>
                   </GridItem>
                   <Box mr={"3%"} color="blue.600">
@@ -166,17 +151,16 @@ function PlaceOrderScreen() {
                   borderRadius={20}
 
                 >
-                  <Text mr={"3%"} >שיטת תשלום</Text>
+                  <Text mr={"3%"} fontSize={"25px"} >שיטת תשלום</Text>
 
                   <Box mr={"3%"}>
                     <Box
                       w="20%"
-
                       display="flex"
                       alignItems="center"
-                      justifyContent="space-between"
+                      gap={2}
                     >
-                      <Text fontSize="xl">Method:</Text>
+                      <Text fontSize="xl">תשלום ב-</Text>
                       {"    "}
                       {cart.paymentMethod}
                     </Box>
@@ -190,12 +174,13 @@ function PlaceOrderScreen() {
                 <Grid
                   dir="rtl"
                   w="100%"
+                  h="90%"
                   boxShadow=" 4px 12px 15px -7px rgba(0,0,0,0.91)"
                   bg="#222831"
                   color="#EEEEEE"
                   borderRadius={20}
                 >
-                  <Text mr="3%">פריטים</Text>
+                  <Text mr="3%"  fontSize={"25px"}>פריטים</Text>
 
                   <Stack
                     overflowY={"scroll"}
@@ -263,7 +248,7 @@ function PlaceOrderScreen() {
               <Grid display="flex" textAlign="center" justifyContent="center">
                 <VStack
                   w="60%"
-                  h="55%"
+                  h="50%"
                   mt="2%"
                   bg="#222831"
                   color="#EEEEEE"
@@ -448,18 +433,18 @@ function PlaceOrderScreen() {
                 <Text fontSize="2xl">משלוח {" "}₪{cart.shippingPrice.toFixed(2)}</Text>
                 <Text fontSize="2xl">מע"מ {" "} ₪{cart.taxPrice.toFixed(2)}</Text>
                 <Text fontSize="2xl"> סיכום הזמנה {" "} ₪{cart.totalPrice.toFixed(2)}</Text>
-                
+
                 <Flex justifyContent={"center"} >
-                <Button
-                  w="30%"
-                  type="button"
-                  onClick={placeOrderHandler}
-                  disabled={cart.cartItems.length === 0}
-                  bg="#00ADB5"
-                  color="#EEEEEE"
-                >
-                  ביצוע הזמנה
-                </Button>
+                  <Button
+                    w="30%"
+                    type="button"
+                    onClick={placeOrderHandler}
+                    disabled={cart.cartItems.length === 0}
+                    bg="#00ADB5"
+                    color="#EEEEEE"
+                  >
+                    ביצוע הזמנה
+                  </Button>
                 </Flex>
               </Stack>
               {loading && <LoadingBox></LoadingBox>}

@@ -37,6 +37,8 @@ function App() {
             <Route path="/product/:slug" element={<ProductFile />} />
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/signIn" element={<SigninScreen />} />
+            <Route path="/home" element={<HomeFile />} />
+
             <Route path="/signup" element={<SignupScreen />} />
             <Route path="/payment" element={<PaymentMethodScreen />} />
             <Route path="/placeorder" element={<PlaceOrderScreen />} />
@@ -108,7 +110,6 @@ function App() {
                 </AdminRoutes>
               }
             />
-            <Route path="/" element={<HomeFile />} />
           </Routes>
           
           <FootherFile />

@@ -90,8 +90,8 @@ console.log(userInfo);
 
       <Center
         border="1px solid black"
-        borderRadius="10%"
-        w={{ base: "90%", sm: "70%", md: "60%", lg: "40%", xl: "30" }}
+        borderRadius="20"
+        w={{ base: "90%", sm: "70%", md: "50%", lg: "30%", xl: "30" }}
         bg="#222831"
         color={"#EEEEEE"}
       >

@@ -105,17 +105,16 @@ function ForgetPassword() {
 
           </Helmet>
           <form onSubmit={submitHandler}>
-            <Center dir="rtl" h="90vh" bg="#393E46">
+            <Center dir="rtl" h="70vh" bg="#393E46">
               <Card
                 color="#EEEEEE"
                 bg="#222831"
-                h="60vh"
-                w="60vh"
+                h="40vh"
+                w="40vh"
                 display="flex"
                 justifyContent="center"
                 alignItems="center"
-                border={maxWidthforHamborger ? "1px solid" : "none"}
-                borderRadius="20%"
+                borderRadius="20"
               >
                 <CardHeader
                   display="flex"
@@ -163,18 +162,17 @@ function ForgetPassword() {
         <>
           <Helmet>
             <title>איפוס סיסמה</title>
-
           </Helmet>
 
-          <Center h="90vh" bg="#393E46">
+          <Center h="70vh" bg="#393E46">
             <Card
               color="#EEEEEE"
-              h="60vh"
-              w="60vh"
+              h="40vh"
+              w="40vh"
               display="flex"
               justifyContent="center"
               alignItems="center"
-              borderRadius="10%"
+              borderRadius="20"
               dir="rtl"
               bg="#222831"
             >
@@ -205,7 +203,6 @@ function ForgetPassword() {
                     type={show ? "text" : "password"}
                     required
                     border={"none"}
-                    // value={password} 
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
@@ -233,7 +230,7 @@ function ForgetPassword() {
 
                 </InputGroup>
                 {message === true && (
-                  <Alert dir="rtl" status='error'>
+                  <Alert dir="rtl"  status='error'>
                     <AlertIcon />
                     בעיה בסיסמה!
                   </Alert>
