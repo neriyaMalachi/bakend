@@ -8,9 +8,15 @@ import {
   Grid,
   GridItem,
   Toast,
+  useDisclosure,
+  ModalOverlay,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
 } from "@chakra-ui/react";
-import {useEffect, useState } from "react";
-import {TiDelete } from "react-icons/ti";
+import React, { useEffect, useState } from "react";
+import { TiDelete } from "react-icons/ti";
 import AddUser from "./AddUser";
 import { HashLoader } from "react-spinners";
 import Search from "../Searchfile";
@@ -19,10 +25,17 @@ function Users() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [search, setSearch] = useState("");
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const OverlayOne = () => (
+    <ModalOverlay
+      bg='blackAlpha.100'
+      backdropFilter='blur(10px) hue-rotate(90deg)'
+    />
+  )
+  const [overlay, setOverlay] = React.useState(<OverlayOne />)
   useEffect(() => {
     getUsers();
-  }, []);
-  
+  }, [items]);
   const getUsers = () => {
     fetch("http://localhost:5000/api/users/getAllUser", {
       method: "GET",
@@ -32,7 +45,6 @@ function Users() {
         (result) => {
           setIsLoaded(true);
           setItems(result);
-          console.log(result);
         },
         (error) => {
           setIsLoaded(true);
@@ -71,7 +83,7 @@ function Users() {
       <VStack bg="#393E46">
         <VStack mt="1%">
           <AddUser />
-          <Search handleSearch={setSearch}/>
+          <Search handleSearch={setSearch} />
         </VStack>
         <HStack justifyContent={"space-around"} w="80%" >
           <Text >שם</Text>
@@ -97,26 +109,41 @@ function Users() {
           h="80vh"
         >
           {items
-          .filter((item)=>{
-            return search.toLowerCase() === ""
-            ? item
-            : item.name.toLowerCase().includes(search) 
-          })
-          .map((item) => (
-            <Stack key={item._id}>
-              <HStack gap={6} >
-                <Button bg="none" onClick={() => HendleDelete(item._id)}>
-                  {" "}
-                  <TiDelete color="#F24C3D" size={20} />
-                </Button>
-                <Text w="30%">{item.name}</Text>
-                <Text w="30%">{item.email}</Text>
-                <Text w="30%">{item.createdAt}</Text>
-              </HStack>
-              <Divider />
-            </Stack>
+            .filter((item) => {
+              return search.toLowerCase() === ""
+                ? item
+                : item.name.toLowerCase().includes(search)
+            })
+            .map((item) => (
+              <Stack key={item._id}>
+                <HStack gap={6} >
+                  <Button bg="none" onClick={onOpen}>
+                    {" "}
+                    <TiDelete color="#F24C3D" size={20} />
+                  </Button>
+                  <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                    {overlay}
+                    <ModalContent dir="rtl" >
+                      {/* <ModalCloseButton /> */}
+                      <ModalHeader>אתה בטוח </ModalHeader>
+                      <ModalFooter>
+                        <Button onClick={onClose}>ביטול</Button>
+                        <Button bg="none" onClick={() => {
+                          HendleDelete(item._id)
+                          onClose()
+                        }}>מחק</Button>
 
-          ))}
+                      </ModalFooter>
+                    </ModalContent>
+                  </Modal>
+                  <Text w="30%">{item.name}</Text>
+                  <Text w="30%">{item.email}</Text>
+                  <Text w="30%">{item.createdAt}</Text>
+                </HStack>
+                <Divider />
+              </Stack>
+
+            ))}
         </Stack>
       </VStack>
     );

@@ -1,13 +1,9 @@
 import React from "react";
 import {
   Box,
-  Divider,
   Table,
-  Thead,
   Tbody,
-  Tfoot,
   Tr,
-  Th,
   Td,
   TableContainer,
   Menu,
@@ -23,10 +19,6 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  Center,
-  Text,
-  Stack,
-  Flex,
   Grid,
   GridItem,
 } from "@chakra-ui/react";

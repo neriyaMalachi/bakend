@@ -42,6 +42,18 @@ function AddProduct() {
       numReviews: 0,
       description,
     });
+
+    setName("")
+    setCategory("")
+    setSlug("")
+    setImage("")
+    setPrice("")
+    setCountInStock("")
+    setRating("")
+    setbrand("")
+    setDescription("")
+
+
     onClose();
   };
   return (

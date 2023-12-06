@@ -39,12 +39,11 @@ function NavBar() {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [exitModal, setExitModal] = useState(false);
   const [reviewModal, setReviewModal] = useState(false);
- 
-  const openFirstModal = () => setExitModal(false);
-  const closeFirstModal = () => setExitModal(false);
+  const openExitModal = () => setExitModal(true);
+  const closeExitModal = () => setExitModal(false);
   const navigate = useNavigate();
-  const openSecondModal = () => setReviewModal(true);
-  const closeSecondModal = () => setReviewModal(false);
+  const openReviewModal = () => setReviewModal(true);
+  const closeReviewModal = () => setReviewModal(false);
   const btnRef = React.useRef()
   const OverlayOne = () => (
     <ModalOverlay
@@ -59,6 +58,7 @@ function NavBar() {
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("Paymentmethod");
     window.localStorage.href = "/signin";
+    setExitModal(false)
   };
 
   return (
@@ -107,39 +107,29 @@ function NavBar() {
                       </MenuItem>
 
                       <MenuItem bg="#222831">
-                        <Button bg="red" onClick={
-                          () => {
-                            openFirstModal()
-                            // setOverlay(<OverlayOne />)
-                            // onOpen2()
-                            // signoutHandlet();
-                          }
-                        }>
+                        <Link   onClick={openExitModal
+                    }>
                           התנתק
-                        </Button>
-                        {/* <Modal isCentered isOpen={openFirstModal} onClose={closeFirstModal}>
+                        </Link>
+                        <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
                           {overlay}
                           <ModalContent dir="rtl" >
-                            <ModalCloseButton />
-                            <ModalHeader>התנתק</ModalHeader>
-
-                            <ModalBody>
-                              <Text>אתה בטוח שבירצונך לצאת</Text>
-                            </ModalBody>
+                            {/* <ModalCloseButton /> */}
+                            <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
                             <ModalFooter>
-                              <Button onClick={closeFirstModal}>חזור</Button>
-                              <Button onClick={() => {
+                              <Button  onClick={closeExitModal}>ביטול</Button>
+                              <Button bg="none" onClick={() => {
                                 signoutHandlet();
                                 navigate('signIn')
 
-                              }}>התנתק</Button>
+                              }}>אישור</Button>
 
                             </ModalFooter>
                           </ModalContent>
-                        </Modal> */}
+                        </Modal>
                       </MenuItem>
                       <MenuItem bg="#222831">
-                        <Link to="/" >
+                        <Link to="/Home" >
                           דף הבית
                         </Link>
                       </MenuItem >
@@ -169,15 +159,17 @@ function NavBar() {
                     )}
                     <LuShoppingCart size={25} />
                   </Link>
-                  <MdOutlineReviews size={23} onClick={()=>{openSecondModal()}} />
+                 
+
+                  <MdOutlineReviews size={23}  onClick={()=>{openReviewModal()}}  />
+                  
                   <Drawer
                     size={"md"}
-                    isOpen={isOpen}
+                    isOpen={reviewModal}
                     placement='right'
-                    onClose={closeSecondModal}
+                    onClose={closeReviewModal}
                     finalFocusRef={btnRef}
                   >
-                    {/* <DrawerOverlay /> */}
                     <DrawerContent bg="#393E46" >
                       <DrawerBody>
                         <DrawerCloseButton />
