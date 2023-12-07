@@ -142,7 +142,7 @@ function SignupScreen() {
             >
             <Box >
               יש לך כבר חשבון?{" "}
-              <Link to={`/signin?redirect=${redirect}`}>
+              <Link to={`/?redirect=${redirect}`}>
                 <Text as="u">התחבר</Text>{" "}
               </Link>
             </Box>

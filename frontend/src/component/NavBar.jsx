@@ -57,7 +57,7 @@ function NavBar() {
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("Paymentmethod");
-    window.localStorage.href = "/signin";
+    window.localStorage.href = "/";
     setExitModal(false)
   };
 
@@ -86,7 +86,7 @@ function NavBar() {
         <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-between"} alignItems={"end"} >
           {!userInfo ? (
             <Box mr="7%" >
-              <Link to="/signin">התחבר</Link>
+              <Link to="/">התחבר</Link>
             </Box>
           ) : (
             userInfo.isAdmin ? (
@@ -107,26 +107,10 @@ function NavBar() {
                       </MenuItem>
 
                       <MenuItem bg="#222831">
-                        <Link   onClick={openExitModal
-                    }>
+                        <Link   onClick={openExitModal}>
                           התנתק
                         </Link>
-                        <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
-                          {overlay}
-                          <ModalContent dir="rtl" >
-                            {/* <ModalCloseButton /> */}
-                            <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
-                            <ModalFooter>
-                              <Button  onClick={closeExitModal}>ביטול</Button>
-                              <Button bg="none" onClick={() => {
-                                signoutHandlet();
-                                navigate('signIn')
-
-                              }}>אישור</Button>
-
-                            </ModalFooter>
-                          </ModalContent>
-                        </Modal>
+                        
                       </MenuItem>
                       <MenuItem bg="#222831">
                         <Link to="/Home" >
@@ -162,7 +146,22 @@ function NavBar() {
                  
 
                   <MdOutlineReviews size={23}  onClick={()=>{openReviewModal()}}  />
-                  
+                  <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
+                          {overlay}
+                          <ModalContent dir="rtl" >
+                            {/* <ModalCloseButton /> */}
+                            <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
+                            <ModalFooter>
+                              <Button  onClick={closeExitModal}>ביטול</Button>
+                              <Button bg="none" onClick={() => {
+                                signoutHandlet();
+                                navigate('/')
+
+                              }}>אישור</Button>
+
+                            </ModalFooter>
+                          </ModalContent>
+                        </Modal>
                   <Drawer
                     size={"md"}
                     isOpen={reviewModal}
@@ -202,10 +201,26 @@ function NavBar() {
                         </MenuItem>
 
                         <MenuItem>
-                          <Link to="/signIn" onClick={signoutHandlet}>
+                          <Link to="/" onClick={openExitModal}>
                             התנתק
                           </Link>
                         </MenuItem>
+                        <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
+                          {overlay}
+                          <ModalContent dir="rtl" >
+                            {/* <ModalCloseButton /> */}
+                            <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
+                            <ModalFooter>
+                              <Button  onClick={closeExitModal}>ביטול</Button>
+                              <Button bg="none" onClick={() => {
+                                signoutHandlet();
+                                navigate('/')
+
+                              }}>אישור</Button>
+
+                            </ModalFooter>
+                          </ModalContent>
+                        </Modal>
                         <MenuItem>
                           <Link to="/home" >
                             דף הבית
