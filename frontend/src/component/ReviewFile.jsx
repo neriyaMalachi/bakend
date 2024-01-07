@@ -3,10 +3,8 @@ import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { Store } from "../Store";
 import { StarIcon } from '@chakra-ui/icons';
-// import { useNavigate } from "react-router-dom";
 import { BiEditAlt } from 'react-icons/bi';
 import { MdOutlineDelete } from 'react-icons/md'
-
 
 function ReviewFile() {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -14,8 +12,6 @@ function ReviewFile() {
   const [rating, setRating] = useState(null);
   const [hover, setHover] = useState(null);
   const [items, setItems] = useState([]);
-  // const [reviewaccordingUser, setReviewaccordingUser] = useState();
-  // const [error, setError] = useState(null);
   const [userPutInReview, setUserPutInReview] = useState(false);
   const toast = useToast();
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -34,9 +30,6 @@ function ReviewFile() {
         (result) => {
           setItems(result);
         },
-        // (error) => {
-        //   setError(error);
-        // }
       );
 
 
@@ -73,20 +66,8 @@ function ReviewFile() {
       onClose();
     }
   }
-  // const checkEditReviewAccordingToUserForHederButton = async (item) => {
-  //   {
-  //     items.filter((edit) => {
-  //       return edit.email === email ? (
-  //         setReviewaccordingUser(edit._id)
-  //       ) : (
-  //         <></>
-  //       )
-  //     })
-  //   }
-  // }
-  const checkEditReviewAccordingToUser = async (item) => {
+  const checkEditReviewAccordingToUser = async (id,item) => {
     setReview(item)
-    // setReviewaccordingUser(item)
     try {
       await axios.get("/api/reviews/checkIfExists", {
         email,
@@ -104,7 +85,6 @@ function ReviewFile() {
     {
       items.filter((edit) => {
         return edit.email === email ? (
-          // setReviewaccordingUser(edit._id),
           idForReview = edit._id
         ) : (
           <></>
@@ -143,6 +123,8 @@ function ReviewFile() {
   return (
 
     <Box >
+      
+      <ModalCloseButton />
       <Text m="5%" textAlign={"center"} fontSize={"xx-large"}>ביקורות</Text>
       <Flex  alignItems={"center"} justifyContent={"center"} direction={"column"} >
         {items.filter((item) => {
@@ -155,7 +137,6 @@ function ReviewFile() {
               השארת חוות דעת מ
               {item.user}:
               <Divider />
-              {/* {item.createdAt} */}
             </CardHeader>
             <CardBody>
 
@@ -177,7 +158,7 @@ function ReviewFile() {
                 {item.user === user && item.email === email ? (
                   <>
                     <IconButton bg="none" onClick={() => {
-                      checkEditReviewAccordingToUser(item._id)
+                      checkEditReviewAccordingToUser(item._id , item.review)
 
                     }}>
                       <BiEditAlt />
@@ -221,7 +202,7 @@ function ReviewFile() {
                 type='reviewText'
                 rows="10"
                 cols="5"
-                // value={review}
+                 value={review}
                 onChange={(e) => { setReview(e.target.value) }}
               />
               <Box>
@@ -262,6 +243,7 @@ function ReviewFile() {
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
+         
             <ModalHeader dir='rtl'>ביקורת</ModalHeader>
             <ModalBody dir='rtl'>
               <form onSubmit={AddReview}>

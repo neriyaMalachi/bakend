@@ -239,7 +239,7 @@ function OrderScreen() {
                   {order.isPaid ? (
                     <Alert status="success">
                       <AlertIcon />
-                      Paid at {order.paidAt}
+                     שולם {order.paidAt}
                     </Alert>
                   ) : (
                     <Alert bg="red.300" status="error">

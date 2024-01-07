@@ -87,10 +87,13 @@ function OrderHistoryScreen() {
         </GridItem>
       </Grid>
       ) : error ? (
-        <Alert status="error">
+        <Flex h={"90vh"}>
+
+        <Alert status="error" justifyContent={"center"}>
           <AlertIcon />
           <AlertDescription>{error}</AlertDescription>
         </Alert>
+        </Flex>
       ): 
       
               <Box bg="#393E46" color="#EEEEEE"  minH="70vh">
