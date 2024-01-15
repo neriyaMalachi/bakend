@@ -33,7 +33,6 @@ function EditProductes() {
   };
 
   const Editproduact = async () => {
-    console.log(name, category, price, countInStock, description);
 
     let result = await fetch(
       `http://localhost:3000/api/propertis/updateProducts/${params.id}`,
@@ -59,6 +58,9 @@ function EditProductes() {
     if (result) {
       navigate("/Admin/products");
     }
+
+    console.log(name, category, price, countInStock, description);
+
   };
   return (
     <Flex

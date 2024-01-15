@@ -21,18 +21,23 @@ import {
   ModalCloseButton,
   Grid,
   GridItem,
+  VStack,
+  Image,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import ItemForOrder from "./ItemForOrder";
 import { HashLoader } from "react-spinners";
+import imagecart from "../../img/image-for-cart.png"
+
 function Orders() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const [currentItem, setCurrentItem] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const [isLargerThen768] = useMediaQuery("(min-width:900px)");
   useEffect(() => {
     fetch("http://localhost:5000/api/orders/", {
       method: "GET",
@@ -58,6 +63,7 @@ function Orders() {
       </GridItem>
     </Grid>;
   } else {
+  if(items.length !== 0){
     return (
       <Box minH={"80vh"} bg="#393E46">
         <TableContainer>
@@ -132,6 +138,22 @@ function Orders() {
 
       </Box>
     );
+  }else{
+    return(
+      <VStack
+      dir="rtl"
+      py={"80px"}
+      h={isLargerThen768 ? "75vh" : "50vh"}
+      fontSize="2xl"
+      bg="#393E46"
+      color="#EEEEEE"
+    >
+      <Box >תיבת ההזמנות ריקה!</Box>
+      <Image maxW={"20vw"}  src={imagecart} />
+    </VStack>
+    )
+  }
+ 
   }
 }
 
