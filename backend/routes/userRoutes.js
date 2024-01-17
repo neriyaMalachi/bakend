@@ -108,7 +108,6 @@ userRouter.post('/change-password', async (req, res) => {
 
   res.status(200).json({ message: 'Password updated successfully' });
 });
-
 userRouter.get("/getAllUser", async (req, res) => {
   try {
     const allUser = await User.find({});
@@ -117,7 +116,6 @@ userRouter.get("/getAllUser", async (req, res) => {
     console.log(error);
   }
 });
-
 userRouter.delete("/deleteuser/:id", async (req, res) => {
   const result = await User.deleteOne({ _id: req.params.id });
   res.send(result);
