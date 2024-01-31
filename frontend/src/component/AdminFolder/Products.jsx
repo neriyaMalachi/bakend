@@ -41,7 +41,7 @@ function Products() {
   const [overlay, setOverlay] = React.useState(<OverlayOne />)
   useEffect(() => {
     getProducts();
-  }, [items ]);
+  }, [ ]);
   const getProducts = () => {
     fetch("http://localhost:5000/api/propertis", {
       method: "GET",

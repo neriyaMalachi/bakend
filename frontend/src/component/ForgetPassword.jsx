@@ -62,7 +62,7 @@ function ForgetPassword() {
 
         if (response.status === 200) {
           setMessage('Password updated successfully.');
-          navigate("/signin")
+          navigate("/")
         } else {
           setMessage(data.message || 'Password update failed.');
         }

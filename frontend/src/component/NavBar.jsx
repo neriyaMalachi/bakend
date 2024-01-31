@@ -184,6 +184,7 @@ function NavBar() {
               </>
             ) : (
               <>
+              <Flex>
                 <Flex w={{ base: "200px", sm: "1800px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"}>
                   <HStack color="#EEEEEE"  >
                     <Menu>
@@ -266,11 +267,14 @@ function NavBar() {
                     <AiOutlineHeart color="red" size={25} />
                   </Link>
                 </Flex>
-                {/* <Flex>שלום וברכה {userInfo.name}</Flex> */}
+                <Text  fontSize={"2xs"}>שלום וברכה {userInfo.name}</Text>
+
+                </Flex>
               </>
             )
           )}
         </Flex>
+        
         <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
           <Box>
             <BsFacebook size={25} />
