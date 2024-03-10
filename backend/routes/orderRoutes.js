@@ -24,7 +24,6 @@ orderRouter.post(
     res.status(201).send({ message: "New Order Created", order });
   })
 );
-
 orderRouter.get(
   "/mine",
   isAuth,
@@ -33,7 +32,6 @@ orderRouter.get(
     res.send(orders);
   })
 );
-
 orderRouter.get(
   "/:id",
   isAuth,
@@ -46,7 +44,6 @@ orderRouter.get(
     }
   })
 );
-
 orderRouter.put(
   '/:id/pay',
   isAuth,
@@ -68,5 +65,14 @@ orderRouter.put(
     }
   })
 )
+orderRouter.get("/", async (req, res) => {
+  try {
+    const allOrders = await Order.find();
+    res.send( allOrders );
+   
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export default orderRouter;

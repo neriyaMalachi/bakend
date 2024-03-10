@@ -6,6 +6,7 @@ import {PayPalScriptProvider} from '@paypal/react-paypal-js'
 import reportWebVitals from "./reportWebVitals";
 import { HelmetProvider } from "react-helmet-async";
 import { StoreProvider } from "./Store";
+import { Center, Text } from "@chakra-ui/react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ root.render(
       <HelmetProvider>
       <PayPalScriptProvider deferLoading={true}>
         <App />
+        
         </PayPalScriptProvider>
       </HelmetProvider>
     </StoreProvider>

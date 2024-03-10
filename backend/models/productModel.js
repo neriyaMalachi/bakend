@@ -9,15 +9,14 @@ const productSchema = new mongoose.Schema(
     price: { type: String, require: true },
     countInStock: { type: String, require: true },
     brand: { type: String, require: true },
-    rating: { type: String, require: true },
-    numReviews: { type: String, require: true },
+    rating: { type: Number, require: true },
+    numReviews: { type: Number, require: true },
     description: { type: String, require: true },
   },
   {
-    tymestamps: true,
+    timestamps: true,
   }
 );
-
 const Product = mongoose.model("Product", productSchema);
-
 export default Product;
+
