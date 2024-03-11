@@ -77,7 +77,7 @@ function ForgetPassword() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(email);
+    // console.log(email);
     try {
       const { data } = await Axios.post("/api/users/forgetPassword", {
         email,
@@ -89,11 +89,7 @@ function ForgetPassword() {
     }
   };
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     navigate(redirect);
-  //   }
-  // }, [navigate, redirect, userInfo]);
+ 
 
   return (
     <>
