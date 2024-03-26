@@ -66,6 +66,7 @@ function NavBar() {
       <Box bg="#222831" color="white" textAlign="center">
         {" "}
         699 משלוחים{" "}
+        
         <Text as="b" fontSize="120%" color="#00ADB5">
           חינם
         </Text>{" "}
