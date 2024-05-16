@@ -129,7 +129,7 @@ function Cards(props) {
                 {!heart ? (
                   <AiOutlineHeart size={25} color="red" />
                 ) : (
-                  <AiTwotoneHeart size={25} color="red" />
+                  <AiTwotoneHeart size={25} color="red"  />
                 )}
               </Button>
             </Box>
