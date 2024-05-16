@@ -11,9 +11,9 @@ import {
   InputGroup,
   Text,
 } from "@chakra-ui/react";
-import {React, useState } from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 

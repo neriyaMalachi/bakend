@@ -7,11 +7,15 @@ import expressAsyncHandler from "express-async-handler";
 
 const userRouter = express.Router();
 
-userRouter.post("/signin",
+userRouter.post(
+  "/signin",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
-      const isEqualPassword = await bcrypt.compare(req.body.password, user.password)
+      const isEqualPassword = await bcrypt.compare(
+        req.body.password,
+        user.password
+      );
       if (isEqualPassword) {
         res.send({
           _id: user._id,
@@ -26,25 +30,24 @@ userRouter.post("/signin",
     res.status(401).send({ message: "Invalid email or password " });
   })
 );
-userRouter.post("/forgetPassword",
+userRouter.post(
+  "/forgetPassword",
   expressAsyncHandler(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
-    console.log(user);
     if (!user) {
       res.status(401).send({ message: "Invalid email or password " });
-
     } else {
       res.send({
         email: user.email,
         token: generateToken(user),
-
       });
 
       return;
     }
   })
 );
-userRouter.post("/signup",
+userRouter.post(
+  "/signup",
   expressAsyncHandler(async (req, res) => {
     const newUser = new User({
       name: req.body.name,
@@ -61,7 +64,8 @@ userRouter.post("/signup",
     });
   })
 );
-userRouter.put("/profile",
+userRouter.put(
+  "/profile",
   isAuth,
   expressAsyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -85,28 +89,24 @@ userRouter.put("/profile",
     }
   })
 );
-userRouter.post('/change-password', async (req, res) => {
+userRouter.post("/change-password", async (req, res) => {
   const { password } = req.body;
   const { email } = req.body;
-  console.log(password, email);
   const user = await User.findOne({ email }).exec();
 
-
   if (!user) {
-    return res.status(404).json({ message: 'User not found' });
+    return res.status(404).json({ message: "User not found" });
   }
 
   if (!password) {
-    return res.status(401).json({ message: 'Current password is incorrect' });
+    return res.status(401).json({ message: "Current password is incorrect" });
   }
 
-  console.log(user);
+  user.password = await bcrypt.hash(password, 8);
 
-  user.password = await bcrypt.hash(password, 8);;
+  user.save();
 
-  user.save()
-
-  res.status(200).json({ message: 'Password updated successfully' });
+  res.status(200).json({ message: "Password updated successfully" });
 });
 userRouter.get("/getAllUser", async (req, res) => {
   try {
@@ -127,49 +127,53 @@ userRouter.post("/addUser", async (req, res) => {
       console.log(err.message);
       res.status(500).send(err.message);
     } else {
-      console.log(userDetail);
       res.status(201).send(data);
     }
   });
-})
-userRouter.post('/addFaivoritItem/:id', async (req, res) => {
+});
+userRouter.post("/addFaivoritItem/:id", async (req, res) => {
   try {
     const user = await User.findById({ _id: req.params.id });
     if (!user) {
-      return res.status(404).json({ message: 'User not found' });
+      return res.status(404).json({ message: "User not found" });
     }
     const favouriteProduct = req.body;
     const ObjectId = mongoose.Types.ObjectId;
     user.faivorit.push(ObjectId(favouriteProduct.item._id));
     await user.save();
-    res.json({ message: 'Product added to user successfully' });
+    res.json({ message: "Product added to user successfully" });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: "Internal Server Error" });
   }
-})
+});
 userRouter.get("/getAllListFaivoritProps/:id", async (req, res) => {
   const user = await User.findById({ _id: req.params.id });
-  const faivoritelist = (await user.populate('faivorit')).faivorit;
+  const faivoritelist = (await user.populate("faivorit")).faivorit;
   res.status(200).send(faivoritelist);
-
-})
+});
 userRouter.delete("/deleteFaivourite", async (req, res) => {
   const ObjectId = mongoose.Types.ObjectId;
-  await User.updateOne({ _id: req.body.userId },
+  await User.updateOne(
+    { _id: req.body.userId },
     {
       $pull: {
-        'faivorit': ObjectId(req.body.productId)
-      }
+        faivorit: ObjectId(req.body.productId),
+      },
     }
   ).exec();
   res.send(true);
-})
+});
 userRouter.post("/checkIfAFaivoritExists", async (req, res) => {
   const user = await User.findById({ _id: req.body.userId });
-  const item = user.faivorit.find(faivorit => faivorit.toString() === req.body.productId );
-  if (item ){ res.send(item._id);}
-  else{res.send(false)}
-})
+  const item = user.faivorit.find(
+    (faivorit) => faivorit.toString() === req.body.productId
+  );
+  if (item) {
+    res.send(item._id);
+  } else {
+    res.send(false);
+  }
+});
 
 export default userRouter;

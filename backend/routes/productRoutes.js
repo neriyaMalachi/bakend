@@ -15,7 +15,6 @@ productRoute.get("/slug/:slug", async (req, res) => {
   } else {
     res.status(404).send({ message: "Product Not Found" });
   }
-  console.log(product);
 });
 //chack for id
 productRoute.get("/:id", async (req, res) => {
@@ -25,7 +24,6 @@ productRoute.get("/:id", async (req, res) => {
   } else {
     res.status(404).send({ message: "Product Not Found" });
   }
-  console.log(product);
 });
 
 productRoute.post("/addProducts/add", async (req, res) => {
@@ -35,7 +33,6 @@ productRoute.post("/addProducts/add", async (req, res) => {
       console.log(err.message);
       res.status(500).send(err.message);
     } else {
-      console.log(productDetail);
       res.status(201).send(data);
     }
   });
