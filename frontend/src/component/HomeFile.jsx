@@ -1,15 +1,9 @@
-import {
-  Box,
-  Center,
-  GridItem,
-  Grid,
-  VStack,
-} from "@chakra-ui/react";
+import { Box, Center, GridItem, Grid, VStack } from "@chakra-ui/react";
 import { useReducer, useEffect, useState } from "react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
-import { HashLoader } from "react-spinners"
+import { HashLoader } from "react-spinners";
 import Search from "./Searchfile";
 const reducer = (state, action) => {
   switch (action.type) {
@@ -30,7 +24,7 @@ function HomeFile() {
     error: "",
   });
   const [search, setSearch] = useState("");
-  
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: "FETCH_REQUEST" });
@@ -45,16 +39,20 @@ function HomeFile() {
   }, []);
   return loading ? (
     <Grid>
-      <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+      <GridItem
+        bg="#393E46"
+        h={"90vh"}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
         <HashLoader color="#00ADB5" />
       </GridItem>
     </Grid>
   ) : error ? (
     <Center>{error}</Center>
   ) : (
-    <Box
-      bg="#393E46"
-    >
+    <Box bg="#393E46">
       <Helmet>
         <title>דף הבית</title>
       </Helmet>
@@ -71,15 +69,13 @@ function HomeFile() {
           .filter((item) => {
             return search.toLowerCase() === ""
               ? item
-              : item.name.toLowerCase().includes(search)
+              : item.name.toLowerCase().includes(search);
           })
           .map((product) => (
             <Cards product={product} key={product.slug} />
           ))}
       </Box>
-
     </Box>
-    
   );
 }
 

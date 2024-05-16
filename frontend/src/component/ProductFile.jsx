@@ -7,7 +7,6 @@ import {
   Card,
   Button,
   Text,
-  SimpleGrid,
   CardHeader,
   Box,
   Flex,
@@ -21,7 +20,7 @@ import axios from "axios";
 import React, { useEffect, useReducer } from "react";
 import { useContext } from "react";
 import { Helmet } from "react-helmet-async";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Store } from "../Store";
 import Media from "react-media";
 import { HashLoader } from "react-spinners";
@@ -41,7 +40,6 @@ const reducer = (state, action) => {
 function ProductFile() {
   const params = useParams();
   const { slug } = params;
-  const navigat = useNavigate();
   const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
     loading: true,
@@ -76,11 +74,16 @@ function ProductFile() {
       type: "CART_ADD_ITEM",
       payload: { ...propertis, quantity },
     });
-    // navigat("/cart");
   };
   return loading ? (
     <Grid>
-      <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+      <GridItem
+        bg="#393E46"
+        h={"90vh"}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
         <HashLoader color="#00ADB5" />
       </GridItem>
     </Grid>
@@ -101,7 +104,7 @@ function ProductFile() {
               bg="#393E46"
               justifyContent={"space-evenly"}
             >
-              <Box  >
+              <Box>
                 <Image
                   src={propertis.image}
                   alt="nargila image"
@@ -111,13 +114,20 @@ function ProductFile() {
                 />
               </Box>
               <VStack>
-                <Card borderRadius={"20"} h="60vh" w="25vw" textAlign="end" bg="#222831" color="#EEEEEE">
+                <Card
+                  borderRadius={"20"}
+                  h="60vh"
+                  w="25vw"
+                  textAlign="end"
+                  bg="#222831"
+                  color="#EEEEEE"
+                >
                   <CardHeader>
                     <Heading size="2xl"> {propertis.name} </Heading>
                   </CardHeader>
-                  <CardBody >
-                    <Flex direction={"column"}  >
-                      <HStack mt="3%" dir="rtl" >
+                  <CardBody>
+                    <Flex direction={"column"}>
+                      <HStack mt="3%" dir="rtl">
                         <Heading size="md"> המלצות:</Heading>
 
                         {Array(5)
@@ -130,7 +140,10 @@ function ProductFile() {
                           ))}
                       </HStack>
 
-                      <Heading mt="3%" size="md"> {propertis.price} :מחיר </Heading>
+                      <Heading mt="3%" size="md">
+                        {" "}
+                        {propertis.price} :מחיר{" "}
+                      </Heading>
                       <Box mt="3%">
                         <Flex dir="rtl">
                           <Heading size="md"> תיאור :</Heading>
@@ -138,34 +151,33 @@ function ProductFile() {
                           <Text>{propertis.description}</Text>
                         </Flex>
                         {propertis.countInStock > 0 ? (
-                          <Box mt="3" >
-                            <Heading size="md" color="green.400" >
+                          <Box mt="3">
+                            <Heading size="md" color="green.400">
                               קיים במלאי
                             </Heading>
-
                           </Box>
                         ) : (
-                          <Heading size="md" color="red" >
+                          <Heading size="md" color="red">
                             אזל במלאי
                           </Heading>
                         )}
                       </Box>
                     </Flex>
                   </CardBody>
-                  <CardFooter justifyContent={"center"} >
-                      <Button
-                        variant="solid"
-                        bg="#00ADB5"
-                        onClick={addToCartHandler}
-                      >
-                        הוסף להגלה
-                      </Button>
+                  <CardFooter justifyContent={"center"}>
+                    <Button
+                      variant="solid"
+                      bg="#00ADB5"
+                      onClick={addToCartHandler}
+                    >
+                      הוסף להגלה
+                    </Button>
                   </CardFooter>
                 </Card>
               </VStack>
             </HStack>
           ) : (
-            <Card >
+            <Card>
               <Image
                 src={propertis.image}
                 alt="Caffe Latte"
@@ -177,28 +189,25 @@ function ProductFile() {
                 <CardHeader>
                   <Heading size="xl"> {propertis.name} </Heading>
                 </CardHeader>
-                <CardBody >
+                <CardBody>
                   <Heading size="md"> מחיר : {propertis.price} ₪</Heading>
-                  <Box  mt="2" dir="rtl">
-
+                  <Box mt="2" dir="rtl">
                     {propertis.countInStock > 0 ? (
-                      <Flex  >
-                        <Heading size={"md"}  color="green.400" >
+                      <Flex>
+                        <Heading size={"md"} color="green.400">
                           קיים במלאי
                         </Heading>
                       </Flex>
                     ) : (
-                      <Flex >
-                        <Heading size={"md"} w="35%" color="red" >
+                      <Flex>
+                        <Heading size={"md"} w="35%" color="red">
                           אזל מהמלאי
                         </Heading>
                       </Flex>
                     )}
 
                     <Flex mt="2" alignItems="center">
-                      <Heading size="md" >
-                        המלצות:{" "}
-                      </Heading>
+                      <Heading size="md">המלצות: </Heading>
                       {Array(5)
                         .fill("")
                         .map((_, i) => (
@@ -210,8 +219,10 @@ function ProductFile() {
                         ))}
                     </Flex>
 
-
-                    <Flex mt="2"><strong> תיאור :</strong>{propertis.description}</Flex>
+                    <Flex mt="2">
+                      <strong> תיאור :</strong>
+                      {propertis.description}
+                    </Flex>
                   </Box>
                 </CardBody>
                 <CardFooter>

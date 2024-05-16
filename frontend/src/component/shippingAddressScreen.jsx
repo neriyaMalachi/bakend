@@ -6,7 +6,6 @@ import {
   Center,
   Input,
   Select,
-  StackDivider,
   VStack,
 } from "@chakra-ui/react";
 import React, { useContext } from "react";
@@ -15,7 +14,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
-import countrys from "../data"
+import countrys from "../data";
 
 function ShippingAddressScreen() {
   const navigate = useNavigate();
@@ -62,25 +61,17 @@ function ShippingAddressScreen() {
     navigate("/payment");
   };
   return (
-    
     <Center h="86vh" bg="#393E46">
-      <Card
-        p="2%"
-        bg="#222831"
-        color="#EEEEEE"
-        borderRadius={20}
-      >
+      <Card p="2%" bg="#222831" color="#EEEEEE" borderRadius={20}>
         <Helmet>
           <title>פרטי משתמש</title>
         </Helmet>
-        <Box textAlign="center" fontSize="2xl" >פרטי משתמש</Box>
+        <Box textAlign="center" fontSize="2xl">
+          פרטי משתמש
+        </Box>
         <form onSubmit={submitHandler}>
-          <VStack
-            spacing={4}
-            align="stretch"
-            dir="rtl"
-          >
-            <Box >
+          <VStack spacing={4} align="stretch" dir="rtl">
+            <Box>
               <Input
                 placeholder="שם מלא"
                 // size="lg"
@@ -90,40 +81,36 @@ function ShippingAddressScreen() {
               />
             </Box>
 
-            <Box >
+            <Box>
               <Input
                 placeholder="כתובת"
-                
                 value={address}
                 required
                 onChange={(e) => setAddress(e.target.value)}
               />
             </Box>
 
-            <Box >
+            <Box>
               <Input
                 placeholder="עיר"
-                
                 value={city}
                 required
                 onChange={(e) => setCity(e.target.value)}
               />
             </Box>
 
-            <Box >
+            <Box>
               <Input
                 placeholder="מיקוד"
-                
                 value={postalCode}
                 required
                 onChange={(e) => setPostalCode(e.target.value)}
               />
             </Box>
 
-            <Box >
+            <Box>
               <Select
                 placeholder="ארץ"
-                
                 value={countrys.countrys.code}
                 required
                 onChange={(e) => setcountry(e.target.value)}
@@ -132,9 +119,18 @@ function ShippingAddressScreen() {
                 color="#EEEEEE"
               >
                 {countrys.countrys.map((getcountry, index) => (
-                  <option key={index}  style={{backgroundColor:"#222831" ,height:"10%",color:"#EEEEEE" }}  value={getcountry.code} >{getcountry.name}</option>
+                  <option
+                    key={index}
+                    style={{
+                      backgroundColor: "#222831",
+                      height: "10%",
+                      color: "#EEEEEE",
+                    }}
+                    value={getcountry.code}
+                  >
+                    {getcountry.name}
+                  </option>
                 ))}
-
               </Select>
             </Box>
           </VStack>
@@ -144,8 +140,6 @@ function ShippingAddressScreen() {
             </Button>
           </CardFooter>
         </form>
-
-
       </Card>
     </Center>
   );

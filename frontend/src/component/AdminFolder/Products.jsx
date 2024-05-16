@@ -18,7 +18,6 @@ import {
   ModalHeader,
   ModalFooter,
   ModalOverlay,
-
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import AddProduct from "./AddProduct";
@@ -26,7 +25,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "../Searchfile";
 import { HashLoader } from "react-spinners";
 function Products() {
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
@@ -34,14 +33,14 @@ function Products() {
   const [search, setSearch] = useState("");
   const OverlayOne = () => (
     <ModalOverlay
-      bg='blackAlpha.300'
-      backdropFilter='blur(10px) hue-rotate(90deg)'
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
     />
-  )
-  const [overlay, setOverlay] = React.useState(<OverlayOne />)
+  );
+  const overlay = React.useState(<OverlayOne />);
   useEffect(() => {
     getProducts();
-  }, [ ]);
+  }, []);
   const getProducts = () => {
     fetch("http://localhost:5000/api/propertis", {
       method: "GET",
@@ -74,22 +73,31 @@ function Products() {
     return <EditProduct item={item} />;
   };
 
-
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return (
       <Grid>
-        <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+        <GridItem
+          bg="#393E46"
+          h={"90vh"}
+          display={"flex"}
+          alignItems={"center"}
+          justifyContent={"center"}
+        >
           <HashLoader color="#00ADB5" />
         </GridItem>
-      </Grid>)
+      </Grid>
+    );
   } else {
     return (
-      <Box
-        bg="#393E46"
-      >
-        <Flex h="110px" direction={"column"} justifyContent={"space-around"} alignItems={"center"}>
+      <Box bg="#393E46">
+        <Flex
+          h="110px"
+          direction={"column"}
+          justifyContent={"space-around"}
+          alignItems={"center"}
+        >
           <AddProduct />
           <Search handleSearch={setSearch} />
         </Flex>
@@ -105,7 +113,7 @@ function Products() {
             .filter((item) => {
               return search.toLowerCase() === ""
                 ? item
-                : item.name.toLowerCase().includes(search)
+                : item.name.toLowerCase().includes(search);
             })
             .map((item, index) => (
               <Card
@@ -127,7 +135,7 @@ function Products() {
                     src={item.image}
                     alt={item.name}
                   />
-                  <CardBody dir="rtl" >
+                  <CardBody dir="rtl">
                     <Heading py="2" size="md">
                       {" "}
                       שם:{item.name}
@@ -142,9 +150,7 @@ function Products() {
                   </CardBody>
                   <CardFooter>
                     <Button
-                      onClick={() =>
-                        onOpen()
-                      }
+                      onClick={() => onOpen()}
                       variant="solid"
                       colorScheme="red"
                       m="1%"
@@ -153,21 +159,26 @@ function Products() {
                     </Button>
                     <Modal isCentered isOpen={isOpen} onClose={onClose}>
                       {overlay}
-                      <ModalContent dir="rtl" >
-                        {/* <ModalCloseButton /> */}
+                      <ModalContent dir="rtl">
                         <ModalHeader>אתה בטוח </ModalHeader>
                         <ModalFooter>
                           <Button onClick={onClose}>ביטול</Button>
-                          <Button bg="none" onClick={() => {
-                            deleteProduct(item._id)
-                            onClose()
-;                          }}>מחק</Button>
-
+                          <Button
+                            bg="none"
+                            onClick={() => {
+                              deleteProduct(item._id);
+                              onClose();
+                            }}
+                          >
+                            מחק
+                          </Button>
                         </ModalFooter>
                       </ModalContent>
                     </Modal>
                     <Link to={"/Admin/EditProductes/" + item._id}>
-                      <Button m="1%" bg="green.400">עדכן מוצר</Button>
+                      <Button m="1%" bg="green.400">
+                        עדכן מוצר
+                      </Button>
                     </Link>
                   </CardFooter>
                 </VStack>

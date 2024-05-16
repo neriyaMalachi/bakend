@@ -18,11 +18,9 @@ import {
   Modal,
   ModalContent,
   ModalHeader,
-  ModalCloseButton,
-  ModalBody,
   ModalFooter,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { RxHamburgerMenu, RxHome } from "react-icons/rx";
@@ -31,12 +29,12 @@ import { BsFacebook } from "react-icons/bs";
 import { FaWhatsapp } from "react-icons/fa";
 import { HiOutlineMail } from "react-icons/hi";
 import { AiOutlineHeart } from "react-icons/ai";
-import { MdOutlineReviews } from "react-icons/md"
+import { MdOutlineReviews } from "react-icons/md";
 import ReviewFile from "./ReviewFile";
 function NavBar() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
-  const { isOpen, onOpen, onClose } = useDisclosure()
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [exitModal, setExitModal] = useState(false);
   const [reviewModal, setReviewModal] = useState(false);
   const openExitModal = () => setExitModal(true);
@@ -44,21 +42,21 @@ function NavBar() {
   const navigate = useNavigate();
   const openReviewModal = () => setReviewModal(true);
   const closeReviewModal = () => setReviewModal(false);
-  const btnRef = React.useRef()
+  const btnRef = React.useRef();
   const OverlayOne = () => (
     <ModalOverlay
-      bg='blackAlpha.300'
-      backdropFilter='blur(10px) hue-rotate(90deg)'
+      bg="blackAlpha.300"
+      backdropFilter="blur(10px) hue-rotate(90deg)"
     />
-  )
-  const [overlay, setOverlay] = React.useState(<OverlayOne />)
+  );
+  const overlay = React.useState(<OverlayOne />);
   const signoutHandlet = () => {
     ctxDispatch({ type: "USER_SIGNOUT" });
     localStorage.removeItem("userInfo");
     localStorage.removeItem("shippingAddress");
     localStorage.removeItem("Paymentmethod");
     window.localStorage.href = "/";
-    setExitModal(false)
+    setExitModal(false);
   };
 
   return (
@@ -81,112 +79,117 @@ function NavBar() {
         justifyContent={"space-between"}
         alignItems={"end"}
       >
-
-
-        <Flex w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }} justifyContent={"space-between"} alignItems={"end"} >
+        <Flex
+          w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }}
+          justifyContent={"space-between"}
+          alignItems={"end"}
+        >
           {!userInfo ? (
-            <Box mr="7%" >
+            <Box mr="7%">
               <Link to="/">התחבר</Link>
             </Box>
-          ) : (
-            userInfo.isAdmin ? (
-              <>
-                <Flex w={{ base: "200px", sm: "200px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"} >
-                  <Menu >
-                    <MenuButton>
-                      <RxHamburgerMenu />
-                    </MenuButton>
-                    <MenuList border="none" bg="#222831" color="#EEEEEE">
-                      <MenuItem bg="#222831">
-                        {" "}
-                        <Link to="/orderhistory">הזמנות</Link>
-                      </MenuItem>
-                      <MenuItem bg="#222831">
-                        {" "}
-                        <Link to="/profile">פרופיל</Link>
-                      </MenuItem>
+          ) : userInfo.isAdmin ? (
+            <>
+              <Flex
+                w={{ base: "200px", sm: "200px", md: "200px", lg: "200px" }}
+                justifyContent={"space-evenly"}
+                alignItems={"end"}
+              >
+                <Menu>
+                  <MenuButton>
+                    <RxHamburgerMenu />
+                  </MenuButton>
+                  <MenuList border="none" bg="#222831" color="#EEEEEE">
+                    <MenuItem bg="#222831">
+                      {" "}
+                      <Link to="/orderhistory">הזמנות</Link>
+                    </MenuItem>
+                    <MenuItem bg="#222831">
+                      {" "}
+                      <Link to="/profile">פרופיל</Link>
+                    </MenuItem>
 
-                      <MenuItem bg="#222831">
-                        <Link   onClick={openExitModal}>
-                          התנתק
-                        </Link>
-                        
-                      </MenuItem>
-                      <MenuItem bg="#222831">
-                        <Link to="/Home" >
-                          דף הבית
-                        </Link>
-                      </MenuItem >
-                      <Link to="/Admin/products">
-                        <MenuItem bg="#222831">מוצרים</MenuItem>
-                      </Link>
-                      <Link to="/Admin/orders">
-                        <MenuItem bg="#222831">הזמנות</MenuItem>
-                      </Link>
-                      <Link to="/Admin/users">
-                        <MenuItem bg="#222831">משתמשים</MenuItem>
-                      </Link>
-                    </MenuList>
-                  </Menu>
-                  <Link to="/home">
-                    <RxHome size={25} />
-                  </Link>
-                  <Link to="/cart">
-                    {cart.cartItems.length > 0 && (
-                      <Flex
-                        textAlign={"end"}
-                        fontSize={"70%"}
-                        m={"-2"}
+                    <MenuItem bg="#222831">
+                      <Link onClick={openExitModal}>התנתק</Link>
+                    </MenuItem>
+                    <MenuItem bg="#222831">
+                      <Link to="/Home">דף הבית</Link>
+                    </MenuItem>
+                    <Link to="/Admin/products">
+                      <MenuItem bg="#222831">מוצרים</MenuItem>
+                    </Link>
+                    <Link to="/Admin/orders">
+                      <MenuItem bg="#222831">הזמנות</MenuItem>
+                    </Link>
+                    <Link to="/Admin/users">
+                      <MenuItem bg="#222831">משתמשים</MenuItem>
+                    </Link>
+                  </MenuList>
+                </Menu>
+                <Link to="/home">
+                  <RxHome size={25} />
+                </Link>
+                <Link to="/cart">
+                  {cart.cartItems.length > 0 && (
+                    <Flex textAlign={"end"} fontSize={"70%"} m={"-2"}>
+                      {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                    </Flex>
+                  )}
+                  <LuShoppingCart size={25} />
+                </Link>
+
+                <MdOutlineReviews
+                  size={23}
+                  onClick={() => {
+                    openReviewModal();
+                  }}
+                />
+                <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
+                  {overlay}
+                  <ModalContent dir="rtl">
+                    <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
+                    <ModalFooter>
+                      <Button onClick={closeExitModal}>ביטול</Button>
+                      <Button
+                        bg="none"
+                        onClick={() => {
+                          signoutHandlet();
+                          navigate("/");
+                        }}
                       >
-                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
-                      </Flex>
-                    )}
-                    <LuShoppingCart size={25} />
-                  </Link>
-                 
-
-                  <MdOutlineReviews size={23}  onClick={()=>{openReviewModal()}}  />
-                  <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
-                          {overlay}
-                          <ModalContent dir="rtl" >
-                            {/* <ModalCloseButton /> */}
-                            <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
-                            <ModalFooter>
-                              <Button  onClick={closeExitModal}>ביטול</Button>
-                              <Button bg="none" onClick={() => {
-                                signoutHandlet();
-                                navigate('/')
-
-                              }}>אישור</Button>
-
-                            </ModalFooter>
-                          </ModalContent>
-                        </Modal>
-                  <Drawer
-                    size={"md"}
-                    isOpen={reviewModal}
-                    placement='right'
-                    onClose={closeReviewModal}
-                    finalFocusRef={btnRef}
-                  >
-                    <DrawerContent bg="#393E46" >
-                      <DrawerBody>
-                        <DrawerCloseButton />
-                        <ReviewFile />
-                      </DrawerBody>
-                    </DrawerContent>
-                  </Drawer>
-                  <Link to="/faivoritList">
-                    <AiOutlineHeart color="red" size={25} />
-                  </Link>
-                </Flex>
-                {/* <Flex>שלום וברכה {userInfo.name}</Flex> */}
-              </>
-            ) : (
-              <>
+                        אישור
+                      </Button>
+                    </ModalFooter>
+                  </ModalContent>
+                </Modal>
+                <Drawer
+                  size={"md"}
+                  isOpen={reviewModal}
+                  placement="right"
+                  onClose={closeReviewModal}
+                  finalFocusRef={btnRef}
+                >
+                  <DrawerContent bg="#393E46">
+                    <DrawerBody>
+                      <DrawerCloseButton />
+                      <ReviewFile />
+                    </DrawerBody>
+                  </DrawerContent>
+                </Drawer>
+                <Link to="/faivoritList">
+                  <AiOutlineHeart color="red" size={25} />
+                </Link>
+              </Flex>
+            </>
+          ) : (
+            <>
               <Flex>
-                <Flex w={{ base: "200px", sm: "1800px", md: "200px", lg: "200px" }} justifyContent={"space-evenly"} alignItems={"end"}>
-                  <HStack color="#EEEEEE"  >
+                <Flex
+                  w={{ base: "200px", sm: "1800px", md: "200px", lg: "200px" }}
+                  justifyContent={"space-evenly"}
+                  alignItems={"end"}
+                >
+                  <HStack color="#EEEEEE">
                     <Menu>
                       <MenuButton>
                         <RxHamburgerMenu />
@@ -206,26 +209,30 @@ function NavBar() {
                             התנתק
                           </Link>
                         </MenuItem>
-                        <Modal isCentered isOpen={exitModal} onClose={closeExitModal}>
+                        <Modal
+                          isCentered
+                          isOpen={exitModal}
+                          onClose={closeExitModal}
+                        >
                           {overlay}
-                          <ModalContent dir="rtl" >
-                            {/* <ModalCloseButton /> */}
+                          <ModalContent dir="rtl">
                             <ModalHeader>אתה בטוח שבירצונך להתנתק</ModalHeader>
                             <ModalFooter>
-                              <Button  onClick={closeExitModal}>ביטול</Button>
-                              <Button bg="none" onClick={() => {
-                                signoutHandlet();
-                                navigate('/')
-
-                              }}>אישור</Button>
-
+                              <Button onClick={closeExitModal}>ביטול</Button>
+                              <Button
+                                bg="none"
+                                onClick={() => {
+                                  signoutHandlet();
+                                  navigate("/");
+                                }}
+                              >
+                                אישור
+                              </Button>
                             </ModalFooter>
                           </ModalContent>
                         </Modal>
                         <MenuItem>
-                          <Link to="/home" >
-                            דף הבית
-                          </Link>
+                          <Link to="/home">דף הבית</Link>
                         </MenuItem>
                       </MenuList>
                     </Menu>
@@ -234,14 +241,9 @@ function NavBar() {
                     <RxHome size={25} />
                   </Link>
 
-
                   <Link to="/cart">
                     {cart.cartItems.length > 0 && (
-                      <Flex
-                        textAlign={"end"}
-                        fontSize={"70%"}
-                        m={"-2"}
-                      >
+                      <Flex textAlign={"end"} fontSize={"70%"} m={"-2"}>
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
                       </Flex>
                     )}
@@ -251,13 +253,13 @@ function NavBar() {
                   <Drawer
                     size={"md"}
                     isOpen={isOpen}
-                    placement='right'
+                    placement="right"
                     onClose={onClose}
                     finalFocusRef={btnRef}
                   >
                     <DrawerOverlay />
                     <DrawerCloseButton />
-                    <DrawerContent bg="#393E46" >
+                    <DrawerContent bg="#393E46">
                       <DrawerBody>
                         <ReviewFile />
                       </DrawerBody>
@@ -267,15 +269,17 @@ function NavBar() {
                     <AiOutlineHeart color="red" size={25} />
                   </Link>
                 </Flex>
-                <Text  fontSize={"2xs"}>שלום וברכה {userInfo.name}</Text>
-
-                </Flex>
-              </>
-            )
+                <Text fontSize={"2xs"}>שלום וברכה {userInfo.name}</Text>
+              </Flex>
+            </>
           )}
         </Flex>
-        
-        <Flex w={{ base: "30%", sm: "20%", md: "10%" }} justifyContent="space-around" color="#EEEEEE">
+
+        <Flex
+          w={{ base: "30%", sm: "20%", md: "10%" }}
+          justifyContent="space-around"
+          color="#EEEEEE"
+        >
           <Box>
             <BsFacebook size={25} />
           </Box>
@@ -288,7 +292,6 @@ function NavBar() {
             <HiOutlineMail size={25} />
           </Box>
         </Flex>
-
       </Flex>
     </>
   );

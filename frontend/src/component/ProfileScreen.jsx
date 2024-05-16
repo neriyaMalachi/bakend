@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   Center,
-  FormControl,
   FormLabel,
   Input,
   InputGroup,
@@ -36,7 +35,7 @@ function ProfileScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const toast = useToast();
   const { userInfo } = state;
-  const navigate =useNavigate();
+  const navigate = useNavigate();
   const [name, setName] = useState(userInfo.name);
   const [email, setEmail] = useState(userInfo.email);
   const [password, setPassword] = useState("");
@@ -46,7 +45,7 @@ function ProfileScreen() {
   const [{ loadingUpdate }, dispatch] = useReducer(reducer, {
     loadingUpdate: false,
   });
-console.log(userInfo);
+  console.log(userInfo);
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
@@ -67,13 +66,12 @@ console.log(userInfo);
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
       toast({
-        title: 'עודכן בהצלחה',
-        status: 'success',
+        title: "עודכן בהצלחה",
+        status: "success",
         duration: 4000,
         isClosable: true,
-      })
-      navigate("/")
-      
+      });
+      navigate("/");
     } catch (err) {
       dispatch({
         type: "FETCH_FAIL",
@@ -96,10 +94,11 @@ console.log(userInfo);
         color={"#EEEEEE"}
       >
         <form onSubmit={submitHandler}>
-          <Text textAlign={"center"} fontSize="3xl">פרופיל</Text>
+          <Text textAlign={"center"} fontSize="3xl">
+            פרופיל
+          </Text>
 
           <Box h="50vh" justifyContent="space-around">
-
             <FormLabel>שם</FormLabel>
             <Input
               value={name}
@@ -128,7 +127,13 @@ console.log(userInfo);
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
-              <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+              <Button
+                h="1.75rem"
+                bg="none"
+                _hover={"none"}
+                size="sm"
+                onClick={handleClick}
+              >
                 {show ? <ViewIcon /> : <ViewOffIcon />}
               </Button>
             </InputGroup>
@@ -141,7 +146,9 @@ console.log(userInfo);
             />
 
             <Box mt="10%">
-              <Button bg="#00ADB5" type="submit">עדכון</Button>
+              <Button bg="#00ADB5" type="submit">
+                עדכון
+              </Button>
             </Box>
           </Box>
         </form>

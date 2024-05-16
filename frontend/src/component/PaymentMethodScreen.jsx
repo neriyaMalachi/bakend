@@ -1,8 +1,6 @@
 import {
   Box,
   Button,
-  Card,
-  CardHeader,
   Center,
   Radio,
   RadioGroup,
@@ -41,19 +39,18 @@ function PaymentMethodScreen() {
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center
-        
-          h="70vh"
-          bg="#393E46"
-            display="flex"
-            flexDirection="column"
-        >
-          <RadioGroup  bg="#222831" color="#EEEEEE" defaultValue="Itachi" borderRadius="20" p={{base:"10%" , sm:"4%"}} >
-        
-            <Text textAlign="center"  justifyContent={"start"} fontSize="2xl" >אמצעי תשלום</Text>
-            <VStack
-              h="100px"
-            >
+        <Center h="70vh" bg="#393E46" display="flex" flexDirection="column">
+          <RadioGroup
+            bg="#222831"
+            color="#EEEEEE"
+            defaultValue="Itachi"
+            borderRadius="20"
+            p={{ base: "10%", sm: "4%" }}
+          >
+            <Text textAlign="center" justifyContent={"start"} fontSize="2xl">
+              אמצעי תשלום
+            </Text>
+            <VStack h="100px">
               <Radio
                 type="radio"
                 id="bit"
@@ -86,7 +83,9 @@ function PaymentMethodScreen() {
               </Radio>
             </VStack>
             <Box display="flex" justifyContent="center">
-              <Button bg="#00ADB5" type="submit">להמשיך</Button>
+              <Button bg="#00ADB5" type="submit">
+                להמשיך
+              </Button>
             </Box>
           </RadioGroup>
         </Center>

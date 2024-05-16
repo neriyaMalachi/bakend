@@ -20,7 +20,6 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-
 function SignupScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -88,7 +87,7 @@ function SignupScreen() {
               </Text>
             </CardHeader>
 
-            <CardBody  >
+            <CardBody>
               <Text>שם</Text>
               <Input
                 placeholder="שם"
@@ -110,15 +109,15 @@ function SignupScreen() {
                 borderColor={"gray.400"}
                 alignItems="center"
               >
-              <Input
-                placeholder="סיסמה"
-                type={show ? "text" : "password"}
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <Button h="1.75rem" bg="none" size="sm" onClick={handleClick}>
-                {show ? <ViewIcon /> : <ViewOffIcon />}
-              </Button>
+                <Input
+                  placeholder="סיסמה"
+                  type={show ? "text" : "password"}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button h="1.75rem" bg="none" size="sm" onClick={handleClick}>
+                  {show ? <ViewIcon /> : <ViewOffIcon />}
+                </Button>
               </InputGroup>
               <Text>אמת סיסמה</Text>
               <Input
@@ -132,19 +131,13 @@ function SignupScreen() {
               </Button>
             </CardBody>
 
-            <CardFooter
-              w="90%"
-              h="25%"
-              display="flex"
-              justifyContent="center"
-
-            >
-            <Box >
-              יש לך כבר חשבון?{" "}
-              <Link to={`/?redirect=${redirect}`}>
-                <Text as="u">התחבר</Text>{" "}
-              </Link>
-            </Box>
+            <CardFooter w="90%" h="25%" display="flex" justifyContent="center">
+              <Box>
+                יש לך כבר חשבון?{" "}
+                <Link to={`/?redirect=${redirect}`}>
+                  <Text as="u">התחבר</Text>{" "}
+                </Link>
+              </Box>
             </CardFooter>
           </Card>
         </Center>

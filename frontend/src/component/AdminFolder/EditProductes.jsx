@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Input, Text } from "@chakra-ui/react";
+import { Button, Flex, Input, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 function EditProductes() {
@@ -16,7 +16,7 @@ function EditProductes() {
   const navigate = useNavigate();
   useEffect(() => {
     getProductDetails();
-  }, []);
+  });
 
   const getProductDetails = async () => {
     console.log(params);

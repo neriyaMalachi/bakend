@@ -10,11 +10,9 @@ import {
   ModalBody,
   ModalCloseButton,
   useDisclosure,
-  Text,
   Stack,
-  Link,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "../axios";
 
 function AddUser() {

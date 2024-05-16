@@ -1,12 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import {PayPalScriptProvider} from '@paypal/react-paypal-js'
 import reportWebVitals from "./reportWebVitals";
 import { HelmetProvider } from "react-helmet-async";
 import { StoreProvider } from "./Store";
-import { Center, Text } from "@chakra-ui/react";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

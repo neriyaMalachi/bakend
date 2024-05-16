@@ -8,9 +8,7 @@ import {
   Card,
   CardBody,
   CardFooter,
-  Divider,
   Flex,
-  Grid,
   GridItem,
   HStack,
   Image,
@@ -29,7 +27,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Media from "react-media";
-import imagecart from "../img/image-for-cart.png"
+import imagecart from "../img/image-for-cart.png";
 
 function CartScreen() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -44,12 +42,12 @@ function CartScreen() {
     const { data } = await axios.get(`/api/propertis/${item._id}`);
     if (data.countInStock < quantity) {
       toast({
-        title: '!בעיה ',
-        description: 'אזל מהמלאי',
-        status: 'error',
+        title: "!בעיה ",
+        description: "אזל מהמלאי",
+        status: "error",
         duration: 9000,
         isClosable: true,
-      })
+      });
       return;
     }
     ctxDispatch({
@@ -79,15 +77,30 @@ function CartScreen() {
           bg="#393E46"
           color="#EEEEEE"
         >
-          <Box >העגלת קניות ריקה!</Box>
-          <Image maxW={"20vw"}  src={imagecart} />
-            <Button maxW={"250px"} w="full" onClick={()=> navigate("/")} variant={"outline"} colorScheme="cyan" _hover={"none"} > למוצרים</Button>
+          <Box>העגלת קניות ריקה!</Box>
+          <Image maxW={"20vw"} src={imagecart} />
+          <Button
+            maxW={"250px"}
+            w="full"
+            onClick={() => navigate("/")}
+            variant={"outline"}
+            colorScheme="cyan"
+            _hover={"none"}
+          >
+            {" "}
+            למוצרים
+          </Button>
         </VStack>
       ) : (
         <Media query="(min-width: 900px)">
           {(matches) => {
             return matches ? (
-              <HStack bg="#393E46" isInline justifyContent={"space-around"} h="100%">
+              <HStack
+                bg="#393E46"
+                isInline
+                justifyContent={"space-around"}
+                h="100%"
+              >
                 <Stack
                   overflowY={"scroll"}
                   css={{
@@ -108,9 +121,8 @@ function CartScreen() {
                   ml="7%"
                 >
                   {cartItems.map((item) => (
-                    <Stack    key={item._id}>
+                    <Stack key={item._id}>
                       <HStack
-                     
                         justifyContent={"space-around"}
                         alignItems="center"
                         w="100%"
@@ -171,24 +183,30 @@ function CartScreen() {
                     </Stack>
                   ))}
                 </Stack>
-               
-                <Card borderRadius={20} bg="#222831" color="#EEEEEE" w="20%" h="60vh" display="flex">
-                  <CardBody  dir="rtl">
+
+                <Card
+                  borderRadius={20}
+                  bg="#222831"
+                  color="#EEEEEE"
+                  w="20%"
+                  h="60vh"
+                  display="flex"
+                >
+                  <CardBody dir="rtl">
                     <Text fontSize={"2xl"}>
                       כמות מוצרים {": "}{" "}
                       {cartItems.reduce((a, c) => a + c.quantity, 0)}
                     </Text>
-                    <Text fontSize={"2xl"} >
+                    <Text fontSize={"2xl"}>
                       ש"ח :{" "}
                       {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                     </Text>
                   </CardBody>
-                  <CardFooter dir="rtl" >
+                  <CardFooter dir="rtl">
                     <Button
                       onClick={checkoutHandler}
                       disabled={cartItems.length === 0}
                       bg="#00ADB5"
-
                     >
                       לקופה
                     </Button>
@@ -197,7 +215,7 @@ function CartScreen() {
               </HStack>
             ) : (
               <VStack bg="#393E46" w="100%" h="100vh">
-                 <Stack
+                <Stack
                   overflowY={"scroll"}
                   css={{
                     "&::-webkit-scrollbar": {
@@ -226,14 +244,13 @@ function CartScreen() {
                         boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
                         borderRadius={10}
                       >
-                          <SmallCloseIcon
-                            flex="start"
-                            color="red.500"
-                            boxSize={7}
-                            onClick={() => RemoovItemHendler(item)}
-                          />
+                        <SmallCloseIcon
+                          flex="start"
+                          color="red.500"
+                          boxSize={7}
+                          onClick={() => RemoovItemHendler(item)}
+                        />
                         <Box h="100%">
-                        
                           <Box display="flex" flex="end" h="50%" fontSize="xl">
                             <Box
                               w="20%"
@@ -246,7 +263,6 @@ function CartScreen() {
                                 fontSize="xl"
                                 color="white"
                                 bg="none"
-
                                 onClick={() =>
                                   UpdateCartHandler(item, item.quantity + 1)
                                 }
@@ -284,17 +300,14 @@ function CartScreen() {
                     </GridItem>
                   ))}
                 </Stack>
-                <Card  bg="#222831" w="90%" color="#EEEEEE" h="35%" >
+                <Card bg="#222831" w="90%" color="#EEEEEE" h="35%">
                   <CardBody>
                     <Box fontSize="100%" dir="rtl">
                       כמות מוצרים {" - "}{" "}
                       {cartItems.reduce((a, c) => a + c.quantity, 0)}
                       <hr />
                       ש"ח :{" "}
-                      {cartItems.reduce(
-                        (a, c) => a + c.price * c.quantity,
-                        0
-                      )}
+                      {cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}
                     </Box>
                     <hr />
                   </CardBody>
@@ -308,9 +321,6 @@ function CartScreen() {
                     </Button>
                   </CardFooter>
                 </Card>
-               
-
-                
               </VStack>
             );
           }}

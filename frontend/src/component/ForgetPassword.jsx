@@ -1,59 +1,41 @@
 import {
   Alert,
   AlertIcon,
-  Box,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Center,
-  Image,
   Input,
   InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Text,
-  useMediaQuery,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import {React, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Axios from "axios";
-import { Store } from "../Store";
-import { useEffect } from "react";
-import { toast } from "react-toastify";
-import imageForLogo from "../img/logoNargilaStor.png";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
-import axios from "axios";
-
 
 function ForgetPassword() {
   const navigate = useNavigate();
-  const { search } = useLocation();
-  const redirectInUrl = new URLSearchParams(search).get("redirect");
-  const redirect = redirectInUrl ? redirectInUrl : "/";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [validationPassword, setValidationPassword] = useState("");
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState(false);
-  const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
-  const { state, dispatch: ctxDispatch } = useContext(Store);
-  const { userInfo } = state;
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
-
 
   const handleChangePassword = async () => {
     if (password === validationPassword && password.length > 3) {
       try {
         // Send a request to your server to update the password
-        const response = await fetch('/api/users/change-password', {
-          method: 'POST',
+        const response = await fetch("/api/users/change-password", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ password, email }),
         });
@@ -61,27 +43,24 @@ function ForgetPassword() {
         const data = await response.json();
 
         if (response.status === 200) {
-          setMessage('Password updated successfully.');
-          navigate("/")
+          setMessage("Password updated successfully.");
+          navigate("/");
         } else {
-          setMessage(data.message || 'Password update failed.');
+          setMessage(data.message || "Password update failed.");
         }
       } catch (error) {
-        console.error('Error updating password:', error);
+        console.error("Error updating password:", error);
       }
     } else {
       setMessage(true);
     }
   };
 
-
   const submitHandler = async (e) => {
     e.preventDefault();
-    // console.log(email);
     try {
-      const { data } = await Axios.post("/api/users/forgetPassword", {
+      await Axios.post("/api/users/forgetPassword", {
         email,
-
       });
       setSuccess(true);
     } catch (err) {
@@ -89,16 +68,12 @@ function ForgetPassword() {
     }
   };
 
- 
-
   return (
     <>
-
       {!success ? (
         <>
           <Helmet>
             <title>שכחתי סיסמה</title>
-
           </Helmet>
           <form onSubmit={submitHandler}>
             <Center dir="rtl" h="70vh" bg="#393E46">
@@ -118,13 +93,12 @@ function ForgetPassword() {
                   justifyContent="center"
                   h="30%"
                 >
-
                   <Text fontSize="3xl" as="b">
                     איפוס סיסמה
                   </Text>
                 </CardHeader>
 
-                <CardBody >
+                <CardBody>
                   <Text>הכנס אימיל</Text>
                   <Input
                     placeholder="אימיל"
@@ -133,11 +107,7 @@ function ForgetPassword() {
                     onChange={(e) => setEmail(e.target.value)}
                   />
                   {error === true && (
-                    <Text color={"red.600"}>
-                      
-                      בעיה באימיל !
-                    </Text>
-
+                    <Text color={"red.600"}>בעיה באימיל !</Text>
                   )}
                 </CardBody>
                 <CardFooter
@@ -184,9 +154,6 @@ function ForgetPassword() {
               </CardHeader>
 
               <CardBody h="50%">
-
-
-
                 <Text>סיסמה</Text>
                 <InputGroup
                   border={"1px"}
@@ -201,10 +168,15 @@ function ForgetPassword() {
                     border={"none"}
                     onChange={(e) => setPassword(e.target.value)}
                   />
-                  <Button h="1.75rem" bg="none" _hover={"none"} size="sm" onClick={handleClick}>
+                  <Button
+                    h="1.75rem"
+                    bg="none"
+                    _hover={"none"}
+                    size="sm"
+                    onClick={handleClick}
+                  >
                     {show ? <ViewIcon /> : <ViewOffIcon />}
                   </Button>
-
                 </InputGroup>
 
                 <Text>אימות סיסמה</Text>
@@ -221,12 +193,9 @@ function ForgetPassword() {
                     onChange={(e) => setValidationPassword(e.target.value)}
                     border="none"
                   />
-
-
-
                 </InputGroup>
                 {message === true && (
-                  <Alert dir="rtl"  status='error'>
+                  <Alert dir="rtl" status="error">
                     <AlertIcon />
                     בעיה בסיסמה!
                   </Alert>
@@ -240,17 +209,20 @@ function ForgetPassword() {
                 flexDirection="column"
                 justifyContent="space-around"
               >
-                <Button onClick={handleChangePassword} bg="#00ADB5" _hover={"none"} p="1%" w="40%">
+                <Button
+                  onClick={handleChangePassword}
+                  bg="#00ADB5"
+                  _hover={"none"}
+                  p="1%"
+                  w="40%"
+                >
                   אפס
                 </Button>
-
               </CardFooter>
             </Card>
           </Center>
         </>
-
       )}
-
     </>
   );
 }

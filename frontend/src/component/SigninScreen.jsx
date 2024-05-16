@@ -1,6 +1,4 @@
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
   Card,
@@ -8,13 +6,9 @@ import {
   CardFooter,
   CardHeader,
   Center,
-  Image,
   Input,
   InputGroup,
-  InputLeftElement,
-  InputRightElement,
   Text,
-  useMediaQuery,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -22,7 +16,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Store } from "../Store";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 function SigninScreen() {
   const [show, setShow] = React.useState(false);
@@ -45,10 +38,9 @@ function SigninScreen() {
         email,
         password,
       });
-      console.log({ data });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || '/home');
+      navigate(redirect || "/home");
     } catch (err) {
       console.log("password or email invalid");
       setError(true);
@@ -115,18 +107,16 @@ function SigninScreen() {
                   onChange={(e) => setPassword(e.target.value)}
                   border="none"
                 />
-                {/* <InputLeftElement> */}
-                <Button h="1.75rem" bg="none"  size="sm" onClick={handleClick}>
+                <Button h="1.75rem" bg="none" size="sm" onClick={handleClick}>
                   {show ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
-                {/* </InputLeftElement> */}
               </InputGroup>
               <Link to="/forgetPassword">שכחתי סיסמה?</Link>
               {error === true ? (
-                <Text color="red"  >
-                  בעיה בפרטי ההתחברות !
-                </Text>
-              ) : (<></>)}
+                <Text color="red">בעיה בפרטי ההתחברות !</Text>
+              ) : (
+                <></>
+              )}
             </CardBody>
 
             <CardFooter
@@ -136,7 +126,7 @@ function SigninScreen() {
               flexDirection="column"
               justifyContent="space-around"
             >
-              <Button type="submit" bg="#00ADB5"  p="1%" w="40%">
+              <Button type="submit" bg="#00ADB5" p="1%" w="40%">
                 התחבר
               </Button>
               <Box alignItems="end">
@@ -148,8 +138,6 @@ function SigninScreen() {
             </CardFooter>
           </Card>
         </Center>
-
-
       </form>
     </>
   );

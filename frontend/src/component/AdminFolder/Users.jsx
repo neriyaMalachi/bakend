@@ -32,7 +32,7 @@ function Users() {
       backdropFilter="blur(10px) hue-rotate(90deg)"
     />
   );
-  const [overlay, setOverlay] = React.useState(<OverlayOne />);
+  const overlay = React.useState(<OverlayOne />);
   useEffect(() => {
     getUsers();
   }, [items]);
@@ -130,7 +130,6 @@ function Users() {
                   <Modal isCentered isOpen={isOpen} onClose={onClose}>
                     {overlay}
                     <ModalContent dir="rtl">
-                      {/* <ModalCloseButton /> */}
                       <ModalHeader>אתה בטוח </ModalHeader>
                       <ModalFooter>
                         <Button onClick={onClose}>ביטול</Button>

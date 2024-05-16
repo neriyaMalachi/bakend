@@ -4,7 +4,6 @@ import {
   AlertIcon,
   AlertTitle,
   Box,
-  Button,
   Card,
   CardBody,
   CardFooter,
@@ -21,11 +20,7 @@ import {
   VStack,
   useToast,
 } from "@chakra-ui/react";
-import {
-  PayPalButtons,
-  PayPalScriptProvider,
-  usePayPalScriptReducer,
-} from "@paypal/react-paypal-js";
+import { PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
 import { React, useContext, useEffect, useReducer, useState } from "react";
 import LoadingBox from "../component/LoadingBox";
 import { Store } from "../Store";
@@ -33,7 +28,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { getError } from "../utils";
 import { Helmet } from "react-helmet-async";
-import { toast } from "react-toastify";
 import Media from "react-media";
 import { HashLoader } from "react-spinners";
 import { FaWhatsapp } from "react-icons/fa";
@@ -61,14 +55,11 @@ function reducer(state, action) {
 }
 
 function OrderScreen() {
-  //  const clientId11 = "AZKL-OCyN36PITH8tkDGcX0aznF66Hgui7spphjCtXcs3opUgVSd6mzFW-xAnR9MG-NCVMIm5BoYMZG_"
-
   const { state } = useContext(Store);
   const { userInfo } = state;
   const params = useParams();
-  const [success,setSuccess]=useState(false);
-  const [alerterror,setAlertErrorrror]=useState(false);
-  const toast = useToast()
+  const [alerterror, setAlertErrorrror] = useState(false);
+  const toast = useToast();
   const { id: orderId } = params;
   const navigate = useNavigate();
   const [{ loading, error, order, successPay, loadingPay }, dispatch] =
@@ -108,20 +99,20 @@ function OrderScreen() {
         );
         dispatch({ type: "PAY_SUCCESS", payload: data });
         toast({
-          title: 'ההזמנה בוצעה.',
+          title: "ההזמנה בוצעה.",
           description: "נשמח לראותכם שוב .",
-          status: 'success',
+          status: "success",
           duration: 4000,
           isClosable: true,
-        })
+        });
       } catch (err) {
         dispatch({ type: "PAY_FAIL", payload: getError(err) });
-        setAlertErrorrror(true)
+        setAlertErrorrror(true);
       }
     });
   }
   function onError(err) {
-   setAlertErrorrror(true)
+    setAlertErrorrror(true);
   }
 
   useEffect(() => {
@@ -164,7 +155,13 @@ function OrderScreen() {
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
   return loading ? (
     <Grid>
-      <GridItem bg="#393E46" h={"90vh"} display={"flex"} alignItems={"center"} justifyContent={"center"} >
+      <GridItem
+        bg="#393E46"
+        h={"90vh"}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
         <HashLoader color="#00ADB5" />
       </GridItem>
     </Grid>
@@ -172,7 +169,10 @@ function OrderScreen() {
     <Alert status="error">
       <AlertIcon />
       <AlertTitle>Your browser is outdated!</AlertTitle>
-      <AlertDescription>{error}</AlertDescription>
+      <AlertDescription>
+        {alerterror}
+        {error}
+      </AlertDescription>
     </Alert>
   ) : (
     <Media query="(min-width:900px)">
@@ -195,7 +195,7 @@ function OrderScreen() {
             </GridItem>
             {/* Grid for address the user */}
             <GridItem m="3%" gridColumn="1" gridRow="2">
-              <Card bg="#222831" color="#EEEEEE" >
+              <Card bg="#222831" color="#EEEEEE">
                 <CardHeader>
                   <Text fontSize={"xl"}> משלוח עבור:</Text>
                 </CardHeader>
@@ -213,10 +213,8 @@ function OrderScreen() {
                     מיקוד: {order.shippingAddress.postalCode},
                   </Text>
                   <Text fontSize={"xl"}>
-                    מדינה:  {order.shippingAddress.country}{" "}
+                    מדינה: {order.shippingAddress.country}{" "}
                   </Text>
-
-
                 </CardBody>
                 <CardFooter>
                   {order.isDelivered ? (
@@ -231,15 +229,21 @@ function OrderScreen() {
               </Card>
             </GridItem>
             {/* Grid for pay */}
-            <GridItem m="3%" bg="#222831" color="#EEEEEE" gridColumn="1" gridRow="3">
-              <Card bg="#222831" >
+            <GridItem
+              m="3%"
+              bg="#222831"
+              color="#EEEEEE"
+              gridColumn="1"
+              gridRow="3"
+            >
+              <Card bg="#222831">
                 <CardHeader color="#EEEEEE">תשלום</CardHeader>
 
                 <CardBody color="#EEEEEE">
                   {order.isPaid ? (
                     <Alert status="success">
                       <AlertIcon />
-                     שולם {order.paidAt}
+                      שולם {order.paidAt}
                     </Alert>
                   ) : (
                     <Alert bg="red.300" status="error">
@@ -252,7 +256,7 @@ function OrderScreen() {
             </GridItem>
             {/* Grid for Item */}
             <GridItem m="3%" gridColumn="1" gridRow="4">
-              <Card bg="#222831" >
+              <Card bg="#222831">
                 <CardHeader color="#EEEEEE">מוצרים</CardHeader>
                 <CardBody>
                   <Stack
@@ -275,28 +279,25 @@ function OrderScreen() {
                     ml="7%"
                   >
                     {order.orderItems.map((item) => (
-                     
-                        <HStack
-                          key={item._id}
-                          justifyContent={"space-around"}
-                          alignItems="center"
-
-                          color="#EEEEEE"
-                          bg="#393E46"
-                          boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
-                          borderRadius={10}
-                        >
-                          <Image
-                            objectFit="cover"
-                            h="90px"
-                            w="90px"
-                            src={item.image}
-                            alt="Caffe Latte"
-                          />
-                          <Link to={`/product/${item.slug}`}>{item.name}</Link>
-                          <Flex>{item.price} ₪</Flex>
-                        </HStack>
-                   
+                      <HStack
+                        key={item._id}
+                        justifyContent={"space-around"}
+                        alignItems="center"
+                        color="#EEEEEE"
+                        bg="#393E46"
+                        boxShadow="2px 30px 40px -22px rgba(0,0,0,0.75)"
+                        borderRadius={10}
+                      >
+                        <Image
+                          objectFit="cover"
+                          h="90px"
+                          w="90px"
+                          src={item.image}
+                          alt="Caffe Latte"
+                        />
+                        <Link to={`/product/${item.slug}`}>{item.name}</Link>
+                        <Flex>{item.price} ₪</Flex>
+                      </HStack>
                     ))}
                   </Stack>
                 </CardBody>
@@ -339,31 +340,39 @@ function OrderScreen() {
 
                   <Text>{order.totalPrice.toFixed(2)} ₪</Text>
                   {order.paymentMethod === "payPal" ? (
-
                     <Flex justifyContent="center" alignItems="center">
                       {!order.isPaid && (
-                        <Box  w="50%">
+                        <Box w="50%">
                           {isPending ? (
                             <Grid>
-                            <GridItem bg="#393E46" display={"flex"} alignItems={"center"} justifyContent={"center"} >
-                              <HashLoader color="#00ADB5" />
-                            </GridItem>
-                          </Grid>
+                              <GridItem
+                                bg="#393E46"
+                                display={"flex"}
+                                alignItems={"center"}
+                                justifyContent={"center"}
+                              >
+                                <HashLoader color="#00ADB5" />
+                              </GridItem>
+                            </Grid>
                           ) : (
-                              <PayPalButtons
-                             
-                                createOrder={createOrder}
-                                onApprove={onApprove}
-                                onError={onError}
-                              />
+                            <PayPalButtons
+                              createOrder={createOrder}
+                              onApprove={onApprove}
+                              onError={onError}
+                            />
                           )}
-                          {loadingPay && 
+                          {loadingPay && (
                             <Grid>
-                            <GridItem bg="#393E46"  display={"flex"} alignItems={"center"} justifyContent={"center"} >
-                              <HashLoader color="#00ADB5" />
-                            </GridItem>
-                          </Grid>
-                          }
+                              <GridItem
+                                bg="#393E46"
+                                display={"flex"}
+                                alignItems={"center"}
+                                justifyContent={"center"}
+                              >
+                                <HashLoader color="#00ADB5" />
+                              </GridItem>
+                            </Grid>
+                          )}
                         </Box>
                       )}
                     </Flex>
@@ -374,7 +383,6 @@ function OrderScreen() {
                       <VStack textAlign={"center"}>
                         <Text> אנה צרו קשר </Text>
                         <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
-
                           <FaWhatsapp size={25} />
                         </a>
                       </VStack>
@@ -386,7 +394,6 @@ function OrderScreen() {
                       <VStack textAlign={"center"}>
                         <Text> אנה צרו קשר </Text>
                         <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
-
                           <FaWhatsapp size={25} />
                         </a>
                       </VStack>
@@ -412,7 +419,7 @@ function OrderScreen() {
             </Flex>
             {/* Grid for address the user */}
             <Box>
-              <Card m="3%" bg="#222831" color="#EEEEEE" >
+              <Card m="3%" bg="#222831" color="#EEEEEE">
                 <CardHeader>
                   <Text fontSize={"l"}> משלוח עבור:</Text>
 
@@ -426,14 +433,12 @@ function OrderScreen() {
                   <Text fontSize={"l"}>
                     כתובת: {order.shippingAddress.address},
                   </Text>
-                  <Text >
-                    עיר: {order.shippingAddress.city},
-                  </Text>
+                  <Text>עיר: {order.shippingAddress.city},</Text>
                   <Text fontSize={"l"}>
                     מיקוד: {order.shippingAddress.postalCode},
                   </Text>
                   <Text fontSize={"l"}>
-                    מדינה:  {order.shippingAddress.country}{" "}
+                    מדינה: {order.shippingAddress.country}{" "}
                   </Text>
                 </CardHeader>
                 <CardFooter>
@@ -450,7 +455,7 @@ function OrderScreen() {
             </Box>
             {/* Grid for pay */}
             <GridItem gridColumn="1" gridRow="3">
-              <Card m="3%" bg="#222831" color="#EEEEEE" >
+              <Card m="3%" bg="#222831" color="#EEEEEE">
                 <CardHeader>תשלום:</CardHeader>
 
                 <CardBody>
@@ -478,7 +483,6 @@ function OrderScreen() {
                       flexDirection="column"
                       justifyContent="space-around"
                       key={item._id}
-
                     >
                       <GridItem
                         display="flex"
@@ -499,9 +503,7 @@ function OrderScreen() {
                             objectFit="contain"
                           />
                         </GridItem>
-                        <GridItem color="blue.400">
-                          {/* <Link to={`/product/${item.slug}`}>{item.name}</Link> */}
-                        </GridItem>
+                        <GridItem color="blue.400"></GridItem>
                         <GridItem>
                           <Text>{item.quantity}</Text>
                         </GridItem>
@@ -515,8 +517,16 @@ function OrderScreen() {
               </Card>
             </GridItem>
             {/* Grid for order */}
-            <Box bg="#222831" m="3%" borderRadius={10} color="#EEEEEE" display="flex" textAlign="center" justifyContent="center">
-              <GridItem w="100%" h="100%" >
+            <Box
+              bg="#222831"
+              m="3%"
+              borderRadius={10}
+              color="#EEEEEE"
+              display="flex"
+              textAlign="center"
+              justifyContent="center"
+            >
+              <GridItem w="100%" h="100%">
                 <Text fontSize="2xl">סיכום הזמנה</Text>
 
                 <GridItem>
@@ -541,16 +551,15 @@ function OrderScreen() {
 
                   <Flex mt="3%" justifyContent="center" alignItems="center">
                     {!order.isPaid && (
-                      <Box  justifyItems="center" alignItems="center" w="40%">
+                      <Box justifyItems="center" alignItems="center" w="40%">
                         {isPending ? (
                           <LoadingBox />
                         ) : (
                           <Center>
                             {order.paymentMethod === "payPal" ? (
-
-                              <Flex >
+                              <Flex>
                                 {!order.isPaid && (
-                                  <Box  w="50%">
+                                  <Box w="50%">
                                     {isPending ? (
                                       <LoadingBox />
                                     ) : (
@@ -573,7 +582,6 @@ function OrderScreen() {
                                 <VStack textAlign={"center"}>
                                   <Text> אנה צרו קשר </Text>
                                   <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
-
                                     <FaWhatsapp size={25} />
                                   </a>
                                 </VStack>
@@ -585,7 +593,6 @@ function OrderScreen() {
                                 <VStack textAlign={"center"}>
                                   <Text> אנה צרו קשר </Text>
                                   <a href="https://api.whatsapp.com/send?phone=972585202271&text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%90%D7%A9%D7%9E%D7%97%20%D7%90%D7%9D%20%D7%AA%D7%95%D7%9B%D7%9C%D7%95%20%D7%9C%D7%99%D7%A6%D7%95%D7%A8%20%D7%90%D7%99%D7%AA%D7%99%20%D7%A7%D7%A9%D7%A8%20%D7%91%D7%94%D7%A7%D7%93%D7%9D%20%D7%94%D7%90%D7%A4%D7%A9%D7%A8%D7%99">
-
                                     <FaWhatsapp size={25} />
                                   </a>
                                 </VStack>
