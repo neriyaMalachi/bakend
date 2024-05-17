@@ -14,7 +14,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Store } from "../Store";
 import { StarIcon } from "@chakra-ui/icons";
-import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
+import { AiOutlineHeart } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
 import "./stayle/stayle.css";
 function Cards(props) {
   const { product } = props;
@@ -129,7 +130,7 @@ function Cards(props) {
                 {!heart ? (
                   <AiOutlineHeart size={25} color="red" />
                 ) : (
-                  <AiTwotoneHeart size={25} color="red"  />
+                  <FaHeart  size={25} color="red"/>
                 )}
               </Button>
             </Box>

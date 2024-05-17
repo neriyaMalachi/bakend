@@ -15,7 +15,7 @@ import {
 import React, { useContext, useEffect, useReducer, useState } from "react";
 import { Store } from "../Store";
 import { StarIcon } from "@chakra-ui/icons";
-import { AiTwotoneHeart } from "react-icons/ai";
+import { FaHeart } from "react-icons/fa";
 import axios from "axios";
 
 const reducer = (state, action) => {
@@ -156,7 +156,7 @@ function FaivoritsList() {
                         deleteFaivorit(product._id, user);
                       }}
                     >
-                      <AiTwotoneHeart size={25} color="red" />
+                      <FaHeart  size={25} color="red" />
                     </Text>
                   </GridItem>
                 </Grid>
