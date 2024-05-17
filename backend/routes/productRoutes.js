@@ -25,7 +25,6 @@ productRoute.get("/:id", async (req, res) => {
     res.status(404).send({ message: "Product Not Found" });
   }
 });
-
 productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
   await Product.create(productDetail, (err, data) => {

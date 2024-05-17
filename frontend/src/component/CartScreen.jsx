@@ -40,6 +40,7 @@ function CartScreen() {
 
   const UpdateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/propertis/${item._id}`);
+
     if (data.countInStock < quantity) {
       toast({
         title: "!בעיה ",
@@ -164,9 +165,11 @@ function CartScreen() {
                             color="white"
                             colorScheme="white"
                             borderRadius="50%"
-                            onClick={() =>
-                              UpdateCartHandler(item, item.quantity - 1)
-                            }
+                            onClick={() => {
+                              if (item.quantity !== 1) {
+                                UpdateCartHandler(item, item.quantity - 1);
+                              }
+                            }}
                             disabled={item.quantity === 1}
                           >
                             -
