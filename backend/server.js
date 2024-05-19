@@ -13,8 +13,8 @@ app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect("mongodb://127.0.0.1:27017/Store_N")
-
+// mongoose.connect("mongodb://127.0.0.1:27017/Store_N")
+mongoose.connect(process.env.MONGODB_URI)
 app.listen(3001,()=>{
   console.log("new server conect");
 })
