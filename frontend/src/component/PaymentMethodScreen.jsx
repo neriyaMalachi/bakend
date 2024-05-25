@@ -1,17 +1,13 @@
 import {
   Box,
   Button,
-  ChakraProvider,
-  Container,
-  FormControl,
-  HStack,
+  Center,
   Radio,
   RadioGroup,
-  Stack,
   Text,
+  VStack,
 } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
-import CheckOutSteps from "./CheckOutSteps";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
@@ -38,49 +34,23 @@ function PaymentMethodScreen() {
   };
   return (
     <>
-      <CheckOutSteps step1 step2 step3></CheckOutSteps>
+      <Helmet>
+        <title>payment Method</title>
+      </Helmet>
 
-      <ChakraProvider>
-        <Helmet>
-          <title>payment Method</title>
-        </Helmet>
-        <Text fontSize={"2xl"} textAlign="center">
-          payment Method
-        </Text>
-        <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler}>
+        <Center h="70vh" bg="#393E46" display="flex" flexDirection="column">
           <RadioGroup
+            bg="#222831"
+            color="#EEEEEE"
             defaultValue="Itachi"
-
-            //   justifyContent="center"
-            //   alignItems="center"
+            borderRadius="20"
+            p={{ base: "10%", sm: "4%" }}
           >
-            <HStack
-              spacing="-0.5%"
-              display="flex"
-              flexDirection="column"
-              justifyContent={"space-around"}
-              h="100px"
-            >
-              {/* <Radio
-                type="radio"
-                id="PayPal"
-                label="PayPal"
-                value="PayPal"
-                checked={paymentMethodName === "PayPal"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                paypal
-              </Radio>
-              <Radio
-                type="radio"
-                id="Stripe"
-                label="Stripe"
-                value="Stripe"
-                checked={paymentMethodName === "Stripe"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                Stripe
-              </Radio> */}
+            <Text textAlign="center" justifyContent={"start"} fontSize="2xl">
+              אמצעי תשלום
+            </Text>
+            <VStack h="100px">
               <Radio
                 type="radio"
                 id="bit"
@@ -99,7 +69,7 @@ function PaymentMethodScreen() {
                 checked={paymentMethodName === "cash"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               >
-                מזומן 
+                מזומן
               </Radio>
               <Radio
                 type="radio"
@@ -109,16 +79,17 @@ function PaymentMethodScreen() {
                 checked={paymentMethodName === "payPal"}
                 onChange={(e) => setPaymentMethod(e.target.value)}
               >
-                PayPal 
+                PayPal
               </Radio>
-            </HStack>
+            </VStack>
+            <Box display="flex" justifyContent="center">
+              <Button bg="#00ADB5" type="submit">
+                להמשיך
+              </Button>
+            </Box>
           </RadioGroup>
-
-          <Box display="flex" justifyContent="center" >
-            <Button type="submit">Continue</Button>
-          </Box>
-        </form>
-      </ChakraProvider>
+        </Center>
+      </form>
     </>
   );
 }

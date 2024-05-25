@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import {PayPalScriptProvider} from '@paypal/react-paypal-js'
 import reportWebVitals from "./reportWebVitals";
@@ -13,6 +12,7 @@ root.render(
       <HelmetProvider>
       <PayPalScriptProvider deferLoading={true}>
         <App />
+        
         </PayPalScriptProvider>
       </HelmetProvider>
     </StoreProvider>

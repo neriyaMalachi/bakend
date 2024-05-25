@@ -8,9 +8,12 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
   Button,
+  Box,
+  Flex,
+  Grid,
+  GridItem,
 } from "@chakra-ui/react";
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
@@ -18,7 +21,7 @@ import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
 import { getError } from "../utils";
-import LoadingBox from "./LoadingBox";
+import { HashLoader } from "react-spinners";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -45,83 +48,91 @@ function OrderHistoryScreen() {
 
   useEffect(() => {
     const fetchData = async () => {
-      dispatch({ type: 'FETCH_REQUEST' });
+      dispatch({ type: "FETCH_REQUEST" });
       try {
         const { data } = await axios.get(
           `/api/orders/mine`,
 
           { headers: { Authorization: `Bearer ${userInfo.token}` } }
         );
-        dispatch({ type: 'FETCH_SUCCESS', payload: data });
+        dispatch({ type: "FETCH_SUCCESS", payload: data });
       } catch (error) {
         dispatch({
-          type: 'FETCH_FAIL',
+          type: "FETCH_FAIL",
           payload: getError(error),
         });
       }
     };
     fetchData();
   }, [userInfo]);
- 
- 
-  console.log(orders)
 
   return (
     <>
       <Helmet>
-        <title>Order History</title>
+        <title>היסטורית הזמנות</title>
       </Helmet>
-      <h1>Order History</h1>
       {loading ? (
-        <LoadingBox></LoadingBox>
+        <Grid>
+          <GridItem
+            bg="#393E46"
+            h={"90vh"}
+            display={"flex"}
+            alignItems={"center"}
+            justifyContent={"center"}
+          >
+            <HashLoader color="#00ADB5" />
+          </GridItem>
+        </Grid>
       ) : error ? (
-        <Alert status="error">
-          <AlertIcon />
-          <AlertDescription>{error}</AlertDescription>
-        </Alert>
+        <Flex h={"90vh"}>
+          <Alert status="error" justifyContent={"center"}>
+            <AlertIcon />
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        </Flex>
       ) : (
-        <TableContainer>
-          <Table variant="simple">
-            <TableCaption>Imperial to metric conversion factors</TableCaption>
-            <Thead>
-              <Tr>
-                <Th>ID</Th>
-                <Th>DATE</Th>
-                <Th>TOTAL</Th>
-                <Th>PAID</Th>
-                <Th>DELIVERED</Th>
-                <Th isNumeric>ACTIONS</Th>
-              </Tr>
-            </Thead>
-
-            {orders.map((order) => (
-              <Tbody key={order._id} >
-                <Tr key={order._id}>
-                  <Td>{order._id}</Td>
-                  <Td>{order.createdAt.substring(10)}</Td>
-                  <Td>{order.totalPrice.toFixed(2)}</Td>
-                  <Td>{order.isPaid ? order.paidAt : "No"}</Td>
-                  <Td isNumeric>
-                    {order.isDeliverd
-                      ? order.deliveredAt.substring(10)
-                      : "NO"}
-                  </Td>
-                  <Td>
-                    <Button
-                      type="button"
-                      variant="light"
-                      onClick={() => {
-                        navigate(`/order/${order._id}`);
-                      }}
-                    >
-                      Details
-                    </Button>
-                  </Td>
+        <Box bg="#393E46" color="#EEEEEE" minH="70vh">
+          <TableContainer>
+            <Table>
+              <Thead>
+                <Tr>
+                  <Th color="#EEEEEE">מספר הזמנה</Th>
+                  <Th color="#EEEEEE">סה"כ</Th>
+                  <Th color="#EEEEEE">שולם</Th>
+                  <Th color="#EEEEEE">נשלח</Th>
+                  <Th color="#EEEEEE">פעולות</Th>
                 </Tr>
-              </Tbody>
-            ))}
-          </Table>
-        </TableContainer>
+              </Thead>
+
+              {orders.map((order) => (
+                <Tbody key={order._id}>
+                  <Tr key={order._id}>
+                    <Td>{order._id}</Td>
+                    <Td>{order.totalPrice.toFixed(2)}</Td>
+                    <Td>{order.isPaid ? "כן" : "לא"}</Td>
+                    <Td>
+                      {order.isDeliverd
+                        ? order.deliveredAt.substring(10)
+                        : "לא"}
+                    </Td>
+                    <Td>
+                      <Button
+                        type="button"
+                        color={"#00ADB5"}
+                        bg="#222831"
+                        onClick={() => {
+                          navigate(`/order/${order._id}`);
+                        }}
+                      >
+                        פרטים
+                      </Button>
+                    </Td>
+                  </Tr>
+                </Tbody>
+              ))}
+            </Table>
+          </TableContainer>
+        </Box>
       )}
     </>
   );

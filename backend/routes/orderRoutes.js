@@ -24,7 +24,6 @@ orderRouter.post(
     res.status(201).send({ message: "New Order Created", order });
   })
 );
-
 orderRouter.get(
   "/mine",
   isAuth,
@@ -33,7 +32,6 @@ orderRouter.get(
     res.send(orders);
   })
 );
-
 orderRouter.get(
   "/:id",
   isAuth,
@@ -46,27 +44,34 @@ orderRouter.get(
     }
   })
 );
-
 orderRouter.put(
-  '/:id/pay',
+  "/:id/pay",
   isAuth,
-  expressAsyncHandler(async (req,res)=>{
-    const order = await Order.findById(req.params.id)
-    if(order){
-      order.isPaid=true
-      order.paidAt=Date.new
-      order.paymentResult={
-        id:req.body.id,
-        status:req.body.status,
-        update_time:req.body.update_time,
-        email_address:req.body.email_address,
-      }
-      const updatedOrder=await order.save();
-      res.send({message: 'Order Paid', order:updatedOrder})
-    }else{
-      res.status(404).send({message: 'Order Not Found '})
+  expressAsyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+      order.isPaid = true;
+      order.paidAt = Date.new;
+      order.paymentResult = {
+        id: req.body.id,
+        status: req.body.status,
+        update_time: req.body.update_time,
+        email_address: req.body.email_address,
+      };
+      const updatedOrder = await order.save();
+      res.send({ message: "Order Paid", order: updatedOrder });
+    } else {
+      res.status(404).send({ message: "Order Not Found " });
     }
   })
-)
+);
+orderRouter.get("/", async (req, res) => {
+  try {
+    const allOrders = await Order.find();
+    res.send(allOrders);
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export default orderRouter;
