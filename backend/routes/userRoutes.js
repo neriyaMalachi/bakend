@@ -165,15 +165,15 @@ userRouter.delete("/deleteFaivourite", async (req, res) => {
   res.send(true);
 });
 userRouter.post("/checkIfAFaivoritExists", async (req, res) => {
-  const user = await User.findById({ _id: req.body.userId });
-  const item = user.faivorit.find(
-    (faivorit) => faivorit.toString() === req.body.productId
-  );
-  if (item) {
-    res.send(item._id);
-  } else {
-    res.send(false);
-  }
+  // const user = await User.findById({ _id: req.body.userId });
+  // const item = user.faivorit.find(
+  //   (faivorit) => faivorit.toString() === req.body.productId
+  // );
+  // if (item) {
+  //   res.send(item._id);
+  // } else {
+  //   res.send(false);
+  // }
 });
 
 export default userRouter;
