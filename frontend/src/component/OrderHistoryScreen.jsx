@@ -104,7 +104,7 @@ function OrderHistoryScreen() {
                 </Tr>
               </Thead>
 
-              {orders.map((order) => (
+              {orders?.map((order) => (
                 <Tbody key={order._id}>
                   <Tr key={order._id}>
                     <Td>{order._id}</Td>

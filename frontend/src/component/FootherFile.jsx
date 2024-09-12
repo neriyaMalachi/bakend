@@ -111,18 +111,18 @@ function FootherFile() {
                 h="50%"
                 justifyContent="space-around"
               >
-                <Button mt="3%" bg="none" _hover={"none"}>
+                <Button mt="3%" bg="none">
                   יצירת קשר
                 </Button>
-                <Button mt="3%" bg="none" _hover={"none"}>
+                <Button mt="3%" bg="none">
                   תקנון
                 </Button>
 
-                <Button mt="3%" bg="none" _hover={"none"}>
+                <Button mt="3%" bg="none" >
                   משלוחים והחזרות
                 </Button>
 
-                <Button mt="3%" bg="none" _hover={"none"}>
+                <Button mt="3%" bg="none" >
                   אדות
                 </Button>
               </Flex>

@@ -153,6 +153,7 @@ function OrderScreen() {
       loadPaypalScript();
     }
   }, [order, userInfo, orderId, navigate, paypalDispatch, successPay]);
+  
   return loading ? (
     <Grid>
       <GridItem
@@ -408,8 +409,6 @@ function OrderScreen() {
             flexDirection="column"
             bg="#393E46"
             dir="rtl"
-            templateColumns="repeat(2,1fr)"
-            templateRows="repeat(1)"
           >
             <Helmet>
               <title>order {orderId}</title>

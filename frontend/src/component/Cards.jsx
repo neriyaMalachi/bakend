@@ -115,7 +115,6 @@ function Cards(props) {
             </Link>
             <Box className="overlay">
               <Button
-                _hover={"none"}
                 bg="none"
                 onClick={() => {
                   if (heart === false) {

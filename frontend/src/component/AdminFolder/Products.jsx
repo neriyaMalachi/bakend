@@ -25,12 +25,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "../Searchfile";
 import { HashLoader } from "react-spinners";
 function Products() {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -115,7 +117,7 @@ function Products() {
                 ? item
                 : item.name.toLowerCase().includes(search);
             })
-            .map((item, index) => (
+            .map((item) => (
               <Card
                 my={5}
                 mx={2}
@@ -126,9 +128,12 @@ function Products() {
                 maxW={"350px"}
                 bg="#222831"
                 color="white"
-                key={index}
+                key={item._id}
               >
-                <VStack>
+                <VStack
+                key={item._id}
+                
+                >
                   <Image
                     objectFit="cover"
                     maxW={{ base: "100%", sm: "200px" }}
@@ -150,14 +155,14 @@ function Products() {
                   </CardBody>
                   <CardFooter>
                     <Button
-                      onClick={() => onOpen()}
+                      onClick={ onOpen}
                       variant="solid"
                       colorScheme="red"
                       m="1%"
                     >
                       מחק מוצר
                     </Button>
-                    <Modal isCentered isOpen={isOpen} onClose={onClose}>
+                    <Modal  isCentered isOpen={isOpen} onClose={onClose}>
                       {overlay}
                       <ModalContent dir="rtl">
                         <ModalHeader>אתה בטוח </ModalHeader>

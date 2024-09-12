@@ -56,6 +56,9 @@ function CartScreen() {
       payload: { ...item, quantity },
     });
   };
+
+
+  
   const RemoovItemHendler = (item) => {
     ctxDispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
@@ -63,6 +66,8 @@ function CartScreen() {
   const checkoutHandler = () => {
     navigate("/?redirect=/shipping");
   };
+
+
   return (
     <>
       <Helmet>
@@ -278,8 +283,11 @@ function CartScreen() {
                                 color="white"
                                 bg="none"
                                 fontSize="xl"
-                                onClick={() =>
-                                  UpdateCartHandler(item, item.quantity - 1)
+                                onClick={() =>{
+                                  if(item.quantity > 1){
+
+                                    UpdateCartHandler(item, item.quantity - 1)
+                                  }}
                                 }
                                 disabled={item.quantity === 1}
                               >
