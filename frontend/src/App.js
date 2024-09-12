@@ -30,7 +30,7 @@ function App() {
     <Box>
       <ChakraProvider>
         <BrowserRouter>
-          <NavBar/>
+          {/* <NavBar/> */}
           <Routes>
             <Route path="/forgetPassword" element={<ForgetPassword />} />
             <Route path="/product/:slug" element={<ProductFile />} />
