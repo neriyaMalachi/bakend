@@ -9,16 +9,17 @@ import {
   Input,
   InputGroup,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Store } from "../Store";
-import { useEffect } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
+
 function SigninScreen() {
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -30,21 +31,16 @@ function SigninScreen() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
+
   const submitHandler = async (e) => {
     e.preventDefault();
-
     try {
-      const { data } = await Axios.post("/api/users/signin", {
-        email,
-        password,
-      });
+      const { data } = await Axios.post("/api/users/signin", { email, password });
       ctxDispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate(redirect || "/home");
+      navigate(redirect);
     } catch (err) {
-      console.log("password or email invalid");
       setError(true);
-      console.log(error);
     }
   };
 
@@ -57,83 +53,94 @@ function SigninScreen() {
   return (
     <>
       <Helmet>
-        <title>Sign In</title>
+        <title>התחברות</title>
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="80vh" bg="#393E46">
+        <Center h="80vh" bg="#393E46" dir="rtl" >
           <Card
             color="#EEEEEE"
-            h="50vh"
-            w="50vh"
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-            borderRadius="10%"
-            dir="rtl"
             bg="#222831"
+            borderRadius="md"
+            maxW={useBreakpointValue({ base: "90%", md: "50vh" })}
+            minW="300px"
+            p={6}
+            boxShadow="lg"
           >
             <CardHeader
               display="flex"
               alignItems="center"
               justifyContent="center"
-              h="20%"
+              mb={4}
             >
-              <Text fontSize="3xl" as="b">
+              <Text fontSize="2xl" fontWeight="bold">
                 התחברות
               </Text>
             </CardHeader>
 
-            <CardBody h="50%">
-              <Text>איימיל</Text>
+            <CardBody>
+              <Text mb={2}>אימייל</Text>
               <Input
-                placeholder="איימיל"
+                placeholder="אימייל"
                 type="email"
                 required
                 onChange={(e) => setEmail(e.target.value)}
+                mb={4}
               />
 
-              <Text>סיסמה</Text>
-              <InputGroup
-                border={"1px"}
-                borderRadius={"lg"}
-                borderColor={"gray.400"}
-                alignItems="center"
-              >
+              <Text mb={2}>סיסמה</Text>
+              <InputGroup>
                 <Input
                   placeholder="סיסמה"
                   type={show ? "text" : "password"}
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  border="none"
+                  borderColor="gray.400"
+                  borderRadius="md"
                 />
-                <Button h="1.75rem" bg="none" size="sm" onClick={handleClick}>
+                <Button
+                  variant="link"
+                  onClick={handleClick}
+                  ml={-12}
+                  mt={1}
+                >
                   {show ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
               </InputGroup>
-              <Link to="/forgetPassword">שכחתי סיסמה?</Link>
-              {error === true ? (
-                <Text color="red">בעיה בפרטי ההתחברות !</Text>
-              ) : (
-                <></>
+
+              <Link to="/forgetPassword">
+                <Text color="#00ADB5" mt={2}>שכחת סיסמה?</Text>
+              </Link>
+
+              {error && (
+                <Text color="red.500" mt={2}>
+                  בעיה בפרטי ההתחברות!
+                </Text>
               )}
             </CardBody>
 
             <CardFooter
-              w="90%"
-              h="30%"
               display="flex"
               flexDirection="column"
-              justifyContent="space-around"
+              alignItems="center"
+              mt={4}
             >
-              <Button type="submit" bg="#00ADB5" p="1%" w="40%">
+              <Button
+                type="submit"
+                bg="#00ADB5"
+                _hover={{ bg: "#009a9e" }}
+                color="white"
+                w="full"
+              >
                 התחבר
               </Button>
-              <Box alignItems="end">
-                לקוח חדש?{" "}
-                <Link to={`/signup?redirect=${redirect}`}>
-                  <Text as="u">צור משתמש חדש</Text>
-                </Link>
+              <Box textAlign="center" mt={4}>
+                <Text>
+                  לקוח חדש?{" "}
+                  <Link to={`/signup?redirect=${redirect}`}>
+                    <Text as="u" color="#00ADB5">צור משתמש חדש</Text>
+                  </Link>
+                </Text>
               </Box>
             </CardFooter>
           </Card>

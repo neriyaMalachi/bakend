@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Card,
   CardBody,
@@ -11,19 +10,18 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { Store } from "../Store";
-import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
 function SignupScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const redirectInUrl = new URLSearchParams(search).get("redirect");
   const redirect = redirectInUrl ? redirectInUrl : "/";
@@ -31,7 +29,7 @@ function SignupScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [maxWidthforHamborger] = useMediaQuery("(min-width:678px)");
+  const [isLargeScreen] = useMediaQuery("(min-width:678px)");
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { userInfo } = state;
@@ -39,7 +37,7 @@ function SignupScreen() {
   const submitHandler = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      toast.error("Password do not match");
+      toast.error("Passwords do not match");
       return;
     }
     try {
@@ -52,7 +50,7 @@ function SignupScreen() {
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate(redirect || "/Home");
     } catch (err) {
-      console.log("password or email invalid");
+      toast.error("Error signing up. Please try again.");
     }
   };
 
@@ -65,79 +63,90 @@ function SignupScreen() {
   return (
     <>
       <Helmet>
-        <title>Sign Up</title>
+        <title>הירשם</title>
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="80vh" bg="#393E46">
+        <Center h="80vh" bg="#393E46" dir="rtl">
           <Card
             color="#EEEEEE"
-            bg={"#222831"}
-            h="50vh"
-            w="50vh"
+            bg="#222831"
+            p={6}
+            borderRadius={isLargeScreen ? "md" : "none"}
+            maxW="lg"
+            w="90%"
+            boxShadow="lg"
             display="flex"
+            flexDirection="column"
             justifyContent="center"
             alignItems="center"
-            borderRadius={maxWidthforHamborger ? "10%" : "none"}
-            dir="rtl"
           >
-            <CardHeader display="flex" justifyContent="center" w="100%">
-              <Text fontSize="3xl" as="b">
+            <CardHeader w="full" mb={4}>
+              <Text fontSize="2xl" fontWeight="bold" textAlign="center">
                 הירשם
               </Text>
             </CardHeader>
 
-            <CardBody>
-              <Text>שם</Text>
+            <CardBody w="full">
+              <Text mb={2}>שם</Text>
               <Input
                 placeholder="שם"
-                type="name"
+                type="text"
                 required
+                mb={4}
                 onChange={(e) => setName(e.target.value)}
               />
-              <Text>איימיל</Text>
+              <Text mb={2}>אימייל</Text>
               <Input
-                placeholder="איימיל"
+                placeholder="אימייל"
                 type="email"
                 required
+                mb={4}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <Text>סיסמה</Text>
-              <InputGroup
-                border={"1px"}
-                borderRadius={"lg"}
-                borderColor={"gray.400"}
-                alignItems="center"
-              >
+              <Text mb={2}>סיסמה</Text>
+              <InputGroup mb={4}>
                 <Input
                   placeholder="סיסמה"
                   type={show ? "text" : "password"}
                   required
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button h="1.75rem" bg="none" size="sm" onClick={handleClick}>
+                <Button
+                  variant="link"
+                  onClick={handleClick}
+                  ml={-12}
+                  mt={1}
+                >
                   {show ? <ViewIcon /> : <ViewOffIcon />}
                 </Button>
               </InputGroup>
-              <Text>אמת סיסמה</Text>
+              <Text mb={2}>אמת סיסמה</Text>
               <Input
                 placeholder="אמת סיסמה"
                 type={show ? "text" : "password"}
                 required
+                mb={4}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
-              <Button type="submit" bg="#00ADB5" p="1%" w="30%" mt="5%">
+              <Button
+                type="submit"
+                bg="#00ADB5"
+                color="white"
+                _hover={{ bg: "#009a9e" }}
+                w="full"
+              >
                 הירשם
               </Button>
             </CardBody>
 
-            <CardFooter w="90%" h="25%" display="flex" justifyContent="center">
-              <Box>
+            <CardFooter w="full" mt={4} textAlign="center">
+              <Text>
                 יש לך כבר חשבון?{" "}
                 <Link to={`/?redirect=${redirect}`}>
-                  <Text as="u">התחבר</Text>{" "}
+                  <Text as="u" color="#00ADB5">התחבר</Text>
                 </Link>
-              </Box>
+              </Text>
             </CardFooter>
           </Card>
         </Center>
