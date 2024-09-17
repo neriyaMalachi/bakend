@@ -100,10 +100,10 @@ function NavBar() {
                     <RxHamburgerMenu />
                   </MenuButton>
                   <MenuList border="none" bg="#222831" color="#EEEEEE">
-                    <MenuItem bg="#222831">
+                    {/* <MenuItem bg="#222831">
                       {" "}
                       <Link to="/orderhistory">הזמנות</Link>
-                    </MenuItem>
+                    </MenuItem> */}
                     <MenuItem bg="#222831">
                       {" "}
                       <Link to="/profile">פרופיל</Link>
@@ -119,7 +119,7 @@ function NavBar() {
                       <MenuItem bg="#222831">מוצרים</MenuItem>
                     </Link>
                     <Link to="/Admin/orders">
-                      <MenuItem bg="#222831">הזמנות</MenuItem>
+                      <MenuItem bg="#222831">הזמנות </MenuItem>
                     </Link>
                     <Link to="/Admin/users">
                       <MenuItem bg="#222831">משתמשים</MenuItem>
