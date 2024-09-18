@@ -8,7 +8,9 @@ import {
   Select,
   VStack,
 } from "@chakra-ui/react";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
@@ -21,19 +23,18 @@ function ShippingAddressScreen() {
     userInfo,
     cart: { shippingAddress },
   } = state;
-
   const [fullName, setFullName] = useState(shippingAddress.fullName || "");
   const [address, setAddress] = useState(shippingAddress.address || "");
   const [city, setCity] = useState(shippingAddress.city || "");
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode || "");
-  const [country, setCountry] = useState(shippingAddress.country || "");
-
+  const [postalCode, setPostalCode] = useState(
+    shippingAddress.postalCode || ""
+  );
+  const [country, setcountry] = useState(shippingAddress.country || "");
   useEffect(() => {
     if (!userInfo) {
       navigate("/signin?redirect=/shipping");
     }
   }, [userInfo, navigate]);
-
   const submitHandler = (e) => {
     e.preventDefault();
 
@@ -47,7 +48,6 @@ function ShippingAddressScreen() {
         country,
       },
     });
-
     localStorage.setItem(
       "shippingAddress",
       JSON.stringify({
@@ -60,14 +60,13 @@ function ShippingAddressScreen() {
     );
     navigate("/payment");
   };
-
   return (
     <Center h="86vh" bg="#393E46">
-      <Card p="4" bg="#222831" color="#EEEEEE" borderRadius="lg" boxShadow="md">
+      <Card p="2%" bg="#222831" color="#EEEEEE" borderRadius={20}>
         <Helmet>
           <title>פרטי משתמש</title>
         </Helmet>
-        <Box textAlign="center" fontSize="2xl" mb="4">
+        <Box textAlign="center" fontSize="2xl">
           פרטי משתמש
         </Box>
         <form onSubmit={submitHandler}>
@@ -75,6 +74,7 @@ function ShippingAddressScreen() {
             <Box>
               <Input
                 placeholder="שם מלא"
+                // size="lg"
                 value={fullName}
                 required
                 onChange={(e) => setFullName(e.target.value)}
@@ -111,9 +111,10 @@ function ShippingAddressScreen() {
             <Box>
               <Select
                 placeholder="ארץ"
-                value={country}
+                value={countrys.countrys.code}
                 required
-                onChange={(e) => setCountry(e.target.value)}
+                onChange={(e) => setcountry(e.target.value)}
+                icon={"none"}
                 bg="#222831"
                 color="#EEEEEE"
               >
@@ -122,6 +123,7 @@ function ShippingAddressScreen() {
                     key={index}
                     style={{
                       backgroundColor: "#222831",
+                      height: "10%",
                       color: "#EEEEEE",
                     }}
                     value={getcountry.code}
@@ -133,8 +135,8 @@ function ShippingAddressScreen() {
             </Box>
           </VStack>
           <CardFooter>
-            <Button type="submit" bg="#00ADB5" color="white" _hover={{ bg: "#009a9e" }}>
-              המשך לתשלום
+            <Button variant="primary" type="submit" bg="#00ADB5">
+              התחבר
             </Button>
           </CardFooter>
         </form>
@@ -142,5 +144,4 @@ function ShippingAddressScreen() {
     </Center>
   );
 }
-
 export default ShippingAddressScreen;

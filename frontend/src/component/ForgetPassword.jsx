@@ -9,9 +9,7 @@ import {
   Center,
   Input,
   InputGroup,
-  InputProps,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -27,13 +25,13 @@ function ForgetPassword() {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState(false);
-  const [show, setShow] = useState(false);
-
+  const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
 
   const handleChangePassword = async () => {
     if (password === validationPassword && password.length > 3) {
       try {
+        // Send a request to your server to update the password
         const response = await fetch("/api/users/change-password", {
           method: "POST",
           headers: {
@@ -61,50 +59,119 @@ function ForgetPassword() {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await Axios.post("/api/users/forgetPassword", { email });
+      await Axios.post("/api/users/forgetPassword", {
+        email,
+      });
       setSuccess(true);
     } catch (err) {
       setError(true);
     }
   };
 
-  const CardStyles = {
-    color: "#EEEEEE",
-    bg: "#222831",
-    borderRadius: "lg",
-    maxW: "md",
-    w: "90%",
-    p: 4,
-    boxShadow: "md",
-  };
-
   return (
     <>
-      <Helmet>
-        <title>{success ? "איפוס סיסמה" : "שכחתי סיסמה"}</title>
-      </Helmet>
-      <Center h="100vh" bg="#393E46" dir="rtl">
-        <Card {...CardStyles}>
-          {success ? (
-            <>
-              <CardHeader>
-                <Text fontSize="2xl" as="b">
-                  אפס סיסמה
+      {!success ? (
+        <>
+          <Helmet>
+            <title>שכחתי סיסמה</title>
+          </Helmet>
+          <form onSubmit={submitHandler}>
+            <Center dir="rtl" h="70vh" bg="#393E46">
+              <Card
+                color="#EEEEEE"
+                bg="#222831"
+                h="40vh"
+                w="40vh"
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                borderRadius="20"
+              >
+                <CardHeader
+                  display="flex"
+                  flexDirection="column"
+                  justifyContent="center"
+                  h="30%"
+                >
+                  <Text fontSize="3xl" as="b">
+                    איפוס סיסמה
+                  </Text>
+                </CardHeader>
+
+                <CardBody>
+                  <Text>הכנס אימיל</Text>
+                  <Input
+                    placeholder="אימיל"
+                    type="email"
+                    required
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {error === true && (
+                    <Text color={"red.600"}>בעיה באימיל !</Text>
+                  )}
+                </CardBody>
+                <CardFooter
+                  w="100%"
+                  h="30%"
+                  display="flex"
+                  justifyContent="center"
+                >
+                  <Button type="submit" bg="#00ADB5" p="1%" w="40%">
+                    החל
+                  </Button>
+                </CardFooter>
+              </Card>
+            </Center>
+          </form>
+        </>
+      ) : (
+        <>
+          <Helmet>
+            <title>איפוס סיסמה</title>
+          </Helmet>
+
+          <Center h="70vh" bg="#393E46">
+            <Card
+              color="#EEEEEE"
+              h="40vh"
+              w="40vh"
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              borderRadius="20"
+              dir="rtl"
+              bg="#222831"
+            >
+              <CardHeader
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                h="20%"
+              >
+                <Text fontSize="3xl" as="b">
+                  אפס
                 </Text>
               </CardHeader>
-              <CardBody>
-                <Text mb={2}>סיסמה חדשה</Text>
-                <InputGroup mb={4}>
+
+              <CardBody h="50%">
+                <Text>סיסמה</Text>
+                <InputGroup
+                  border={"1px"}
+                  borderRadius={"lg"}
+                  borderColor={"gray.400"}
+                  alignItems="center"
+                >
                   <Input
                     placeholder="סיסמה"
                     type={show ? "text" : "password"}
                     required
+                    border={"none"}
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <Button
                     h="1.75rem"
                     bg="none"
-                    _hover={{ bg: "none" }}
+                    _hover={"none"}
                     size="sm"
                     onClick={handleClick}
                   >
@@ -112,69 +179,50 @@ function ForgetPassword() {
                   </Button>
                 </InputGroup>
 
-                <Text mb={2}>אימות סיסמה</Text>
-                <InputGroup mb={4}>
+                <Text>אימות סיסמה</Text>
+                <InputGroup
+                  border={"1px"}
+                  borderRadius={"lg"}
+                  borderColor={"gray.400"}
+                  alignItems="center"
+                >
                   <Input
                     placeholder="אימות סיסמה"
                     type={show ? "text" : "password"}
                     required
                     onChange={(e) => setValidationPassword(e.target.value)}
+                    border="none"
                   />
                 </InputGroup>
-
-                {message && (
-                  <Alert status="error">
+                {message === true && (
+                  <Alert dir="rtl" status="error">
                     <AlertIcon />
                     בעיה בסיסמה!
                   </Alert>
                 )}
               </CardBody>
-              <CardFooter>
+
+              <CardFooter
+                w="90%"
+                h="30%"
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-around"
+              >
                 <Button
                   onClick={handleChangePassword}
                   bg="#00ADB5"
-                  _hover={{ bg: "#00A1A7" }}
-                  w="full"
+                  _hover={"none"}
+                  p="1%"
+                  w="40%"
                 >
                   אפס
                 </Button>
               </CardFooter>
-            </>
-          ) : (
-            <>
-              <CardHeader>
-                <Text fontSize="2xl" as="b">
-                  איפוס סיסמה
-                </Text>
-              </CardHeader>
-              <CardBody>
-                <Text mb={2}>הכנס אימיל</Text>
-                <Input
-                  placeholder="אימיל"
-                  type="email"
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                {error && (
-                  <Text color="red.600" mt={2}>
-                    בעיה באימיל !
-                  </Text>
-                )}
-              </CardBody>
-              <CardFooter>
-                <Button
-                  onClick={submitHandler}
-                  bg="#00ADB5"
-                  _hover={{ bg: "#00A1A7" }}
-                  w="full"
-                >
-                  החל
-                </Button>
-              </CardFooter>
-            </>
-          )}
-        </Card>
-      </Center>
+            </Card>
+          </Center>
+        </>
+      )}
     </>
   );
 }

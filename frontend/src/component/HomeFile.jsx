@@ -1,12 +1,10 @@
 import { Box, Center, GridItem, Grid, VStack } from "@chakra-ui/react";
-import { useReducer, useEffect, useState, useMemo } from "react";
+import { useReducer, useEffect, useState } from "react";
 import axios from "axios";
 import Cards from "./Cards";
 import { Helmet } from "react-helmet-async";
 import { HashLoader } from "react-spinners";
 import Search from "./Searchfile";
-
-// Reducer function
 const reducer = (state, action) => {
   switch (action.type) {
     case "FETCH_REQUEST":
@@ -19,44 +17,6 @@ const reducer = (state, action) => {
       return state;
   }
 };
-// Components for loading, error, and property list
-const LoadingComponent = () => (
-  <Grid>
-    <GridItem
-      bg="#393E46"
-      h="90vh"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-    >
-      <HashLoader color="#00ADB5" />
-    </GridItem>
-  </Grid>
-);
-const ErrorComponent = ({ error }) => <Center>{error}</Center>;
-
-const PropertyList = ({ properties, search }) => {
-  const filteredProperties = useMemo(() => {
-    const lowerSearch = search.toLowerCase();
-    return properties.filter(item =>
-      lowerSearch === "" ? item : item.name.toLowerCase().includes(lowerSearch)
-    );
-  }, [properties, search]);
-
-  return (
-    <Box
-      display="flex"
-      flexWrap="wrap"
-      justifyContent="space-evenly"
-      minH="70vh"
-    >
-      {filteredProperties.map(product => (
-        <Cards product={product} key={product.slug} />
-      ))}
-    </Box>
-  );
-};
-
 function HomeFile() {
   const [{ loading, error, propertis }, dispatch] = useReducer(reducer, {
     propertis: [],
@@ -77,11 +37,21 @@ function HomeFile() {
     };
     fetchData();
   }, []);
-
-  if (loading) return <LoadingComponent />;
-  if (error) return <ErrorComponent error={error} />;
-
-  return (
+  return loading ? (
+    <Grid>
+      <GridItem
+        bg="#393E46"
+        h={"90vh"}
+        display={"flex"}
+        alignItems={"center"}
+        justifyContent={"center"}
+      >
+        <HashLoader color="#00ADB5" />
+      </GridItem>
+    </Grid>
+  ) : error ? (
+    <Center>{error}</Center>
+  ) : (
     <Box bg="#393E46">
       <Helmet>
         <title>דף הבית</title>
@@ -89,7 +59,22 @@ function HomeFile() {
       <VStack p="1%">
         <Search handleSearch={setSearch} />
       </VStack>
-      <PropertyList properties={propertis} search={search} />
+      <Box
+        display="flex"
+        flexWrap="wrap"
+        justifyContent="space-evenly"
+        minH={"70vh"}
+      >
+        {propertis
+          .filter((item) => {
+            return search.toLowerCase() === ""
+              ? item
+              : item.name.toLowerCase().includes(search);
+          })
+          .map((product) => (
+            <Cards product={product} key={product.slug} />
+          ))}
+      </Box>
     </Box>
   );
 }
