@@ -75,7 +75,7 @@ function EditProductes() {
       <Text fontSize="4xl">שינוי</Text>
       <Input
         placeholder="שם"
-        value={name}
+        // value={name}
         w="50%"
         onChange={(e) => {
           setName(e.target.value);

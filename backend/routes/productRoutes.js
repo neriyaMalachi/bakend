@@ -37,6 +37,8 @@ productRoute.post("/addProducts/add", async (req, res) => {
   });
 });
 productRoute.delete("/deleteProduct/:id", async (req, res) => {
+  console.log("eeee",req.params.id);
+  
   const result = await Product.deleteOne({ _id: req.params.id });
   res.send(result);
 });

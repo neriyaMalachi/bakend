@@ -1,4 +1,4 @@
-import { Box, Center, GridItem, Grid, VStack, Select } from "@chakra-ui/react";
+import { Box, Center, GridItem, Grid, VStack } from "@chakra-ui/react";
 import { useReducer, useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import Cards from "./Cards";

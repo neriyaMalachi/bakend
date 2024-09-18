@@ -10,10 +10,7 @@ import React from "react";
 
 const Search = ({ handleSearch }) => {
   const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
-  const setCategoryFilter = (e) => {
-    console.log(e);
-    
-  };
+ 
   return (
     <>
       <InputGroup
@@ -43,13 +40,22 @@ const Search = ({ handleSearch }) => {
       <Select
         placeholder="בחר קטגוריה"
         bg="#222831"
-        color="black"
-        onChange={(e) => setCategoryFilter(e.target.value)}
+        color="silver"
+        onChange={(e) => handleSearch(e.target.value)}
         w="40%"
+       textAlign={"center"}
       >
-        <option value="נרגילות">נרגילות</option>
-        <option value="ראשים">ראשים</option>
+        <option value="נרגילה">נרגילות</option>
+        <option value="ראש">ראשים</option>
         <option value="טבק">טבק</option>
+        <option value="גחלים">גחלים</option>
+        <option value="צינור">צינורות</option>
+        <option value="מלקחיים">מלקחיים</option>
+        <option value="כד">כדים</option>
+
+
+
+
       </Select>
     </>
   );
