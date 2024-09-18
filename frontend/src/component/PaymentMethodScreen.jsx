@@ -11,15 +11,15 @@ import React, { useContext, useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
 import { Store } from "../Store";
+
 function PaymentMethodScreen() {
   const navigate = useNavigate();
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const {
     cart: { shippingAddress, paymentMethod },
   } = state;
-  const [paymentMethodName, setPaymentMethod] = useState(
-    paymentMethod || "PayPal"
-  );
+  const [paymentMethodName, setPaymentMethod] = useState(paymentMethod || "PayPal");
+
   useEffect(() => {
     if (!shippingAddress.address) {
       navigate("/shipping");
@@ -29,65 +29,73 @@ function PaymentMethodScreen() {
   const submitHandler = (e) => {
     e.preventDefault();
     ctxDispatch({ type: "SAVE_PAYMENT_METHOD", payload: paymentMethodName });
-    localStorage.setItem("paymentMethhod", paymentMethodName);
+    localStorage.setItem("paymentMethod", paymentMethodName);
     navigate("/placeorder");
   };
+
   return (
     <>
       <Helmet>
-        <title>payment Method</title>
+        <title>אמצעי תשלום</title>
       </Helmet>
 
       <form onSubmit={submitHandler}>
-        <Center h="70vh" bg="#393E46" display="flex" flexDirection="column">
-          <RadioGroup
+        <Center h="100vh" bg="#393E46" p={4}>
+          <Box
             bg="#222831"
             color="#EEEEEE"
-            defaultValue="Itachi"
-            borderRadius="20"
-            p={{ base: "10%", sm: "4%" }}
+            p={6}
+            borderRadius="lg"
+            boxShadow="md"
+            maxW="400px"
+            w="full"
           >
-            <Text textAlign="center" justifyContent={"start"} fontSize="2xl">
+            <Text textAlign="center" fontSize="2xl" mb={4}>
               אמצעי תשלום
             </Text>
-            <VStack h="100px">
-              <Radio
-                type="radio"
-                id="bit"
-                label="bit"
-                value="bit"
-                checked={paymentMethodName === "bit"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
+            <RadioGroup
+              value={paymentMethodName}
+              onChange={(value) => setPaymentMethod(value)}
+            >
+              <VStack spacing={4}>
+                <Radio
+                  value="bit"
+                  colorScheme="cyan"
+                  size="lg"
+                >
+                  ביט
+                </Radio>
+                <Radio
+                  value="cash"
+                  colorScheme="cyan"
+                  size="lg"
+                >
+                  מזומן
+                </Radio>
+                <Radio
+                  value="payPal"
+                  colorScheme="cyan"
+                  size="lg"
+                >
+                  PayPal
+                </Radio>
+              </VStack>
+            </RadioGroup>
+            <Box mt={6} textAlign="center">
+              <Button
+                bg="#00ADB5"
+                color="white"
+                _hover={{ bg: "#009a9e" }}
+                type="submit"
+                size="lg"
+                px={6}
+                py={3}
+                borderRadius="md"
               >
-                ביט
-              </Radio>
-              <Radio
-                type="radio"
-                id="cash"
-                label="cash"
-                value="cash"
-                checked={paymentMethodName === "cash"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                מזומן
-              </Radio>
-              <Radio
-                type="radio"
-                id="payPal"
-                label="payPal"
-                value="payPal"
-                checked={paymentMethodName === "payPal"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-              >
-                PayPal
-              </Radio>
-            </VStack>
-            <Box display="flex" justifyContent="center">
-              <Button bg="#00ADB5" type="submit">
                 להמשיך
               </Button>
             </Box>
-          </RadioGroup>
+          </Box>
         </Center>
       </form>
     </>
