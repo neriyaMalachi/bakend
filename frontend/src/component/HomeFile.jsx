@@ -1,4 +1,4 @@
-import { Box, Center, GridItem, Grid, VStack } from "@chakra-ui/react";
+import { Box, Center, GridItem, Grid, VStack, Select } from "@chakra-ui/react";
 import { useReducer, useEffect, useState, useMemo } from "react";
 import axios from "axios";
 import Cards from "./Cards";
@@ -38,7 +38,7 @@ const ErrorComponent = ({ error }) => <Center>{error}</Center>;
 const PropertyList = ({ properties, search }) => {
   const filteredProperties = useMemo(() => {
     const lowerSearch = search.toLowerCase();
-    return properties.filter(item =>
+    return properties.filter((item) =>
       lowerSearch === "" ? item : item.name.toLowerCase().includes(lowerSearch)
     );
   }, [properties, search]);
@@ -50,7 +50,7 @@ const PropertyList = ({ properties, search }) => {
       justifyContent="space-evenly"
       minH="70vh"
     >
-      {filteredProperties.map(product => (
+      {filteredProperties.map((product) => (
         <Cards product={product} key={product.slug} />
       ))}
     </Box>
@@ -88,6 +88,7 @@ function HomeFile() {
       </Helmet>
       <VStack p="1%">
         <Search handleSearch={setSearch} />
+      
       </VStack>
       <PropertyList properties={propertis} search={search} />
     </Box>

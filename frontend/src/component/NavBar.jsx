@@ -124,13 +124,13 @@ function NavBar() {
                         {userInfo.isAdmin ? (
                           <>
                             <Link to="/Admin/products">
-                              <MenuItem bg="#222831">מוצרים</MenuItem>
+                              <MenuItem bg="#222831">מוצרי החנות</MenuItem>
                             </Link>
                             <Link to="/Admin/orders">
-                              <MenuItem bg="#222831">הזמנות</MenuItem>
+                              <MenuItem bg="#222831">הזמנת הלקוחות</MenuItem>
                             </Link>
                             <Link to="/Admin/users">
-                              <MenuItem bg="#222831">משתמשים</MenuItem>
+                              <MenuItem bg="#222831"> רשומים למערכת</MenuItem>
                             </Link>
                           </>
                         ) : (

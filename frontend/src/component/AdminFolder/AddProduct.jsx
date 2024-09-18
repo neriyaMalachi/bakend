@@ -10,6 +10,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import {useState } from "react";
 import axios from "../axios";
@@ -58,86 +59,60 @@ function AddProduct() {
   };
   return (
     <>
-      <Button bg="#00ADB5" w="20%" onClick={onOpen}>הוסף מוצר</Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Button 
+        bg="#00ADB5" 
+        w={{ base: "50%", md: "20%" }} 
+        p={4} 
+        color="white" 
+        borderRadius="md" 
+        onClick={onOpen}
+        _hover={{ bg: "#007D8A" }}
+      >
+        הוסף מוצר
+      </Button>
+  
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
-        <ModalContent dir="rtl" bg="#222831" color="#EEEEEE">
-          <ModalHeader mt="4">צור מוצר</ModalHeader>
-          <ModalCloseButton />
+        <ModalContent dir="rtl" bg="#222831" color="#EEEEEE" borderRadius="lg">
+          <ModalHeader mt="4" textAlign="center">צור מוצר</ModalHeader>
+          <ModalCloseButton color="white" />
           <ModalBody>
             <form onSubmit={handleSubmit}>
-              <Text>שם</Text>
-              <Input
-                type="text"
-                placeholder="שם"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-              />
-              <Text>סוג מוצר</Text>
-              <Input
-                type="text"
-                placeholder="סוג"
-                onChange={(e) => setCategory(e.target.value)}
-                value={category}
-              />
-              <Text>slug</Text>
-              <Input
-                type="text"
-                placeholder="slug"
-                onChange={(e) => setSlug(e.target.value)}
-                value={slug}
-              />
-              <Text>כתובת תמונה</Text>
-              <Input
-                // type="file"
-                type="text"
-                placeholder="כתובת תמונה"
-                // onChange={onInputChange}
-                onChange={(e) => setImage(e.target.value)}
-
-                value={image}
-              // accept="image/* "
-              />
-              <Text>מחיר</Text>
-              <Input
-                type="text"
-                placeholder="מחיר"
-                onChange={(e) => setPrice(e.target.value)}
-                value={price}
-              />
-              <Text>כמות</Text>
-              <Input
-                type="text"
-                placeholder="כמות מוצר"
-                onChange={(e) => setCountInStock(e.target.value)}
-                value={countInStock}
-              />
-               <Text>rating</Text>
-              <Input
-                type="text"
-                placeholder="rating"
-                onChange={(e) => setRating(e.target.value)}
-                value={rating}
-              />
-              <Text>מותג</Text>
-              <Input
-                type="text"
-                placeholder="מותג"
-                onChange={(e) => setbrand(e.target.value)}
-                value={brand}
-              />
-              <Text>הסבר על המוצר</Text>
-              <Input
-                type="text"
-                placeholder="הסבר על המוצר"
-                onChange={(e) => setDescription(e.target.value)}
-                value={description}
-              />
-
+              {[
+                { label: 'שם', value: name, onChange: setName },
+                { label: 'סוג מוצר', value: category, onChange: setCategory },
+                { label: 'slug', value: slug, onChange: setSlug },
+                { label: 'כתובת תמונה', value: image, onChange: setImage },
+                { label: 'מחיר', value: price, onChange: setPrice },
+                { label: 'כמות', value: countInStock, onChange: setCountInStock },
+                { label: 'rating', value: rating, onChange: setRating },
+                { label: 'מותג', value: brand, onChange: setbrand },
+                { label: 'הסבר על המוצר', value: description, onChange: setDescription }
+              ].map((field, index) => (
+                <Box key={index} mb={4}>
+                  <Text mb={2}>{field.label}</Text>
+                  <Input
+                    type="text"
+                    placeholder={field.label}
+                    value={field.value}
+                    onChange={(e) => field.onChange(e.target.value)}
+                    borderColor="#00ADB5"
+                    focusBorderColor="#00ADB5"
+                  />
+                </Box>
+              ))}
             </form>
           </ModalBody>
-          <ModalFooter>
-            <Button bg="#00ADB5" onClick={handleSubmit}>
+          <ModalFooter justifyContent="center">
+            <Button
+              bg="#00ADB5"
+              color="white"
+              borderRadius="md"
+              px={6}
+              py={4}
+              _hover={{ bg: "#007D8A" }}
+              onClick={handleSubmit}
+            >
               הוסף מוצר
             </Button>
           </ModalFooter>
@@ -145,6 +120,7 @@ function AddProduct() {
       </Modal>
     </>
   );
+  
 }
 
 export default AddProduct;

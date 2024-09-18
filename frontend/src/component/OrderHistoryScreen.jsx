@@ -69,31 +69,32 @@ function OrderHistoryScreen() {
   return (
     <>
       <Helmet>
-        <title>היסטורית הזמנות</title>
+        <title>היסטוריית הזמנות</title>
       </Helmet>
+  
       {loading ? (
         <Grid>
           <GridItem
             bg="#393E46"
-            h={"90vh"}
-            display={"flex"}
-            alignItems={"center"}
-            justifyContent={"center"}
+            h="90vh"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
           >
             <HashLoader color="#00ADB5" />
           </GridItem>
         </Grid>
       ) : error ? (
-        <Flex h={"90vh"}>
-          <Alert status="error" justifyContent={"center"}>
+        <Flex h="90vh" alignItems="center" justifyContent="center">
+          <Alert status="error" w="80%" maxW="600px" borderRadius="md">
             <AlertIcon />
             <AlertDescription>{error}</AlertDescription>
           </Alert>
         </Flex>
       ) : (
-        <Box bg="#393E46" color="#EEEEEE" minH="70vh">
+        <Box bg="#393E46" color="#EEEEEE" minH="70vh" p={6} borderRadius="md">
           <TableContainer>
-            <Table>
+            <Table variant="simple" size="md">
               <Thead>
                 <Tr>
                   <Th color="#EEEEEE">מספר הזמנה</Th>
@@ -103,12 +104,12 @@ function OrderHistoryScreen() {
                   <Th color="#EEEEEE">פעולות</Th>
                 </Tr>
               </Thead>
-
+  
               {orders?.map((order) => (
                 <Tbody key={order._id}>
-                  <Tr key={order._id}>
+                  <Tr key={order._id} _hover={{ bg: "#222831" }}>
                     <Td>{order._id}</Td>
-                    <Td>{order.totalPrice.toFixed(2)}</Td>
+                    <Td>{order.totalPrice.toFixed(2)} ₪</Td>
                     <Td>{order.isPaid ? "כן" : "לא"}</Td>
                     <Td>
                       {order.isDeliverd
@@ -118,8 +119,10 @@ function OrderHistoryScreen() {
                     <Td>
                       <Button
                         type="button"
-                        color={"#00ADB5"}
-                        bg="#222831"
+                        bg="#00ADB5"
+                        color="white"
+                        _hover={{ bg: "#007C85" }}
+                        _active={{ bg: "#00676B" }}
                         onClick={() => {
                           navigate(`/order/${order._id}`);
                         }}
@@ -136,6 +139,7 @@ function OrderHistoryScreen() {
       )}
     </>
   );
+  
 }
 
 export default OrderHistoryScreen;

@@ -73,7 +73,7 @@ function Orders() {
   } else {
     if (items.length !== 0) {
       return (
-        <Box minH={"80vh"} bg="#393E46">
+        <Box minH={"80vh"} bg="#393E46" color={"white"}>
           <TableContainer>
             <Table size="sm">
               {items.map((item) => (
@@ -101,15 +101,15 @@ function Orders() {
                         >
                           כתובת הזמנה
                         </MenuButton>
-                        <MenuList>
-                          <MenuItem> {item.shippingAddress.fullName}</MenuItem>
-                          <MenuItem> {item.shippingAddress.address}</MenuItem>
-                          <MenuItem> {item.shippingAddress.city}</MenuItem>
-                          <MenuItem>
+                        <MenuList dir="rtl" >
+                          <MenuItem color={"black"}> {item.shippingAddress.fullName}</MenuItem>
+                          <MenuItem color={"black"}> {item.shippingAddress.address}</MenuItem>
+                          <MenuItem color={"black"}> {item.shippingAddress.city}</MenuItem>
+                          <MenuItem color={"black"}>
                             {" "}
                             {item.shippingAddress.postalCode}
                           </MenuItem>
-                          <MenuItem> {item.shippingAddress.country}</MenuItem>
+                          <MenuItem color={"black"}> {item.shippingAddress.country}</MenuItem>
                         </MenuList>
                       </Menu>
                     </Td>
