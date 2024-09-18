@@ -98,6 +98,10 @@ function Cards(props) {
       maxW={"350px"}
       bg="#393E46"
       color="white"
+      borderRadius="15px"
+      bgGradient="linear(to-br, #2b2d42, #393e46)"
+      transition="all 0.3s"
+      _hover={{ transform: "scale(1.05)", shadow: "2xl" }}
     >
       <CardBody className="container" p={0} dir="rtl">
         <Grid>
