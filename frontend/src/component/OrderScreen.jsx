@@ -539,11 +539,31 @@ function OrderScreen() {
               </Text>
               <Stack spacing="2">
                 <Text>מוצרים: ₪{order.itemsPrice.toFixed(2)}</Text>
-                <Text>משלוח: ₪{order.shippingPrice.toFixed(2)}</Text>
-                <Text>מע"מ: ₪{order.taxPrice.toFixed(2)}</Text>
+                <Flex mb={5} direction={"column"}>
+                  <Input
+                    placeholder="הכנס קוד קופון"
+                    value={couponCode}
+                    onChange={(e) => setCouponCode(e.target.value)}
+                    color="white"
+                  />
+                  <Button ml={2} colorScheme="green" onClick={applyCoupon}>
+                    הפעל קופון
+                  </Button>
+                </Flex>
                 <Text fontSize="xl" fontWeight="bold">
-                  סכום כולל: ₪{order.totalPrice.toFixed(2)}
+                  סכום כולל: ₪{totalPrice.toFixed(2)}
                 </Text>
+                <Box mb={5}>
+                {validCoupon && (
+                  <>
+                    <Divider my={3} />
+                    <Text color="green.400">
+                      קופון "{validCoupon.code}" הופעל! הנחה של{" "}
+                      {validCoupon.discount}%.
+                    </Text>
+                  </>
+                )}
+              </Box>
               </Stack>
               {order.paymentMethod === "payPal" && !order.isPaid ? (
                 <Flex justifyContent="center" alignItems="center" mt="4">
@@ -581,6 +601,7 @@ function OrderScreen() {
                 </>
               )}
             </Box>
+         
           </Flex>
         );
       }}
