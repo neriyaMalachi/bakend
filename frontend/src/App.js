@@ -23,6 +23,7 @@ import ForgetPassword from "./component/ForgetPassword";
 import NavBar from "./component/NavBar";
 import FaivoritsList from "./component/FaivoritsList";
 import ReviewFile from "./component/ReviewFile";
+import Coupons from "./component/AdminFolder/Coupons";
 
 function App() {
   return (
@@ -88,6 +89,14 @@ function App() {
               element={
                 <AdminRoutes>
                   <Users />
+                </AdminRoutes>
+              }
+            />
+                <Route
+              path="/Admin/coupons"
+              element={
+                <AdminRoutes>
+                  <Coupons />
                 </AdminRoutes>
               }
             />

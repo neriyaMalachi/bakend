@@ -19,9 +19,11 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
+  Image,
 } from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import imageForLogo from "../img/logoNargilaStor.png";
 import { Store } from "../Store";
 import { RxHamburgerMenu, RxHome } from "react-icons/rx";
 import { LuShoppingCart } from "react-icons/lu";
@@ -58,21 +60,30 @@ function NavBar() {
     window.localStorage.href = "/";
     setExitModal(false);
   };
-
+// "  רביולי רוזה"
   return (
     <>
-      <Box bg="#222831" color="white" textAlign="center" py={2}>
-        <Text fontSize="lg" fontWeight="bold">
-          חנות הנרגילות אונליין - השאיפה שלי
-        </Text>
-        <Text>
-          699 משלוחים{" "}
-          <Text as="b" color="#00ADB5">
-            חינם
-          </Text>{" "}
-          לכל הארץ בהזמנה מעל
-        </Text>
-      </Box>
+      <Flex
+        bg="#222831"
+        color="white"
+        alignItems="center"
+        justifyContent={"center"}
+      >
+        <Image src={imageForLogo} alt="LOGO FOR COMPANY" boxSize="70px" />
+        <Box textAlign="center" py={2}>
+          <Text fontSize="lg" fontWeight="bold">
+            חנות הנרגילות אונליין - השאיפה שלי
+          </Text>
+          <Text>
+            699 משלוחים{" "}
+            <Text as="b" color="#00ADB5">
+              חינם
+            </Text>{" "}
+            לכל הארץ בהזמנה מעל
+          </Text>
+        </Box>
+      </Flex>
+
       <Flex
         py={3}
         bg="#222831"
@@ -83,6 +94,8 @@ function NavBar() {
         justifyContent={"space-between"}
         alignItems={"end"}
       >
+        {/* לוגו */}
+
         <Flex
           w={{ base: "45%", sm: "35%", md: "25%", lg: "15%" }}
           justifyContent={"space-between"}
@@ -110,17 +123,15 @@ function NavBar() {
                           <MenuItem bg="#222831"> הזמנות</MenuItem>
                         </Link>
                         <Link to="/profile">
-                          <MenuItem bg="#222831">  פרופיל</MenuItem>
+                          <MenuItem bg="#222831"> פרופיל</MenuItem>
                         </Link>
 
                         <Link to="/" onClick={openExitModal}>
                           <MenuItem bg="#222831">התנתק</MenuItem>
                         </Link>
-                          <Link to="/home">
-                        <MenuItem bg="#222831">
-                          דף הבית
-                        </MenuItem>
-                          </Link>
+                        <Link to="/home">
+                          <MenuItem bg="#222831">דף הבית</MenuItem>
+                        </Link>
                         {userInfo.isAdmin ? (
                           <>
                             <Link to="/Admin/products">
@@ -131,6 +142,9 @@ function NavBar() {
                             </Link>
                             <Link to="/Admin/users">
                               <MenuItem bg="#222831"> רשומים למערכת</MenuItem>
+                            </Link>
+                            <Link to="/Admin/Coupons">
+                              <MenuItem bg="#222831"> ניהול קופונים</MenuItem>
                             </Link>
                           </>
                         ) : (
@@ -160,7 +174,6 @@ function NavBar() {
                             </ModalFooter>
                           </ModalContent>
                         </Modal>
-                       
                       </MenuList>
                     </Menu>
                   </HStack>
@@ -169,7 +182,7 @@ function NavBar() {
                     <RxHome size={25} />
                   </Link>
 
-                  <Link to="/cart" >
+                  <Link to="/cart">
                     {cart.cartItems.length > 0 && (
                       <Flex textAlign={"end"} fontSize={"70%"} m={"-2"}>
                         {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
@@ -193,7 +206,7 @@ function NavBar() {
                       </DrawerBody>
                     </DrawerContent>
                   </Drawer>
-                  <Link to="/faivoritList"  bg="white" >
+                  <Link to="/faivoritList" bg="white">
                     <AiOutlineHeart color="red" size={25} />
                   </Link>
                 </Flex>

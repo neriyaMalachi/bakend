@@ -14,6 +14,7 @@ import {
   VStack,
   Grid,
   GridItem,
+  Badge,
 } from "@chakra-ui/react";
 import { StarIcon } from "@chakra-ui/icons";
 import axios from "axios";
@@ -60,7 +61,6 @@ function ProductFile() {
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart } = state;
-
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === propertis._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
@@ -75,6 +75,8 @@ function ProductFile() {
       payload: { ...propertis, quantity },
     });
   };
+  let priceAfterSale = (propertis.price * 1.2).toFixed(0);
+
   return loading ? (
     <Grid>
       <GridItem
@@ -139,14 +141,55 @@ function ProductFile() {
                             />
                           ))}
                       </HStack>
-
-                      <Heading mt="3%" size="md">
-                        {" "}
-                        {propertis.price} :מחיר{" "}
+                      <Heading mt="3%" size="md" textAlign="right">
+                        {propertis.sale ? (
+                          <>
+                            <Text
+                              as="span"
+                              fontSize="lg"
+                              fontWeight="bold"
+                              color="green.500"
+                              mr="2"
+                            >
+                              מחיר בהנחה: ₪{propertis.price}{" "}
+                            </Text>
+                            <Text
+                              as="span"
+                              fontSize="md"
+                              color="gray.500"
+                              textDecoration="line-through"
+                            >
+                              מחיר מקורי: ₪{priceAfterSale}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text
+                            fontSize="lg"
+                            fontWeight="bold"
+                            color="green.500"
+                          >
+                            מחיר: ₪{propertis.price}
+                          </Text>
+                        )}
                       </Heading>
                       <Box mt="3%">
+                        {/* תגית מבצע */}
+                        {propertis.sale && (
+                          <Badge
+                            position="absolute"
+                            top="2"
+                            left="2"
+                            bg="green.500"
+                            color="white"
+                            fontSize="md"
+                            p={1}
+                            borderRadius="md"
+                          >
+                            ! מבצע
+                          </Badge>
+                        )}
                         <Flex dir="rtl">
-                          <Heading size="md"> תיאור :</Heading>
+                          <Heading size="md"> תיאור:</Heading>
 
                           <Text>{propertis.description}</Text>
                         </Flex>
@@ -190,11 +233,36 @@ function ProductFile() {
                   <Heading size="xl"> {propertis.name} </Heading>
                 </CardHeader>
                 <CardBody>
-                  <Heading size="md"> מחיר : {propertis.price} ₪</Heading>
+                  <Heading mt="3%" size="md" textAlign="right">
+                    {propertis.sale ? (
+                      <>
+                        <Text
+                          as="span"
+                          fontSize="lg"
+                          fontWeight="bold"
+                          color="green.500"
+                        >
+                          מחיר בהנחה: ₪{propertis.price}{" "}
+                        </Text>
+                        <Text
+                          as="span"
+                          fontSize="md"
+                          color="gray.500"
+                          textDecoration="line-through"
+                        >
+                          מחיר מקורי: ₪{priceAfterSale}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text fontSize="lg" fontWeight="bold" color="green.500">
+                         מחיר: בהנחה ₪{propertis.price}
+                      </Text>
+                    )}
+                  </Heading>
                   <Box mt="2" dir="rtl">
                     {propertis.countInStock > 0 ? (
                       <Flex>
-                        <Heading size={"md"} color="green.400">
+                        <Heading size={"md"} color="green.500">
                           קיים במלאי
                         </Heading>
                       </Flex>

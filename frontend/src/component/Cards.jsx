@@ -88,6 +88,8 @@ function Cards(props) {
       setHeart(true);
     }
   };
+  let priceAfterSale = (product.price * 1.2).toFixed(0);
+
   return (
     <Card
       my={5}
@@ -159,7 +161,40 @@ function Cards(props) {
             <Link to={`/product/${product.slug}`}>
               <Heading size="md">{product.name}</Heading>
             </Link>
-            <Text fontSize="2xl"> ₪{product.price}</Text>
+            <Heading mt="3%" size="md" textAlign="right">
+                        {product.sale ? (
+                          <>
+                            <Text
+                              as="span"
+                              fontSize="lg"
+                              fontWeight="bold"
+                              color="green.500"
+                              mr="2"
+                            >
+                              מחיר בהנחה: ₪{product.price}{" "}
+                            </Text>
+                            <Text
+                              as="span"
+                              fontSize="md"
+                              color="gray.500"
+                              textDecoration="line-through"
+                            >
+                              מחיר מקורי: ₪{priceAfterSale}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text
+                            fontSize="lg"
+                            fontWeight="bold"
+                            color="green.500"
+                          >
+                            מחיר: ₪{product.price}
+                          </Text>
+                        )}
+                      </Heading>
+
+
+
             <Box>
               {Array(5)
                 .fill("")
