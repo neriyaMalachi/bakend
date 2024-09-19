@@ -11,6 +11,8 @@ function EditProductes() {
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
   const [rating, setRating] = useState("");
+  const [sale, setSale] = useState();
+
 
   const params = useParams();
   const navigate = useNavigate();
@@ -90,11 +92,19 @@ function EditProductes() {
         }}
       />
       <Input
-        placeholder="Slug"
+        placeholder="סלוגן"
         value={slug}
         w="50%"
         onChange={(e) => {
           setSlug(e.target.value);
+        }}
+      />
+         <Input
+        placeholder="מבצע"
+        value={slug}
+        w="50%"
+        onChange={(e) => {
+          setSale(e.target.value);
         }}
       />
       <Input 

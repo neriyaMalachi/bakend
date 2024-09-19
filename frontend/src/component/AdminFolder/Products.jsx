@@ -32,6 +32,7 @@ function Products() {
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+console.log(items);
 
   const OverlayOne = () => (
     <ModalOverlay
@@ -151,6 +152,8 @@ function Products() {
                     <Text> כמות: {item.countInStock}</Text>
                     <Text> מותג: {item.brand}</Text>
                     <Text> דירוג: {item.rating}</Text>
+                    <Text> מבצע: {item.sale.toString()}</Text>
+
                     <Text> ביקורות: {item.numReviews}</Text>
                   </CardBody>
                   <CardFooter display="flex" justifyContent="space-between" w="100%" p={4}>

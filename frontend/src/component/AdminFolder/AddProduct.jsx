@@ -25,6 +25,8 @@ function AddProduct() {
   const [countInStock, setCountInStock] = useState("");
   const [rating, setRating] = useState("");
   const [brand, setbrand] = useState("");
+  const [sale, setSale] = useState(false);
+
   const [faivorit, setFaivorit] = useState(false);
   const [description, setDescription] = useState("");
 
@@ -40,6 +42,7 @@ function AddProduct() {
       brand,
       faivorit,
       rating,
+      sale,
       numReviews: 0,
       description,
     });
@@ -81,11 +84,12 @@ function AddProduct() {
               {[
                 { label: 'שם', value: name, onChange: setName },
                 { label: 'סוג מוצר', value: category, onChange: setCategory },
-                { label: 'slug', value: slug, onChange: setSlug },
+                { label: 'סלוגן', value: slug, onChange: setSlug },
                 { label: 'כתובת תמונה', value: image, onChange: setImage },
                 { label: 'מחיר', value: price, onChange: setPrice },
                 { label: 'כמות', value: countInStock, onChange: setCountInStock },
-                { label: 'rating', value: rating, onChange: setRating },
+                { label: 'מבצע', value: sale, onChange: setSale },
+                { label: 'המלצות', value: rating, onChange: setRating },
                 { label: 'מותג', value: brand, onChange: setbrand },
                 { label: 'הסבר על המוצר', value: description, onChange: setDescription }
               ].map((field, index) => (

@@ -8,6 +8,7 @@ import {
   Grid,
   GridItem,
   useToast,
+  Badge,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -117,6 +118,22 @@ function Cards(props) {
                 borderRadius="5%"
               />
             </Link>
+
+            {/* תגית מבצע */}
+            {product.sale && (
+              <Badge
+                position="absolute"
+                top="2"
+                left="2"
+                bg="green.500"
+                color="white"
+                fontSize="md"
+                p={1}
+                borderRadius="md"
+              >
+                מבצע!
+              </Badge>
+            )}
             <Box className="overlay">
               <Button
                 bg="none"
@@ -133,7 +150,7 @@ function Cards(props) {
                 {!heart ? (
                   <AiOutlineHeart size={25} color="red" />
                 ) : (
-                  <FaHeart  size={25} color="red"/>
+                  <FaHeart size={25} color="red" />
                 )}
               </Button>
             </Box>
