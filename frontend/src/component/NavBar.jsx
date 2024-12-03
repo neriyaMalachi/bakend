@@ -60,7 +60,7 @@ function NavBar() {
     window.localStorage.href = "/";
     setExitModal(false);
   };
-// "  רביולי רוזה"
+
   return (
     <>
       <Flex
