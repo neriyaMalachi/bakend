@@ -4,32 +4,39 @@ import { useNavigate, useParams } from "react-router-dom";
 function EditProductes() {
   const [name, setName] = useState("");
   const [category, setCategory] = useState("");
-  const [price, setPrice] = useState("");
-  const [countInStock, setCountInStock] = useState("");
+  const [price, setPrice] = useState();
+  const [countInStock, setCountInStock] = useState();
   const [description, setDescription] = useState("");
   const [slug, setSlug] = useState("");
   const [image, setImage] = useState("");
   const [brand, setBrand] = useState("");
-  const [rating, setRating] = useState("");
+  const [rating, setRating] = useState();
+  const [sale, setSale] = useState();
+
 
   const params = useParams();
   const navigate = useNavigate();
   useEffect(() => {
     getProductDetails();
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[params.id]);
 
   const getProductDetails = async () => {
-    console.log(params);
     let result = await fetch(
       `http://localhost:3000/api/propertis/${params.id}`
     );
     result = await result.json();
-    console.log(result);
+    
     setName(result.name);
+    setSlug(result.slug);
     setCategory(result.category);
     setCountInStock(result.countInStock);
     setPrice(result.price);
-    setDescription(result.description);
+    setSale(result.sale);
+    setImage(result.image);
+    setRating(result.rating);
+    setBrand(result.brand);
+
   };
 
   const Editproduact = async () => {
@@ -59,9 +66,9 @@ function EditProductes() {
       navigate("/Admin/products");
     }
 
-    console.log(name, category, price, countInStock, description);
-
+    
   };
+  console.log(params);
   return (
     <Flex
       h="90vh"
@@ -71,11 +78,12 @@ function EditProductes() {
       direction="column"
       color="#EEEEEE"
       bg="#393E46"
+      dir="rtl"
     >
       <Text fontSize="4xl">שינוי</Text>
       <Input
         placeholder="שם"
-        value={name}
+        value={name || ""}
         w="50%"
         onChange={(e) => {
           setName(e.target.value);
@@ -90,11 +98,19 @@ function EditProductes() {
         }}
       />
       <Input
-        placeholder="Slug"
+        placeholder="סלוגן"
         value={slug}
         w="50%"
         onChange={(e) => {
           setSlug(e.target.value);
+        }}
+      />
+         <Input
+        placeholder="מבצע"
+        value={sale}
+        w="50%"
+        onChange={(e) => {
+          setSale(e.target.value);
         }}
       />
       <Input 
@@ -123,8 +139,9 @@ function EditProductes() {
         }}
       />
             <Input
+            type="number"
         placeholder="המלצות"
-        value={rating}
+        value={rating }
         w="50%"
         onChange={(e) => {
           setRating(e.target.value);

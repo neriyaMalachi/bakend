@@ -7,17 +7,14 @@ import productRoute from "./routes/productRoutes.js";
 import userRouter from "./routes/userRoutes.js";
 import orderRouter from "./routes/orderRoutes.js";
 import reviewRouter from "./routes/reviewRoutes.js";
+import coupon from "./routes/couponRoutes.js"
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// mongoose.connect("mongodb://127.0.0.1:27017/Store_N")
-
-
 mongoose.set('strictQuery', false);
-
 mongoose.connect(process.env.MONGODB_URI);
 
 app.listen(3002, () => {
@@ -42,6 +39,7 @@ app.use("/api/propertis", productRoute);
 app.use("/api/users", userRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/reviews", reviewRouter);
+app.use("/api/coupons", coupon);
 
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });

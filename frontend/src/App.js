@@ -14,7 +14,6 @@ import ProfileScreen from "./component/ProfileScreen";
 import ProtectedRoute from "./component/ProtectedRoute";
 import Users from "./component/AdminFolder/Users";
 import AdminRoutes from "./component/AdminRoutes";
-import bgImage from "./img/background_1.png";
 import Products from "./component/AdminFolder/Products";
 import Orders from "./component/AdminFolder/Orders";
 import FootherFile from "./component/FootherFile";
@@ -24,6 +23,7 @@ import ForgetPassword from "./component/ForgetPassword";
 import NavBar from "./component/NavBar";
 import FaivoritsList from "./component/FaivoritsList";
 import ReviewFile from "./component/ReviewFile";
+import Coupons from "./component/AdminFolder/Coupons";
 
 function App() {
   return (
@@ -89,6 +89,14 @@ function App() {
               element={
                 <AdminRoutes>
                   <Users />
+                </AdminRoutes>
+              }
+            />
+                <Route
+              path="/Admin/coupons"
+              element={
+                <AdminRoutes>
+                  <Coupons />
                 </AdminRoutes>
               }
             />

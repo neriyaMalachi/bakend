@@ -25,12 +25,15 @@ import { Link, useNavigate } from "react-router-dom";
 import Search from "../Searchfile";
 import { HashLoader } from "react-spinners";
 function Products() {
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+console.log(items);
+
   const OverlayOne = () => (
     <ModalOverlay
       bg="blackAlpha.300"
@@ -91,23 +94,25 @@ function Products() {
     );
   } else {
     return (
-      <Box bg="#393E46">
+      <Box bg="#393E46" minH="100vh" p={4}>
         <Flex
           h="110px"
-          direction={"column"}
-          justifyContent={"space-around"}
-          alignItems={"center"}
+          direction="column"
+          justifyContent="space-around"
+          alignItems="center"
+          mb={6}
         >
           <AddProduct />
           <Search handleSearch={setSearch} />
         </Flex>
+    
         <Box
           display="flex"
           flexWrap="wrap"
           justifyContent="space-evenly"
-          w="100%"
           bg="#393E46"
-          minH={"70vh"}
+          w="100%"
+          minH="70vh"
         >
           {items
             .filter((item) => {
@@ -115,56 +120,60 @@ function Products() {
                 ? item
                 : item.name.toLowerCase().includes(search);
             })
-            .map((item, index) => (
+            .map((item) => (
               <Card
                 my={5}
                 mx={2}
-                shadow={"dark-lg"}
-                display="flex"
-                alignContent="flex-start"
+                shadow="lg"
                 w="100%"
-                maxW={"350px"}
+                maxW="350px"
                 bg="#222831"
                 color="white"
-                key={index}
+                borderRadius="md"
+                overflow="hidden"
+                key={item._id}
+                transition="transform 0.3s ease"
+                _hover={{ transform: "scale(1.05)" }}
               >
-                <VStack>
+                <VStack key={item._id}>
                   <Image
                     objectFit="cover"
                     maxW={{ base: "100%", sm: "200px" }}
                     src={item.image}
                     alt={item.name}
                   />
-                  <CardBody dir="rtl">
+                  <CardBody dir="rtl" textAlign="right" p={4}>
                     <Heading py="2" size="md">
-                      {" "}
-                      שם:{item.name}
+                      שם: {item.name}
                     </Heading>
                     <Text> קטגוריה: {item.category}</Text>
-                    <Text> פירוט:{item.description}</Text>
-                    <Text> מחיר:{item.price}</Text>
-                    <Text> כמות :{item.countInStock}</Text>
-                    <Text>מותג:{item.brand}</Text>
-                    <Text> דרוג:{item.rating}</Text>
-                    <Text>ביקורות:{item.numReviews}</Text>
+                    <Text> פירוט: {item.description}</Text>
+                    <Text> מחיר: {item.price} ₪ </Text>
+                    <Text> כמות: {item.countInStock}</Text>
+                    <Text> מותג: {item.brand}</Text>
+                    <Text> דירוג: {item.rating}</Text>
+                    <Text> מבצע: {item.sale.toString()}</Text>
+
+                    <Text> ביקורות: {item.numReviews}</Text>
                   </CardBody>
-                  <CardFooter>
+                  <CardFooter display="flex" justifyContent="space-between" w="100%" p={4}>
                     <Button
-                      onClick={() => onOpen()}
+                      onClick={onOpen}
                       variant="solid"
                       colorScheme="red"
-                      m="1%"
+                      size="sm"
                     >
                       מחק מוצר
                     </Button>
                     <Modal isCentered isOpen={isOpen} onClose={onClose}>
                       {overlay}
                       <ModalContent dir="rtl">
-                        <ModalHeader>אתה בטוח </ModalHeader>
+                        <ModalHeader>אתה בטוח?</ModalHeader>
                         <ModalFooter>
                           <Button onClick={onClose}>ביטול</Button>
                           <Button
-                            bg="none"
+                            
+                            colorScheme="red"
                             onClick={() => {
                               deleteProduct(item._id);
                               onClose();
@@ -175,8 +184,9 @@ function Products() {
                         </ModalFooter>
                       </ModalContent>
                     </Modal>
-                    <Link to={"/Admin/EditProductes/" + item._id}>
-                      <Button m="1%" bg="green.400">
+    
+                    <Link to={`/Admin/EditProductes/${item._id}`}>
+                      <Button size="sm" bg="green.400">
                         עדכן מוצר
                       </Button>
                     </Link>
@@ -187,6 +197,7 @@ function Products() {
         </Box>
       </Box>
     );
+    
   }
 }
 

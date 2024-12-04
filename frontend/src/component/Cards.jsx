@@ -8,6 +8,7 @@ import {
   Grid,
   GridItem,
   useToast,
+  Badge,
 } from "@chakra-ui/react";
 import { Card, CardBody, CardFooter } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
@@ -87,6 +88,8 @@ function Cards(props) {
       setHeart(true);
     }
   };
+  let priceAfterSale = (product.price * 1.2).toFixed(0);
+
   return (
     <Card
       my={5}
@@ -98,6 +101,10 @@ function Cards(props) {
       maxW={"350px"}
       bg="#393E46"
       color="white"
+      borderRadius="15px"
+      bgGradient="linear(to-br, #2b2d42, #393e46)"
+      transition="all 0.3s"
+      _hover={{ transform: "scale(1.05)", shadow: "2xl" }}
     >
       <CardBody className="container" p={0} dir="rtl">
         <Grid>
@@ -113,9 +120,24 @@ function Cards(props) {
                 borderRadius="5%"
               />
             </Link>
+
+            {/* תגית מבצע */}
+            {product.sale && (
+              <Badge
+                position="absolute"
+                top="2"
+                left="2"
+                bg="green.500"
+                color="white"
+                fontSize="md"
+                p={1}
+                borderRadius="md"
+              >
+                מבצע!
+              </Badge>
+            )}
             <Box className="overlay">
               <Button
-                _hover={"none"}
                 bg="none"
                 onClick={() => {
                   if (heart === false) {
@@ -130,7 +152,7 @@ function Cards(props) {
                 {!heart ? (
                   <AiOutlineHeart size={25} color="red" />
                 ) : (
-                  <FaHeart  size={25} color="red"/>
+                  <FaHeart size={25} color="red" />
                 )}
               </Button>
             </Box>
@@ -139,7 +161,40 @@ function Cards(props) {
             <Link to={`/product/${product.slug}`}>
               <Heading size="md">{product.name}</Heading>
             </Link>
-            <Text fontSize="2xl"> ₪{product.price}</Text>
+            <Heading mt="3%" size="md" textAlign="right">
+                        {product.sale ? (
+                          <>
+                            <Text
+                              as="span"
+                              fontSize="lg"
+                              fontWeight="bold"
+                              color="green.500"
+                              mr="2"
+                            >
+                              מחיר בהנחה: ₪{product.price}{" "}
+                            </Text>
+                            <Text
+                              as="span"
+                              fontSize="md"
+                              color="gray.500"
+                              textDecoration="line-through"
+                            >
+                              מחיר מקורי: ₪{priceAfterSale}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text
+                            fontSize="lg"
+                            fontWeight="bold"
+                            color="green.500"
+                          >
+                            מחיר: ₪{product.price}
+                          </Text>
+                        )}
+                      </Heading>
+
+
+
             <Box>
               {Array(5)
                 .fill("")

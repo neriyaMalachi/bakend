@@ -25,7 +25,6 @@ productRoute.get("/:id", async (req, res) => {
     res.status(404).send({ message: "Product Not Found" });
   }
 });
-
 productRoute.post("/addProducts/add", async (req, res) => {
   const productDetail = req.body;
   await Product.create(productDetail, (err, data) => {
@@ -38,6 +37,8 @@ productRoute.post("/addProducts/add", async (req, res) => {
   });
 });
 productRoute.delete("/deleteProduct/:id", async (req, res) => {
+  console.log("eeee",req.params.id);
+  
   const result = await Product.deleteOne({ _id: req.params.id });
   res.send(result);
 });

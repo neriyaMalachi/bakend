@@ -86,7 +86,7 @@ function Users() {
     );
   } else {
     return (
-      <VStack bg="#393E46">
+      <VStack bg="#393E46" color={"white"}>
         <VStack mt="1%">
           <AddUser />
           <Search handleSearch={setSearch} />
